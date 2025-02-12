@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    username: admin
+    password: passwd
+    url: jdbc:sqlite:transportation.db
+  sql:
+    init:
+      mode: always
+server:
+  port: 8080

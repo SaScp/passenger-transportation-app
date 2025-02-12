@@ -12,6 +12,7 @@
         <module>passenger-transportation-service-core</module>
         <module>passenger-transportation-service-input-port</module>
         <module>passenger-transportation-service-output-port</module>
+        <module>passanger-transportation-backend</module>
     </modules>
 
     <properties>

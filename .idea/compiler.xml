@@ -9,7 +9,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="passenger-transportation-service" />
+        <module name="passenger-transportation-service-core" />
+        <module name="passenger-transportation-service-output-port" />
+        <module name="passanger-transportation-backend" />
+        <module name="passenger-transportation-service-input-port" />
       </profile>
     </annotationProcessing>
   </component>
