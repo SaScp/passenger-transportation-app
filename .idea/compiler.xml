@@ -11,6 +11,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="passenger-transportation-service-core" />
         <module name="passenger-transportation-service-output-port" />
+        <module name="passenger-transportation-service-spring-web-adapter" />
+        <module name="passenger-transportation-jdbc-adapter" />
         <module name="passanger-transportation-backend" />
         <module name="passenger-transportation-service-input-port" />
       </profile>

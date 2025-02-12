@@ -14,6 +14,7 @@
         <module>passenger-transportation-service-output-port</module>
         <module>passanger-transportation-backend</module>
         <module>passenger-transportation-service-spring-web-adapter</module>
+        <module>passenger-transportation-jdbc-adapter</module>
     </modules>
 
     <properties>
