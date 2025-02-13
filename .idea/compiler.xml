@@ -9,13 +9,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="passenger-transportation-service-core" />
         <module name="passenger-transportation-service-output-port" />
         <module name="passenger-transportation-service-spring-web-adapter" />
         <module name="passenger-transportation-jdbc-adapter" />
-        <module name="passanger-transportation-backend" />
         <module name="passenger-transportation-service-input-port" />
+        <module name="passenger-transportation-service-core" />
+        <module name="passanger-transportation-backend" />
+        <module name="passenger-transportation-shared" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="passanger-transportation-backend" options="" />
+      <module name="passenger-transportation-jdbc-adapter" options="" />
+      <module name="passenger-transportation-service" options="" />
+      <module name="passenger-transportation-service-core" options="" />
+      <module name="passenger-transportation-service-input-port" options="" />
+      <module name="passenger-transportation-service-output-port" options="" />
+      <module name="passenger-transportation-service-spring-web-adapter" options="" />
+      <module name="passenger-transportation-shared" options="" />
+    </option>
   </component>
 </project>

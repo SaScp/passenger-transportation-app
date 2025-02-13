@@ -9,6 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.service.input_port.rest</groupId>
     <artifactId>passenger-transportation-service-spring-web-adapter</artifactId>
 
     <properties>

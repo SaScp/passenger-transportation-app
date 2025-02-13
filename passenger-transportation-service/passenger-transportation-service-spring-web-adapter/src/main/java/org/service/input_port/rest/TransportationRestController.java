@@ -1,6 +1,8 @@
 package org.service.input_port.rest;
 
 import org.service.input_port.TransportationServiceInputPort;
+import org.service.input_port.annotation.FindByParam;
+import org.service.input_port.request.FindByParamEntity;
 import org.service.input_port.request.RequstQuery;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +18,11 @@ public class TransportationRestController {
     }*/
 
     @GetMapping("/find")
-    public void findTransport(@RequestParam(name = "time") ZonedDateTime time,
-                              @RequestParam(name = "type") String type) {
-        System.out.println(time);
-        System.out.println(type);
+    public void findTransport(@FindByParam FindByParamEntity findByParam) {
+        System.out.println(findByParam.getType());
+        System.out.println(findByParam.getZonedDateTime());
+        System.out.println(findByParam.getTo());
+        System.out.println(findByParam.getFrom());
     }
 
     @GetMapping("/find-all")
