@@ -1,27 +1,27 @@
 package org.service.input_port.request;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 public class FilterParamEntity {
-    private ZonedDateTime zonedDateTime;
+    private LocalDateTime time;
     private String type;
     private String from;
     private String to;
 
-    public FilterParamEntity(ZonedDateTime zonedDateTime, String type, String from, String to) {
-        this.zonedDateTime = zonedDateTime;
+    public FilterParamEntity(LocalDateTime localDateTime, String type, String from, String to) {
+        this.time = localDateTime;
         this.type = type;
         this.from = from;
         this.to = to;
     }
 
     public FilterParamEntity(){}
-    public ZonedDateTime getZonedDateTime() {
-        return zonedDateTime;
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setZonedDateTime(ZonedDateTime zonedDateTime) {
-        this.zonedDateTime = zonedDateTime;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public String getType() {

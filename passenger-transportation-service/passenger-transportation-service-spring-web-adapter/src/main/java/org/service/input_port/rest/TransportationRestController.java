@@ -10,7 +10,6 @@ import org.service.input_port.request.RequestQuery;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class TransportationRestController {
@@ -25,7 +24,7 @@ public class TransportationRestController {
     public List<RoutesEntity> findTransport(@FindByParam FilterParamEntity filterParam) {
         return this.inputPort.findByParams(
                 new ParamsEntity(
-                        filterParam.getZonedDateTime(),
+                        filterParam.getTime(),
                         filterParam.getType(),
                         filterParam.getFrom(),
                         filterParam.getTo()

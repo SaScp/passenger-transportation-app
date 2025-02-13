@@ -6,10 +6,12 @@ import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.annotation.RequestParamMethodArgumentResolver;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Objects;
 
 public class FindTransportationResolver extends RequestParamMethodArgumentResolver {
     public FindTransportationResolver(boolean useDefaultResolution) {
@@ -30,15 +32,14 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
     private static FilterParamEntity generateEntity(NativeWebRequest request) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("MM/dd/yyyy-HH:mm:ss")
-                .appendOffset("+H", "Z")
                 .toFormatter();
-        OffsetDateTime time = OffsetDateTime.parse(request.getParameter("time"), formatter);
+        LocalDateTime time = LocalDateTime.parse(request.getParameter("time"), formatter);
 
-        ZonedDateTime zonedDateTime = request.getParameter("time") == null ?
-                ZonedDateTime.now() :
-                time.toZonedDateTime();
+            LocalDateTime localDateTime = request.getParameter("time") != null?
+                LocalDateTime.now() :
+                time;
         return new FilterParamEntity(
-                zonedDateTime,
+                localDateTime,
                 request.getParameter("type"),
                 request.getParameter("from"),
                 request.getParameter("to"));

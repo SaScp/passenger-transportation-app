@@ -3,6 +3,7 @@ package org.service.output_port.jdbc;
 import org.service.entity.RoutesEntity;
 import org.service.output_port.FindAllTransportationServiceOutputPort;
 import org.service.output_port.TransportationServiceOutputPort;
+import org.service.output_port.factory.RouteFactory;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.stereotype.Component;
 
@@ -30,15 +31,7 @@ public class TransportationJdbcFindAllMapper extends MappingSqlQuery<RoutesEntit
 
     @Override
     protected RoutesEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new RoutesEntity(
-                rs.getString("id"),
-                rs.getString("departure_city"),
-                rs.getString("arrival_city"),
-                rs.getString("departure_time"),
-                rs.getString("arrival_time"),
-                rs.getString("type_name"),
-                rs.getInt("price")
-        );
+        return RouteFactory.routeFactory(rs);
     }
 
 
