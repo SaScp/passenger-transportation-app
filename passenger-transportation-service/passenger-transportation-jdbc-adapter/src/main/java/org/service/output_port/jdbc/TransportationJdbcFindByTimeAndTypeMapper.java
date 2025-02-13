@@ -1,5 +1,6 @@
 package org.service.output_port.jdbc;
 
+import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
 import org.service.output_port.FindByParamsTransportationServiceOutputPort;
 import org.springframework.jdbc.object.MappingSqlQuery;
@@ -8,7 +9,8 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class TransportationJdbcFindByTimeAndTypeMapper extends MappingSqlQuery implements FindByParamsTransportationServiceOutputPort, TransportationJdbcAdapter {
@@ -31,7 +33,9 @@ public class TransportationJdbcFindByTimeAndTypeMapper extends MappingSqlQuery i
     }
 
     @Override
-    public Iterable<RoutesEntity> findBy(ZonedDateTime time, String type) {
+    public List<RoutesEntity> findBy(ParamsEntity entity) {
         return null;
     }
+
+
 }

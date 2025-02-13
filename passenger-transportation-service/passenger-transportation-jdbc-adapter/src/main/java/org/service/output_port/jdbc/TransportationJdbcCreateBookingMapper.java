@@ -1,6 +1,7 @@
 package org.service.output_port.jdbc;
 
 import org.service.output_port.CreateBookingTransportationServiceOutputPort;
+import org.service.output_port.FindAllTransportationServiceOutputPort;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.jdbc.object.UpdatableSqlQuery;
 import org.springframework.stereotype.Component;
@@ -26,4 +27,6 @@ public class TransportationJdbcCreateBookingMapper extends UpdatableSqlQuery imp
     protected Object updateRow(ResultSet rs, int rowNum, Map context) throws SQLException {
         return null;
     }
+
+
 }

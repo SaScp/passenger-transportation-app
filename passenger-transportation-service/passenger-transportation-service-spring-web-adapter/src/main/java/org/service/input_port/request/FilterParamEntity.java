@@ -2,20 +2,20 @@ package org.service.input_port.request;
 
 import java.time.ZonedDateTime;
 
-public class FindByParamEntity {
+public class FilterParamEntity {
     private ZonedDateTime zonedDateTime;
     private String type;
     private String from;
     private String to;
 
-    public FindByParamEntity(ZonedDateTime zonedDateTime, String type, String from, String to) {
+    public FilterParamEntity(ZonedDateTime zonedDateTime, String type, String from, String to) {
         this.zonedDateTime = zonedDateTime;
         this.type = type;
         this.from = from;
         this.to = to;
     }
 
-    public FindByParamEntity(){}
+    public FilterParamEntity(){}
     public ZonedDateTime getZonedDateTime() {
         return zonedDateTime;
     }

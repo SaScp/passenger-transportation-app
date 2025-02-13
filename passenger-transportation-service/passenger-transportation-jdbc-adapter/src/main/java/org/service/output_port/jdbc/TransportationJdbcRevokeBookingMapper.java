@@ -1,5 +1,6 @@
 package org.service.output_port.jdbc;
 
+import org.service.output_port.FindByParamsTransportationServiceOutputPort;
 import org.service.output_port.RevokeBookingTransportationServiceOutputPort;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.jdbc.object.UpdatableSqlQuery;
@@ -26,4 +27,5 @@ public class TransportationJdbcRevokeBookingMapper  extends UpdatableSqlQuery im
     protected Object updateRow(ResultSet rs, int rowNum, Map context) throws SQLException {
         return null;
     }
+
 }

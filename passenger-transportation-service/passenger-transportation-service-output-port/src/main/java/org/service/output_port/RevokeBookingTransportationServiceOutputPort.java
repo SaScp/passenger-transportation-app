@@ -1,10 +1,6 @@
 package org.service.output_port;
 
-import org.service.entity.RoutesEntity;
-
-import java.time.ZonedDateTime;
-
-public interface RevokeBookingTransportationServiceOutputPort  {
+public interface RevokeBookingTransportationServiceOutputPort extends TransportationServiceOutputPort {
 
     boolean revoke(Void tt); // TODO add param type
 

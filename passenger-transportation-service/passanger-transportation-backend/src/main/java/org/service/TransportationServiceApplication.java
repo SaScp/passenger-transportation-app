@@ -1,15 +1,19 @@
 package org.service;
 
-import org.service.output_port.jdbc.TransportationJdbcAdapter;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.service.core.TransportationServiceCore;
+import org.service.output_port.CreateBookingTransportationServiceOutputPort;
+import org.service.output_port.TransportationServiceOutputPort;
+import org.service.output_port.TransportationServiceOutputPortAggregate;
+import org.service.output_port.TransportationServiceOutputPortAggregateImpl;
+import org.service.output_port.jdbc.TransportationJdbcCreateBookingMapper;
+import org.service.output_port.jdbc.TransportationJdbcFindAllMapper;
+import org.service.output_port.jdbc.TransportationJdbcFindByTimeAndTypeMapper;
+import org.service.output_port.jdbc.TransportationJdbcRevokeBookingMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +28,17 @@ public class TransportationServiceApplication {
 
 
     @Bean
-    public Map<Class<? extends TransportationJdbcAdapter>, ? extends TransportationJdbcAdapter> tansportationMap(List<TransportationJdbcAdapter> transportationJdbcAdapters) {
-        Map<Class<? extends TransportationJdbcAdapter>, TransportationJdbcAdapter> resultMap = new HashMap<>();
-        for (var i : transportationJdbcAdapters) {
-            resultMap.put(i.getClass(), i);
-        }
-        return resultMap;
+    public TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregateImpl(DataSource dataSource) {
+        return new TransportationServiceOutputPortAggregateImpl(
+                new TransportationJdbcCreateBookingMapper(dataSource),
+                new TransportationJdbcRevokeBookingMapper(dataSource),
+                new TransportationJdbcFindByTimeAndTypeMapper(dataSource),
+                new TransportationJdbcFindAllMapper(dataSource)
+        );
+    }
+
+    @Bean
+    public TransportationServiceCore transportationServiceCore(TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
+        return new TransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 }

@@ -1,20 +1,15 @@
 package org.service;
 
 import org.service.input_port.annotation.FindByParam;
-import org.service.input_port.request.FindByParamEntity;
+import org.service.input_port.request.FilterParamEntity;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.annotation.RequestParamMethodArgumentResolver;
-import org.springframework.web.service.invoker.RequestParamArgumentResolver;
 
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.TemporalAccessor;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 public class FindTransportationResolver extends RequestParamMethodArgumentResolver {
     public FindTransportationResolver(boolean useDefaultResolution) {
@@ -32,7 +27,7 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
         return generateEntity(request);
     }
 
-    private static FindByParamEntity generateEntity(NativeWebRequest request) {
+    private static FilterParamEntity generateEntity(NativeWebRequest request) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("MM/dd/yyyy-HH:mm:ss")
                 .appendOffset("+H", "Z")
@@ -42,7 +37,7 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
         ZonedDateTime zonedDateTime = request.getParameter("time") == null ?
                 ZonedDateTime.now() :
                 time.toZonedDateTime();
-        return new FindByParamEntity(
+        return new FilterParamEntity(
                 zonedDateTime,
                 request.getParameter("type"),
                 request.getParameter("from"),

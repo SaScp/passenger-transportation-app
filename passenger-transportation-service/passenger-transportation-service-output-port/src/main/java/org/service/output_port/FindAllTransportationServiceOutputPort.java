@@ -2,8 +2,11 @@ package org.service.output_port;
 
 import org.service.entity.RoutesEntity;
 
-public interface FindAllTransportationServiceOutputPort  {
+import java.util.List;
+import java.util.Set;
 
-    Iterable<RoutesEntity> findAll();
+public interface FindAllTransportationServiceOutputPort extends TransportationServiceOutputPort {
+
+    List<RoutesEntity> findAll();
 
 }
