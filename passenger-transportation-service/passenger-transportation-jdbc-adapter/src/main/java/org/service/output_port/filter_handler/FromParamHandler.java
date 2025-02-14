@@ -12,11 +12,8 @@ public class FromParamHandler extends Handler{
     @Override
     protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.from()).isPresent()) {
-            if (isPreWhere()) {
-                query.append(" departure_city = :from ");
-            } else {
-                query.append("AND departure_city = :from ");
-            }
+            addAnd();
+            query.append(" departure_city = :from ");
             queryParam.add(entity.from());
         }
     }

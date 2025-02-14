@@ -13,11 +13,8 @@ public class TimeParamHandler extends Handler{
     @Override
     protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.time()).isPresent()) {
-            if (isPreWhere()) {
-                query.append(" departure_time >= :time ");
-            } else {
-                query.append("AND departure_time >= :time ");
-            }
+            addAnd();
+            query.append(" departure_time >= :time ");
             queryParam.add(entity.time().toString());
         }
     }

@@ -18,7 +18,7 @@ public class HandlerExecutor {
     }
 
     public Result execute(ParamsEntity entity) {
-        StringBuilder builder = new StringBuilder("SELECT routes.id,routes.departure_city , routes.arrival_city,routes.departure_time, routes.arrival_time,type_name, routes.price  FROM routes INNER JOIN main.transport_types tt on routes.transport_type_id = tt.id WHERE ");
+        StringBuilder builder = new StringBuilder(SQLConstant.START_SELECT_BY_PARAMS_QUERY);
         List<String> map = new ArrayList<>();
 
         return this.parentHandler.next(entity, builder, map).build();

@@ -14,11 +14,8 @@ public class ToParamHandler extends Handler {
     @Override
     protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.to()).isPresent()) {
-            if (isPreWhere()) {
-                query.append(" arrival_city = :to ");
-            } else {
-                query.append("AND arrival_city = :to ");
-            }
+            addAnd();
+            query.append(" arrival_city = :to ");
             queryParam.add(entity.to());
         }
     }

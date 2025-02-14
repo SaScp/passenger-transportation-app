@@ -48,15 +48,19 @@ public abstract class Handler {
     }
 
     public Result build() {
-        return new Result(queryParam, query.append("LIMIT 5;").toString());
+        return new Result(queryParam, query.append(SQLConstant.END_SELECT_BY_PARAMS_QUERY).toString());
     }
 
 
     protected boolean isPreWhere() {
-        return query.lastIndexOf("WHERE ") + 5 == query.length() - 1;
+        return query.lastIndexOf(SQLConstant.WHERE) + 5 == query.length() - 1;
     }
 
-
+    protected void addAnd() {
+        if (!isPreWhere()) {
+            query.append("AND");
+        }
+    }
 
     protected abstract void addParam(ParamsEntity entity);
 
