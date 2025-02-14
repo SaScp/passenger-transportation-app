@@ -33,7 +33,8 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("MM/dd/yyyy-HH:mm:ss")
                 .toFormatter();
-        LocalDateTime time = request.getParameter("time") == null? LocalDateTime.now() : LocalDateTime.parse(request.getParameter("time"), formatter);
+        LocalDateTime time = request.getParameter("time") == null? LocalDateTime.now() :
+                LocalDateTime.parse(request.getParameter("time"), formatter);
 
 
         return new FilterParamEntity(

@@ -13,7 +13,7 @@ public class FromParamHandler extends Handler{
     protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.from()).isPresent()) {
             addAnd();
-            query.append(" departure_city = :from ");
+            query.append(" departure_city = ? ");
             queryParam.add(entity.from());
         }
     }

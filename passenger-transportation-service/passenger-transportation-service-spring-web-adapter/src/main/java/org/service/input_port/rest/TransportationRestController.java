@@ -9,6 +9,7 @@ import org.service.input_port.request.FilterParamEntity;
 import org.service.input_port.request.RequestQuery;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -37,9 +38,9 @@ public class TransportationRestController {
         return this.inputPort.findAll();
     }
 
-    @PostMapping("/create")
-    public void booking(@RequestBody RequestQuery query) {
-        System.out.println(query);
+    @PostMapping(value = "/create")
+    public RequestQuery booking(@RequestBody RequestQuery query) {
+        return query;
     }
 
     @PostMapping("/revoke")

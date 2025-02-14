@@ -15,7 +15,7 @@ public class TypeParamHandler extends Handler {
     protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.type()).isPresent()) {
             addAnd();
-            query.append(" type_name = :type ");
+            query.append(" type_name = ? ");
             queryParam.add(entity.type());
         }
 

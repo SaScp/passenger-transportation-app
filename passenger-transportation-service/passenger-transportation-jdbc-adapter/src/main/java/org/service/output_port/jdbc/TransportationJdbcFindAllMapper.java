@@ -4,6 +4,7 @@ import org.service.entity.RoutesEntity;
 import org.service.output_port.FindAllTransportationServiceOutputPort;
 import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.factory.RouteFactory;
+import org.service.output_port.filter_handler.SQLConstant;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +18,7 @@ import java.util.Set;
 @Component
 public class TransportationJdbcFindAllMapper extends MappingSqlQuery<RoutesEntity> implements FindAllTransportationServiceOutputPort, TransportationJdbcAdapter {
     public TransportationJdbcFindAllMapper(DataSource ds) {
-        super(ds, """
-                    SELECT routes.id, departure_city, arrival_city, departure_time, arrival_time, type_name, price  FROM routes
-                    INNER JOIN transport_types
-                        ON  routes.transport_type_id = transport_types.id  ORDER BY departure_time ASC
-                """);
+        super(ds, SQLConstant.SELECT_ALL_ROUTES);
     }
 
     @Override

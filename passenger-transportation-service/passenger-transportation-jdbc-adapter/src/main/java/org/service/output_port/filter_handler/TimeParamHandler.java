@@ -14,7 +14,7 @@ public class TimeParamHandler extends Handler{
     protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.time()).isPresent()) {
             addAnd();
-            query.append(" departure_time >= :time ");
+            query.append(" departure_time >= ? ");
             queryParam.add(entity.time().toString());
         }
     }
