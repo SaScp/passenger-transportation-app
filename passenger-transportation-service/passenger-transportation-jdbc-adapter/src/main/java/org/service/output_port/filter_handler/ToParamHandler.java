@@ -2,22 +2,24 @@ package org.service.output_port.filter_handler;
 
 import org.service.entity.ParamsEntity;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class ToParamHandler extends Handler {
+
+    protected ToParamHandler() {
+
+    }
+
     @Override
-    public StringBuilder next(ParamsEntity entity) {
+    protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.to()).isPresent()) {
             if (isPreWhere()) {
-                query.append(" arrival_city = ? ");
+                query.append(" arrival_city = :to ");
             } else {
-                query.append("AND arrival_city = ? ");
+                query.append("AND arrival_city = :to ");
             }
-            queryParam.add(  entity.to());
+            queryParam.add(entity.to());
         }
-        if (Optional.ofNullable(nextNode).isEmpty()) {
-            return this.query;
-        }
-        return nextNode.next(entity);
     }
 }

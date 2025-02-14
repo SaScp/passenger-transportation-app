@@ -1,11 +1,9 @@
 package org.service.output_port.filter_handler;
 
 import org.service.entity.ParamsEntity;
+import org.service.entity.Result;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Handler {
 
@@ -13,14 +11,35 @@ public abstract class Handler {
 
     protected List<String> queryParam;
 
-    public Handler() {
-        queryParam = new ArrayList<>();
-        this.query = new StringBuilder("SELECT routes.id,routes.departure_city , routes.arrival_city,routes.departure_time, routes.arrival_time,type_name, routes.price  FROM routes INNER JOIN main.transport_types tt on routes.transport_type_id = tt.id WHERE ");
-    }
-
     protected Handler nextNode;
 
-    public abstract StringBuilder next(ParamsEntity entity);
+    protected Handler() {
+
+    }
+
+    public static TimeParamHandler createHandler() {
+        TypeParamHandler typeParamHandler = new TypeParamHandler();
+        FromParamHandler fromParamHandler = new FromParamHandler();
+        ToParamHandler toParamHandler = new ToParamHandler();
+        TimeParamHandler timeParamHandler = new TimeParamHandler();
+
+        timeParamHandler.nextNode(typeParamHandler);
+        typeParamHandler.nextNode(fromParamHandler);
+        fromParamHandler.nextNode(toParamHandler);
+        return timeParamHandler;
+    }
+
+
+    public Handler next(ParamsEntity entity, StringBuilder query, List<String> queryParam) {
+        this.query = query;
+        this.queryParam = queryParam;
+        addParam(entity);
+        if (Optional.ofNullable(nextNode).isEmpty()) {
+            return this;
+        }
+        return nextNode.next(entity,query, queryParam);
+    }
+
 
     public void nextNode(Handler handler) {
         this.nextNode = handler;
@@ -28,24 +47,17 @@ public abstract class Handler {
         handler.queryParam = queryParam;
     }
 
-    public String bulid() {
-        return query.append("LIMIT 5;").toString();
+    public Result build() {
+        return new Result(queryParam, query.append("LIMIT 5;").toString());
     }
 
-    public List<String> getQueryParam() {
-        return this.queryParam;
-    }
 
     protected boolean isPreWhere() {
         return query.lastIndexOf("WHERE ") + 5 == query.length() - 1;
     }
 
-    public void queryClear() {
-        this.query = new StringBuilder("SELECT routes.id,routes.departure_city , routes.arrival_city,routes.departure_time, routes.arrival_time,type_name, routes.price  FROM routes INNER JOIN main.transport_types tt on routes.transport_type_id = tt.id WHERE ");
-        this.queryParam = new ArrayList<>();
-        if (nextNode == null) {
-            return;
-        }
-        nextNode(nextNode);
-    }
+
+
+    protected abstract void addParam(ParamsEntity entity);
+
 }

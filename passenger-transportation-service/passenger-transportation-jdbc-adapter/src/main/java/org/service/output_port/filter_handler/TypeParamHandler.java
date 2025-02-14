@@ -2,22 +2,25 @@ package org.service.output_port.filter_handler;
 
 import org.service.entity.ParamsEntity;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class TypeParamHandler extends Handler {
+
+    protected TypeParamHandler() {
+
+    }
+
     @Override
-    public StringBuilder next(ParamsEntity entity) {
+    protected void addParam(ParamsEntity entity) {
         if (Optional.ofNullable(entity.type()).isPresent()) {
             if (isPreWhere()) {
-                query.append(" type_name = ? ");
+                query.append(" type_name = :type ");
             } else {
-                query.append("AND type_name = ? ");
+                query.append("AND type_name = :type ");
             }
-            queryParam.add(  entity.type());
+            queryParam.add(entity.type());
         }
-        if (Optional.ofNullable(nextNode).isEmpty()) {
-            return this.query;
-        }
-        return nextNode.next(entity);
+
     }
 }
