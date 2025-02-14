@@ -1,5 +1,6 @@
 package org.service.core;
 
+import org.service.entity.BookingParamsEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
 import org.service.input_port.TransportationServiceInputPort;
@@ -26,5 +27,10 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     @Override
     public List<RoutesEntity> findAll() {
         return aggregate.getFindAllTransportationServiceOutputPort().findAll();
+    }
+
+    @Override
+    public Boolean createBooking(BookingParamsEntity bookingParams) {
+        return aggregate.getCreateBookingTransportationServiceOutputPort().create(bookingParams);
     }
 }

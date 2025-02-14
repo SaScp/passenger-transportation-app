@@ -1,15 +1,17 @@
 package org.service.input_port.rest;
 
+import org.service.entity.BookingParamsEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
 
 import org.service.input_port.TransportationServiceInputPort;
 import org.service.input_port.annotation.FindByParam;
 import org.service.input_port.request.FilterParamEntity;
-import org.service.input_port.request.RequestQuery;
+import org.service.input_port.request.BookingQueryParam;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -39,8 +41,11 @@ public class TransportationRestController {
     }
 
     @PostMapping(value = "/create")
-    public RequestQuery booking(@RequestBody RequestQuery query) {
-        return query;
+    public ResponseEntity<?> booking(@RequestBody BookingQueryParam query) {
+        return this.inputPort.createBooking(
+                new BookingParamsEntity(query.getNumberPhone(), query.getRouteId()))?
+                ResponseEntity.created(URI.create("/create")).build() :
+                ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/revoke")
