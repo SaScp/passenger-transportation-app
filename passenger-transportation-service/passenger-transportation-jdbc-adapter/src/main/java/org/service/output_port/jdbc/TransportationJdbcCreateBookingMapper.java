@@ -56,18 +56,22 @@ public class TransportationJdbcCreateBookingMapper extends SqlUpdate implements 
             try (PreparedStatement insertUser = e.prepareStatement("INSERT INTO t_user(user_phone) VALUES (?)");
                  PreparedStatement selectUser = e.prepareStatement("SELECT exists(SELECT user_phone FROM t_user WHERE user_phone = ?)");
                  PreparedStatement insertUserBooking = e.prepareStatement("INSERT INTO t_user_bookings(user_phone, booking_id) VALUES (?,?)")) {
-
+                e.setAutoCommit(false);
                 selectUser.setString(1, numberPhone);
-                if (selectUser.executeQuery().getInt(1) == 0) {
-                    insertUser.setString(1, numberPhone);
-                    insertUser.execute();
+                try (ResultSet rs = selectUser.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) == 0) {
+                        insertUser.setString(1, numberPhone);
+                        insertUser.execute();
 
+                    }
                 }
                 insertUserBooking.setString(1, numberPhone);
                 insertUserBooking.setString(2, bookingId);
                  insertUserBooking.execute();
+                 e.commit();
                 return true;
             } catch (Exception ex) {
+                e.rollback();
                 return false;
             }
         }));
