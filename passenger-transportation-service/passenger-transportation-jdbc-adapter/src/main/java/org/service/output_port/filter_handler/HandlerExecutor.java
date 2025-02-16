@@ -19,8 +19,8 @@ public class HandlerExecutor {
 
     public Result execute(ParamsEntity entity) {
         StringBuilder builder = new StringBuilder(SQLConstant.START_SELECT_BY_PARAMS_QUERY);
-        List<String> map = new ArrayList<>();
+        List<String> params = new ArrayList<>();
 
-        return this.parentHandler.next(entity, builder, map).build();
+        return this.parentHandler.next(entity, builder, params).build();
     }
 }

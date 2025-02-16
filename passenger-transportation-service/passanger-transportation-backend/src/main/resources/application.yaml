@@ -12,3 +12,6 @@ spring:
       path: /api/v1/booking
 server:
   port: 8080
+cache:
+  lru:
+    size: 20

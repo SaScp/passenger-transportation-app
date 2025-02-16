@@ -1,5 +1,6 @@
 package org.service.input_port;
 
+import org.service.entity.BookingEntity;
 import org.service.entity.BookingParamsEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
@@ -14,5 +15,9 @@ public interface TransportationServiceInputPort {
 
     List<RoutesEntity> findAll();
 
-    Boolean createBooking(BookingParamsEntity bookingParams);
+    void createBooking(BookingParamsEntity bookingParams);
+
+    void revokeBooking(String id);
+
+    List<BookingEntity> findByPhone(String phone);
 }

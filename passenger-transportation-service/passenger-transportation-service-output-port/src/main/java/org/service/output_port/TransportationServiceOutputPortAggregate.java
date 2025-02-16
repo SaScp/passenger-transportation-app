@@ -9,4 +9,6 @@ public interface TransportationServiceOutputPortAggregate {
     FindByParamsTransportationServiceOutputPort getFindByParamsTransportationServiceOutputPort();
 
     FindAllTransportationServiceOutputPort getFindAllTransportationServiceOutputPort();
+
+    FindByPhoneTransportationServiceOutputPort getFindByPhoneTransportationServiceOutputPort();
 }

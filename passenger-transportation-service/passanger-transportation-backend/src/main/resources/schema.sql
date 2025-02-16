@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS t_bookings (
                           route_id TEXT NOT NULL,
                           booking_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                           status_id INTEGER NOT NULL, -- значения: 'забронировано', 'отменено'
-                          FOREIGN KEY (route_id) REFERENCES t_routes(id),
+                          FOREIGN KEY (route_id) REFERENCES t_routes(id) ON DELETE CASCADE,
                           FOREIGN KEY (status_id) REFERENCES t_status(id)
 );
 
@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS t_user(
 );
 
 CREATE TABLE IF NOT EXISTS t_user_bookings(
-                                     user_phone TEXT NOT NULL REFERENCES t_user(user_phone),
-                                     booking_id TEXT NOT NULL REFERENCES t_bookings(id),
+                                     user_phone TEXT NOT NULL REFERENCES t_user(user_phone) ON DELETE CASCADE,
+                                     booking_id TEXT NOT NULL REFERENCES t_bookings(id) ON DELETE CASCADE,
                                      PRIMARY KEY (user_phone, booking_id)
 );
 

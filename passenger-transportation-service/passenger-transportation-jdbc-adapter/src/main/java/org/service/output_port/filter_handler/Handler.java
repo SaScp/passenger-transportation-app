@@ -51,6 +51,9 @@ public abstract class Handler {
         return new Result(queryParam, query.append(SQLConstant.END_SELECT_BY_PARAMS_QUERY).toString());
     }
 
+    public Result buildPhone() {
+        return new Result(queryParam, query.toString());
+    }
 
     protected boolean isPreWhere() {
         return query.lastIndexOf(SQLConstant.WHERE) + 5 == query.length() - 1;

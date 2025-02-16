@@ -30,11 +30,13 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
     }
 
     private static FilterParamEntity generateEntity(NativeWebRequest request) {
+
+        String timeParam = request.getParameter("time");
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("MM/dd/yyyy-HH:mm:ss")
                 .toFormatter();
-        LocalDateTime time = request.getParameter("time") == null? LocalDateTime.now() :
-                LocalDateTime.parse(request.getParameter("time"), formatter);
+        LocalDateTime time = timeParam == null ? LocalDateTime.now() :
+                LocalDateTime.parse(timeParam, formatter);
 
 
         return new FilterParamEntity(

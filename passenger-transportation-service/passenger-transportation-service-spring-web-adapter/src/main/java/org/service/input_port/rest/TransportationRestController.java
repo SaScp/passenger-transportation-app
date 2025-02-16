@@ -1,5 +1,6 @@
 package org.service.input_port.rest;
 
+import org.service.entity.BookingEntity;
 import org.service.entity.BookingParamsEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
@@ -42,15 +43,18 @@ public class TransportationRestController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> booking(@RequestBody BookingQueryParam query) {
-        return this.inputPort.createBooking(
-                new BookingParamsEntity(query.getNumberPhone(), query.getRouteId()))?
-                ResponseEntity.created(URI.create("/create")).build() :
-                ResponseEntity.badRequest().build();
+        this.inputPort.createBooking(
+                new BookingParamsEntity(query.getNumberPhone(), query.getRouteId()));
+        return ResponseEntity.created(URI.create("/create")).build();
     }
 
-    @PostMapping("/revoke")
+    @DeleteMapping("/revoke")
     public void revokeBooking(@RequestParam(name = "booking_id") String id) {
-        System.out.println(id);
+        this.inputPort.revokeBooking(id);
     }
 
+    @GetMapping("/find-by-phone")
+    public List<BookingEntity> findTransportByPhone(@RequestParam(value = "phone") String phone) {
+       return this.inputPort.findByPhone(phone); ///return this.inputPort.
+    }
 }

@@ -2,7 +2,6 @@ package org.service.output_port.filter_handler;
 
 import org.service.entity.ParamsEntity;
 
-import java.util.Map;
 import java.util.Optional;
 
 public class ToParamHandler extends Handler {
@@ -13,10 +12,10 @@ public class ToParamHandler extends Handler {
 
     @Override
     protected void addParam(ParamsEntity entity) {
-        if (Optional.ofNullable(entity.to()).isPresent()) {
+        if (Optional.ofNullable(entity.getTo()).isPresent()) {
             addAnd();
             query.append(" arrival_city = ? ");
-            queryParam.add(entity.to());
+            queryParam.add(entity.getTo());
         }
     }
 }

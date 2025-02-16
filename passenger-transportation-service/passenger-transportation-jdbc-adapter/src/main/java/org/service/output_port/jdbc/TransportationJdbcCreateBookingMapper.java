@@ -1,33 +1,33 @@
 package org.service.output_port.jdbc;
 
+import org.service.entity.BookingEntity;
 import org.service.entity.BookingParamsEntity;
+import org.service.exception.ProblemDetailsException;
 import org.service.output_port.CreateBookingTransportationServiceOutputPort;
-import org.service.output_port.FindAllTransportationServiceOutputPort;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.service.output_port.LruIdCache;
 import org.springframework.jdbc.core.ConnectionCallback;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.jdbc.object.SqlUpdate;
-import org.springframework.jdbc.object.UpdatableSqlQuery;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
-@Component
-public class TransportationJdbcCreateBookingMapper extends SqlUpdate implements CreateBookingTransportationServiceOutputPort, TransportationJdbcAdapter {
 
-    public TransportationJdbcCreateBookingMapper(DataSource ds) {
+public class TransportationJdbcCreateBookingMapper extends SqlUpdate implements CreateBookingTransportationServiceOutputPort, TransportationJdbcAdapter {
+    private final LruIdCache<String, List<BookingEntity>> lruIdCache;
+
+
+    public TransportationJdbcCreateBookingMapper(DataSource ds, LruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
         super(ds, "INSERT INTO t_bookings(id, route_id, booking_time, status_id) VALUES (?,?,?,?);");
+        this.lruIdCache = lruIdCache;
         this.declareParameter(new SqlParameter(Types.VARCHAR));
         this.declareParameter(new SqlParameter(Types.VARCHAR));
         this.declareParameter(new SqlParameter(Types.VARCHAR));
@@ -35,8 +35,8 @@ public class TransportationJdbcCreateBookingMapper extends SqlUpdate implements 
     }
 
     @Override
-    public boolean create(BookingParamsEntity entity) {
-
+    @Transactional(rollbackFor = Exception.class)
+    public void create(BookingParamsEntity entity) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd HH:mm:ss")
                 .toFormatter();
@@ -44,38 +44,25 @@ public class TransportationJdbcCreateBookingMapper extends SqlUpdate implements 
             String format = formatter.format(LocalDateTime.now());
             String id = UUID.randomUUID().toString();
             this.update(id, entity.getRouteId(), format, 1);
-            return insertUser(entity.getNumberPhone(), id);
-        } catch (Exception e) {
-            return false;
+            insertUser(entity.getNumberPhone(), id);
+            lruIdCache.remove(entity.getNumberPhone());
+        } catch (ProblemDetailsException e) {
+            throw new ProblemDetailsException(e);
         }
     }
 
-    private boolean insertUser(String numberPhone, String bookingId) {
-        return Boolean.TRUE.equals(getJdbcTemplate().execute((ConnectionCallback<Boolean>) e -> {
-
-            try (PreparedStatement insertUser = e.prepareStatement("INSERT INTO t_user(user_phone) VALUES (?)");
-                 PreparedStatement selectUser = e.prepareStatement("SELECT exists(SELECT user_phone FROM t_user WHERE user_phone = ?)");
-                 PreparedStatement insertUserBooking = e.prepareStatement("INSERT INTO t_user_bookings(user_phone, booking_id) VALUES (?,?)")) {
-                e.setAutoCommit(false);
-                selectUser.setString(1, numberPhone);
-                try (ResultSet rs = selectUser.executeQuery()) {
-                    if (rs.next() && rs.getInt(1) == 0) {
-                        insertUser.setString(1, numberPhone);
-                        insertUser.execute();
-
+    private void insertUser(String numberPhone, String bookingId) {
+        getJdbcTemplate().execute((ConnectionCallback<?>) e -> {
+                    InsertUserBookingUtils utils = new InsertUserBookingUtils(e);
+                    try {
+                        utils.insertUser(numberPhone);
+                        utils.insertUserBooking(numberPhone, bookingId);
+                    } catch (Exception ex) {
+                        throw new ProblemDetailsException(500, ex.getMessage());
                     }
+                    return null;
                 }
-                insertUserBooking.setString(1, numberPhone);
-                insertUserBooking.setString(2, bookingId);
-                 insertUserBooking.execute();
-                 e.commit();
-                return true;
-            } catch (Exception ex) {
-                e.rollback();
-                return false;
-            }
-        }));
-
+        );
     }
 
 
