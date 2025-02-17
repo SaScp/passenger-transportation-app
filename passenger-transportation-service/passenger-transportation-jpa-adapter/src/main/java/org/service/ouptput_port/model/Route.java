@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -28,8 +29,9 @@ public class Route {
     @Column(name = "arrival_city")
     private String arrivalCity;
 
+    @OrderBy
     @Column(name = "departure_time")
-    private LocalTime departureTime;
+    private LocalDateTime departureTime;
 
     @Column(name = "arrival_time")
     private LocalTime arrivalTime;

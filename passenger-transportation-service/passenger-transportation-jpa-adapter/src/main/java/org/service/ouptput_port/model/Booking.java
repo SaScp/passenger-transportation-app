@@ -27,6 +27,9 @@ public class Booking {
     @Column(name = "status", table = "t_status")
     private String status;
 
+    @Column
+    private String numberPhone; // TODO create link to user
+
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     private Route route;
