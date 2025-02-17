@@ -4,12 +4,14 @@ spring:
     username: admin
     password: passwd
     url: jdbc:sqlite:transportation.db
-  sql:
-    init:
-      mode: always
   mvc:
     servlet:
       path: /api/v1/booking
+  flyway:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:transportation.db
+    user: admin
+    password: passwd
 server:
   port: 8080
 cache:
