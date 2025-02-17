@@ -32,11 +32,11 @@ public class TransportationServiceApplication {
     @Bean
     public TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregateImpl(DataSource dataSource) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
-                new TransportationJdbcCreateBookingMapper(dataSource, lruIdCache()),
-                new TransportationJdbcRevokeBookingMapper(dataSource, lruIdCache()),
-                new TransportationJdbcFindByParamsMapper(dataSource, new LruIdCache<>(cacheSize)),
-                new TransportationJdbcFindAllMapper(dataSource),
-                new TransportationJdbcFindByPhoneMapper(dataSource, lruIdCache())
+                new TransportationJdbcCreateBookingAdapter(dataSource, lruIdCache()),
+                new TransportationJdbcRevokeBookingAdapter(dataSource, lruIdCache()),
+                new TransportationJdbcFindByParamsAdapter(dataSource, new LruIdCache<>(cacheSize)),
+                new TransportationJdbcFindAllAdapter(dataSource),
+                new TransportationJdbcFindByPhoneAdapter(dataSource, lruIdCache())
         );
     }
 

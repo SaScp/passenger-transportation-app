@@ -12,6 +12,8 @@ spring:
     url: jdbc:sqlite:transportation.db
     user: admin
     password: passwd
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
 server:
   port: 8080
 cache:

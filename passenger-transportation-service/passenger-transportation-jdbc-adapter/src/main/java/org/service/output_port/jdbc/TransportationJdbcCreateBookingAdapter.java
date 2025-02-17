@@ -8,7 +8,6 @@ import org.service.output_port.LruIdCache;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.SqlUpdate;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
@@ -21,11 +20,11 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class TransportationJdbcCreateBookingMapper extends SqlUpdate implements CreateBookingTransportationServiceOutputPort, TransportationJdbcAdapter {
+public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements CreateBookingTransportationServiceOutputPort, TransportationJdbcAdapter {
     private final LruIdCache<String, List<BookingEntity>> lruIdCache;
 
 
-    public TransportationJdbcCreateBookingMapper(DataSource ds, LruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
+    public TransportationJdbcCreateBookingAdapter(DataSource ds, LruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
         super(ds, "INSERT INTO t_bookings(id, route_id, booking_time, status_id) VALUES (?,?,?,?);");
         this.lruIdCache = lruIdCache;
         this.declareParameter(new SqlParameter(Types.VARCHAR));

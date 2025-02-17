@@ -10,7 +10,6 @@ import org.service.output_port.filter_handler.*;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.object.MappingSqlQuery;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
@@ -21,13 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TransportationJdbcFindByParamsMapper extends MappingSqlQuery<RoutesEntity> implements FindByParamsTransportationServiceOutputPort, TransportationJdbcAdapter {
+public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<RoutesEntity> implements FindByParamsTransportationServiceOutputPort, TransportationJdbcAdapter {
 
     private HandlerExecutor handler;
 
     private final LruIdCache<Result, List<RoutesEntity>> lruIdCache;
 
-    public TransportationJdbcFindByParamsMapper(DataSource ds, LruIdCache<Result, List<RoutesEntity>> cache) {
+    public TransportationJdbcFindByParamsAdapter(DataSource ds, LruIdCache<Result, List<RoutesEntity>> cache) {
         super(ds, "");
         this.lruIdCache = new LruIdCache<>(20);
         this.handler = new HandlerExecutor();
