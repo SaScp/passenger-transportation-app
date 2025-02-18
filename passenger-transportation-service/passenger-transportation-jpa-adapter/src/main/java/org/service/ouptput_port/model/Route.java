@@ -16,7 +16,6 @@ import java.time.LocalTime;
 @Table(name = "t_routes")
 @AllArgsConstructor
 @NoArgsConstructor
-@SecondaryTable(name = "t_transport_types", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
 public class Route {
 
     @Id
@@ -29,17 +28,19 @@ public class Route {
     @Column(name = "arrival_city")
     private String arrivalCity;
 
-    @OrderBy
+    @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
 
     @Column(name = "arrival_time")
     private LocalTime arrivalTime;
 
-    @Column(name = "type_name", table = "t_transport_types")
-    private String typeName;
+    @OneToOne
+    @JoinColumn(name = "transport_type_id", referencedColumnName = "id")
+    private TransportType transportType;
 
     @Column(name = "price")
     private int price;
+
 
 }
