@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,7 +37,7 @@ public class Route {
     @Column(name = "arrival_time")
     private LocalTime arrivalTime;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_type_id", referencedColumnName = "id")
     private TransportType transportType;
 

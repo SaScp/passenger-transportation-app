@@ -14,7 +14,6 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "t_bookings")
-@SecondaryTable(name = "t_status", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
 public class Booking {
 
     @Id
@@ -24,11 +23,13 @@ public class Booking {
     @Column(name = "booking_time")
     private LocalTime bookingTime;
 
-    @Column(name = "status", table = "t_status")
-    private String status;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    private Status status;
 
-    @Column
-    private String numberPhone; // TODO create link to user
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_phone", referencedColumnName = "user_phone")
+    private User numberPhone;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "route_id", referencedColumnName = "id")

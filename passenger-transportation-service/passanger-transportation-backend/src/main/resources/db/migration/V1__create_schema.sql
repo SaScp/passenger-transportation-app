@@ -22,21 +22,15 @@ CREATE TABLE IF NOT EXISTS t_bookings (
                           route_id TEXT NOT NULL,
                           booking_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                           status_id INTEGER NOT NULL, -- значения: 'забронировано', 'отменено'
+                          user_phone TEXT NOT NULL,
                           FOREIGN KEY (route_id) REFERENCES t_routes(id) ON DELETE CASCADE,
-                          FOREIGN KEY (status_id) REFERENCES t_status(id)
+                          FOREIGN KEY (status_id) REFERENCES t_status(id),
+                          FOREIGN KEY (user_phone) REFERENCES t_user(user_phone) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS t_user(
     user_phone TEXT primary key
 );
 
-CREATE TABLE IF NOT EXISTS t_user_bookings(
-                                     user_phone TEXT NOT NULL REFERENCES t_user(user_phone) ON DELETE CASCADE,
-                                     booking_id TEXT NOT NULL REFERENCES t_bookings(id) ON DELETE CASCADE,
-                                     PRIMARY KEY (user_phone, booking_id)
-);
-
 CREATE INDEX IF NOT EXISTS transport_type_id_idx on t_routes(transport_type_id);
 CREATE INDEX IF NOT EXISTS t_bookings_idx on t_bookings(route_id);
-CREATE INDEX IF NOT EXISTS t_booking_user_idx on t_user_bookings(booking_id);
-CREATE INDEX IF NOT EXISTS t_user_booking_idx on t_user_bookings(user_phone);

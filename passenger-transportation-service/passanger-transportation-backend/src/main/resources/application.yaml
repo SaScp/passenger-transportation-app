@@ -14,6 +14,7 @@ spring:
     password: passwd
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
+    show-sql: true
 server:
   port: 8080
 cache:
