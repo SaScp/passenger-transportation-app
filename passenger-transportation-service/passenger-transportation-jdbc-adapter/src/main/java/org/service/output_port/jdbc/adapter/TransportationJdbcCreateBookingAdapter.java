@@ -5,6 +5,7 @@ import org.service.entity.BookingParamsEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.output_port.CreateBookingTransportationServiceOutputPort;
 import org.service.output_port.LruIdCache;
+import org.service.output_port.filter_handler.SQLConstant;
 import org.service.output_port.jdbc.InsertUserBookingUtils;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.SqlParameter;
@@ -26,12 +27,13 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
 
 
     public TransportationJdbcCreateBookingAdapter(DataSource ds, LruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
-        super(ds, "INSERT INTO t_bookings(id, route_id, booking_time, status_id) VALUES (?,?,?,?);");
+        super(ds, SQLConstant.INSERT_BOOKING);
         this.lruIdCache = lruIdCache;
         this.declareParameter(new SqlParameter(Types.VARCHAR));
         this.declareParameter(new SqlParameter(Types.VARCHAR));
         this.declareParameter(new SqlParameter(Types.VARCHAR));
         this.declareParameter(new SqlParameter(Types.INTEGER));
+        this.declareParameter(new SqlParameter(Types.VARCHAR));
     }
 
     @Override
@@ -43,7 +45,7 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
         try {
             String format = formatter.format(LocalDateTime.now());
             String id = UUID.randomUUID().toString();
-            this.update(id, entity.getRouteId(), format, 1);
+            this.update(id, entity.getRouteId(), format, 1, entity.getNumberPhone());
             insertUser(entity.getNumberPhone(), id);
             lruIdCache.remove(entity.getNumberPhone());
         } catch (ProblemDetailsException e) {
@@ -56,7 +58,6 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
                     InsertUserBookingUtils utils = new InsertUserBookingUtils(e);
                     try {
                         utils.insertUser(numberPhone);
-                        utils.insertUserBooking(numberPhone, bookingId);
                     } catch (Exception ex) {
                         throw new ProblemDetailsException(500, ex.getMessage());
                     }

@@ -22,10 +22,12 @@ public abstract class Handler {
         FromParamHandler fromParamHandler = new FromParamHandler();
         ToParamHandler toParamHandler = new ToParamHandler();
         TimeParamHandler timeParamHandler = new TimeParamHandler();
+        IdParamHandler idParamHandler = new IdParamHandler();
 
         timeParamHandler.nextNode(typeParamHandler);
         typeParamHandler.nextNode(fromParamHandler);
         fromParamHandler.nextNode(toParamHandler);
+        fromParamHandler.nextNode(idParamHandler);
         return timeParamHandler;
     }
 

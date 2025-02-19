@@ -20,3 +20,10 @@ server:
 cache:
   lru:
     size: 20
+springdoc:
+  api-docs:
+    path: /docs/
+  swagger-ui:
+    path: /swagger/
+  override-with-generic-response: false
+
