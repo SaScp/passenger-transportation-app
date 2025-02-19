@@ -27,7 +27,7 @@ public abstract class Handler {
         timeParamHandler.nextNode(typeParamHandler);
         typeParamHandler.nextNode(fromParamHandler);
         fromParamHandler.nextNode(toParamHandler);
-        fromParamHandler.nextNode(idParamHandler);
+        toParamHandler.nextNode(idParamHandler);
         return timeParamHandler;
     }
 

@@ -26,4 +26,13 @@ springdoc:
   swagger-ui:
     path: /swagger/
   override-with-generic-response: false
-
+logging:
+  level:
+    org.service: error
+  file:
+    name: app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+  threshold:
+    file: ERROR

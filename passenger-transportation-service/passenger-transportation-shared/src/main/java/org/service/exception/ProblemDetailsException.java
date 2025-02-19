@@ -2,7 +2,7 @@ package org.service.exception;
 
 public class ProblemDetailsException extends RuntimeException {
 
-    public int code;
+    private int code;
 
     public ProblemDetailsException(int code, String message) {
         super(message);
@@ -11,5 +11,9 @@ public class ProblemDetailsException extends RuntimeException {
 
     public ProblemDetailsException(ProblemDetailsException cause) {
         this(cause.code, cause.getMessage());
+    }
+
+    public int getCode() {
+        return code;
     }
 }

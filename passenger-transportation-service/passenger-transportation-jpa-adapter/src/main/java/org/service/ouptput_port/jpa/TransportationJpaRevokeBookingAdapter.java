@@ -1,6 +1,7 @@
 package org.service.ouptput_port.jpa;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.service.exception.ProblemDetailsException;
 import org.service.ouptput_port.model.Booking;
 import org.service.ouptput_port.model.Status;
@@ -10,9 +11,10 @@ import org.service.output_port.RevokeBookingTransportationServiceOutputPort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Component
-@Transactional(rollbackFor = ProblemDetailsException.class)
 @AllArgsConstructor
+@Transactional(rollbackFor = ProblemDetailsException.class)
 public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTransportationServiceOutputPort {
 
     private final BookingRepository repository;
@@ -23,7 +25,10 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
     @Override
     public void revoke(String id) {
         Booking booking = repository.findById(id)
-                .orElseThrow(() -> new ProblemDetailsException(404, "Booking Not found"));
+                .orElseThrow(() -> {
+                    log.error("error in method {} message {}", Thread.currentThread().getStackTrace()[1], "User not found");
+                    return new ProblemDetailsException(404, "Booking Not found");
+                });
         booking.setStatus(new Status(REVOKED_STATUS_ID));
         repository.save(booking);
     }

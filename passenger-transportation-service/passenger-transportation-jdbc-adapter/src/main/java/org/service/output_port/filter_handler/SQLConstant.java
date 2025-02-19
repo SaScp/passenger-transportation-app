@@ -30,4 +30,8 @@ public class SQLConstant {
     public static final String UPDATE_STATUS = "UPDATE t_bookings SET status_id = ? WHERE id = ?";
 
     public static final String INSERT_BOOKING = "INSERT INTO t_bookings(id, route_id, booking_time, status_id, user_phone) VALUES (?,?,?,?,?);";
+
+    public static final String USER_USER_PHONE_VALUES = "INSERT INTO t_user(user_phone) VALUES (?)";
+
+    public static final String USER_EXISTS = "SELECT exists(SELECT user_phone FROM t_user WHERE user_phone = ?)";
 }

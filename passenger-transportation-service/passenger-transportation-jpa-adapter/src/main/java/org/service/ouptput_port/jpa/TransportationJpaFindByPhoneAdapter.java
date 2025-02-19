@@ -3,6 +3,7 @@ package org.service.ouptput_port.jpa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.ouptput_port.mapper.BookingMapper;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 @Transactional(readOnly = true)
 @AllArgsConstructor
 public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransportationServiceOutputPort {
@@ -28,6 +30,7 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
     @Override
     public List<BookingEntity> findBy(String phone) {
         if (!userRepository.existsById(phone)) {
+            log.error("error in method {} message {}", Thread.currentThread().getStackTrace()[1], "User not found");
             throw new ProblemDetailsException(404, "User not found");
         }
         Optional<List<Booking>> allByNumberPhoneNumberPhone = repository.findAllByNumberPhone_NumberPhone(phone);

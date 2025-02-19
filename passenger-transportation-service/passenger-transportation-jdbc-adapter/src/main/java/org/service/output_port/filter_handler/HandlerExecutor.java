@@ -4,6 +4,7 @@ package org.service.output_port.filter_handler;
 
 import org.service.entity.ParamsEntity;
 import org.service.entity.Result;
+import org.service.exception.ProblemDetailsException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,9 @@ public class HandlerExecutor {
     }
 
     public Result execute(ParamsEntity entity) {
+        if (entity == null) {
+            throw new ProblemDetailsException(500, "ParamsEntity is null");
+        }
         StringBuilder builder = new StringBuilder(SQLConstant.START_SELECT_BY_PARAMS_QUERY);
         List<String> params = new ArrayList<>();
 

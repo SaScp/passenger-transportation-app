@@ -25,6 +25,9 @@ public final class ParamsEntity {
         this.routeId = routeId;
     }
 
+    public ParamsEntity() {
+    }
+
     public ParamsEntity(LocalDateTime time, String type, String from, String to, String routeId) {
         this.time = time;
         this.type = type;
@@ -79,4 +82,23 @@ public final class ParamsEntity {
     }
 
 
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
 }

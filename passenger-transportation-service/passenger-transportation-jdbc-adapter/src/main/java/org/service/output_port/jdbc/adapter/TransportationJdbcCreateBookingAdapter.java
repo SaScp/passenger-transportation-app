@@ -7,6 +7,8 @@ import org.service.output_port.CreateBookingTransportationServiceOutputPort;
 import org.service.output_port.LruIdCache;
 import org.service.output_port.filter_handler.SQLConstant;
 import org.service.output_port.jdbc.InsertUserBookingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.SqlUpdate;
@@ -23,6 +25,9 @@ import java.util.UUID;
 
 
 public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements CreateBookingTransportationServiceOutputPort, TransportationJdbcAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(TransportationJdbcCreateBookingAdapter.class);
+
     private final LruIdCache<String, List<BookingEntity>> lruIdCache;
 
 
@@ -49,6 +54,7 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
             insertUser(entity.getNumberPhone(), id);
             lruIdCache.remove(entity.getNumberPhone());
         } catch (ProblemDetailsException e) {
+            log.error("error in method {} message {}", e.getStackTrace()[1], e.getMessage());
             throw new ProblemDetailsException(e);
         }
     }

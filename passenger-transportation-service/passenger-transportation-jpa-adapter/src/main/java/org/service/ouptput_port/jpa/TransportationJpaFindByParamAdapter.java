@@ -37,7 +37,6 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
         Root<Route> from = find.from(Route.class);
 
         HandlerExecutor executor = new HandlerExecutor(builder, from);
-
         List<Predicate> predicateList = executor.execute(entity);
 
         find.where(builder.and(predicateList.toArray(new Predicate[0])));

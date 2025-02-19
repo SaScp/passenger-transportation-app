@@ -7,6 +7,8 @@ import org.service.output_port.FindByParamsTransportationServiceOutputPort;
 import org.service.output_port.LruIdCache;
 import org.service.output_port.factory.RouteFactory;
 import org.service.output_port.filter_handler.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.object.MappingSqlQuery;
@@ -21,6 +23,8 @@ import java.util.List;
 
 
 public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<RoutesEntity> implements FindByParamsTransportationServiceOutputPort, TransportationJdbcAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(TransportationJdbcFindByParamsAdapter.class);
 
     private HandlerExecutor handler;
 
@@ -58,6 +62,7 @@ public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<Route
                 lruIdCache.put(resultVal, routesEntities);
                 return routesEntities;
             } catch (SQLException ex) {
+                log.error("error in method {} message {}", ex.getStackTrace()[1], ex.getMessage());
                 throw new RuntimeException();
             }
         });
