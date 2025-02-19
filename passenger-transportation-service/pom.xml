@@ -17,7 +17,6 @@
         <module>passenger-transportation-service-spring-web-adapter</module>
         <module>passenger-transportation-jdbc-adapter</module>
         <module>passenger-transportation-jpa-adapter</module>
-
     </modules>
 
     <properties>
