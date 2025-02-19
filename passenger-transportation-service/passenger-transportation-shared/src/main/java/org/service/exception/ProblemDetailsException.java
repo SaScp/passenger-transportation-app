@@ -4,9 +4,9 @@ public class ProblemDetailsException extends RuntimeException {
 
     public int code;
 
-    public ProblemDetailsException(int conde, String message) {
+    public ProblemDetailsException(int code, String message) {
         super(message);
-        this.code = conde;
+        this.code = code;
     }
 
     public ProblemDetailsException(ProblemDetailsException cause) {

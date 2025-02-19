@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
+import org.service.ouptput_port.filter_handler.HandlerExecutor;
 import org.service.ouptput_port.mapper.RouteMapper;
 import org.service.ouptput_port.model.Route;
 import org.service.ouptput_port.model.TransportType;
@@ -28,29 +29,20 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
     private EntityManager entityManager;
 
-
     @Override
     public List<RoutesEntity> findBy(ParamsEntity entity) {
+
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Route> find = builder.createQuery(Route.class);
-        Root<Route> root = find.from(Route.class);
-        root.fetch("transportType");
-        Join<Route, TransportType> join = root.join("transportType");
-        List<Predicate> predicates = Stream.of(
-                        Optional.ofNullable(entity.getFrom())
-                                .map(from -> builder.equal(root.get("departureCity"), from)),
-                        Optional.ofNullable(entity.getTime())
-                                .map(time -> builder.greaterThanOrEqualTo(root.get("departureTime"), time)),
-                        Optional.ofNullable(entity.getTo())
-                                .map(to -> builder.equal(root.get("arrivalCity"), to)),
-                        Optional.ofNullable(entity.getType())
-                                .map(type -> builder.equal(join.get("transportType"), type))
-                )
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .toList();
-        find.where(builder.and(predicates.toArray(new Predicate[0])));
-        find.orderBy(builder.asc(root.get("departureTime")));
+        Root<Route> from = find.from(Route.class);
+
+        HandlerExecutor executor = new HandlerExecutor(builder, from);
+
+        List<Predicate> predicateList = executor.execute(entity);
+
+        find.where(builder.and(predicateList.toArray(new Predicate[0])));
+        find.orderBy(builder.asc(from.get("departureTime")));
+
         var query1 = entityManager.createQuery(find).getResultList();
         return RouteMapper.INSTANCE.routesToRouteEntitys(query1);
     }

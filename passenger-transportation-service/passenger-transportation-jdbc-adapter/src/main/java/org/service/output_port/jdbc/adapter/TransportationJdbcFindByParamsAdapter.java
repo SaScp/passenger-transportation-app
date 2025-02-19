@@ -1,4 +1,4 @@
-package org.service.output_port.jdbc;
+package org.service.output_port.jdbc.adapter;
 
 import org.service.entity.ParamsEntity;
 import org.service.entity.Result;

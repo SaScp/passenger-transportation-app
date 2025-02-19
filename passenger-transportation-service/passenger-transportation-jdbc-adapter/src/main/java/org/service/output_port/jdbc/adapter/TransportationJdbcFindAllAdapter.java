@@ -1,4 +1,4 @@
-package org.service.output_port.jdbc;
+package org.service.output_port.jdbc.adapter;
 
 import org.service.entity.RoutesEntity;
 import org.service.output_port.FindAllTransportationServiceOutputPort;

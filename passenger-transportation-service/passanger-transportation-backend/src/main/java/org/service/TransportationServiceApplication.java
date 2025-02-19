@@ -7,7 +7,7 @@ import org.service.ouptput_port.jpa.*;
 import org.service.output_port.LruIdCache;
 import org.service.output_port.TransportationServiceOutputPortAggregate;
 import org.service.output_port.TransportationServiceOutputPortAggregateImpl;
-import org.service.output_port.jdbc.*;
+import org.service.output_port.jdbc.adapter.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

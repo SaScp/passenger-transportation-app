@@ -13,12 +13,7 @@ public class BookingFactory {
                 rs.getString("booking_time"),
                 rs.getString("user_phone"),
                 rs.getString("status"),
-                rs.getString("departure_city"),
-                rs.getString("arrival_city"),
-                rs.getTimestamp("departure_time"),
-                rs.getTimestamp("arrival_time"),
-                rs.getString("type_name"),
-                rs.getDouble("price")
+                rs.getString("route_id")
         );
     }
 }

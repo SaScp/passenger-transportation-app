@@ -8,6 +8,7 @@ public final class ParamsEntity {
     private String type;
     private String from;
     private String to;
+    private String routeId;
 
     public ParamsEntity(LocalDateTime time,
                         String type,
@@ -20,6 +21,17 @@ public final class ParamsEntity {
         this.to = to;
     }
 
+    public ParamsEntity(String routeId) {
+        this.routeId = routeId;
+    }
+
+    public ParamsEntity(LocalDateTime time, String type, String from, String to, String routeId) {
+        this.time = time;
+        this.type = type;
+        this.from = from;
+        this.to = to;
+        this.routeId = routeId;
+    }
 
     public LocalDateTime getTime() {
         return time;
@@ -35,6 +47,10 @@ public final class ParamsEntity {
 
     public String getTo() {
         return to;
+    }
+
+    public String getRouteId() {
+        return routeId;
     }
 
     @Override
@@ -61,5 +77,6 @@ public final class ParamsEntity {
                 "from=" + from + ", " +
                 "to=" + to + ", " + ']';
     }
+
 
 }

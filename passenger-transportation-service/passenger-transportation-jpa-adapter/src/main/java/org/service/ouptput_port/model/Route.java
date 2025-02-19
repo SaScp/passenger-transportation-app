@@ -35,7 +35,7 @@ public class Route {
     private LocalDateTime departureTime;
 
     @Column(name = "arrival_time")
-    private LocalTime arrivalTime;
+    private LocalDateTime arrivalTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transport_type_id", referencedColumnName = "id")

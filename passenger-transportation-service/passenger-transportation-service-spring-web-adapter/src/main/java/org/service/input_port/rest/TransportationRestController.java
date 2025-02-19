@@ -57,4 +57,9 @@ public class TransportationRestController {
     public List<BookingEntity> findTransportByPhone(@RequestParam(value = "phone") String phone) {
        return this.inputPort.findByPhone(phone); ///return this.inputPort.
     }
+
+    @GetMapping("/find-by-id")
+    public List<RoutesEntity> findTransportById(@RequestParam(value = "route_id") String id) {
+        return this.inputPort.findByParams(new ParamsEntity(id));
+    }
 }
