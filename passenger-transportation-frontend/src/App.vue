@@ -1,24 +1,23 @@
 <template>
   <div id="app">
-    <header class="main-header">
-      <div class="in-header">
-        <router-link to="/cancel-booking">Отменить бронь</router-link>
-      </div>
-      <div class="in-header">
-        <router-link to="/search-route">Поиск маршрутов по параметрам</router-link>
-      </div>
-      <div class="in-header">
-        <router-link to="/create-booking">Забронировать</router-link>
-      </div>
-      <div class="in-header">
-        <router-link to="/search-booking">Найти брони по телефону</router-link>
-      </div>
-      <div class="in-header">
-        <router-link to="/find-all-routes">Найти все маршруты</router-link>
-      </div>
-    </header>
-
-    <router-view/>
+      <header class="main-header">
+        <div class="in-header">
+          <router-link to="/cancel-booking">Отменить бронь</router-link>
+        </div>
+        <div class="in-header">
+          <router-link to="/search-route">Поиск маршрутов по параметрам</router-link>
+        </div>
+        <div class="in-header">
+          <router-link to="/create-booking">Забронировать</router-link>
+        </div>
+        <div class="in-header">
+          <router-link to="/search-booking">Найти брони по телефону</router-link>
+        </div>
+        <div class="in-header">
+          <router-link to="/find-all-routes">Найти все маршруты</router-link>
+        </div>
+      </header>
+      <router-view/>
   </div>
 </template>
 <script>
@@ -26,18 +25,17 @@
 import {defineComponent} from 'vue';
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
 });
-
 </script>
 <style>
+
 .main-header {
   display: flex;
+  flex-flow: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  margin: 0;
-  background-color: #2c3e50;
+  background-color: #1142AA;
 }
 
 .in-header {
@@ -46,7 +44,8 @@ export default defineComponent({
   background-color: #f2f2f2;
   border-radius: 15px;
   font-family: Avenir, sans-serif;
-
+  max-width: 100%;
+  border-color: black;
   a {
     text-decoration: none;
     color: #333;
@@ -63,6 +62,18 @@ input {
   margin: 10px 0;
   border-radius: 4px;
   border: 1px solid #ccc;
+}
+button{
+  margin: 15px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  font-family: Avenir, sans-serif;
+  max-width: 100%;
+  a {
+    text-decoration: none;
+    color: #333;
+  }
 }
 
 
