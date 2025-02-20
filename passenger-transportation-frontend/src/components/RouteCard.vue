@@ -21,7 +21,8 @@
 
   </div>
 </template>
-
+<!--display: flex;
+    flex-flow: column;-->
 <script>
 import {ref} from "vue";
 
@@ -68,6 +69,9 @@ export default {
   p{
     margin: 5px;
   }
+}
+.form-control {
+  max-width: 200px;
 }
 .booking-button {
   display: flex;

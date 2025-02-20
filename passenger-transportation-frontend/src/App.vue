@@ -29,7 +29,9 @@ export default defineComponent({
 });
 </script>
 <style>
-
+*{
+  margin: 0;
+}
 .main-header {
   display: flex;
   flex-flow: row;
@@ -75,6 +77,5 @@ button{
     color: #333;
   }
 }
-
 
 </style>

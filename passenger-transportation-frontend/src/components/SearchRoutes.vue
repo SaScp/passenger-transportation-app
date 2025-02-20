@@ -1,8 +1,9 @@
 <template>
   <section class="search-section">
-    <div class="finder">
-      <h2>Поиск маршрутов</h2>
+
+    <aside>
       <form @submit.prevent="searchRoutes" class="form">
+        <h2>Поиск маршрутов</h2>
         <div class="form-group">
           <input v-model="type" type="text" placeholder="Тип транспорта" class="form-control" />
         </div>
@@ -17,12 +18,11 @@
         </div>
         <button type="submit" class="btn btn-primary">Найти маршруты</button>
       </form>
-    </div>
-
+      <hr class="line-search">
+    </aside>
     <div v-if="routes.length" class="routes-list">
       <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" />
     </div>
-
     <div v-if="error" class="error-message">{{ error }}</div>
   </section>
 </template>
@@ -45,10 +45,13 @@ export default {
       error: '',
     };
   },
+  mounted() {
+    this.searchRoutes()
+  },
   methods: {
     async searchRoutes() {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/booking/find', {
+       /* const response = await axios.get('http://localhost:8080/api/v1/booking/find', {
           params: {
             type: this.type,
             from: this.from,
@@ -61,7 +64,22 @@ export default {
         this.from = null;
         this.to = null;
         this.time =  null
+        this.error = '';*/
+        const params = {};
+        if (this.type) params.type = this.type
+        if (this.from) params.from = this.from
+        if (this.to) params.to = this.to
+        if (this.time) params.time = this.time
+        const response = await axios.get('http://localhost:8080/api/v1/booking/find',{params})
+
+        this.routes = response.data;
         this.error = '';
+        if (Object.keys(params).length) {
+          this.type = null;
+          this.from = null;
+          this.to = null;
+          this.time =  null;
+        }
       } catch (err) {
         this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
         this.routes = [];
@@ -71,21 +89,36 @@ export default {
 };
 </script>
 <style>
-.finder {
+.form {
   display: flex;
   flex-flow: column;
-  margin: 50px;
+  align-items: center;
+  margin: 45px;
   min-width: 300px;
 }
+
 .search-section {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  height: 100%;
 }
 .routes-list {
   display: flex;
-  flex-flow: column;
   flex-wrap: wrap;
   margin: 30px;
+
+}
+
+aside {
+  position: relative;
+}
+.line-search {
+  width: 2px; /* Ширина линии */
+  background-color: #000; /* Цвет линии */
+  border: none; /* Убираем стандартную границу */
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>
