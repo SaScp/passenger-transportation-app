@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <section class="cancel-section">
     <h2>Отмена бронирования</h2>
-    <form @submit.prevent="cancelBooking">
-      <input v-model="bookingId" type="text" placeholder="ID бронирования" />
-      <button type="submit">Отменить бронирование</button>
+    <form @submit.prevent="cancelBooking" class="form">
+      <div class="form-group">
+        <input v-model="bookingId" type="text" placeholder="ID бронирования" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-danger">Отменить бронирование</button>
     </form>
-    <div v-if="cancelMessage">{{ cancelMessage }}</div>
-  </div>
+    <div v-if="cancelMessage" class="error-message">{{ cancelMessage }}</div>
+  </section>
 </template>
 
 <script>
@@ -33,3 +35,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>

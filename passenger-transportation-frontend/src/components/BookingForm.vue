@@ -1,13 +1,18 @@
 <template>
-  <div>
+  <section class="booking-section">
     <h2>Создание бронирования</h2>
-    <form @submit.prevent="createBooking">
-      <input v-model="phone" type="text" placeholder="Номер телефона" />
-      <input v-model="routeId" type="text" placeholder="ID маршрута" />
-      <button type="submit">Забронировать</button>
+    <form @submit.prevent="createBooking" class="form">
+      <div class="form-group">
+        <input v-model="phone" type="text" placeholder="Номер телефона" class="form-control" />
+      </div>
+      <div class="form-group">
+        <input v-model="routeId" type="text" placeholder="ID маршрута" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-success">Забронировать</button>
     </form>
-    <div v-if="bookingMessage">{{ bookingMessage }}</div>
-  </div>
+
+    <div v-if="bookingMessage" class="success-message">{{ bookingMessage }}</div>
+  </section>
 </template>
 
 <script>
@@ -16,9 +21,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      phone: null,
-      routeId: null,
-      bookingMessage: null,
+      phone: '',
+      routeId: '',
+      bookingMessage: '',
     };
   },
   methods: {
@@ -38,3 +43,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+</style>

@@ -42,7 +42,8 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
         find.where(builder.and(predicateList.toArray(new Predicate[0])));
         find.orderBy(builder.asc(from.get("departureTime")));
 
-        var query1 = entityManager.createQuery(find).getResultList();
+
+        var query1 = entityManager.createQuery(find).setMaxResults(5).getResultList();
         return RouteMapper.INSTANCE.routesToRouteEntitys(query1);
     }
 }

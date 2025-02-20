@@ -1,35 +1,44 @@
 <template>
-  <div>
+  <section class="search-section">
     <h2>Поиск маршрутов</h2>
-    <form @submit.prevent="searchRoutes">
-      <input v-model="type" type="text" placeholder="Тип транспорта" />
-      <input v-model="from" type="text" placeholder="Откуда" />
-      <input v-model="to" type="text" placeholder="Куда" />
-      <input v-model="time" type="text" placeholder="Дата и время" />
-      <button type="submit">Найти маршруты</button>
+    <form @submit.prevent="searchRoutes" class="form">
+      <div class="form-group">
+        <input v-model="type" type="text" placeholder="Тип транспорта" class="form-control" />
+      </div>
+      <div class="form-group">
+        <input v-model="from" type="text" placeholder="Откуда" class="form-control" />
+      </div>
+      <div class="form-group">
+        <input v-model="to" type="text" placeholder="Куда" class="form-control" />
+      </div>
+      <div class="form-group">
+        <input v-model="time" type="text" placeholder="Дата и время (например, 04/10/2025-08:00:00)" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Найти маршруты</button>
     </form>
 
-    <ul v-if="routes.length">
-      <li v-for="route in routes" :key="route.id">
-        {{ route.departureCity }} - {{ route.arrivalCity }} <br />
-        Время: {{ route.departureTime }} - {{ route.arrivalTime }} <br />
-        Цена: {{ route.price }} руб
-      </li>
-    </ul>
-    <div v-if="error">{{ error }}</div>
-  </div>
+    <div v-if="routes.length" class="routes-list">
+      <RouteCard v-for="route in routes" :key="route.id" :route="route" />
+    </div>
+
+    <div v-if="error" class="error-message">{{ error }}</div>
+  </section>
 </template>
 
 <script>
 import axios from 'axios';
+import RouteCard from './RouteCard.vue';
 
 export default {
+  components: {
+    RouteCard,
+  },
   data() {
     return {
-      type: null,
-      from: null,
-      to: null,
-      time: null,
+      type: '',
+      from: '',
+      to: '',
+      time: '',
       routes: [],
       error: '',
     };
@@ -37,7 +46,7 @@ export default {
   methods: {
     async searchRoutes() {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/booking/find`, {
+        const response = await axios.get('http://localhost:8080/api/v1/booking/find', {
           params: {
             type: this.type,
             from: this.from,
@@ -48,10 +57,13 @@ export default {
         this.routes = response.data;
         this.error = '';
       } catch (err) {
-        this.error = 'Ошибка при поиске маршрутов';
+        this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
         this.routes = [];
       }
     },
   },
 };
 </script>
+
+<style scoped>
+</style>
