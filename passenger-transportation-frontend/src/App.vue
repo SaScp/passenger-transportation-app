@@ -1,24 +1,21 @@
 <template>
-  <h1>Food</h1>
-  <food-item/>
-  <food-item/>
-  <food-item/>
+  <div id="app">
+    <SearchRoutes />
+    <BookingForm />
+    <CancelBooking />
+  </div>
 </template>
 
-<script></script>
+<script>
+import SearchRoutes from './components/SearchRoutes.vue';
+import BookingForm from './components/BookingForm.vue';
+import CancelBooking from './components/CancelBooking.vue';
 
-<style>
-  #app > div:hover{
-    cursor: pointer;
-  }
-
-  #app > div {
-    border: dashed black 1px;
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    background-color: lightblue;
-  }
-
-
-</style>
+export default {
+  components: {
+    SearchRoutes,
+    BookingForm,
+    CancelBooking,
+  },
+};
+</script>
