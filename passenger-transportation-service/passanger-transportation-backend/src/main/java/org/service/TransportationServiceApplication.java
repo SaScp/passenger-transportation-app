@@ -60,7 +60,7 @@ public class TransportationServiceApplication {
     }
 
     @Bean
-    public TransportationServiceCore transportationServiceCore(@Qualifier("jdbcAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
+    public TransportationServiceCore transportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
         return new TransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 

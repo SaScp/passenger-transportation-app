@@ -9,13 +9,12 @@
     <router-link to="/search-booking">search-booking</router-link>
     <hr/>
     <router-link to="/find-all-routes">find-all-routes</router-link>
-    <router-view />
+    <router-view/>
   </div>
 </template>
 <script>
 
 import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'App'

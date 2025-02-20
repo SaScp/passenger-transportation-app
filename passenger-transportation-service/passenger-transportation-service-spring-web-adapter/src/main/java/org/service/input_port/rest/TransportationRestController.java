@@ -63,8 +63,8 @@ public class TransportationRestController {
             description = "позволяет просматривать все маршруты"
     )
     @GetMapping("/find-all")
-    public List<RoutesEntity> findAllTransport(@RequestParam(name = "page-size", defaultValue = "20") Integer pageSize,
-                                               @RequestParam(name = "page-num", defaultValue = "0") Integer pageNum) {
+    public List<RoutesEntity> findAllTransport(@RequestParam(name = "page_size", defaultValue = "20") Integer pageSize,
+                                               @RequestParam(name = "page_num", defaultValue = "0") Integer pageNum) {
         return this.inputPort.findAll(pageNum, pageSize);
     }
 

@@ -35,10 +35,10 @@ export default {
   },
   data() {
     return {
-      type: '',
-      from: '',
-      to: '',
-      time: '',
+      type: null,
+      from: null,
+      to: null,
+      time: null,
       routes: [],
       error: '',
     };
@@ -55,6 +55,10 @@ export default {
           },
         });
         this.routes = response.data;
+        this.type = null;
+        this.from = null;
+        this.to = null;
+        this.time =  null
         this.error = '';
       } catch (err) {
         this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';

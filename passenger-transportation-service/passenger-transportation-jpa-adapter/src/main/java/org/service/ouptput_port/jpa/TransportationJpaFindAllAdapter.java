@@ -24,8 +24,7 @@ public class TransportationJpaFindAllAdapter implements FindAllTransportationSer
                         .findAll(PageRequest
                                 .of(pageNum,
                                         pageSize,
-                                        Sort.by(Sort.Order.by("departureTime")
-                                        )
+                                        Sort.by(Sort.Order.by("departureTime"))
                                 )
                         ).stream()
                         .toList()
