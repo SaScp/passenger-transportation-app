@@ -16,5 +16,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.route-card {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+.route-details {
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+}
 </style>

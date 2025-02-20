@@ -1,20 +1,29 @@
 <template>
   <div id="app">
-    <router-link to="/cancel-booking">cancel-booking</router-link>
-    <hr/>
-    <router-link to="/search-route">search-route</router-link>
-    <hr/>
-    <router-link to="/create-booking">create-booking</router-link>
-    <hr>
-    <router-link to="/search-booking">search-booking</router-link>
-    <hr/>
-    <router-link to="/find-all-routes">find-all-routes</router-link>
+    <header class="main-header">
+      <div class="in-header">
+        <router-link to="/cancel-booking">Отменить бронь</router-link>
+      </div>
+      <div class="in-header">
+        <router-link to="/search-route">Поиск маршрутов по параметрам</router-link>
+      </div>
+      <div class="in-header">
+        <router-link to="/create-booking">Забронировать</router-link>
+      </div>
+      <div class="in-header">
+        <router-link to="/search-booking">Найти брони по телефону</router-link>
+      </div>
+      <div class="in-header">
+        <router-link to="/find-all-routes">Найти все маршруты</router-link>
+      </div>
+    </header>
+
     <router-view/>
   </div>
 </template>
 <script>
 
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 
 export default defineComponent({
   name: 'App'
@@ -22,24 +31,39 @@ export default defineComponent({
 
 </script>
 <style>
-
-.booking-form {
+.main-header {
   display: flex;
-  flex-flow: column;
-
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: #2c3e50;
 }
 
-  h2 {
-    text-align: center;
-  }
+.in-header {
+  margin: 15px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  font-family: Avenir, sans-serif;
 
-  input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+  a {
+    text-decoration: none;
+    color: #333;
   }
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
 
 
 </style>
