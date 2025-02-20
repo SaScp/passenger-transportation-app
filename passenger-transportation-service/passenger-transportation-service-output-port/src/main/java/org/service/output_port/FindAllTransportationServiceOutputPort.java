@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface FindAllTransportationServiceOutputPort extends TransportationServiceOutputPort {
 
-    List<RoutesEntity> findAll();
+    List<RoutesEntity> findAll(int pageNum, int pageSize);
 
 }

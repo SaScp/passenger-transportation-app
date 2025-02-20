@@ -4,24 +4,28 @@ import org.service.entity.RoutesEntity;
 import org.service.output_port.FindAllTransportationServiceOutputPort;
 import org.service.output_port.factory.RouteFactory;
 import org.service.output_port.filter_handler.SQLConstant;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 
 public class TransportationJdbcFindAllAdapter extends MappingSqlQuery<RoutesEntity> implements FindAllTransportationServiceOutputPort, TransportationJdbcAdapter {
     public TransportationJdbcFindAllAdapter(DataSource ds) {
         super(ds, SQLConstant.SELECT_ALL_ROUTES);
+        this.declareParameter(new SqlParameter(Types.INTEGER));
+        this.declareParameter(new SqlParameter(Types.INTEGER));
     }
 
     @Override
     @Transactional
-    public List<RoutesEntity> findAll() {
-        return this.execute();
+    public List<RoutesEntity> findAll(int pageNum, int pageSize) {
+        return this.execute(pageSize, pageNum * pageSize);
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.service.entity.RoutesEntity;
 import org.service.ouptput_port.mapper.RouteMapper;
 import org.service.ouptput_port.repository.RouteRepository;
 import org.service.output_port.FindAllTransportationServiceOutputPort;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,17 @@ public class TransportationJpaFindAllAdapter implements FindAllTransportationSer
     private final RouteRepository repository;
 
     @Override
-    public List<RoutesEntity> findAll() {
-        return RouteMapper.INSTANCE.routesToRouteEntitys(repository.findAll(Sort.by(Sort.Order.by("departureTime"))));
+    public List<RoutesEntity> findAll(int pageNum, int pageSize) {
+        return RouteMapper.INSTANCE
+                .routesToRouteEntitys(repository
+                        .findAll(PageRequest
+                                .of(pageNum,
+                                        pageSize,
+                                        Sort.by(Sort.Order.by("departureTime")
+                                        )
+                                )
+                        ).stream()
+                        .toList()
+                );
     }
 }

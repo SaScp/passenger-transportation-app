@@ -13,7 +13,7 @@ public interface TransportationServiceInputPort {
 
     List<RoutesEntity> findByParams(ParamsEntity entity);
 
-    List<RoutesEntity> findAll();
+    List<RoutesEntity> findAll(int pageNum, int pageSize);
 
     void createBooking(BookingParamsEntity bookingParams);
 

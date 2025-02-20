@@ -15,6 +15,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @Setter
+@Cacheable
 @Table(name = "t_routes")
 @AllArgsConstructor
 @NoArgsConstructor

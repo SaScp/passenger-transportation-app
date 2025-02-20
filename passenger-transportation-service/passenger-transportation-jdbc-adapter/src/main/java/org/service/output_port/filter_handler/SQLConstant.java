@@ -11,7 +11,7 @@ public class SQLConstant {
     public static final String SELECT_ALL_ROUTES = """
             SELECT t_routes.id, departure_city, arrival_city, departure_time, arrival_time, type_name, price  FROM t_routes
             INNER JOIN t_transport_types
-                ON  t_routes.transport_type_id = t_transport_types.id  ORDER BY departure_time ASC""";
+                ON  t_routes.transport_type_id = t_transport_types.id  ORDER BY departure_time ASC limit ? offset ?""";
 
     public static final String SELECT_ALL_BOOKING_BY_PHONE = """
             SELECT

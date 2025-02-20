@@ -15,4 +15,5 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "select booking from Booking booking inner join fetch booking.status  where booking.userPhone.numberPhone = :number_phone")
     Optional<List<Booking>> findAllByNumberPhone_NumberPhone(@Param("number_phone") String numberPhone);
+
 }
