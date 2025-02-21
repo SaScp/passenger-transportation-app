@@ -1,29 +1,33 @@
 <template>
+  <header class="search-header">
+    <div class="header-form-group">
+      <input v-model="from" type="text" placeholder="Откуда" class="form-control" />
+    </div>
+    <div>
+      <svg class="arrow-right-4" viewBox="0 0 100 85">
+        <polygon points="58.263,0.056 100,41.85 58.263,83.641 30.662,83.641 62.438,51.866 0,51.866 0,31.611 62.213,31.611 30.605,0 58.263,0.056" />
+      </svg>
+    </div>
+    <div class="header-form-group">
+      <input v-model="to" type="text" placeholder="Куда" class="form-control" />
+    </div>
+  </header>
   <section class="search-section">
-
     <aside>
-      <form @submit.prevent="searchRoutes" class="form">
-        <h2>Поиск маршрутов</h2>
+      <div class="find-el">
         <div class="form-group">
           <input v-model="type" type="text" placeholder="Тип транспорта" class="form-control" />
         </div>
-        <div class="form-group">
-          <input v-model="from" type="text" placeholder="Откуда" class="form-control" />
-        </div>
-        <div class="form-group">
-          <input v-model="to" type="text" placeholder="Куда" class="form-control" />
-        </div>
-        <div class="form-group">
-          <input v-model="time" type="text" placeholder="Дата и время (например, 04/10/2025-08:00:00)" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary">Найти маршруты</button>
-      </form>
+        <button @click="searchRoutes">Найти маршруты</button>
+      </div>
       <hr class="line-search">
     </aside>
     <div v-if="routes.length" class="routes-list">
       <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" />
     </div>
-    <div v-if="error" class="error-message">{{ error }}</div>
+    <div v-if="routes.length === 0" class="routes-list-not-found">
+        ничего не найдено
+    </div>
   </section>
 </template>
 
@@ -51,20 +55,7 @@ export default {
   methods: {
     async searchRoutes() {
       try {
-       /* const response = await axios.get('http://localhost:8080/api/v1/booking/find', {
-          params: {
-            type: this.type,
-            from: this.from,
-            to: this.to,
-            time: this.time,
-          },
-        });
-        this.routes = response.data;
-        this.type = null;
-        this.from = null;
-        this.to = null;
-        this.time =  null
-        this.error = '';*/
+
         const params = {};
         if (this.type) params.type = this.type
         if (this.from) params.from = this.from
@@ -89,11 +80,26 @@ export default {
 };
 </script>
 <style>
-.form {
+
+.arrow-right-4 {
+  margin: 10px;
+  width: 80px;
+  height: 20px;
+  cursor: pointer;
+}
+.routes-list-not-found {
+  margin: 120px;
+}
+.search-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.find-el {
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin: 45px;
+  margin: 30px;
   min-width: 300px;
 }
 

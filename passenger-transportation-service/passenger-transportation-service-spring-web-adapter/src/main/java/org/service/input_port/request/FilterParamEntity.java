@@ -1,6 +1,7 @@
 package org.service.input_port.request;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class FilterParamEntity {
     private LocalDateTime time;
@@ -10,9 +11,13 @@ public class FilterParamEntity {
 
     public FilterParamEntity(LocalDateTime localDateTime, String type, String from, String to) {
         this.time = localDateTime;
-        this.type = type;
-        this.from = from;
-        this.to = to;
+        this.type = getString(type);
+        this.from = getString(from);
+        this.to = getString(to);
+    }
+
+    private static String getString(String to) {
+        return Optional.ofNullable(to).map(e -> e.trim()).orElse(null);
     }
 
     public FilterParamEntity(){}

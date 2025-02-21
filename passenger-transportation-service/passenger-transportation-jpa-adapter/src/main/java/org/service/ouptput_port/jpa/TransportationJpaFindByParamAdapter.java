@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
+import org.service.entity.PageEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
 import org.service.ouptput_port.filter_handler.HandlerExecutor;
@@ -30,7 +31,7 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
     private EntityManager entityManager;
 
     @Override
-    public List<RoutesEntity> findBy(ParamsEntity entity) {
+    public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Route> find = builder.createQuery(Route.class);

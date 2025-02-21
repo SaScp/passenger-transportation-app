@@ -1,6 +1,7 @@
 package org.service.ouptput_port.jpa;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingParamsEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.ouptput_port.model.Booking;
@@ -17,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.UUID;
 
+@Slf4j
 @Component
 @Transactional
 @AllArgsConstructor
@@ -29,13 +31,18 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
     @Override
     public void create(BookingParamsEntity params) {
         String id = UUID.randomUUID().toString();
-        Booking booking = new Booking(
-                id,
-                LocalDateTime.now(),
-                new Status(CREATED_STATUS_ID),
-                new User(params.getNumberPhone()),
-                params.getRouteId()
-        );
-        bookingRepository.save(booking);
+        try {
+            Booking booking = new Booking(
+                    id,
+                    LocalDateTime.now(),
+                    new Status(CREATED_STATUS_ID),
+                    new User(params.getNumberPhone()),
+                    params.getRouteId()
+            );
+            bookingRepository.save(booking);
+        } catch (Exception e) {
+            log.error("\nerror {} \nin {} \nmessage {}", e.getClass(), e.getStackTrace()[1], e.getMessage());
+            throw new ProblemDetailsException(500, "ошибка при сохранении");
+        }
     }
 }

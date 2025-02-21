@@ -9,12 +9,14 @@
       <div class="booking-button" v-if="isFinder">
         <button v-if="!isFormVisible" class="inner-booking-button" @click="toggleForm">Забронировать</button>
         <div v-if="isFormVisible">
-          <form @submit.prevent="submitData">
+          <form @submit.prevent="submitData(route.id)">
             <div class="form-group">
               <input v-model="phone" type="text" placeholder="Ваш номер телефона" class="form-control" />
+              <div v-if="isNull" class="error-message">Введите номер телефона</div>
             </div>
             <button type="submit" class="inner-booking-button">Забронировать</button>
           </form>
+          <div v-if="err" class="error-message">{{ err }}</div>
         </div>
       </div>
     </div>
@@ -25,7 +27,8 @@
     flex-flow: column;-->
 <script>
 import {ref} from "vue";
-
+import axios  from "axios";
+import route from "@/route.js";
 export default {
   props: {
     route: Object,
@@ -34,17 +37,35 @@ export default {
   data() {
     return {
       isFormVisible: false,
-      phone: null
+      phone: null,
+      err: '',
+      isNull : false
     };
   },
   methods : {
     toggleForm() {
       this.isFormVisible = !this.isFormVisible
     },
-    submitData() {
-      console.log(this.phone)
-      this.phone = null
-      this.isFormVisible = false
+    async submitData(routeId) {
+      try{
+        this.isNull = this.phone === null;
+        if (this.isNull) {
+          return;
+        }
+        const response = await  axios.post('http://localhost:8080/api/v1/booking/create', {
+          numberPhone: this.phone,
+          routeId: routeId
+        });
+        if (response.data.status === 500) {
+          err = response.data.detail;
+        }
+        this.phone = null
+        this.isFormVisible = false
+      } catch (err) {
+        err = "Не удалось забранировать поездку"
+      }
+
+
     }
   }
 };
@@ -60,6 +81,9 @@ export default {
   margin: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+.error-message {
+  color: red;
 }
 .route-details {
   display: flex;

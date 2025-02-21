@@ -1,5 +1,6 @@
 package org.service.output_port.jdbc.adapter;
 
+import org.service.entity.PageEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.Result;
 import org.service.entity.RoutesEntity;
@@ -43,7 +44,7 @@ public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<Route
 
     @Override
     @Transactional
-    public List<RoutesEntity> findBy(ParamsEntity entity) {
+    public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
         Result resultVal = this.handler.execute(entity);
 
         return getEntities(resultVal);

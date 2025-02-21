@@ -20,7 +20,6 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        System.out.println(parameter.hasParameterAnnotation(FindByParam.class));
         return parameter.hasParameterAnnotation(FindByParam.class);
     }
 

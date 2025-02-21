@@ -4,13 +4,15 @@ import SearchRoutePage from "@/pages/SearchRoutePage.vue";
 import BookingFromPage from "@/pages/BookingFromPage.vue";
 import SearchBooking from "@/components/SearchBooking.vue";
 import FindAllRoutesPage from "@/pages/FindAllRoutesPage.vue";
+import MainPage from "@/pages/MainPage.vue";
 
 const routes = [
     { path: '/cancel-booking', component: CancelBookingPage },
     { path: '/search-route', component: SearchRoutePage },
     { path: '/create-booking', component: BookingFromPage },
     { path: '/search-booking', component: SearchBooking },
-    { path: '/find-all-routes', component: FindAllRoutesPage }
+    { path: '/find-all-routes', component: FindAllRoutesPage },
+    { path: '/', component: MainPage }
 ];
 
 const router = createRouter({

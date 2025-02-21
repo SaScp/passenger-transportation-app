@@ -1,9 +1,6 @@
 package org.service.core;
 
-import org.service.entity.BookingEntity;
-import org.service.entity.BookingParamsEntity;
-import org.service.entity.ParamsEntity;
-import org.service.entity.RoutesEntity;
+import org.service.entity.*;
 import org.service.exception.ProblemDetailsException;
 import org.service.input_port.TransportationServiceInputPort;
 import org.service.output_port.*;
@@ -23,13 +20,13 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     }
 
     @Override
-    public List<RoutesEntity> findByParams(ParamsEntity entity) {
-        return aggregate.getFindByParamsTransportationServiceOutputPort().findBy(entity);
+    public List<RoutesEntity> findByParams(ParamsEntity entity, PageEntity pageEntity) {
+        return aggregate.getFindByParamsTransportationServiceOutputPort().findBy(entity, pageEntity);
     }
 
     @Override
-    public List<RoutesEntity> findAll(int pageNum, int pageSize) {
-        return aggregate.getFindAllTransportationServiceOutputPort().findAll(pageNum, pageSize);
+    public List<RoutesEntity> findAll(PageEntity pageEntity) {
+        return aggregate.getFindAllTransportationServiceOutputPort().findAll(pageEntity.getPageNum(), pageEntity.getPageSize());
     }
 
     @Override

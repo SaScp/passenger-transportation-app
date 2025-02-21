@@ -2,13 +2,11 @@ package org.service.input_port.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.service.entity.BookingEntity;
-import org.service.entity.BookingParamsEntity;
-import org.service.entity.ParamsEntity;
-import org.service.entity.RoutesEntity;
+import org.service.entity.*;
 
 import org.service.input_port.TransportationServiceInputPort;
 import org.service.input_port.annotation.FindByParam;
+import org.service.input_port.annotation.PageSettingParam;
 import org.service.input_port.request.FilterParamEntity;
 import org.service.input_port.request.BookingQueryParam;
 import org.springframework.http.ResponseEntity;
@@ -47,14 +45,17 @@ public class TransportationRestController {
             }
     )
     @GetMapping("/find")
-    public List<RoutesEntity> findTransport(@Parameter(hidden = true) @FindByParam FilterParamEntity filterParam) {
+    public List<RoutesEntity> findTransport(
+            @PageSettingParam PageEntity pageEntity,
+            @Parameter(hidden = true) @FindByParam FilterParamEntity filterParam) {
         return this.inputPort.findByParams(
                 new ParamsEntity(
                         filterParam.getTime(),
                         filterParam.getType(),
                         filterParam.getFrom(),
                         filterParam.getTo()
-                )
+                ),
+                pageEntity
         );
     }
 
@@ -63,9 +64,8 @@ public class TransportationRestController {
             description = "позволяет просматривать все маршруты"
     )
     @GetMapping("/find-all")
-    public List<RoutesEntity> findAllTransport(@RequestParam(name = "page_size", defaultValue = "20") Integer pageSize,
-                                               @RequestParam(name = "page_num", defaultValue = "0") Integer pageNum) {
-        return this.inputPort.findAll(pageNum, pageSize);
+    public List<RoutesEntity> findAllTransport(@PageSettingParam PageEntity pageEntity) {
+        return this.inputPort.findAll(pageEntity);
     }
 
     @Operation(
@@ -93,8 +93,8 @@ public class TransportationRestController {
             description = "Позволяет посмотреть все маршруты пользователя"
     )
     @GetMapping("/find-by-phone")
-    public List<BookingEntity> findTransportByPhone(@RequestParam(value = "phone")  String phone) {
-       return this.inputPort.findByPhone(phone); ///return this.inputPort.
+    public List<BookingEntity> findTransportByPhone(@RequestParam(value = "phone") String phone) {
+        return this.inputPort.findByPhone(phone); ///return this.inputPort.
     }
 
     @Operation(
@@ -102,7 +102,8 @@ public class TransportationRestController {
             description = "Позволяет посмотреть просмотреть маршрут по id"
     )
     @GetMapping("/find-by-id")
-    public List<RoutesEntity> findTransportById(@RequestParam(value = "route_id") String id) {
-        return this.inputPort.findByParams(new ParamsEntity(id));
+    public List<RoutesEntity> findTransportById( @PageSettingParam PageEntity pageEntity,
+                                                 @RequestParam(value = "route_id") String id) {
+        return this.inputPort.findByParams(new ParamsEntity(id), pageEntity);
     }
 }

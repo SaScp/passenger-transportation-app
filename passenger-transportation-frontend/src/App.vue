@@ -59,7 +59,6 @@ h2 {
 }
 
 input {
-  width: 100%;
   padding: 10px;
   margin: 10px 0;
   border-radius: 4px;
