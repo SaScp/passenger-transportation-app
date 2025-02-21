@@ -16,6 +16,7 @@ public class ToParamHandler extends Handler {
     @Override
     protected void addParam(ParamsEntity entity) {
         this.criteriaPredicate.add(Optional.ofNullable(entity.getTo())
+                .filter(to -> !(to.isEmpty() && to.isBlank()))
                 .map(obj -> builder.equal(root.get("arrivalCity"), obj)));
     }
 }

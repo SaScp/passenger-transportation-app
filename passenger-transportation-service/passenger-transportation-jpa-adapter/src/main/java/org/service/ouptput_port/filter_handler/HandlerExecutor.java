@@ -1,9 +1,6 @@
 package org.service.ouptput_port.filter_handler;
 
-
-
 import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.service.entity.ParamsEntity;
@@ -12,7 +9,6 @@ import org.service.ouptput_port.model.Route;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class HandlerExecutor {
 

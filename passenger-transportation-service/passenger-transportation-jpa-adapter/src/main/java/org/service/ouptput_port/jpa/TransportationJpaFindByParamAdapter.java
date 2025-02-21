@@ -1,7 +1,7 @@
 package org.service.ouptput_port.jpa;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+
 import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 import org.service.entity.PageEntity;
@@ -10,10 +10,9 @@ import org.service.entity.RoutesEntity;
 import org.service.ouptput_port.filter_handler.HandlerExecutor;
 import org.service.ouptput_port.mapper.RouteMapper;
 import org.service.ouptput_port.model.Route;
-import org.service.ouptput_port.model.TransportType;
-import org.service.ouptput_port.repository.RouteRepository;
 import org.service.output_port.FindByParamsTransportationServiceOutputPort;
-import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +29,13 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
     private EntityManager entityManager;
 
+    private final CacheManager cacheManager;
+
     @Override
+    @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
+        cacheManager.getCache("");
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Route> find = builder.createQuery(Route.class);
         Root<Route> from = find.from(Route.class);
@@ -43,8 +46,11 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
         find.where(builder.and(predicateList.toArray(new Predicate[0])));
         find.orderBy(builder.asc(from.get("departureTime")));
 
+        var query1 = entityManager.createQuery(find)
+                .setFirstResult((pageEntity.getPageSize() * pageEntity.getPageNum()))
+                .setMaxResults(pageEntity.getPageSize())
+                .getResultList();
 
-        var query1 = entityManager.createQuery(find).setMaxResults(5).getResultList();
         return RouteMapper.INSTANCE.routesToRouteEntitys(query1);
     }
 }

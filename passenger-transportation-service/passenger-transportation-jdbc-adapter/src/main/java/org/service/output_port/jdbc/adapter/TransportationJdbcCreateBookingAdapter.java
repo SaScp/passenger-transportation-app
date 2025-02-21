@@ -4,7 +4,7 @@ import org.service.entity.BookingEntity;
 import org.service.entity.BookingParamsEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.output_port.CreateBookingTransportationServiceOutputPort;
-import org.service.output_port.LruIdCache;
+import org.service.output_port.JdbcLruIdCache;
 import org.service.output_port.filter_handler.SQLConstant;
 import org.service.output_port.jdbc.InsertUserBookingUtils;
 import org.slf4j.Logger;
@@ -28,10 +28,10 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
 
     private static final Logger log = LoggerFactory.getLogger(TransportationJdbcCreateBookingAdapter.class);
 
-    private final LruIdCache<String, List<BookingEntity>> lruIdCache;
+    private final JdbcLruIdCache<String, List<BookingEntity>> lruIdCache;
 
 
-    public TransportationJdbcCreateBookingAdapter(DataSource ds, LruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
+    public TransportationJdbcCreateBookingAdapter(DataSource ds, JdbcLruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
         super(ds, SQLConstant.INSERT_BOOKING);
         this.lruIdCache = lruIdCache;
         this.declareParameter(new SqlParameter(Types.VARCHAR));
@@ -50,8 +50,10 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
         try {
             String format = formatter.format(LocalDateTime.now());
             String id = UUID.randomUUID().toString();
+
             this.update(id, entity.getRouteId(), format, 1, entity.getNumberPhone());
-            insertUser(entity.getNumberPhone(), id);
+            insertUser(entity.getNumberPhone());
+
             lruIdCache.remove(entity.getNumberPhone());
         } catch (ProblemDetailsException e) {
             log.error("error in method {} message {}", e.getStackTrace()[1], e.getMessage());
@@ -59,7 +61,7 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
         }
     }
 
-    private void insertUser(String numberPhone, String bookingId) {
+    private void insertUser(String numberPhone) {
         getJdbcTemplate().execute((ConnectionCallback<?>) e -> {
                     InsertUserBookingUtils utils = new InsertUserBookingUtils(e);
                     try {

@@ -19,6 +19,7 @@ public class TypeParamHandler extends Handler {
     protected void addParam(ParamsEntity entity) {
         Join<Route, TransportType> typeJoin = root.join("transportType");
         this.criteriaPredicate.add(Optional.ofNullable(entity.getType())
+                .filter(type -> !(type.isEmpty() && type.isBlank()))
                 .map(obj -> builder.equal(typeJoin.get("transportType"), obj)));
     }
 }

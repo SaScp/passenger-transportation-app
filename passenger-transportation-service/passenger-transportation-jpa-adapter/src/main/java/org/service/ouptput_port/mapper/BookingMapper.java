@@ -17,6 +17,8 @@ public interface BookingMapper {
 
     List<BookingEntity> bookingsToBookingEntitys(List<Booking> bookings);
 
+    BookingEntity bookingToBookingEntity(Booking bookings);
+
     default String map(Status value){
         return value.getStatus();
     }

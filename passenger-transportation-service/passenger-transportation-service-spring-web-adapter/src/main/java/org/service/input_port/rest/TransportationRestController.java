@@ -41,6 +41,12 @@ public class TransportationRestController {
                             allowEmptyValue = true),
                     @Parameter(name = "type",
                             required = true,
+                            allowEmptyValue = true),
+                    @Parameter(name = "page_num",
+                            required = true,
+                            allowEmptyValue = true),
+                    @Parameter(name = "page_size",
+                            required = true,
                             allowEmptyValue = true)
             }
     )
@@ -61,7 +67,15 @@ public class TransportationRestController {
 
     @Operation(
             summary = "Просмотр всех маршрутов",
-            description = "позволяет просматривать все маршруты"
+            description = "позволяет просматривать все маршруты",
+            parameters = {
+                    @Parameter(name = "page_num",
+                            required = true,
+                            allowEmptyValue = true),
+                    @Parameter(name = "page_size",
+                            required = true,
+                            allowEmptyValue = true)
+            }
     )
     @GetMapping("/find-all")
     public List<RoutesEntity> findAllTransport(@PageSettingParam PageEntity pageEntity) {

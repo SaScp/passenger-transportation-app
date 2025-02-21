@@ -5,12 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
-import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 
 @Entity
 @Getter

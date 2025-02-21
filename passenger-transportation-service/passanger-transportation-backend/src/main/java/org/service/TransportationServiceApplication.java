@@ -2,9 +2,10 @@ package org.service;
 
 import org.service.core.TransportationServiceCore;
 import org.service.entity.BookingEntity;
-import org.service.exception.ProblemDetailsException;
+import org.service.entity.Result;
+import org.service.entity.RoutesEntity;
 import org.service.ouptput_port.jpa.*;
-import org.service.output_port.LruIdCache;
+import org.service.output_port.JdbcLruIdCache;
 import org.service.output_port.TransportationServiceOutputPortAggregate;
 import org.service.output_port.TransportationServiceOutputPortAggregateImpl;
 import org.service.output_port.jdbc.adapter.*;
@@ -12,14 +13,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
+@EnableCaching
 @SpringBootApplication
 public class TransportationServiceApplication {
 
@@ -34,11 +39,11 @@ public class TransportationServiceApplication {
     @Bean("jdbcAggregate")
     public TransportationServiceOutputPortAggregate transportationServiceJdbcOutputPortAggregateImpl(DataSource dataSource) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
-                new TransportationJdbcCreateBookingAdapter(dataSource, lruIdCache()),
-                new TransportationJdbcRevokeBookingAdapter(dataSource, lruIdCache()),
-                new TransportationJdbcFindByParamsAdapter(dataSource, new LruIdCache<>(cacheSize)),
+                new TransportationJdbcCreateBookingAdapter(dataSource, jdbcLruIdCache()),
+                new TransportationJdbcRevokeBookingAdapter(dataSource, jdbcLruIdCache()),
+                new TransportationJdbcFindByParamsAdapter(dataSource, routeJdbcCache()),
                 new TransportationJdbcFindAllAdapter(dataSource),
-                new TransportationJdbcFindByPhoneAdapter(dataSource, lruIdCache())
+                new TransportationJdbcFindByPhoneAdapter(dataSource, jdbcLruIdCache())
         );
     }
 
@@ -64,13 +69,13 @@ public class TransportationServiceApplication {
         return new TransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 
-    @Bean
-    public Map<Class<? extends ProblemDetailsException>, ProblemDetailsException> exceptionMap(List<? extends ProblemDetailsException> exceptions) {
-        return new HashMap<>();
+    @Bean("booking_jdbc_cache")
+    public JdbcLruIdCache<String, List<BookingEntity>> jdbcLruIdCache() {
+        return new JdbcLruIdCache<>(cacheSize);
     }
 
-    @Bean
-    public LruIdCache<String, List<BookingEntity>> lruIdCache() {
-        return new LruIdCache<>(cacheSize);
+    @Bean("route_jdbc_cache")
+    public JdbcLruIdCache<Result, List<RoutesEntity>> routeJdbcCache() {
+        return new JdbcLruIdCache<>(cacheSize);
     }
 }

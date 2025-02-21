@@ -1,5 +1,6 @@
 package org.service.output_port.jdbc.adapter;
 
+import org.service.entity.PageEntity;
 import org.service.entity.RoutesEntity;
 import org.service.output_port.FindAllTransportationServiceOutputPort;
 import org.service.output_port.factory.RouteFactory;
@@ -24,8 +25,8 @@ public class TransportationJdbcFindAllAdapter extends MappingSqlQuery<RoutesEnti
 
     @Override
     @Transactional
-    public List<RoutesEntity> findAll(int pageNum, int pageSize) {
-        return this.execute(pageSize, pageNum * pageSize);
+    public List<RoutesEntity> findAll(PageEntity pageEntity) {
+        return this.execute(pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
     }
 
     @Override

@@ -26,7 +26,7 @@ public class TransportationServiceCore implements TransportationServiceInputPort
 
     @Override
     public List<RoutesEntity> findAll(PageEntity pageEntity) {
-        return aggregate.getFindAllTransportationServiceOutputPort().findAll(pageEntity.getPageNum(), pageEntity.getPageSize());
+        return aggregate.getFindAllTransportationServiceOutputPort().findAll(pageEntity);
     }
 
     @Override

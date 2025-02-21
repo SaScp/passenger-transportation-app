@@ -1,13 +1,12 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.service.output_port.LruIdCache;
+import org.service.output_port.JdbcLruIdCache;
 import static org.junit.jupiter.api.Assertions.*;
 public class LruCacheTest {
 
 
     @Test
     public void cacheOverflowTest() {
-        LruIdCache<Integer, Integer> lruIdCache = new LruIdCache<>(3);
+        JdbcLruIdCache<Integer, Integer> lruIdCache = new JdbcLruIdCache<>(3);
 
         lruIdCache.put(1, 2);
         lruIdCache.put(2, 2);
@@ -22,7 +21,7 @@ public class LruCacheTest {
 
     @Test
     public void cacheContainsNullValueIsTrueTest() {
-        LruIdCache<Integer, Integer> lruIdCache  = new LruIdCache<>(3);
+        JdbcLruIdCache<Integer, Integer> lruIdCache  = new JdbcLruIdCache<>(3);
 
         lruIdCache.put(null, 2);
 
@@ -31,14 +30,14 @@ public class LruCacheTest {
 
     @Test
     public void cacheGetNotFoundElementIsNullTest() {
-        LruIdCache<Integer, Integer> lruIdCache  = new LruIdCache<>(3);
+        JdbcLruIdCache<Integer, Integer> lruIdCache  = new JdbcLruIdCache<>(3);
 
         assertNull(lruIdCache.get(1));
     }
 
     @Test
     public void cacheGetElementIsNotNullTest() {
-        LruIdCache<Integer, Integer> lruIdCache  = new LruIdCache<>(3);
+        JdbcLruIdCache<Integer, Integer> lruIdCache  = new JdbcLruIdCache<>(3);
 
         lruIdCache.put(1, 1);
 

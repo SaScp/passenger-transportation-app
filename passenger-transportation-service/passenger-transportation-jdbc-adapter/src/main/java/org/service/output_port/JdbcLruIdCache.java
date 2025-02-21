@@ -2,9 +2,8 @@ package org.service.output_port;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-public class LruIdCache<T, E> {
+public class JdbcLruIdCache<T, E> {
 
     public class Node {
         E val;
@@ -23,7 +22,7 @@ public class LruIdCache<T, E> {
     private int capacity;
     private Map<T, Node> cache;
 
-    public LruIdCache(int capacity) {
+    public JdbcLruIdCache(int capacity) {
         this.capacity = capacity;
         head = new Node(null, null);
         tail = new Node(null, null);

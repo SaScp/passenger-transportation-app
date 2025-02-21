@@ -2,7 +2,7 @@ package org.service.output_port.jdbc.adapter;
 
 import org.service.entity.BookingEntity;
 import org.service.exception.ProblemDetailsException;
-import org.service.output_port.LruIdCache;
+import org.service.output_port.JdbcLruIdCache;
 import org.service.output_port.RevokeBookingTransportationServiceOutputPort;
 import org.service.output_port.filter_handler.SQLConstant;
 import org.slf4j.Logger;
@@ -22,10 +22,10 @@ public class TransportationJdbcRevokeBookingAdapter extends SqlUpdate implements
 
     private final Logger log = LoggerFactory.getLogger(TransportationJdbcRevokeBookingAdapter.class);
 
-    private final LruIdCache<String, List<BookingEntity>> lruIdCache;
+    private final JdbcLruIdCache<String, List<BookingEntity>> lruIdCache;
 
 
-    public TransportationJdbcRevokeBookingAdapter(DataSource ds, LruIdCache<String, List<BookingEntity>> cache) {
+    public TransportationJdbcRevokeBookingAdapter(DataSource ds, JdbcLruIdCache<String, List<BookingEntity>> cache) {
         super(ds, SQLConstant.UPDATE_STATUS);
         this.declareParameter(new SqlParameter(Types.INTEGER));
         this.declareParameter(new SqlParameter(Types.VARCHAR));
@@ -38,6 +38,7 @@ public class TransportationJdbcRevokeBookingAdapter extends SqlUpdate implements
         Exception exception = null;
         try {
             this.update(2, id);
+
             String s = getJdbcTemplate().queryForObject(SQLConstant.SELECT_BOOKING_BY_ID, String.class, id);
             lruIdCache.remove(s);
         }  catch (EmptyResultDataAccessException e) {

@@ -4,8 +4,9 @@ import org.service.entity.PageEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.Result;
 import org.service.entity.RoutesEntity;
+import org.service.exception.ProblemDetailsException;
 import org.service.output_port.FindByParamsTransportationServiceOutputPort;
-import org.service.output_port.LruIdCache;
+import org.service.output_port.JdbcLruIdCache;
 import org.service.output_port.factory.RouteFactory;
 import org.service.output_port.filter_handler.*;
 import org.slf4j.Logger;
@@ -29,11 +30,11 @@ public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<Route
 
     private HandlerExecutor handler;
 
-    private final LruIdCache<Result, List<RoutesEntity>> lruIdCache;
+    private final JdbcLruIdCache<Result, List<RoutesEntity>> lruIdCache;
 
-    public TransportationJdbcFindByParamsAdapter(DataSource ds, LruIdCache<Result, List<RoutesEntity>> cache) {
+    public TransportationJdbcFindByParamsAdapter(DataSource ds, JdbcLruIdCache<Result, List<RoutesEntity>> cache) {
         super(ds, "");
-        this.lruIdCache = new LruIdCache<>(20);
+        this.lruIdCache = new JdbcLruIdCache<>(20);
         this.handler = new HandlerExecutor();
     }
 
@@ -61,10 +62,11 @@ public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<Route
 
                 List<RoutesEntity> routesEntities = createRouteList(query);
                 lruIdCache.put(resultVal, routesEntities);
+
                 return routesEntities;
             } catch (SQLException ex) {
                 log.error("error in method {} message {}", ex.getStackTrace()[1], ex.getMessage());
-                throw new RuntimeException();
+                throw new ProblemDetailsException(500, "sql error");
             }
         });
     }

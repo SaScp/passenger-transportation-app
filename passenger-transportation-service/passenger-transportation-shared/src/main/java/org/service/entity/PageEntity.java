@@ -1,8 +1,10 @@
 package org.service.entity;
 
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Optional;
 
-public class PageEntity {
+public class PageEntity implements Serializable {
     private int pageNum;
     private int pageSize;
 
@@ -31,5 +33,17 @@ public class PageEntity {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PageEntity that)) return false;
+        return pageNum == that.pageNum && pageSize == that.pageSize;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pageNum, pageSize);
     }
 }

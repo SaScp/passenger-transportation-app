@@ -1,4 +1,6 @@
 spring:
+  cache:
+    type: simple
   datasource:
     driver-class-name: org.sqlite.JDBC
     username: admin

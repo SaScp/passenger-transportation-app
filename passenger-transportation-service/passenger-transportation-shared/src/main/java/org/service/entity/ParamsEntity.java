@@ -1,9 +1,10 @@
 package org.service.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public final class ParamsEntity {
+public final class ParamsEntity implements Serializable {
     private LocalDateTime time;
     private String type;
     private String from;

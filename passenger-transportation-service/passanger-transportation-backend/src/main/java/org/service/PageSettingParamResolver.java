@@ -21,11 +21,10 @@ public class PageSettingParamResolver extends RequestParamMethodArgumentResolver
 
     @Override
     protected Object resolveName(String name, MethodParameter parameter, NativeWebRequest request) throws Exception {
-        PageEntity pageEntity = new PageEntity(
-               request.getParameter("page_num"),
+        return  new PageEntity(
+                request.getParameter("page_num"),
                 request.getParameter("page_size")
         );
-        return pageEntity;
     }
 
 }
