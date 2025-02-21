@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -48,11 +49,9 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
             );
             Booking save = bookingRepository.save(booking);
 
-            if (cacheManager.getCache("TransportationJpaFindByPhoneAdapter::findBy").get(params.getNumberPhone()) != null) {
-                cacheManager.getCache("TransportationJpaFindByPhoneAdapter::findBy")
-                        .get(params.getNumberPhone(), List.class)
-                        .add(BookingMapper.INSTANCE.bookingToBookingEntity(save));
-            }
+            Optional.ofNullable(cacheManager
+                            .getCache("TransportationJpaFindByPhoneAdapter::findBy").get(params.getNumberPhone(), List.class))
+                    .ifPresent((cache) -> cache.add(BookingMapper.INSTANCE.bookingToBookingEntity(save)));
 
         } catch (Exception e) {
             log.error("\nerror {} \nin {} \nmessage {}", e.getClass(), e.getStackTrace()[1], e.getMessage());

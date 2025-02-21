@@ -34,8 +34,6 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
     @Override
     @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
-
-        cacheManager.getCache("");
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Route> find = builder.createQuery(Route.class);
         Root<Route> from = find.from(Route.class);

@@ -12,6 +12,8 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Slf4j
 @Component
@@ -36,6 +38,9 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
         booking.setStatus(new Status(REVOKED_STATUS_ID));
         repository.save(booking);
 
-        cacheManager.getCache("TransportationJpaFindByPhoneAdapter::findBy").evictIfPresent(booking.getUserPhone().getNumberPhone());
+        Optional.ofNullable(cacheManager
+                        .getCache("TransportationJpaFindByPhoneAdapter::findBy"))
+                .ifPresent(cache -> cache.evictIfPresent(booking.getUserPhone().getNumberPhone())
+                );
     }
 }

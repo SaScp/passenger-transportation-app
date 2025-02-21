@@ -16,6 +16,7 @@ import java.util.List;
 
 
 public class TransportationJdbcFindByPhoneAdapter extends MappingSqlQuery<BookingEntity> implements FindByPhoneTransportationServiceOutputPort, TransportationJdbcAdapter {
+
     private final JdbcLruIdCache<String, List<BookingEntity>> lruIdCache;
 
     public TransportationJdbcFindByPhoneAdapter(DataSource ds, JdbcLruIdCache<String, List<BookingEntity>> cache) {
