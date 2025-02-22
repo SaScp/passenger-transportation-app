@@ -99,7 +99,6 @@ export default {
 .booking-card.hovered {
   border: 1px solid #ccc;
   .route {
-    height: 19%;
   }
   .booking-details {
     background-color: #f2f2f2;

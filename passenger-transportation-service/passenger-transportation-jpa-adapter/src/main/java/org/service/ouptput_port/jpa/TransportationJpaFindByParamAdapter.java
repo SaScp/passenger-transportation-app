@@ -29,7 +29,6 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
     private EntityManager entityManager;
 
-    private final CacheManager cacheManager;
 
     @Override
     @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")

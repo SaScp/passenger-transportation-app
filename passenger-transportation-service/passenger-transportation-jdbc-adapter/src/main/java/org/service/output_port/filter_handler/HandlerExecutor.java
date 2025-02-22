@@ -23,7 +23,7 @@ public class HandlerExecutor {
             throw new ProblemDetailsException(500, "ParamsEntity is null");
         }
         StringBuilder builder = new StringBuilder(SQLConstant.START_SELECT_BY_PARAMS_QUERY);
-        List<String> params = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
 
         return this.parentHandler.next(entity, builder, params).build();
     }

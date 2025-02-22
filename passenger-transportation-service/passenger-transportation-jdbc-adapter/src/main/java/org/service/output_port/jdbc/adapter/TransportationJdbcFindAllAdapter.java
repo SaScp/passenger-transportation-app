@@ -16,7 +16,7 @@ import java.sql.Types;
 import java.util.List;
 
 
-public class TransportationJdbcFindAllAdapter extends MappingSqlQuery<RoutesEntity> implements FindAllTransportationServiceOutputPort, TransportationJdbcAdapter {
+public class TransportationJdbcFindAllAdapter extends AbstractFindRoutesAdapter implements FindAllTransportationServiceOutputPort, TransportationJdbcAdapter {
     public TransportationJdbcFindAllAdapter(DataSource ds) {
         super(ds, SQLConstant.SELECT_ALL_ROUTES);
         this.declareParameter(new SqlParameter(Types.INTEGER));
@@ -27,11 +27,6 @@ public class TransportationJdbcFindAllAdapter extends MappingSqlQuery<RoutesEnti
     @Transactional
     public List<RoutesEntity> findAll(PageEntity pageEntity) {
         return this.execute(pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
-    }
-
-    @Override
-    protected RoutesEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return RouteFactory.createRoute(rs);
     }
 
 

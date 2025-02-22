@@ -48,4 +48,9 @@ public class TransportationServiceCore implements TransportationServiceInputPort
         phone = phone.replace(" ", "+");
         return aggregate.getFindByPhoneTransportationServiceOutputPort().findBy(phone);
     }
+
+    @Override
+    public List<TypeEntity> findAllType() {
+        return aggregate.getFindTypesTransportationServiceOutputPort().findAllTypeEntity();
+    }
 }

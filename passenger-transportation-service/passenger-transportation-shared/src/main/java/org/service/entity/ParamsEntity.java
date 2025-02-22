@@ -70,7 +70,7 @@ public final class ParamsEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(time, type, from, to);
+        return Objects.hash(time, type, from, to, routeId);
     }
 
     @Override

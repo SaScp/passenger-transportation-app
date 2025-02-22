@@ -16,7 +16,9 @@
     <aside>
       <div class="find-el">
         <div class="form-group">
-          <input v-model="type" type="text" placeholder="Тип транспорта" class="form-control" />
+          <select v-model="type" class="type-group">
+            <option class="inner-type-group" v-for="typeEl in types" v-bind:value="typeEl.transportType">{{typeEl.transportType}}</option>
+          </select>
         </div>
         <button @click="searchRoutes">Найти маршруты</button>
       </div>
@@ -26,7 +28,9 @@
       <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" />
     </div>
     <div v-if="routes.length === 0" class="routes-list-not-found">
+      <div>
         ничего не найдено
+      </div>
     </div>
   </section>
 </template>
@@ -47,10 +51,12 @@ export default {
       time: null,
       routes: [],
       error: '',
+      types: []
     };
   },
   mounted() {
     this.searchRoutes()
+    this.seachType()
   },
   methods: {
     async searchRoutes() {
@@ -76,10 +82,28 @@ export default {
         this.routes = [];
       }
     },
+    async seachType() {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/booking/find-types')
+        this.types = response.data;
+      } catch (err) {
+        this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
+        this.routes = [];
+      }
+    }
   },
 };
 </script>
 <style>
+
+.type-group {
+  display: flex;
+  align-content: center;
+  padding: 10px 120px 10px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
 
 .arrow-right-4 {
   margin: 10px;
@@ -114,7 +138,6 @@ export default {
   margin: 30px;
 
 }
-
 aside {
   position: relative;
 }

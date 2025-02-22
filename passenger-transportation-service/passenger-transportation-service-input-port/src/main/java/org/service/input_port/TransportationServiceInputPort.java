@@ -17,4 +17,6 @@ public interface TransportationServiceInputPort {
     void revokeBooking(String id);
 
     List<BookingEntity> findByPhone(String phone);
+
+    List<TypeEntity> findAllType();
 }

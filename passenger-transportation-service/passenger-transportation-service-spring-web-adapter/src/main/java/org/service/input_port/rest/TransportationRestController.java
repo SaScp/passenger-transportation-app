@@ -120,4 +120,9 @@ public class TransportationRestController {
                                                  @RequestParam(value = "route_id") String id) {
         return this.inputPort.findByParams(new ParamsEntity(id), pageEntity);
     }
+
+    @GetMapping("/find-types")
+    public List<TypeEntity> findTypes() {
+        return this.inputPort.findAllType();
+    }
 }

@@ -9,7 +9,7 @@ public abstract class Handler {
 
     protected StringBuilder query;
 
-    protected List<String> queryParam;
+    protected List<Object> queryParam;
 
     protected Handler nextNode;
 
@@ -32,7 +32,7 @@ public abstract class Handler {
     }
 
 
-    public Handler next(ParamsEntity entity, StringBuilder query, List<String> queryParam) {
+    public Handler next(ParamsEntity entity, StringBuilder query, List<Object> queryParam) {
         this.query = query;
         this.queryParam = queryParam;
         addParam(entity);
@@ -50,6 +50,7 @@ public abstract class Handler {
     }
 
     public Result build() {
+
         return new Result(queryParam, query.append(SQLConstant.END_SELECT_BY_PARAMS_QUERY).toString());
     }
 

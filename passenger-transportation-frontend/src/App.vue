@@ -8,9 +8,6 @@
           <router-link to="/search-route">Поиск маршрутов по параметрам</router-link>
         </div>
         <div class="in-header">
-          <router-link to="/create-booking">Забронировать</router-link>
-        </div>
-        <div class="in-header">
           <router-link to="/search-booking">Найти брони по телефону</router-link>
         </div>
         <div class="in-header">

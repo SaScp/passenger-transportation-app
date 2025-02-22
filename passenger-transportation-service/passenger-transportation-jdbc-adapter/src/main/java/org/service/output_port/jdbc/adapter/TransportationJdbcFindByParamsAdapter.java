@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<RoutesEntity> implements FindByParamsTransportationServiceOutputPort, TransportationJdbcAdapter {
+public class TransportationJdbcFindByParamsAdapter extends AbstractFindRoutesAdapter implements FindByParamsTransportationServiceOutputPort, TransportationJdbcAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(TransportationJdbcFindByParamsAdapter.class);
 
@@ -34,20 +34,17 @@ public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<Route
 
     public TransportationJdbcFindByParamsAdapter(DataSource ds, JdbcLruIdCache<Result, List<RoutesEntity>> cache) {
         super(ds, "");
-        this.lruIdCache = new JdbcLruIdCache<>(20);
+        this.lruIdCache = cache;
         this.handler = new HandlerExecutor();
     }
 
-    @Override
-    protected RoutesEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return RouteFactory.createRoute(rs);
-    }
 
     @Override
     @Transactional
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
         Result resultVal = this.handler.execute(entity);
-
+        resultVal.params().add(pageEntity.getPageSize());
+        resultVal.params().add(pageEntity.getPageNum() * pageEntity.getPageSize());
         return getEntities(resultVal);
     }
 
@@ -83,7 +80,10 @@ public class TransportationJdbcFindByParamsAdapter extends MappingSqlQuery<Route
     private void generateParams(Result resultVal, PreparedStatement query) throws SQLException {
         int indexParam = 1;
         for (var param : resultVal.params()) {
-            query.setString(indexParam++, param);
+            if (param instanceof String str)
+                query.setString(indexParam++, str);
+            else if(param instanceof Integer integer)
+                query.setInt(indexParam++, integer);
         }
     }
 
