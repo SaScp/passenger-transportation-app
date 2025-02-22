@@ -3,11 +3,11 @@
     <div class="booking-details">
       <div class="inner-booking-details" :class="{hovered: isHovered}">
         <div hidden="hidden" :id="booking.route"/>
-        <p>Время брони: {{ booking.bookingTime }}</p>
+        <time>Время брони: {{ booking.bookingTime }}</time>
         <p>Статус: {{ booking.status }}</p>
       </div>
-      <div class="inner-booking-button" v-if="booking.status !== 'отменено'">
-        <button>Отменить бронь</button>
+      <div class="inner-booking-button" v-if="booking.status !== 'отменено' && isActive">
+        <button @click="revokeBooking(booking)">Отменить бронь</button>
       </div>
       <div class="load-route-info" :class="{ hovered: isHovered }"
            @mousedown="onHover" @click="onClick(booking.route)">
@@ -27,8 +27,8 @@
 
 <script>
 import RouteCard from "@/components/RouteCard.vue";
+import {getRouteById, revokeBooking} from "@/api.js";
 import axios from "axios";
-import {getRouteById} from "@/api.js";
 export default {
   components: {RouteCard},
   props: {
@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       isHovered: false,
-      routes: []
+      routes: [],
+      isActive: true
     };
   },
   methods: {
@@ -49,9 +50,21 @@ export default {
       await this.searchRouteById(routeId);
     },
     async searchRouteById(id) {
-      const response = getRouteById(id)
-      console.log(response.data);
+      const response = await getRouteById(id);
       this.routes = response.data;
+    },
+    async revokeBooking(booking) {
+      try {
+        const response = await revokeBooking(booking.id);
+        if (response.status === 200) {
+          this.isActive = false//this.cancelMessage = 'Бронирование успешно отменено';
+          booking.status = 'отменено'
+        }
+      }catch(err)
+      {
+       //this.cancelMessage = 'Ошибка при отмене бронирования';
+      }
+
     }
   }
 };
@@ -73,12 +86,13 @@ export default {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 .inner-booking-details {
   display: flex;
   flex-flow: column;
-  margin: 0;
+  margin: 10px;
+
 }
 
 .load-route-info {

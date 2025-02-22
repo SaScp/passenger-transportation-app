@@ -1,15 +1,15 @@
 <template>
   <section class="search-booking-section">
-    <aside>
+    <div class="form-booking">
       <h2>Поиск поездок</h2>
-      <form @submit.prevent="searchBooking" class="form-booking">
+      <form @submit.prevent="searchBooking" class="inner-form-booking">
         <div class="form-phone">
           <input v-model="phone" type="text" placeholder="Номер телефона" class="form-control"/>
         </div>
         <button type="submit" class="btn btn-primary">Найти поездки</button>
       </form>
+    </div>
     <hr class="line-search">
-      </aside>
     <div v-if="bookings.length" class="booking-list">
       <BookingCard v-for="booking in bookings" :key="booking.id" :booking="booking"/>
     </div>
@@ -19,7 +19,6 @@
 
 <script>
 import BookingCard from "@/components/BookingCard.vue";
-import axios from "axios";
 import RouteCard from "@/components/RouteCard.vue";
 import {getBookingsByPhone} from "@/api.js";
 export default {
@@ -63,9 +62,21 @@ aside {
   display: flex;
   flex-wrap: wrap;
   margin: 30px;
-
+}
+.find-booking-params {
+  display: flex;
+  flex-flow: column;
 }
 .form-booking {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 30px;
+  min-width: 300px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.inner-form-booking {
   display: flex;
   flex-flow: column;
   align-items: center;

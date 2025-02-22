@@ -9,33 +9,29 @@ export const findRoutesByParams = async (params) => {
 };
 
 export const getAllRoutes = async (params) => {
-    const response = await api.get("/find-all", { params });
-    return response;
+    return await api.get("/find-all", { params });
 };
 
 export const getBookingsByPhone = async (phone) => {
-    const response = await api.get("/find-by-phone", {
-        params: { phone },
+    return await api.get("/find-by-phone", {
+        params: { phone: phone },
     });
-    return response.data;
 };
 
 export const revokeBooking = async (booking_id) => {
-    await api.delete("/revoke", { params: { booking_id } });
+    return await api.delete("/revoke", { params: { booking_id } });
 };
 
 export const createBooking = async (data) => {
-    await api.post("/create", data);
+    return await api.post("/create", data);
 };
 
 export const getRouteById = async (route_id) => {
-    const response = await api.get("/find-by-id", {
-        params: { route_id },
+    return await api.get("/find-by-id", {
+        params: { route_id: route_id },
     });
-    return response.data[0];
 };
 
 export const getTransportTypes = async () => {
-    const response = await api.get("/find-types");
-    return response.data;
+    return await api.get("/find-types");
 };

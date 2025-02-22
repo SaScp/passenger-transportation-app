@@ -40,7 +40,6 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
                     .toFormatter();
             time = getTransportationTime(timeParam, formatter);
         } catch (Exception e) {
-            log.error("error in method {} message {}", e.getStackTrace()[1], e.getMessage());
         }
 
 

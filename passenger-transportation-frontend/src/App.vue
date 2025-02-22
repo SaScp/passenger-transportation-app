@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-      <header class="main-header">
-        <div class="in-header">
-          <router-link to="/cancel-booking">Отменить бронь</router-link>
-        </div>
-        <div class="in-header">
-          <router-link to="/search-route">Поиск маршрутов по параметрам</router-link>
-        </div>
-        <div class="in-header">
-          <router-link to="/search-booking">Найти брони по телефону</router-link>
-        </div>
-        <div class="in-header">
-          <router-link to="/find-all-routes">Найти все маршруты</router-link>
-        </div>
-      </header>
-      <router-view/>
+    <header class="main-header">
+      <nav class="nav-menu">
+        <router-link to="/search-route" class="nav-item" active-class="active-link">
+          🔍 Поиск маршрутов
+        </router-link>
+        <router-link to="/find-all-routes" class="nav-item" active-class="active-link">
+          📋 Все маршруты
+        </router-link>
+        <router-link to="/search-booking" class="nav-item" active-class="active-link">
+          📞 Поиск брони
+        </router-link>
+      </nav>
+    </header>
+    <router-view />
   </div>
 </template>
 <script>
@@ -31,24 +30,30 @@ export default defineComponent({
 }
 .main-header {
   display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
   justify-content: center;
-  background-color: #1142AA;
+  padding: 20px 20px;
+  border: 2px solid #ccc;
+  border-radius: 15px;
 }
 
-.in-header {
-  margin: 15px;
-  padding: 10px;
-  background-color: #f2f2f2;
-  border-radius: 15px;
-  font-family: Avenir, sans-serif;
-  max-width: 100%;
-  border-color: black;
-  a {
-    text-decoration: none;
-    color: #333;
-  }
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #555;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.active-link {
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  color: black;
 }
 
 h2 {

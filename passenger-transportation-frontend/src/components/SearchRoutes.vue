@@ -14,7 +14,6 @@
     </div>
   </header>
   <section class="search-section">
-    <aside>
       <div class="find-el">
         <div class="form-group">
           <select v-model="type" class="type-group">
@@ -27,7 +26,6 @@
         <button @click="searchRoutes">Найти маршруты</button>
       </div>
       <hr class="line-search">
-    </aside>
     <div v-if="routes.length" class="routes-list">
       <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true"/>
     </div>
@@ -101,7 +99,9 @@ export default {
 function getFormattedTime() {
   const input = document.getElementById("datetimeInput").value;
 
-
+  if(!input) {
+    return null;
+  }
   const date = new Date(input);
 
   // Форматируем дату в MM/dd/yyyy-HH:mm:ss
@@ -149,6 +149,8 @@ function getFormattedTime() {
   align-items: center;
   margin: 30px;
   min-width: 300px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 .search-section {
