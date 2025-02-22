@@ -18,6 +18,7 @@
 import axios from "axios";
 import RouteCard from "@/components/RouteCard.vue";
 import {ref} from "vue";
+import {getAllRoutes} from "@/api.js";
 export default {
   components: {RouteCard},
   data() {
@@ -32,12 +33,10 @@ export default {
   methods: {
     async findAll() {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/booking/find-all', {
-          params:{
-            page_num: this.page_num,
-            page_size: this.page_size
-          }
-        });
+        const params = {}
+        if (this.page_num) params.page_num = this.page_num
+        if (this.page_size) params.page_size = this.page_size
+        const response = await getAllRoutes(params);
         this.is_find = true
         this.routes = response.data;
       } catch (err) {

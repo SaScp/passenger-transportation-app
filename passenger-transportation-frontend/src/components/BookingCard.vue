@@ -28,6 +28,7 @@
 <script>
 import RouteCard from "@/components/RouteCard.vue";
 import axios from "axios";
+import {getRouteById} from "@/api.js";
 export default {
   components: {RouteCard},
   props: {
@@ -48,11 +49,7 @@ export default {
       await this.searchRouteById(routeId);
     },
     async searchRouteById(id) {
-      const response = await axios.get('http://localhost:8080/api/v1/booking/find-by-id', {
-        params: {
-          route_id: id
-        }
-      });
+      const response = getRouteById(id)
       console.log(response.data);
       this.routes = response.data;
     }

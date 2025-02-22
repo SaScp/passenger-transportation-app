@@ -5,5 +5,6 @@
 
 </template>
 <script setup lang="ts">
+
 import SearchAllRoutes from "@/components/SearchAllRoutes.vue";
 </script>

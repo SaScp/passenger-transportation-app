@@ -29,6 +29,7 @@
 import {ref} from "vue";
 import axios  from "axios";
 import route from "@/route.js";
+import {createBooking} from "@/api.js";
 export default {
   props: {
     route: Object,
@@ -52,10 +53,10 @@ export default {
         if (this.isNull) {
           return;
         }
-        const response = await  axios.post('http://localhost:8080/api/v1/booking/create', {
-          numberPhone: this.phone,
-          routeId: routeId
-        });
+        const params = {}
+        if (this.phone) params.numberPhone = this.phone
+        if (this.routeId) params.routeId = this.routeId
+        const response = await createBooking(params);
         if (response.data.status === 500) {
           err = response.data.detail;
         }

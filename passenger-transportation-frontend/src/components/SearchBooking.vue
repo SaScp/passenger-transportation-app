@@ -21,6 +21,7 @@
 import BookingCard from "@/components/BookingCard.vue";
 import axios from "axios";
 import RouteCard from "@/components/RouteCard.vue";
+import {getBookingsByPhone} from "@/api.js";
 export default {
   components: {RouteCard, BookingCard},
   data() {
@@ -33,11 +34,7 @@ export default {
   methods:{
     async searchBooking() {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/booking/find-by-phone", {
-          params: {
-            phone: this.phone
-          }
-        });
+        const response = await getBookingsByPhone(this.phone);
         this.bookings = response.data;
       } catch (err) {
         this.err = err.response.status === 404 ? 'Не найдено' : 'Ошибка при поиске поездок';

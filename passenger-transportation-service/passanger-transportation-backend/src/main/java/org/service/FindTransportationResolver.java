@@ -1,5 +1,6 @@
 package org.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.service.input_port.annotation.FindByParam;
 import org.service.input_port.request.FilterParamEntity;
 import org.springframework.core.MethodParameter;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Objects;
 
+@Slf4j
 public class FindTransportationResolver extends RequestParamMethodArgumentResolver {
     public FindTransportationResolver(boolean useDefaultResolution) {
         super(useDefaultResolution);
@@ -30,12 +32,16 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
 
     private static FilterParamEntity generateEntity(NativeWebRequest request) {
 
-        String timeParam = request.getParameter("time");
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendPattern("MM/dd/yyyy-HH:mm:ss")
-                .toFormatter();
-        LocalDateTime time = timeParam == null || (timeParam.isBlank() || timeParam.isEmpty()) ?
-                null : LocalDateTime.parse(timeParam, formatter);
+        LocalDateTime time = LocalDateTime.now();
+        try {
+            String timeParam = request.getParameter("time");
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                    .appendPattern("MM/dd/yyyy-HH:mm:ss")
+                    .toFormatter();
+            time = getTransportationTime(timeParam, formatter);
+        } catch (Exception e) {
+            log.error("error in method {} message {}", e.getStackTrace()[1], e.getMessage());
+        }
 
 
         return new FilterParamEntity(
@@ -43,6 +49,11 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
                 request.getParameter("type"),
                 request.getParameter("from"),
                 request.getParameter("to"));
+    }
+
+    private static LocalDateTime getTransportationTime(String timeParam, DateTimeFormatter formatter) {
+        return timeParam == null || (timeParam.isBlank() || timeParam.isEmpty()) ?
+                null : LocalDateTime.parse(timeParam, formatter);
     }
 
 

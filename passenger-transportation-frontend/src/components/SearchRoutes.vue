@@ -1,15 +1,16 @@
 <template>
   <header class="search-header">
     <div class="header-form-group">
-      <input v-model="from" type="text" placeholder="Откуда" class="form-control" />
+      <input v-model="from" type="text" placeholder="Откуда" class="form-control"/>
     </div>
     <div>
       <svg class="arrow-right-4" viewBox="0 0 100 85">
-        <polygon points="58.263,0.056 100,41.85 58.263,83.641 30.662,83.641 62.438,51.866 0,51.866 0,31.611 62.213,31.611 30.605,0 58.263,0.056" />
+        <polygon
+            points="58.263,0.056 100,41.85 58.263,83.641 30.662,83.641 62.438,51.866 0,51.866 0,31.611 62.213,31.611 30.605,0 58.263,0.056"/>
       </svg>
     </div>
     <div class="header-form-group">
-      <input v-model="to" type="text" placeholder="Куда" class="form-control" />
+      <input v-model="to" type="text" placeholder="Куда" class="form-control"/>
     </div>
   </header>
   <section class="search-section">
@@ -17,15 +18,18 @@
       <div class="find-el">
         <div class="form-group">
           <select v-model="type" class="type-group">
-            <option class="inner-type-group" v-for="typeEl in types" v-bind:value="typeEl.transportType">{{typeEl.transportType}}</option>
+            <option class="inner-type-group" v-for="typeEl in types" v-bind:value="typeEl.transportType">
+              {{ typeEl.transportType }}
+            </option>
           </select>
+          <input type="datetime-local" id="datetimeInput">
         </div>
         <button @click="searchRoutes">Найти маршруты</button>
       </div>
       <hr class="line-search">
     </aside>
     <div v-if="routes.length" class="routes-list">
-      <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" />
+      <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true"/>
     </div>
     <div v-if="routes.length === 0" class="routes-list-not-found">
       <div>
@@ -38,6 +42,7 @@
 <script>
 import axios from 'axios';
 import RouteCard from './RouteCard.vue';
+import {findRoutesByParams, getTransportTypes} from "@/api.js";
 
 export default {
   components: {
@@ -56,35 +61,34 @@ export default {
   },
   mounted() {
     this.searchRoutes()
-    this.seachType()
+    this.searchType()
   },
   methods: {
     async searchRoutes() {
       try {
-
+        this.time = getFormattedTime();
         const params = {};
         if (this.type) params.type = this.type
         if (this.from) params.from = this.from
         if (this.to) params.to = this.to
         if (this.time) params.time = this.time
-        const response = await axios.get('http://localhost:8080/api/v1/booking/find',{params})
+        this.routes = (await findRoutesByParams(params)).data;
 
-        this.routes = response.data;
         this.error = '';
         if (Object.keys(params).length) {
           this.type = null;
           this.from = null;
           this.to = null;
-          this.time =  null;
+          this.time = null;
         }
       } catch (err) {
         this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
         this.routes = [];
       }
     },
-    async seachType() {
+    async searchType() {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/booking/find-types')
+        const response = await getTransportTypes()
         this.types = response.data;
       } catch (err) {
         this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
@@ -93,6 +97,23 @@ export default {
     }
   },
 };
+
+function getFormattedTime() {
+  const input = document.getElementById("datetimeInput").value;
+
+
+  const date = new Date(input);
+
+  // Форматируем дату в MM/dd/yyyy-HH:mm:ss
+  const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}/` +
+      `${String(date.getDate()).padStart(2, '0')}/` +
+      `${date.getFullYear()}-` +
+      `${String(date.getHours()).padStart(2, '0')}:` +
+      `${String(date.getMinutes()).padStart(2, '0')}:` +
+      `${String(date.getSeconds()).padStart(2, '0')}`;
+  console.log(formattedDate)
+  return formattedDate;
+}
 </script>
 <style>
 
@@ -111,14 +132,17 @@ export default {
   height: 20px;
   cursor: pointer;
 }
+
 .routes-list-not-found {
   margin: 120px;
 }
+
 .search-header {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .find-el {
   display: flex;
   flex-flow: column;
@@ -132,15 +156,18 @@ export default {
   justify-content: center;
   height: 100%;
 }
+
 .routes-list {
   display: flex;
   flex-wrap: wrap;
   margin: 30px;
 
 }
+
 aside {
   position: relative;
 }
+
 .line-search {
   width: 2px; /* Ширина линии */
   background-color: #000; /* Цвет линии */
