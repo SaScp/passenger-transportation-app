@@ -3,6 +3,7 @@ package org.service.ouptput_port.jpa;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.service.exception.ProblemDetailsException;
+import org.service.ouptput_port.exception.BookingNotFoundException;
 import org.service.ouptput_port.model.Booking;
 import org.service.ouptput_port.model.Status;
 import org.service.ouptput_port.repository.BookingRepository;
@@ -32,7 +33,7 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
         Booking booking = repository.findById(id)
                 .orElseThrow(() -> {
                     log.error("error in method {} message {}", Thread.currentThread().getStackTrace()[1], "Booking not found");
-                    return new ProblemDetailsException(404, "Booking Not found");
+                    return new BookingNotFoundException();
                 });
 
         booking.setStatus(new Status(REVOKED_STATUS_ID));

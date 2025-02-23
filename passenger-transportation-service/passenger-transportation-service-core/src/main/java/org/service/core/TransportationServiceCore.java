@@ -9,6 +9,7 @@ import java.awt.print.PrinterAbortException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class TransportationServiceCore implements TransportationServiceInputPort {
 
@@ -32,7 +33,11 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     @Override
     public void createBooking(BookingParamsEntity bookingParams) {
         try {
-            aggregate.getCreateBookingTransportationServiceOutputPort().create(bookingParams);
+            if (Pattern.compile("^(?:\\+7|8)[\\s-]?\\(?\\d{3}\\)?[\\s-]?\\d{3}[\\s-]?\\d{2}[\\s-]?\\d{2}$").matcher(bookingParams.getNumberPhone()).find()) {
+                aggregate.getCreateBookingTransportationServiceOutputPort().create(bookingParams);
+            } else {
+                throw new IsNotPhoneException();
+            }
         } catch (ProblemDetailsException e) {
             throw new ProblemDetailsException(e);
         }

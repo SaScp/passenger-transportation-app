@@ -13,6 +13,7 @@
       <input v-model="to" type="text" placeholder="Куда" class="form-control"/>
     </div>
   </header>
+
   <section class="search-section">
       <div class="find-el">
         <div class="form-group">
@@ -41,9 +42,12 @@
 import axios from 'axios';
 import RouteCard from './RouteCard.vue';
 import {findRoutesByParams, getTransportTypes} from "@/api.js";
+import {ref} from "vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   components: {
+    Modal,
     RouteCard,
   },
   data() {
@@ -54,7 +58,7 @@ export default {
       time: null,
       routes: [],
       error: '',
-      types: []
+      types: [],
     };
   },
   mounted() {
@@ -92,7 +96,7 @@ export default {
         this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
         this.routes = [];
       }
-    }
+    },
   },
 };
 
@@ -179,4 +183,5 @@ aside {
   top: 0;
   right: 0;
 }
+
 </style>

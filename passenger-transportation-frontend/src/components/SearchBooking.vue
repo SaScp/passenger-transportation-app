@@ -13,7 +13,8 @@
     <div v-if="bookings.length" class="booking-list">
       <BookingCard v-for="booking in bookings" :key="booking.id" :booking="booking"/>
     </div>
-    <div class="err-message" v-if="err">{{err}}</div>
+    <Modal :isOpen="isModalOpen" :message="message" :statusCode="statusCode" @close="isModalOpen = false" id="modal">
+    </Modal>
   </section>
 </template>
 
@@ -21,25 +22,41 @@
 import BookingCard from "@/components/BookingCard.vue";
 import RouteCard from "@/components/RouteCard.vue";
 import {getBookingsByPhone} from "@/api.js";
+import Modal from "@/components/Modal.vue";
 export default {
-  components: {RouteCard, BookingCard},
+  components: {Modal, RouteCard, BookingCard},
   data() {
     return {
       phone: '',
       bookings: [],
-      err: ''
+      err: '',
+      isModalOpen: false,
+      statusCode : null,
+      message: ''
     };
   },
-  methods:{
+  methods: {
     async searchBooking() {
-      try {
-        const response = await getBookingsByPhone(this.phone);
-        this.bookings = response.data;
-      } catch (err) {
-        this.err = err.response.status === 404 ? 'Не найдено' : 'Ошибка при поиске поездок';
+      await getBookingsByPhone(this.phone)
+          .then(response => {
+            this.bookings = response.data;
+          })
+          .catch(err => {
+                this.err = err.response.data.detail
+                console.log(err.response.data.detail)
+                this.openModal(err.response.status)
+              }
+          );
+    },
+    async openModal(code) {
+      console.log(this.err)
+      if (code >= 400 && code < 600) {
+        this.message = this.err;
       }
-
-    }
+      console.log(code)
+      this.statusCode = code;
+      this.isModalOpen = true;
+    },
   }
 }
 </script>

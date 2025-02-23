@@ -11,26 +11,30 @@
         <div v-if="isFormVisible">
           <form @submit.prevent="submitData(route.id)">
             <div class="form-group">
-              <input v-model="phone" type="text" placeholder="Ваш номер телефона" class="form-control" />
+              <input v-model="phone" type="text" placeholder="Ваш номер телефона" class="form-control"/>
               <div v-if="isNull" class="error-message">Введите номер телефона</div>
             </div>
             <button type="submit" class="inner-booking-button">Забронировать</button>
           </form>
-          <div v-if="err" class="error-message">{{ err }}</div>
         </div>
       </div>
     </div>
-
+    <Modal :isOpen="isModalOpen" :message="message" :statusCode="statusCode" @close="isModalOpen = false" id="modal">
+    </Modal>
   </div>
 </template>
 <!--display: flex;
     flex-flow: column;-->
+
 <script>
 import {ref} from "vue";
-import axios  from "axios";
+import axios from "axios";
 import route from "@/route.js";
 import {createBooking} from "@/api.js";
+import Modal from "@/components/Modal.vue";
+
 export default {
+  components: {Modal},
   props: {
     route: Object,
     isFinder: Boolean,
@@ -40,33 +44,50 @@ export default {
       isFormVisible: false,
       phone: null,
       err: '',
-      isNull : false
+      isNull: false,
+      isModalOpen: false,
+      statusCode: null,
+      message: ''
     };
   },
-  methods : {
+  methods: {
     toggleForm() {
       this.isFormVisible = !this.isFormVisible
     },
     async submitData(routeId) {
-      try{
-        this.isNull = this.phone === null;
-        if (this.isNull) {
-          return;
-        }
-        const params = {}
-        if (this.phone) params.numberPhone = this.phone
-        if (this.routeId) params.routeId = this.routeId
-        const response = await createBooking(params);
-        if (response.data.status === 500) {
-          err = response.data.detail;
-        }
-        this.phone = null
-        this.isFormVisible = false
-      } catch (err) {
-        err = "Не удалось забранировать поездку"
+      this.isNull = this.phone === null;
+      if (this.isNull) {
+        return;
       }
+      const params = {}
+      if (this.phone) params.numberPhone = this.phone
+      if (routeId) params.routeId = routeId
 
-
+      await createBooking(params)
+          .then(response => {
+                this.phone = null
+                this.isFormVisible = false
+               console.log(response.status)
+                this.openModal(response.status)
+              }
+          )
+          .catch(error => {
+                this.err = error.response.data.detail
+                this.openModal(error.response.status)
+              }
+          )
+    },
+    openModal(code) {
+      console.log(200 <= code < 300)
+      if (code >= 200 && code < 300) {
+        this.message = 'Вы успешно забронировали'
+      }
+      else if (code >= 400 && code < 600) {
+        this.message = this.err;
+      }
+      console.log(code)
+      this.statusCode = code;
+      this.isModalOpen = true;
     }
   }
 };
@@ -83,26 +104,32 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .error-message {
   color: red;
 }
+
 .route-details {
   display: flex;
   flex-flow: column;
   margin-left: 20px;
   margin-right: 20px;
-  p{
+
+  p {
     margin: 5px;
   }
 }
+
 .form-control {
   max-width: 200px;
 }
+
 .booking-button {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .inner-booking-button {
   border-radius: 15px;
   padding: 10px;

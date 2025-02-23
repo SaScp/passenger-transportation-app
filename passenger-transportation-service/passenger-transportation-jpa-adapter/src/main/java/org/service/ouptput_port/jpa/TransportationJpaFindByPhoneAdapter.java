@@ -3,6 +3,8 @@ package org.service.ouptput_port.jpa;
 import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingEntity;
 import org.service.exception.ProblemDetailsException;
+import org.service.ouptput_port.exception.BookingNotFoundException;
+import org.service.ouptput_port.exception.UserNotFoundException;
 import org.service.ouptput_port.mapper.BookingMapper;
 import org.service.ouptput_port.model.Booking;
 import org.service.ouptput_port.repository.BookingRepository;
@@ -35,11 +37,11 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
     public List<BookingEntity> findBy(String phone) {
         if (!userRepository.existsById(phone)) {
             log.error("error in method {} message {}", Thread.currentThread().getStackTrace()[1], "User not found");
-            throw new ProblemDetailsException(404, "User not found");
+            throw new UserNotFoundException();
         }
 
         Optional<List<Booking>> allByNumberPhoneNumberPhone = repository.findAllByNumberPhone_NumberPhone(phone);
         return allByNumberPhoneNumberPhone.map(BookingMapper.INSTANCE::bookingsToBookingEntitys)
-                .orElseThrow(() -> new ProblemDetailsException(404, "Booking not found"));
+                .orElseThrow(BookingNotFoundException::new);
     }
 }
