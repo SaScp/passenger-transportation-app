@@ -40,7 +40,7 @@ public class HandlerExecutorTest {
 
         Result result = handlerExecutor.execute(entity);
 
-        assertTrue(result.params().isEmpty());
+        assertFalse(result.params().isEmpty());
         assertTrue(result.query().contains(SQLConstant.START_SELECT_BY_PARAMS_QUERY));
         assertTrue(result.query().contains(SQLConstant.END_SELECT_BY_PARAMS_QUERY));
     }
@@ -56,8 +56,8 @@ public class HandlerExecutorTest {
 
         Result result = handlerExecutor.execute(entity);
 
-        assertEquals(1, result.params().size());
-        assertEquals("10", result.params().get(0));
+        assertEquals(2, result.params().size());
+        assertEquals("10", result.params().get(1));
         assertTrue(result.query().contains("t_routes.id = ?"));
     }
 
@@ -93,7 +93,7 @@ public class HandlerExecutorTest {
 
         Result result = handlerExecutor.execute(entity);
 
-        assertEquals(2, result.params().size());
+        assertEquals(3, result.params().size());
         assertTrue(result.query().contains("t_routes.id = ?"));
         assertTrue(result.query().contains("type_name = ?"));
     }
@@ -104,7 +104,7 @@ public class HandlerExecutorTest {
 
         Result result = handlerExecutor.execute(entity);
 
-        assertTrue(result.params().isEmpty());
+        assertFalse(result.params().isEmpty());
         assertTrue(result.query().contains(SQLConstant.START_SELECT_BY_PARAMS_QUERY));
     }
 
@@ -115,7 +115,7 @@ public class HandlerExecutorTest {
 
         Result result = handlerExecutor.execute(entity);
 
-        assertEquals(1, result.params().size());
+        assertEquals(2, result.params().size());
         assertTrue(result.query().contains("arrival_city = ?"));
     }
 
