@@ -35,6 +35,11 @@ public class TransportationServiceApplication {
     }
 
 
+    /**
+     * @param dataSource
+     * Бин jdbc агрегатора
+     * @return TransportationServiceOutputPortAggregateImpl
+     * **/
     @Bean("jdbcAggregate")
     public TransportationServiceOutputPortAggregate transportationServiceJdbcOutputPortAggregateImpl(DataSource dataSource) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
@@ -47,6 +52,10 @@ public class TransportationServiceApplication {
         );
     }
 
+    /**
+     * Бин jpa агрегатора
+     * @return TransportationServiceOutputPortAggregateImpl
+     * **/
     @Bean("jpaAggregate")
     public TransportationServiceOutputPortAggregate transportationServiceJpaOutputPortAggregateImpl(
             TransportationJpaFindByPhoneAdapter findByPhoneAdapter,

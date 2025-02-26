@@ -3,6 +3,10 @@ package org.service.output_port;
 import org.service.entity.BookingParamsEntity;
 
 public interface CreateBookingTransportationServiceOutputPort extends TransportationServiceOutputPort {
-    void create(BookingParamsEntity tt); // TODO add param type
+
+    /**
+     * @param entity данный параметр содержит данные для создания новой брони
+     * **/
+    void create(BookingParamsEntity entity);
 
 }

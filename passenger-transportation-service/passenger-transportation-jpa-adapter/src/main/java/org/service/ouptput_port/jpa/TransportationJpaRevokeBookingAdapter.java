@@ -41,7 +41,6 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
 
         Optional.ofNullable(cacheManager
                         .getCache("TransportationJpaFindByPhoneAdapter::findBy"))
-                .ifPresent(cache -> cache.evictIfPresent(booking.getUserPhone().getNumberPhone())
-                );
+                .ifPresent(cache -> cache.evictIfPresent(booking.getUserPhone().getNumberPhone()));
     }
 }

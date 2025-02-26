@@ -2,7 +2,6 @@ package org.service.ouptput_port.jpa;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.service.entity.BookingEntity;
 import org.service.entity.BookingParamsEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.ouptput_port.mapper.BookingMapper;
@@ -10,16 +9,13 @@ import org.service.ouptput_port.model.Booking;
 import org.service.ouptput_port.model.Status;
 import org.service.ouptput_port.model.User;
 import org.service.ouptput_port.repository.BookingRepository;
-import org.service.ouptput_port.repository.UserRepository;
 import org.service.output_port.CreateBookingTransportationServiceOutputPort;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,20 +33,20 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
     public static final Long CREATED_STATUS_ID = 1L;
 
     @Override
-    public void create(BookingParamsEntity params) {
+    public void create(BookingParamsEntity entity) {
         String id = UUID.randomUUID().toString();
         try {
             Booking booking = new Booking(
                     id,
                     LocalDateTime.now(),
                     new Status(CREATED_STATUS_ID),
-                    new User(params.getNumberPhone()),
-                    params.getRouteId()
+                    new User(entity.getNumberPhone()),
+                    entity.getRouteId()
             );
             Booking save = bookingRepository.save(booking);
 
             Optional.ofNullable(cacheManager
-                            .getCache("TransportationJpaFindByPhoneAdapter::findBy").get(params.getNumberPhone(), List.class))
+                            .getCache("TransportationJpaFindByPhoneAdapter::findBy").get(entity.getNumberPhone(), List.class))
                     .ifPresent((cache) -> cache.add(BookingMapper.INSTANCE.bookingToBookingEntity(save)));
 
         } catch (Exception e) {

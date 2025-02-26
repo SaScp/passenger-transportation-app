@@ -10,6 +10,12 @@ import java.util.Set;
 
 public interface FindByParamsTransportationServiceOutputPort extends TransportationServiceOutputPort {
 
+
+    /**
+     * @param pageEntity параметр для пагинации страниц
+     * @param entity параметр для фильтрации маршрутов
+     * @return List routeEntity  объект содержащий список из найденных маршрутов
+     * **/
     List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity);
 
 }

@@ -8,6 +8,11 @@ import java.util.Set;
 
 public interface FindAllTransportationServiceOutputPort extends TransportationServiceOutputPort {
 
+
+    /**
+     * @param pageEntity параметр для пагинации страниц
+     * @return List routeEntity объект содержащий список из найденных маршрутов
+     * **/
     List<RoutesEntity> findAll(PageEntity pageEntity);
 
 }

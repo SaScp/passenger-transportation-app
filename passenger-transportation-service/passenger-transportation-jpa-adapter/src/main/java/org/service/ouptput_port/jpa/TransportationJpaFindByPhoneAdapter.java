@@ -35,6 +35,7 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
     @Override
     @Cacheable(key = "#phone", value = "TransportationJpaFindByPhoneAdapter::findBy")
     public List<BookingEntity> findBy(String phone) {
+
         if (!userRepository.existsById(phone)) {
             log.error("error in method {} message {}", Thread.currentThread().getStackTrace()[1], "User not found");
             throw new UserNotFoundException();

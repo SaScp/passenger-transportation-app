@@ -25,6 +25,7 @@ public class SQLConstant {
                                                                        WHERE tb.user_phone = ?;
             """;
 
+
     public static final String SELECT_BOOKING_BY_ID = "SELECT t_bookings.user_phone FROM t_bookings WHERE id = ?";
 
     public static final String UPDATE_STATUS = "UPDATE t_bookings SET status_id = ? WHERE id = ?";

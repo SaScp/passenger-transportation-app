@@ -34,11 +34,10 @@ public class TransportationJdbcCreateBookingAdapter extends SqlUpdate implements
     public TransportationJdbcCreateBookingAdapter(DataSource ds, JdbcLruIdCache<String, List<BookingEntity>> lruIdCache) throws SQLException {
         super(ds, SQLConstant.INSERT_BOOKING);
         this.lruIdCache = lruIdCache;
-        this.declareParameter(new SqlParameter(Types.VARCHAR));
-        this.declareParameter(new SqlParameter(Types.VARCHAR));
-        this.declareParameter(new SqlParameter(Types.VARCHAR));
-        this.declareParameter(new SqlParameter(Types.INTEGER));
-        this.declareParameter(new SqlParameter(Types.VARCHAR));
+
+        for (int i = 0; i < 5; i++) {
+            this.declareParameter(new SqlParameter(Types.VARCHAR));
+        }
     }
 
     @Override
