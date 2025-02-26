@@ -38,6 +38,7 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
             DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                     .appendPattern("MM/dd/yyyy-HH:mm:ss")
                     .toFormatter();
+
             time = getTransportationTime(timeParam, formatter);
         } catch (Exception e) {
         }
