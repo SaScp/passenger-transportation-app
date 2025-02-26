@@ -10,12 +10,15 @@ import org.service.input_port.annotation.PageSettingParam;
 import org.service.input_port.request.FilterParamEntity;
 import org.service.input_port.request.BookingQueryParam;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-@CrossOrigin(origins = "http://localhost")
+
+@Async
 @RestController
 public class TransportationRestController {
 
@@ -51,10 +54,10 @@ public class TransportationRestController {
             }
     )
     @GetMapping("/find")
-    public List<RoutesEntity> findTransport(
+    public CompletableFuture<List<RoutesEntity>> findTransport(
             @PageSettingParam PageEntity pageEntity,
             @Parameter(hidden = true) @FindByParam FilterParamEntity filterParam) {
-        return this.inputPort.findByParams(
+        return CompletableFuture.supplyAsync(() ->this.inputPort.findByParams(
                 new ParamsEntity(
                         filterParam.getTime(),
                         filterParam.getType(),
@@ -62,7 +65,7 @@ public class TransportationRestController {
                         filterParam.getTo()
                 ),
                 pageEntity
-        );
+        ));
     }
 
     @Operation(
@@ -78,8 +81,8 @@ public class TransportationRestController {
             }
     )
     @GetMapping("/find-all")
-    public List<RoutesEntity> findAllTransport(@PageSettingParam PageEntity pageEntity) {
-        return this.inputPort.findAll(pageEntity);
+    public CompletableFuture<List<RoutesEntity>> findAllTransport(@PageSettingParam PageEntity pageEntity) {
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findAll(pageEntity));
     }
 
     @Operation(
@@ -87,10 +90,10 @@ public class TransportationRestController {
             description = "Позволяет создать новую бронь"
     )
     @PostMapping(value = "/create")
-    public ResponseEntity<?> booking(@RequestBody BookingQueryParam query) {
+    public CompletableFuture<ResponseEntity<?>> booking(@RequestBody BookingQueryParam query) {
         this.inputPort.createBooking(
                 new BookingParamsEntity(query.getNumberPhone(), query.getRouteId()));
-        return ResponseEntity.created(URI.create("/create")).build();
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.created(URI.create("/create")).build());
     }
 
     @Operation(
@@ -107,8 +110,8 @@ public class TransportationRestController {
             description = "Позволяет посмотреть все маршруты пользователя"
     )
     @GetMapping("/find-by-phone")
-    public List<BookingEntity> findTransportByPhone(@RequestParam(value = "phone") String phone) {
-        return this.inputPort.findByPhone(phone); ///return this.inputPort.
+    public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone) {
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone)); ///return this.inputPort.
     }
 
     @Operation(
@@ -116,13 +119,14 @@ public class TransportationRestController {
             description = "Позволяет посмотреть просмотреть маршрут по id"
     )
     @GetMapping("/find-by-id")
-    public List<RoutesEntity> findTransportById( @PageSettingParam PageEntity pageEntity,
+    public CompletableFuture<List<RoutesEntity>> findTransportById( @PageSettingParam PageEntity pageEntity,
                                                  @RequestParam(value = "route_id") String id) {
-        return this.inputPort.findByParams(new ParamsEntity(id), pageEntity);
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findByParams(new ParamsEntity(id), pageEntity));
     }
 
     @GetMapping("/find-types")
-    public List<TypeEntity> findTypes() {
-        return this.inputPort.findAllType();
+    public CompletableFuture<List<TypeEntity>> findTypes() {
+
+        return CompletableFuture.supplyAsync(this.inputPort::findAllType);
     }
 }
