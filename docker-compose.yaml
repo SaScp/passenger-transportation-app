@@ -1,0 +1,21 @@
+networks:
+  passanger_app_net:
+    driver: bridge
+services:
+  passanger_backend:
+    container_name: passanger_backend
+    build:
+      context: passenger-transportation-service
+    networks:
+      - passanger_app_net
+    ports:
+      - "8080:8080"
+  passanger_frontend:
+    container_name: passanger_frontend
+    build:
+      context: passenger-transportation-frontend
+    networks:
+      - passanger_app_net
+
+    ports:
+      - "80:80"

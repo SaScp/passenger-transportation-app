@@ -1,11 +1,43 @@
 spring:
+  cache:
+    type: simple
   datasource:
     driver-class-name: org.sqlite.JDBC
     username: admin
     password: passwd
     url: jdbc:sqlite:transportation.db
-  sql:
-    init:
-      mode: always
+  mvc:
+    servlet:
+      path: /api/v1/booking
+  flyway:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:transportation.db
+    user: admin
+    password: passwd
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    show-sql: true
+  threads:
+    virtual:
+      enabled: true
 server:
   port: 8080
+cache:
+  lru:
+    size: 20
+springdoc:
+  api-docs:
+    path: /docs/
+  swagger-ui:
+    path: /swagger/
+  override-with-generic-response: false
+logging:
+  level:
+    org.service: error
+  file:
+    name: app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+  threshold:
+    file: ERROR

@@ -9,10 +9,14 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>passenger-transportation-shared</module>
         <module>passenger-transportation-service-core</module>
         <module>passenger-transportation-service-input-port</module>
         <module>passenger-transportation-service-output-port</module>
         <module>passanger-transportation-backend</module>
+        <module>passenger-transportation-service-spring-web-adapter</module>
+        <module>passenger-transportation-jdbc-adapter</module>
+        <module>passenger-transportation-jpa-adapter</module>
     </modules>
 
     <properties>
@@ -32,4 +36,29 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.service.TransportationServiceApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

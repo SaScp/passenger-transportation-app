@@ -8,7 +8,7 @@
         <artifactId>passenger-transportation-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <groupId>org.service.output_port</groupId>
     <artifactId>passenger-transportation-service-output-port</artifactId>
 
     <properties>
@@ -17,4 +17,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.service.entity</groupId>
+            <artifactId>passenger-transportation-shared</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
