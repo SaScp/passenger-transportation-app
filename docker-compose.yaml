@@ -1,21 +1,28 @@
 networks:
-  passanger_app_net:
+  passenger_app_net:
     driver: bridge
 services:
-  passanger_backend:
-    container_name: passanger_backend
+  passenger_backend:
+    env_file:
+      - .env
+    container_name: passenger_backend
     build:
       context: passenger-transportation-service
     networks:
-      - passanger_app_net
+      - passenger_app_net
     ports:
       - "8080:8080"
-  passanger_frontend:
-    container_name: passanger_frontend
+  passenger_frontend:
+    container_name: passenger_frontend
     build:
       context: passenger-transportation-frontend
     networks:
-      - passanger_app_net
-
+      - passenger_app_net
+    healthcheck:
+      test: curl --fail http://localhost:80 || exit 1
+      interval: 1m
+      timeout: 30s
+      retries: 3
+      start_period: 1m
     ports:
       - "80:80"

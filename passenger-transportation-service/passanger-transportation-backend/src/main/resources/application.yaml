@@ -2,24 +2,26 @@ spring:
   cache:
     type: simple
   datasource:
-    driver-class-name: org.sqlite.JDBC
-    username: admin
-    password: passwd
-    url: jdbc:sqlite:transportation.db
+    driver-class-name: ${SQLITE_DRIVER}
+    username: ${SQLITE_USERNAME}
+    password: ${SQLITE_PASSWORD}
+    url: ${SQLITE_URL}
   mvc:
     servlet:
-      path: /api/v1/booking
+      path: ${SERVLET_PATH:/api/v1/booking}
   flyway:
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:transportation.db
-    user: admin
-    password: passwd
+    driver-class-name:  ${SQLITE_DRIVER}
+    url: ${SQLITE_URL}
+    user: ${SQLITE_USERNAME}
+    password:  ${SQLITE_PASSWORD}
   jpa:
-    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    database-platform: ${SQLITE_DIALECT}
     show-sql: true
   threads:
     virtual:
       enabled: true
+  config:
+    import: optional:file:.env[.properties]
 server:
   port: 8080
 cache:
@@ -27,17 +29,17 @@ cache:
     size: 20
 springdoc:
   api-docs:
-    path: /docs/
+    path: ${SWAGGER_API_PATH:/docs/}
   swagger-ui:
-    path: /swagger/
+    path: ${SWAGGER_PATH:/swagger/}
   override-with-generic-response: false
 logging:
   level:
     org.service: error
   file:
-    name: app.log
+    name: ${LOG_FILE_NAME:app.log}
   logback:
     rollingpolicy:
-      max-file-size: 20MB
+      max-file-size: ${LOG_MAX_FILE_SIZE:20MB}
   threshold:
     file: ERROR

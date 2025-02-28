@@ -1,4 +1,3 @@
-# Этап 1: сборка проекта
 FROM node:18.20.7-alpine3.21 as build-stage
 WORKDIR /app
 COPY package*.json ./
