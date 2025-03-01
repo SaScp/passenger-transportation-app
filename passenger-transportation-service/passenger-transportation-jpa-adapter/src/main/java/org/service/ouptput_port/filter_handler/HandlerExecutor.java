@@ -22,7 +22,4 @@ public class HandlerExecutor {
         return this.parentHandler.next(entity, new ArrayList<>()).build();
     }
 
-    public Root<Route> getRoot() {
-        return this.parentHandler.getRoot();
-    }
 }
