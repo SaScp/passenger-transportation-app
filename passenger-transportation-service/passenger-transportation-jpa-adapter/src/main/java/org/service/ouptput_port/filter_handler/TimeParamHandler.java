@@ -22,9 +22,13 @@ public class TimeParamHandler extends Handler {
         LocalDateTimeConverter converter = new LocalDateTimeConverter();
         this.criteriaPredicate.add(
                 Optional.ofNullable(entity.getTime())
-                        .map(obj -> builder.greaterThanOrEqualTo(root.get("departureTime"), obj))
+                        .map(obj -> {
+                            System.out.println(converter.convertToDatabaseColumn(obj));
+                            return builder.greaterThanOrEqualTo(root.get("departureTime"), converter.convertToDatabaseColumn(obj));
+                        })
                         .or(() -> {
                             if (entity.getRouteId() == null) {
+                                System.out.println(converter.convertToDatabaseColumn(LocalDateTime.now()));
                                 return Optional.ofNullable(builder.greaterThanOrEqualTo(root.get("departureTime"), converter.convertToDatabaseColumn(LocalDateTime.now())));
                             } else {
                                 return Optional.empty();

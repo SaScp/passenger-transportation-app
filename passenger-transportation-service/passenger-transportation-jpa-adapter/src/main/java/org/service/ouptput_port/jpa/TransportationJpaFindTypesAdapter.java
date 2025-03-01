@@ -6,10 +6,12 @@ import org.service.ouptput_port.mapper.TypeMapper;
 import org.service.ouptput_port.repository.TypeRepository;
 import org.service.output_port.FindTypesTransportationServiceOutputPort;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
+@Transactional(readOnly = true)
 @AllArgsConstructor
 public class TransportationJpaFindTypesAdapter implements FindTypesTransportationServiceOutputPort {
 

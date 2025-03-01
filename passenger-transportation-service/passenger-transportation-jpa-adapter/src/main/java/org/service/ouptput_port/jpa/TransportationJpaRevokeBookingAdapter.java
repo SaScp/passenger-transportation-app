@@ -1,5 +1,6 @@
 package org.service.ouptput_port.jpa;
 
+import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.service.exception.ProblemDetailsException;
@@ -13,7 +14,9 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 @Slf4j
@@ -26,6 +29,9 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
 
     private static final Long REVOKED_STATUS_ID = 2L;
 
+    private final EntityManager entityManager;
+
+
     private CacheManager cacheManager;
 
     @Override
@@ -36,11 +42,13 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
                     return new BookingNotFoundException();
                 });
 
-        booking.setStatus(new Status(REVOKED_STATUS_ID));
+        booking.setStatus(entityManager.getReference(Status.class, REVOKED_STATUS_ID));
         repository.save(booking);
 
         Optional.ofNullable(cacheManager
                         .getCache("TransportationJpaFindByPhoneAdapter::findBy"))
                 .ifPresent(cache -> cache.evictIfPresent(booking.getUserPhone().getNumberPhone()));
     }
+
 }
+

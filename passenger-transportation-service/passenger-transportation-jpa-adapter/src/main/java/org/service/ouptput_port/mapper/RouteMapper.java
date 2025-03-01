@@ -17,6 +17,6 @@ public interface RouteMapper {
     public List<RoutesEntity> routesToRouteEntitys(List<Route> routes);
 
     default String map(TransportType value){
-        return value.getTransportType();
+        return value == null? "" : value.getTransportType();
     }
 }

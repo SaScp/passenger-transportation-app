@@ -31,6 +31,7 @@ public class Route {
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "arrival_time")
     private LocalDateTime arrivalTime;
 

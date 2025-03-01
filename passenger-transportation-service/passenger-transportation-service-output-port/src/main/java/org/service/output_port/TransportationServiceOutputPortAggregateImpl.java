@@ -2,6 +2,7 @@ package org.service.output_port;
 
 
 public class TransportationServiceOutputPortAggregateImpl implements TransportationServiceOutputPortAggregate {
+
     private final CreateBookingTransportationServiceOutputPort createBookingTransportationServiceOutputPort;
     private final RevokeBookingTransportationServiceOutputPort revokeBookingTransportationServiceOutputPort;
     private final FindByParamsTransportationServiceOutputPort findByParamsTransportationServiceOutputPort;

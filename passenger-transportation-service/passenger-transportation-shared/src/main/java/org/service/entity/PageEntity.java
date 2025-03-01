@@ -14,6 +14,11 @@ public class PageEntity implements Serializable {
         this.pageSize = getInt(pageSize, 5);
     }
 
+    public PageEntity(int pageNum, int pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
+
     public PageEntity() {
     }
     private static Integer getInt(String obj, Integer orElseObj) {

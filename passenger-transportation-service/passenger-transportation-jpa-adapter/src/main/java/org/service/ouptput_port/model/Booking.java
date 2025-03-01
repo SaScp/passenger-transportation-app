@@ -23,7 +23,7 @@ public class Booking {
     @Column(name = "booking_time")
     private LocalDateTime bookingTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
 
