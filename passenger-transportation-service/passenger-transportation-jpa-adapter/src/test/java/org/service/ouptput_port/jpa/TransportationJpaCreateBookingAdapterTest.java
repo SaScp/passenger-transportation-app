@@ -61,8 +61,8 @@ class TransportationJpaCreateBookingAdapterTest {
         // Act
         adapter.create(entity);
 
-        // Assert
         Optional<Booking> savedBooking = bookingRepository.findAll().stream().findFirst();
+
         assertTrue(savedBooking.isPresent());
         assertEquals("+1234567890", savedBooking.get().getUserPhone().getNumberPhone());
         assertEquals("route-1", savedBooking.get().getRoute());
@@ -74,11 +74,9 @@ class TransportationJpaCreateBookingAdapterTest {
         BookingParamsEntity entity1 = new BookingParamsEntity("+1234567890", "route-1");
         BookingParamsEntity entity2 = new BookingParamsEntity("+1234567890", "route-2");
 
-        // Act
         adapter.create(entity1);
         adapter.create(entity2);
 
-        // Assert
         List<Booking> bookings = bookingRepository.findAll();
         assertEquals(2, bookings.size());
     }
