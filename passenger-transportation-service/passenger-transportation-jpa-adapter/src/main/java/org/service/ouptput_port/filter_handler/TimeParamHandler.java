@@ -20,8 +20,16 @@ public class TimeParamHandler extends Handler {
     @Override
     protected void addParam(ParamsEntity entity) {
         LocalDateTimeConverter converter = new LocalDateTimeConverter();
-       this.criteriaPredicate.add(Optional.ofNullable(entity.getTime())
-               .map(obj -> builder.greaterThanOrEqualTo(root.get("departureTime"), obj))
-               .or(() -> Optional.ofNullable(builder.greaterThanOrEqualTo(root.get("departureTime"), converter.convertToDatabaseColumn(LocalDateTime.now())))));
+        this.criteriaPredicate.add(
+                Optional.ofNullable(entity.getTime())
+                        .map(obj -> builder.greaterThanOrEqualTo(root.get("departureTime"), obj))
+                        .or(() -> {
+                            if (entity.getRouteId() == null) {
+                                return Optional.ofNullable(builder.greaterThanOrEqualTo(root.get("departureTime"), converter.convertToDatabaseColumn(LocalDateTime.now())));
+                            } else {
+                                return Optional.empty();
+                            }
+                        })
+        );
     }
 }
