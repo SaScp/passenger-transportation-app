@@ -41,8 +41,8 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
             throw new UserNotFoundException();
         }
 
-        Optional<List<Booking>> allByNumberPhoneNumberPhone = repository.findAllByNumberPhone_NumberPhone(phone);
-        return allByNumberPhoneNumberPhone.map(BookingMapper.INSTANCE::bookingsToBookingEntitys)
+        Optional<List<Booking>> optionalListBookings = repository.findAllByNumberPhone_NumberPhone(phone);
+        return optionalListBookings.map(BookingMapper.INSTANCE::bookingsToBookingEntitys)
                 .orElseThrow(BookingNotFoundException::new);
     }
 }

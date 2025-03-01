@@ -34,16 +34,16 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Route> find = builder.createQuery(Route.class);
-        Root<Route> from = find.from(Route.class);
+        CriteriaQuery<Route> findQuery = builder.createQuery(Route.class);
+        Root<Route> rootObj = findQuery.from(Route.class);
 
-        HandlerExecutor executor = new HandlerExecutor(builder, from);
-        List<Predicate> predicateList = executor.execute(entity);
+        HandlerExecutor handlerExecutor = new HandlerExecutor(builder, rootObj);
+        List<Predicate> predicateFilterList = handlerExecutor.execute(entity);
 
-        find.where(builder.and(predicateList.toArray(new Predicate[0])));
-        find.orderBy(builder.asc(from.get("departureTime")));
+        findQuery.where(builder.and(predicateFilterList.toArray(new Predicate[0])));
+        findQuery.orderBy(builder.asc(rootObj.get("departureTime")));
 
-        return RouteMapper.INSTANCE.routesToRouteEntitys(entityManager.createQuery(find)
+        return RouteMapper.INSTANCE.routesToRouteEntitys(entityManager.createQuery(findQuery)
                 .setFirstResult((pageEntity.getPageSize() * pageEntity.getPageNum()))
                 .setMaxResults(pageEntity.getPageSize())
                 .getResultList());

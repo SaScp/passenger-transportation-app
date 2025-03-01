@@ -36,14 +36,14 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
     public void create(BookingParamsEntity entity) {
         String id = UUID.randomUUID().toString();
         try {
-            Booking booking = new Booking(
+            Booking newBooking = new Booking(
                     id,
                     LocalDateTime.now(),
                     new Status(CREATED_STATUS_ID),
                     new User(entity.getNumberPhone()),
                     entity.getRouteId()
             );
-            Booking save = bookingRepository.save(booking);
+            Booking save = bookingRepository.save(newBooking);
 
             Optional.ofNullable(cacheManager
                             .getCache("TransportationJpaFindByPhoneAdapter::findBy").get(entity.getNumberPhone(), List.class))

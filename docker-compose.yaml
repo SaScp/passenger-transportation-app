@@ -10,8 +10,16 @@ services:
       context: passenger-transportation-service
     networks:
       - passenger_app_net
+    environment:
+      - spring.profiles.active=prod
+    healthcheck:
+      test: curl --fail http://localhost:${PORT}/actuator/health || exit 1
+      interval: 1m
+      timeout: 30s
+      retries: 2
+      start_period: 1m
     ports:
-      - "8080:8080"
+      - ${PORT}:${PORT}
   passenger_frontend:
     container_name: passenger_frontend
     build:
@@ -22,7 +30,7 @@ services:
       test: curl --fail http://localhost:80 || exit 1
       interval: 1m
       timeout: 30s
-      retries: 3
+      retries: 2
       start_period: 1m
     ports:
       - "80:80"

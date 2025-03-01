@@ -16,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.sql.DataSource;
@@ -40,6 +41,7 @@ public class TransportationServiceApplication {
      * Бин jdbc агрегатора
      * @return TransportationServiceOutputPortAggregateImpl
      * **/
+    @Profile("dev")
     @Bean("jdbcAggregate")
     public TransportationServiceOutputPortAggregate transportationServiceJdbcOutputPortAggregateImpl(DataSource dataSource) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
@@ -56,6 +58,7 @@ public class TransportationServiceApplication {
      * Бин jpa агрегатора
      * @return TransportationServiceOutputPortAggregateImpl
      * **/
+    @Profile({"prod", "dev"})
     @Bean("jpaAggregate")
     public TransportationServiceOutputPortAggregate transportationServiceJpaOutputPortAggregateImpl(
             TransportationJpaFindByPhoneAdapter findByPhoneAdapter,
