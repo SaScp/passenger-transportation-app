@@ -42,7 +42,7 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
                     return new BookingNotFoundException();
                 });
 
-        booking.setStatus(entityManager.getReference(Status.class, REVOKED_STATUS_ID));
+        booking.setStatus(entityManager.find(Status.class, REVOKED_STATUS_ID));
         repository.save(booking);
 
         Optional.ofNullable(cacheManager

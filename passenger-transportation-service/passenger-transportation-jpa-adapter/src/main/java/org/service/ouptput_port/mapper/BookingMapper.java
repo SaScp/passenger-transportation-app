@@ -10,7 +10,9 @@ import org.service.ouptput_port.model.TransportType;
 import org.service.ouptput_port.model.User;
 
 import java.util.List;
-@Mapper
+import java.util.Optional;
+
+@Mapper()
 public interface BookingMapper {
 
     BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
@@ -20,10 +22,10 @@ public interface BookingMapper {
     BookingEntity bookingToBookingEntity(Booking bookings);
 
     default String map(Status value){
-        return value.getStatus();
+        return Optional.ofNullable(value).map(Status::getStatus).orElse("not found");
     }
 
     default String map(User value){
-        return value.getNumberPhone();
+        return Optional.ofNullable(value).map(User::getNumberPhone).orElse("not found");
     }
 }

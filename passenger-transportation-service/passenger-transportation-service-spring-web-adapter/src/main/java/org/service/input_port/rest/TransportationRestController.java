@@ -102,7 +102,7 @@ public class TransportationRestController {
     )
     @DeleteMapping("/revoke")
     public void revokeBooking(@RequestParam(name = "booking_id") String id) {
-        this.inputPort.revokeBooking(id);
+       CompletableFuture.runAsync(() -> this.inputPort.revokeBooking(id));
     }
 
     @Operation(
@@ -111,7 +111,7 @@ public class TransportationRestController {
     )
     @GetMapping("/find-by-phone")
     public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone)); ///return this.inputPort.
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone));
     }
 
     @Operation(

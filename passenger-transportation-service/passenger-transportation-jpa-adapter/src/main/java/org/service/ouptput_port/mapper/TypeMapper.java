@@ -8,10 +8,13 @@ import org.service.ouptput_port.model.TransportType;
 
 import java.util.List;
 
-@Mapper
+@Mapper()
 public interface TypeMapper {
 
     TypeMapper INSTANCE = Mappers.getMapper(TypeMapper.class);
 
-    List<TypeEntity> transportTypesToTypeEntitys(List<TransportType> transportTypes);
+    List<TypeEntity>  transportTypesToTypeEntitys(List<TransportType> transportTypes);
+    default String map(TransportType value){
+        return value.getTransportType();
+    }
 }
