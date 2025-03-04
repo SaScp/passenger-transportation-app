@@ -1,19 +1,25 @@
 CREATE TABLE IF NOT EXISTS t_location(
                                          id TEXT PRIMARY KEY,
-                                         c_name TEXT NOT NULL,
-                                         departure_time DATETIME NOT NULL
+                                         c_name TEXT NOT NULL
 );
-
+CREATE TABLE IF NOT EXISTS t_transport_types (
+                                                 id INTEGER PRIMARY KEY,
+                                                 type_name TEXT NOT NULL UNIQUE,
+                                                 description TEXT
+);
 CREATE TABLE IF NOT EXISTS t_location_graph(
-                                               from_location_id TEXT NOT NULL,
+                                               edge_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                               from_location_id TEXT NOT NULL ,
+                                               departure_time DATETIME NOT NULL,
                                                to_location_id TEXT NOT NULL,
                                                time_cost BIGINT NOT NULL,
                                                price DOUBLE,
-                                               с_type INT,
+                                               type_id INTEGER NOT NULL,
                                                FOREIGN KEY (from_location_id) REFERENCES t_location(id),
-    FOREIGN KEY (to_location_id) REFERENCES t_location(id),
-    PRIMARY KEY(from_location_id, to_location_id)
+                                                FOREIGN KEY (to_location_id) REFERENCES t_location(id),
+                                                FOREIGN KEY (type_id) REFERENCES t_transport_types(id)
     );
+
 
 
 CREATE TABLE IF NOT EXISTS t_user(
@@ -49,8 +55,10 @@ CREATE TABLE IF NOT EXISTS t_booking (
 CREATE TABLE t_route_step (
                               route_id TEXT NOT NULL,
                               route_step INTEGER NOT NULL,
-                              location_id TEXT NOT NULL,
-                              FOREIGN KEY (location_id) REFERENCES t_location(id),
-                              FOREIGN KEY (route_id) REFERENCES t_route(id),
+                              edge_id TEXT NOT NULL,
+                              FOREIGN KEY (edge_id) REFERENCES t_location_graph(edge_id),
+                              FOREIGN KEY (route_id) REFERENCES t_route(id) ,
                               PRIMARY KEY (route_id, route_step)
 );
+
+ CREATE INDEX department_time on t_location_graph(departure_time);

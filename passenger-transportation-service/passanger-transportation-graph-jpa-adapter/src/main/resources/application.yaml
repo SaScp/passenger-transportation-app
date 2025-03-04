@@ -8,3 +8,4 @@ spring:
     url: jdbc:sqlite:transportation.db
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
+    show-sql: true
