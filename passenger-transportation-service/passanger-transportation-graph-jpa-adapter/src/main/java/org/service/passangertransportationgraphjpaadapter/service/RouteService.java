@@ -1,11 +1,9 @@
 package org.service.passangertransportationgraphjpaadapter.service;
 
-import org.service.passangertransportationgraphjpaadapter.dto.RouteDto;
-
-import java.util.List;
+import java.util.Map;
 
 public interface RouteService {
 
 
-    public List<RouteDto> getByDepartureId(String id);
+    public Map<String, ?> getByDepartureId(String id);
 }

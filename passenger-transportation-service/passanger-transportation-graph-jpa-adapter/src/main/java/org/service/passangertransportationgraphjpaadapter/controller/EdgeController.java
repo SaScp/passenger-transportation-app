@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
@@ -34,7 +35,7 @@ public class EdgeController {
     }
 
     @GetMapping("/route")
-    public List<RouteDto> getRoute(@RequestParam("id") String id) {
+    public Map<String, ?> getRoute(@RequestParam("id") String id) {
         return routeService.getByDepartureId(id);
     }
 }

@@ -18,11 +18,13 @@ public class Edge {
     @Column(name = "edge_id", nullable = false)
     private Long id;
 
-    @Column(name = "from_location_id")
-    private String fromLocationId;
+    @ManyToOne
+    @JoinColumn(name = "from_location_id", referencedColumnName = "id")
+    private Location fromLocationId;
 
-    @Column(name = "to_location_id")
-    private String toLocationId;
+    @ManyToOne
+    @JoinColumn(name = "to_location_id", referencedColumnName = "id")
+    private Location toLocationId;
 
     @Column(name = "time_cost", nullable = false)
     private Long timeCost;

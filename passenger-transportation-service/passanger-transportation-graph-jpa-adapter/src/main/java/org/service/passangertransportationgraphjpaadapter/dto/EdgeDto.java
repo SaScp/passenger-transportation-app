@@ -22,6 +22,6 @@ public class EdgeDto implements Serializable {
 
 
     public static EdgeDto fromEdge(Edge edge) {
-        return new EdgeDto(edge.getFromLocationId(), edge.getToLocationId());
+        return new EdgeDto(edge.getFromLocationId().getId(), edge.getToLocationId().getId());
     }
 }

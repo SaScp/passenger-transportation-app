@@ -11,6 +11,6 @@ import java.util.List;
 public interface RouteRepository extends JpaRepository<Route, String> {
 
 
-    @EntityGraph(attributePaths = {"departureCity", "arrivalCity", "routeSteps", "routeSteps.edgeId"})
+    @EntityGraph(attributePaths = {"departureCity", "arrivalCity", "routeSteps", "routeSteps.edgeId.toLocationId","routeSteps.edgeId.fromLocationId"})
     List<Route> findRoutesByDepartureCityId(String id);
 }
