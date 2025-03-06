@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -29,9 +30,11 @@ public class Route {
     @JoinColumn(name = "arrival_city", referencedColumnName = "id", nullable = false)
     private Location arrivalCity;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "departure_time", nullable = false)
     private LocalDateTime departureTime;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
 

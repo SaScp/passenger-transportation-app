@@ -1,13 +1,21 @@
 package org.service.passangertransportationgraphjpaadapter.service;
 
+import jakarta.persistence.EntityGraph;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import org.service.passangertransportationgraphjpaadapter.dto.Graph;
+import org.service.passangertransportationgraphjpaadapter.dto.ParamsEntity;
 import org.service.passangertransportationgraphjpaadapter.dto.RouteDto;
 import org.service.passangertransportationgraphjpaadapter.dto.RouteStepDto;
-import org.service.passangertransportationgraphjpaadapter.model.Location;
+import org.service.passangertransportationgraphjpaadapter.filter_handler.HandlerExecutor;
 import org.service.passangertransportationgraphjpaadapter.model.Route;
 import org.service.passangertransportationgraphjpaadapter.model.RouteStep;
 import org.service.passangertransportationgraphjpaadapter.repository.RouteRepository;
+import org.service.passangertransportationgraphjpaadapter.repository.RouteStepRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,31 +28,57 @@ public class RouteServiceImpl implements RouteService {
 
     private final RouteRepository routeRepository;
 
+    private final RouteStepRepository routeStepRepository;
+
+
+    private final EntityManager entityManager;
 
     @Override
-    public Map<String, ?> getByDepartureId(String id) {
+    public List<RouteDto> getByParams(ParamsEntity entity) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Route> findQuery = builder.createQuery(Route.class);
+        Root<Route> rootObj = findQuery.from(Route.class);
 
-        Map<String, Object> result = new LinkedHashMap<>();
-        List<Route> routes = routeRepository.findRoutesByDepartureCityId(id);
-        List<RouteDto> routeDtos = routes.stream().map(RouteDto::fromRoute).toList();
-        Graph graph = new Graph();
-        graph.setEdges(createEdges(routes));
-        graph.setNodes(createNodes(routes));
-        result.put("routes",routeDtos);
-        result.put("graph",graph);
-        return result;
+        HandlerExecutor handlerExecutor = new HandlerExecutor(builder, rootObj);
+        List<Predicate> predicateFilterList = handlerExecutor.execute(entity);
+
+        findQuery.where(builder.and(predicateFilterList.toArray(new Predicate[0])));
+        findQuery.orderBy(builder.asc(rootObj.get("departureTime")));
+
+        List<Route> resultList = entityManager.createQuery(findQuery).getResultList();
+        List<RouteDto> routeDtos = resultList.stream().map(RouteDto::fromRoute).toList();
+        return routeDtos;
     }
-    private List<Map<String, String>> createNodes(List<Route> routes) {
-        int resultSize = 0;
-        for (var i : routes) {
-            resultSize += i.getRouteSteps().size();
-        }
-        List<Map<String, String>> result = new ArrayList<>(resultSize);
 
-        for (var route : routes) {
+    @Override
+    public Graph getGraphByIds(List<String> ids) {
+        List<RouteStep> routeSteps = routeStepRepository.findRouteStepsByRouteIdIn(ids);
+        Graph graph = new Graph();
+        graph.setNodes(createEdges(routeSteps));
+        graph.setEdges(createNodes(routeSteps));
+        return graph;
+    }
+
+    @Override
+    public Graph getAll() {
+        List<RouteStep> routeSteps = routeStepRepository.findAll();
+        Graph graph = new Graph();
+        graph.setNodes(createEdges(routeSteps));
+        graph.setEdges(createNodes(routeSteps));
+
+        return graph;
+    }
+
+    @Override
+    public List<RouteDto> getByDepartureId(String id) {
+        return routeRepository.findRoutesByDepartureCityId(id).stream().map(RouteDto::fromRoute).toList();
+    }
+
+    private Set<Map<String, String>> createNodes(List<RouteStep> routeSteps) {
+        Set<Map<String, String>> result = new HashSet<>();
+
             int i = 0;
-            int j = route.getRouteSteps().size() - 1;
-            List<RouteStep> routeSteps = route.getRouteSteps();
+            int j = routeSteps.size() - 1;
             while (i <= j) {
                 if (i == j) {
                     result.add(createNode(routeSteps, i));
@@ -58,38 +92,31 @@ public class RouteServiceImpl implements RouteService {
                 }
                 i++;
             }
-        }
 
 
         return result;
     }
 
 
-    private  List<Map<String, String>> createEdges(List<Route> routes) {
-        int resultSize = 0;
-        for (var i : routes) {
-            resultSize += i.getRouteSteps().size();
-        }
-        List<Map<String, String>> result = new ArrayList<>(resultSize);
-
-        for (var route : routes) {
-            int i = 0;
-            int j = route.getRouteSteps().size() - 1;
-            List<RouteStep> routeSteps = route.getRouteSteps();
-            while (i <= j) {
-                if (i == j) {
-                    result.add(create(routeSteps, i));
-                } else {
-                    result.add(create(routeSteps, i));
-                    result.add(create(routeSteps, j));
-                    j--;
-                }
-                i++;
+    private Set<Map<String, String>> createEdges(List<RouteStep> routeSteps) {
+        Set<Map<String, String>> result = new HashSet<>(routeSteps.size());
+        int i = 0;
+        int j = routeSteps.size() - 1;
+        while (i <= j) {
+            if (i == j) {
+                result.add(create(routeSteps, i));
+            } else {
+                result.add(create(routeSteps, i));
+                result.add(create(routeSteps, j));
+                j--;
             }
+            i++;
+
         }
 
         return result;
     }
+
     private Map<String, String> createNode(List<RouteStep> steps, int index) {
         return Map.of("id", steps.get(index).getEdgeId().getFromLocationId().getId(), "label", steps.get(index).getEdgeId().getFromLocationId().getCName());
     }
@@ -97,6 +124,7 @@ public class RouteServiceImpl implements RouteService {
     private Map<String, String> createNode2(List<RouteStep> steps, int index) {
         return Map.of("id", steps.get(index).getEdgeId().getToLocationId().getId(), "label", steps.get(index).getEdgeId().getToLocationId().getCName());
     }
+
     private Map<String, String> create(List<RouteStep> steps, int index) {
         return createEdge(steps.get(index).getRouteStep().toString(), steps.get(index).getEdgeId().getFromLocationId().getId(), steps.get(index).getEdgeId().getToLocationId().getId(), steps.get(index).getRouteId());
     }

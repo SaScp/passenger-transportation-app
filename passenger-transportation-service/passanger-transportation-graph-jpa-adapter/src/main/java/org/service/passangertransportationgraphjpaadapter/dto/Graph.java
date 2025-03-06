@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,9 +15,9 @@ import java.util.Map;
 @NoArgsConstructor
 public class Graph {
 
-    private List<Map<String, String>> nodes;
+    private Set<Map<String, String>> nodes;
 
-    private  List<Map<String, String>> edges;
+    private  Set<Map<String, String>> edges;
 
 
 
