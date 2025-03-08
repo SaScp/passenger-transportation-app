@@ -1,21 +1,22 @@
 package org.service.passangertransportationgraphjpaadapter.service;
 
-import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
-import org.service.passangertransportationgraphjpaadapter.dto.Graph;
-import org.service.passangertransportationgraphjpaadapter.dto.ParamsEntity;
-import org.service.passangertransportationgraphjpaadapter.dto.RouteDto;
-import org.service.passangertransportationgraphjpaadapter.dto.RouteStepDto;
+import org.service.passangertransportationgraphjpaadapter.BookingEntity;
+import org.service.passangertransportationgraphjpaadapter.dto.*;
 import org.service.passangertransportationgraphjpaadapter.filter_handler.HandlerExecutor;
+import org.service.passangertransportationgraphjpaadapter.model.Booking;
 import org.service.passangertransportationgraphjpaadapter.model.Route;
 import org.service.passangertransportationgraphjpaadapter.model.RouteStep;
+import org.service.passangertransportationgraphjpaadapter.repository.BookingRepository;
 import org.service.passangertransportationgraphjpaadapter.repository.RouteRepository;
 import org.service.passangertransportationgraphjpaadapter.repository.RouteStepRepository;
+import org.service.passangertransportationgraphjpaadapter.repository.TypeRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,8 @@ public class RouteServiceImpl implements RouteService {
 
     private final EntityManager entityManager;
 
+    private final TypeRepository typeRepository;
+
     @Override
     public List<RouteDto> getByParams(ParamsEntity entity) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -46,8 +49,7 @@ public class RouteServiceImpl implements RouteService {
         findQuery.orderBy(builder.asc(rootObj.get("departureTime")));
 
         List<Route> resultList = entityManager.createQuery(findQuery).getResultList();
-        List<RouteDto> routeDtos = resultList.stream().map(RouteDto::fromRoute).toList();
-        return routeDtos;
+        return resultList.stream().map(RouteDto::fromRoute).toList();
     }
 
     @Override
@@ -72,6 +74,22 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public List<RouteDto> getByDepartureId(String id) {
         return routeRepository.findRoutesByDepartureCityId(id).stream().map(RouteDto::fromRoute).toList();
+    }
+
+    @Override
+    public List<TypeDto> getTypes() {
+        return typeRepository.findAll().stream().map(TypeDto::fromType).toList();
+    }
+
+    private final BookingRepository repository;
+
+
+    @Override
+    public List<BookingEntity> findBy(String phone) {
+
+        Optional<List<Booking>> optionalListBookings = repository.findAllByNumberPhone_NumberPhone(phone);
+        return optionalListBookings.map(e -> e.stream().map(BookingEntity::fromBooking).toList())
+                .orElse(new ArrayList<>());
     }
 
     private Set<Map<String, String>> createNodes(List<RouteStep> routeSteps) {
@@ -126,10 +144,10 @@ public class RouteServiceImpl implements RouteService {
     }
 
     private Map<String, String> create(List<RouteStep> steps, int index) {
-        return createEdge(steps.get(index).getRouteStep().toString(), steps.get(index).getEdgeId().getFromLocationId().getId(), steps.get(index).getEdgeId().getToLocationId().getId(), steps.get(index).getRouteId());
+        return createEdge(steps.get(index).getRouteStep().toString(), steps.get(index).getEdgeId().getFromLocationId().getId(), steps.get(index).getEdgeId().getToLocationId().getId(), steps.get(index).getRouteId(), steps.get(index).getEdgeId().getCType().toString());
     }
 
-    private Map<String, String> createEdge(String id, String from, String to, String routeId) {
-        return Map.of("id", String.format("%s-%s", routeId, id), "from", from, "to", to, "route_id", routeId);
+    private Map<String, String> createEdge(String id, String from, String to, String routeId, String type) {
+        return Map.of("id", String.format("%s-%s", routeId, id), "from", from, "to", to, "route_id", routeId, "type", type);
     }
 }

@@ -18,7 +18,7 @@ public class TimeParamHandler extends Handler {
 
     @Override
     protected void addParam(ParamsEntity entity) {
-        /*LocalDateTimeConverter converter = new LocalDateTimeConverter();
+        LocalDateTimeConverter converter = new LocalDateTimeConverter();
         this.criteriaPredicate.add(
                 Optional.ofNullable(entity.getTime())
                         .map(obj -> {
@@ -33,6 +33,6 @@ public class TimeParamHandler extends Handler {
                                 return Optional.empty();
                             }
                         })
-        );*/
+        );
     }
 }

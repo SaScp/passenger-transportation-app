@@ -31,7 +31,7 @@ public abstract class Handler {
         this.root = root;
     }
 
-    public static TimeParamHandler createHandler(CriteriaBuilder builder, Root<Route> root) {
+    public static Handler createHandler(CriteriaBuilder builder, Root<Route> root) {
 
         root.fetch("departureCity");
         root.fetch("arrivalCity");
@@ -41,16 +41,18 @@ public abstract class Handler {
 
         edgeId.fetch("fromLocationId");
         edgeId.fetch("toLocationId");
-
+        TypeParamHandler typeParamHandler = new TypeParamHandler(builder, root);
         FromParamHandler fromParamHandler = new FromParamHandler(builder, root);
         ToParamHandler toParamHandler = new ToParamHandler(builder, root);
         TimeParamHandler timeParamHandler = new TimeParamHandler(builder, root);
         IdParamHandler idParamHandler = new IdParamHandler(builder, root);
 
+
+        typeParamHandler.nextNode(timeParamHandler);
         timeParamHandler.nextNode(fromParamHandler);
         fromParamHandler.nextNode(toParamHandler);
         toParamHandler.nextNode(idParamHandler);
-        return timeParamHandler;
+        return typeParamHandler;
     }
 
 

@@ -26,6 +26,7 @@ public class RouteDto implements Serializable {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private List<RouteStepDto> routeStepDtos;
+    private Double price;
 
     public static RouteDto fromRoute(Route route) {
         return new RouteDto(route.getId(),
@@ -33,6 +34,15 @@ public class RouteDto implements Serializable {
                 LocationDto.fromLocation(route.getArrivalCity()),
                 route.getDepartureTime(),
                 route.getArrivalTime(),
-                route.getRouteSteps().stream().map(RouteStepDto::fromRouteStep).toList());
+                route.getRouteSteps().stream().map(RouteStepDto::fromRouteStep).toList(),
+                getPrice(route));
+    }
+
+    private static Double getPrice(Route route) {
+        double sum = 0;
+        for (var i : route.getRouteSteps()) {
+            sum += i.getEdgeId().getPrice();
+        }
+        return sum;
     }
 }
