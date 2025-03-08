@@ -23,4 +23,6 @@ public interface TransportationServiceOutputPortAggregate {
     FindTypesTransportationServiceOutputPort getFindTypesTransportationServiceOutputPort();
 
     FindAllRouteStepTransportationServiceOutputPort getFindAllRouteStepTransportationServiceOutputPort();
+
+    FindByRouteStepsIdsTransportationServiceOutputPurt getFindByRouteStepsIdsTransportationServiceOutputPurt();
 }

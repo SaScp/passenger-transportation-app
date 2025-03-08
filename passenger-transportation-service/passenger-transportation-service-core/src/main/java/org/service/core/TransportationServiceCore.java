@@ -4,6 +4,7 @@ import org.service.entity.*;
 import org.service.exception.ProblemDetailsException;
 import org.service.input_port.TransportationServiceInputPort;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
+import org.service.output_port.entity.RouteStepEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,13 +31,13 @@ public class TransportationServiceCore implements TransportationServiceInputPort
 
     @Override
     public GraphEntity findAll() {
-
+        List<RouteStepEntity> all = aggregate.getFindAllRouteStepTransportationServiceOutputPort().findAll();
         return new GraphEntity(new HashSet<>(), new HashSet<>());
     }
 
     @Override
     public List<RoutesEntity> findAll(PageEntity pageEntity) {
-        return List.of();
+        return aggregate.getFindAllTransportationServiceOutputPort().findAll(pageEntity);
     }
 
     @Override
@@ -68,6 +69,11 @@ public class TransportationServiceCore implements TransportationServiceInputPort
         return aggregate.getFindTypesTransportationServiceOutputPort().findAllTypeEntity();
     }
 
+
+    public GraphEntity findGraphByIds(List<String> ids) {
+        List<RouteStepEntity> routeStepsByIds = aggregate.getFindByRouteStepsIdsTransportationServiceOutputPurt().findRouteStepsByIds(ids);
+        return new GraphEntity(new HashSet<>(), new HashSet<>());
+    }
 
     /*private Set<Map<String, String>> createNodes(List<RouteStep> routeSteps) {
         Set<Map<String, String>> result = new HashSet<>();

@@ -70,6 +70,15 @@ public class TransportationRestController {
 
     @Operation(
             summary = "Просмотр всех маршрутов",
+            description = "позволяет просматривать все маршруты"
+    )
+    @GetMapping("/find-all-graph")
+    public CompletableFuture<GraphEntity> findAllTransport() {
+        return CompletableFuture.supplyAsync(this.inputPort::findAll);
+    }
+
+    @Operation(
+            summary = "Просмотр всех маршрутов",
             description = "позволяет просматривать все маршруты",
             parameters = {
                     @Parameter(name = "page_num",
@@ -81,8 +90,8 @@ public class TransportationRestController {
             }
     )
     @GetMapping("/find-all")
-    public CompletableFuture<GraphEntity> findAllTransport() {
-        return CompletableFuture.supplyAsync(this.inputPort::findAll);
+    public CompletableFuture<List<RoutesEntity>> findAllTransport(@PageSettingParam PageEntity pageEntity) {
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findAll(pageEntity));
     }
 
     @Operation(
@@ -119,7 +128,7 @@ public class TransportationRestController {
             description = "Позволяет посмотреть просмотреть маршрут по id"
     )
     @GetMapping("/find-by-id")
-    public CompletableFuture<List<RoutesEntity>> findTransportById( @PageSettingParam PageEntity pageEntity,
+    public CompletableFuture<List<RoutesEntity>> findTransportById(@PageSettingParam PageEntity pageEntity,
                                                  @RequestParam(value = "route_id") List<String> id) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findByParams(new ParamsEntity(id), pageEntity));
     }
@@ -128,5 +137,10 @@ public class TransportationRestController {
     public CompletableFuture<List<TypeEntity>> findTypes() {
 
         return CompletableFuture.supplyAsync(this.inputPort::findAllType);
+    }
+
+    @GetMapping("/find-by-ids")
+    public CompletableFuture<GraphEntity> findGraphByIds(@RequestParam("id") List<String> ids) {
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findGraphByIds(ids));
     }
 }
