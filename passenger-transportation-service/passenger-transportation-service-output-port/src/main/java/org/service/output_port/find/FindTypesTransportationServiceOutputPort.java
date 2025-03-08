@@ -1,10 +1,11 @@
-package org.service.output_port;
+package org.service.output_port.find;
 
 import org.service.entity.TypeEntity;
+import org.service.output_port.TransportationServiceOutputPort;
 
 import java.util.List;
 
-public interface FindTypesTransportationServiceOutputPort {
+public interface FindTypesTransportationServiceOutputPort extends TransportationServiceOutputPort {
 
 
     /**

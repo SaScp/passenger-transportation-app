@@ -1,15 +1,11 @@
 package org.service;
 
 import org.service.core.TransportationServiceCore;
-import org.service.entity.BookingEntity;
-import org.service.entity.Result;
-import org.service.entity.RoutesEntity;
-import org.service.entity.TypeEntity;
-import org.service.ouptput_port.jpa.*;
-import org.service.output_port.JdbcLruIdCache;
-import org.service.output_port.TransportationServiceOutputPortAggregate;
-import org.service.output_port.TransportationServiceOutputPortAggregateImpl;
-import org.service.output_port.jdbc.adapter.*;
+
+
+import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
+import org.service.output_port.aggregate.TransportationServiceOutputPortAggregateImpl;
+import org.service.output_purt.jpa.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -19,9 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.List;
 
 @EnableAsync
 @EnableCaching
@@ -41,7 +35,7 @@ public class TransportationServiceApplication {
      * Бин jdbc агрегатора
      * @return TransportationServiceOutputPortAggregateImpl
      * **/
-    @Profile("dev")
+  /*  @Profile("dev")
     @Bean("jdbcAggregate")
     public TransportationServiceOutputPortAggregate transportationServiceJdbcOutputPortAggregateImpl(DataSource dataSource) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
@@ -52,7 +46,7 @@ public class TransportationServiceApplication {
                 new TransportationJdbcFindByPhoneAdapter(dataSource, bookingjdbcCache()),
                 new TransportationJdbcFindTypesAdapter(dataSource)
         );
-    }
+    }*/
 
     /**
      * Бин jpa агрегатора
@@ -65,8 +59,9 @@ public class TransportationServiceApplication {
             TransportationJpaFindByParamAdapter findByParamAdapter,
             TransportationJpaCreateBookingAdapter createBookingAdapter,
             TransportationJpaRevokeBookingAdapter revokeBookingAdapter,
-            TransportationJpaFindAllAdapter findAllAdapter,
-            TransportationJpaFindTypesAdapter findTypesAdapter
+            TransportationJpaFindAllRouteStepAdapter findAllRouteStepAdapter,
+            TransportationJpaFindTypesAdapter findTypesAdapter,
+            TransportationJpaFindAllAdapter findAllAdapter
     ) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
                 createBookingAdapter,
@@ -74,16 +69,19 @@ public class TransportationServiceApplication {
                 findByParamAdapter,
                 findAllAdapter,
                 findByPhoneAdapter,
-                findTypesAdapter
+                findTypesAdapter,
+                findAllRouteStepAdapter
         );
     }
+
+
 
     @Bean
     public TransportationServiceCore transportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
         return new TransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 
-    @Bean("booking_jdbc_cache")
+/*    @Bean("booking_jdbc_cache")
     public JdbcLruIdCache<String, List<BookingEntity>> bookingjdbcCache() {
         return new JdbcLruIdCache<>(cacheSize);
     }
@@ -91,5 +89,5 @@ public class TransportationServiceApplication {
     @Bean("route_jdbc_cache")
     public JdbcLruIdCache<Result, List<RoutesEntity>> routeJdbcCache() {
         return new JdbcLruIdCache<>(cacheSize);
-    }
+    }*/
 }

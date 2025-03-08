@@ -1,4 +1,6 @@
-package org.service.output_port;
+package org.service.output_port.revoke;
+
+import org.service.output_port.TransportationServiceOutputPort;
 
 public interface RevokeBookingTransportationServiceOutputPort extends TransportationServiceOutputPort {
 

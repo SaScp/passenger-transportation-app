@@ -1,4 +1,4 @@
-package org.service.passangertransportationgraphjpaadapter.model;
+package org.service.output_purt.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -81,8 +81,8 @@ public class TransportationRestController {
             }
     )
     @GetMapping("/find-all")
-    public CompletableFuture<List<RoutesEntity>> findAllTransport(@PageSettingParam PageEntity pageEntity) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findAll(pageEntity));
+    public CompletableFuture<GraphEntity> findAllTransport() {
+        return CompletableFuture.supplyAsync(this.inputPort::findAll);
     }
 
     @Operation(
@@ -110,8 +110,8 @@ public class TransportationRestController {
             description = "Позволяет посмотреть все маршруты пользователя"
     )
     @GetMapping("/find-by-phone")
-    public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone));
+    public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone, @PageSettingParam PageEntity pageEntity) {
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone, pageEntity));
     }
 
     @Operation(
@@ -120,7 +120,7 @@ public class TransportationRestController {
     )
     @GetMapping("/find-by-id")
     public CompletableFuture<List<RoutesEntity>> findTransportById( @PageSettingParam PageEntity pageEntity,
-                                                 @RequestParam(value = "route_id") String id) {
+                                                 @RequestParam(value = "route_id") List<String> id) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findByParams(new ParamsEntity(id), pageEntity));
     }
 

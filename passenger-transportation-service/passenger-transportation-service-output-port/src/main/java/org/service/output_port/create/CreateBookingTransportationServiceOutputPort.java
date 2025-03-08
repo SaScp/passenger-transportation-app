@@ -1,6 +1,7 @@
-package org.service.output_port;
+package org.service.output_port.create;
 
 import org.service.entity.BookingParamsEntity;
+import org.service.output_port.TransportationServiceOutputPort;
 
 public interface CreateBookingTransportationServiceOutputPort extends TransportationServiceOutputPort {
 

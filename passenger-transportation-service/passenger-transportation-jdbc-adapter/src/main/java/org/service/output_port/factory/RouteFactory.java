@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class RouteFactory {
     public static RoutesEntity createRoute(ResultSet rs) throws SQLException {
-        return new RoutesEntity(
+        return null;/*new RoutesEntity(
                 rs.getString("id"),
                 rs.getString("departure_city"),
                 rs.getString("arrival_city"),
@@ -15,6 +15,6 @@ public class RouteFactory {
                 rs.getString("arrival_time"),
                 rs.getString("type_name"),
                 rs.getInt("price")
-        );
+        );*/
     }
 }

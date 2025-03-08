@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.service.ouptput_port.jpa</groupId>
-            <artifactId>passenger-transportation-jpa-adapter</artifactId>
+            <artifactId>passenger-transportation-jpa-graph-adapter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
