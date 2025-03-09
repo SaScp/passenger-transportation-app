@@ -7,8 +7,10 @@ import org.service.entity.BookingParamsEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.output_port.create.CreateBookingTransportationServiceOutputPort;
 import org.service.output_purt.exception.RouteIsNullException;
+import org.service.output_purt.exception.RouteNotFoundException;
 import org.service.output_purt.mapper.BookingMapper;
 import org.service.output_purt.model.Booking;
+import org.service.output_purt.model.Route;
 import org.service.output_purt.model.Status;
 import org.service.output_purt.model.User;
 import org.service.output_purt.repository.BookingRepository;
@@ -39,10 +41,16 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
     public void create(BookingParamsEntity entity) {
         User user = Optional.ofNullable(entityManager.find(User.class, entity.getNumberPhone()))
                 .orElse(new User(entity.getNumberPhone()));
+
+        if (entityManager.find(Route.class, entity.getRouteId()) == null) {
+            throw new RouteNotFoundException();
+        }
         if (entity.getRouteId() == null) {
             throw new RouteIsNullException();
         }
         String id = UUID.randomUUID().toString();
+
+        Exception exception = null;
         try {
             Booking newBooking = new Booking(
                     id,
@@ -59,9 +67,15 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
                                     .map(e -> e.add(BookingMapper.INSTANCE.bookingToBookingEntity(save)))
                     );
 
+        } catch (ProblemDetailsException e) {
+            exception = e;
+            throw new ProblemDetailsException(e.getCode(), e.getMessage());
         } catch (Exception e) {
-            log.error("\nerror {} \nin {} \nmessage {}", e.getClass(), e.getStackTrace()[1], e.getMessage());
-            throw new ProblemDetailsException(500, "ошибка при сохранении");
+            exception = e;
+            throw new ProblemDetailsException(500, "error of create booking");
+        } finally {
+            if (exception != null)
+                log.error("\nerror {} \nin {} \nmessage {}", exception.getClass(), exception.getStackTrace()[1], exception.getMessage());
         }
     }
 }

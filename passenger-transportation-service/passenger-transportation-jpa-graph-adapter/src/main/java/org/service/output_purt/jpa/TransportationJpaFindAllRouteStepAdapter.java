@@ -23,6 +23,6 @@ public class TransportationJpaFindAllRouteStepAdapter implements FindAllRouteSte
     //@Cacheable(key = "#result", value = "TransportationJpaFindAllAdapter::findAll")
     public List<RouteStepEntity> findAll() {
         List<RouteStep> routeSteps = repository.findAll();
-        return RouteStepMapper.INSTANCE.routeStepToRouteStepEntity(routeSteps);
+        return RouteStepMapper.INSTANCE.routeStepsToRouteStepEntitys(routeSteps);
     }
 }
