@@ -41,6 +41,8 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
         findQuery.orderBy(builder.asc(rootObj.get("departureTime")));
 
         List<Route> resultList = entityManager.createQuery(findQuery)
+                .setFirstResult((pageEntity.getPageSize() * pageEntity.getPageNum()))
+                .setMaxResults(pageEntity.getPageSize())
                 .getResultList();
         return RouteMapper.INSTANCE.routesToRouteEntitys(resultList);
     }

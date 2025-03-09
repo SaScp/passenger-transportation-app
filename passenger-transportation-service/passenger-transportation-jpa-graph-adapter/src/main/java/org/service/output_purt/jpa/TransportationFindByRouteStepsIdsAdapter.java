@@ -5,6 +5,7 @@ import org.service.output_port.entity.RouteStepEntity;
 import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutputPurt;
 import org.service.output_purt.mapper.RouteStepMapper;
 import org.service.output_purt.repository.RouteStepRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStep
     private final RouteStepRepository routeStepRepository;
 
     @Override
+    @Cacheable(key = "#ids.hashCode()", value = "TransportationFindByRouteStepsIdsAdapter::findRouteStepsByIds")
     public List<RouteStepEntity> findRouteStepsByIds(List<String> ids) {
         return RouteStepMapper.INSTANCE.routeStepToRouteStepEntity(routeStepRepository.findRouteStepsByRouteIdIn(ids));
     }

@@ -21,6 +21,7 @@ public interface RouteStepMapper {
     RouteStepMapper INSTANCE = Mappers.getMapper(RouteStepMapper.class);
 
 
+
     List<RouteStepEntity> routeStepToRouteStepEntity(List<RouteStep> routeSteps);
 
     default EdgeEntity edgeToEdgeEntity(Edge edge) {
@@ -28,8 +29,8 @@ public interface RouteStepMapper {
             return null;
         } else {
             return new EdgeEntity(
-                    createLocationEntity( edge.getFromLocationId().getId(), edge.getFromLocationId().getLabel()),
-                    createLocationEntity( edge.getToLocationId().getId(), edge.getToLocationId().getLabel()),
+                    createLocationEntity( edge.getFromLocationId().getId(), edge.getFromLocationId().getCName()),
+                    createLocationEntity( edge.getToLocationId().getId(), edge.getToLocationId().getCName()),
                     edge.getCType());
         }
     }

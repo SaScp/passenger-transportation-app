@@ -22,7 +22,7 @@ public class Location {
     private String id;
 
     @Column(name = "c_name", nullable = false)
-    private String label;
+    private String cName;
 
 
 }

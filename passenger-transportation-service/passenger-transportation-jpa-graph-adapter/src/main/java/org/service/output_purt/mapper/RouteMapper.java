@@ -25,6 +25,8 @@ public interface RouteMapper {
     @Mapping(target = "arrivalTime", source = "arrivalTime", dateFormat = "yyyy-MM-dd'T'HH:mm:ss")
     @Mapping(target = "type", source = "routeSteps", qualifiedByName = "mapType")
     @Mapping(target = "price", source = "routeSteps", qualifiedByName = "mapPrice")
+    @Mapping(target = "departureCity.label", source = "departureCity.CName")
+    @Mapping(target = "arrivalCity.label", source = "arrivalCity.CName")
     RoutesEntity routeToRoutesEntity(Route route);
 
     List<RoutesEntity> routesToRouteEntitys(List<Route> routes);
