@@ -42,8 +42,6 @@ public class Route {
     @JoinColumn(name = "route_id", referencedColumnName = "id", nullable = false)
     private List<RouteStep> routeSteps;
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
