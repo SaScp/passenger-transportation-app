@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import org.service.entity.LocationEntity;
+import org.service.entity.RouteStepEntity;
 import org.service.entity.RoutesEntity;
 
 import org.service.output_purt.model.Location;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", imports = RouteStepMapper.class)
 public interface RouteMapper {
 
     RouteMapper INSTANCE = Mappers.getMapper(RouteMapper.class);
@@ -28,6 +29,13 @@ public interface RouteMapper {
     @Mapping(target = "departureCity.label", source = "departureCity.CName")
     @Mapping(target = "arrivalCity.label", source = "arrivalCity.CName")
     RoutesEntity routeToRoutesEntity(Route route);
+
+    @Mapping(target = "edgeId.fromLocationId.label", source = "edgeId.fromLocationId.CName")
+    @Mapping(target = "edgeId.toLocationId.label", source = "edgeId.toLocationId.CName")
+    @Mapping(target = "edgeId.type", source = "edgeId.CType")
+    RouteStepEntity routeStepToRouteStepEntity(RouteStep routeSteps);
+
+    List<RouteStepEntity> routeStepsToRouteStepEntitys(List<RouteStep> routeSteps);
 
     List<RoutesEntity> routesToRouteEntitys(List<Route> routes);
 

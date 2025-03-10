@@ -18,9 +18,11 @@ public class FromParamHandler extends Handler {
 
     @Override
     protected void addParam(ParamsEntity entity) {
-        Join<Route, Location> locationJoin = root.join("departureCity", JoinType.INNER);
         this.criteriaPredicate.add(Optional.ofNullable(entity.getFrom())
                 .filter(from -> !(from.isEmpty() && from.isBlank()))
-                .map(from -> builder.equal(locationJoin.get("cName"), from)));
+                .map(from -> {
+                    Join<Route, Location> locationJoin = root.join("departureCity", JoinType.INNER);
+                    return builder.equal(locationJoin.get("cName"), from);
+                }));
     }
 }

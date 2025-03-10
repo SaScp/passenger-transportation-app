@@ -1,5 +1,6 @@
 package org.service.input_port.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.service.entity.*;
@@ -133,9 +134,13 @@ public class TransportationRestController {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findByParams(new ParamsEntity(id), pageEntity));
     }
 
+    @GetMapping("/find-routes-by-dep-id")
+    public CompletableFuture<List<RoutesEntity>> findTransportByDepId(@PageSettingParam PageEntity pageEntity, @RequestParam(value = "id") String id) {
+        return CompletableFuture.supplyAsync(() -> this.inputPort.findRoutesByDepId(id, pageEntity));
+    }
+
     @GetMapping("/find-types")
     public CompletableFuture<List<TypeEntity>> findTypes() {
-
         return CompletableFuture.supplyAsync(this.inputPort::findAllType);
     }
 

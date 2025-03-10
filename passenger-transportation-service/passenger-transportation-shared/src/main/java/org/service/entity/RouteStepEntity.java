@@ -1,4 +1,4 @@
-package org.service.output_port.entity;
+package org.service.entity;
 
 public record RouteStepEntity(
         String routeId,

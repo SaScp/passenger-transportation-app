@@ -19,10 +19,12 @@ public class ToParamHandler extends Handler {
 
     @Override
     protected void addParam(ParamsEntity entity) {
-        Join<Route, Location> locationJoin = root.join("arrivalCity", JoinType.INNER);
 
         this.criteriaPredicate.add(Optional.ofNullable(entity.getTo())
                 .filter(to -> !(to.isEmpty() && to.isBlank()))
-                .map(obj -> builder.equal(locationJoin.get("cName"), obj)));
+                .map(obj -> {
+                    Join<Route, Location> locationJoin = root.join("arrivalCity", JoinType.INNER);
+                    return builder.equal(locationJoin.get("cName"), obj);
+                }));
     }
 }

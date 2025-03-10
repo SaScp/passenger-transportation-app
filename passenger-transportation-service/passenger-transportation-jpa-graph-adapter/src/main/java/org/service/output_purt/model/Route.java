@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,11 +23,11 @@ public class Route {
     @Column(name = "id")
     private String id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "departure_city", referencedColumnName = "id", nullable = false)
     private Location departureCity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "arrival_city", referencedColumnName = "id", nullable = false)
     private Location arrivalCity;
 
@@ -38,9 +39,10 @@ public class Route {
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id", referencedColumnName = "id", nullable = false)
     private List<RouteStep> routeSteps;
+
 
     @Override
     public boolean equals(Object o) {

@@ -62,7 +62,8 @@ public class TransportationServiceApplication {
             TransportationJpaFindAllRouteStepAdapter findAllRouteStepAdapter,
             TransportationJpaFindTypesAdapter findTypesAdapter,
             TransportationJpaFindAllAdapter findAllAdapter,
-            TransportationFindByRouteStepsIdsAdapter findByRouteStepsIdsAdapter
+            TransportationFindByRouteStepsIdsAdapter findByRouteStepsIdsAdapter,
+            TransportationFindByDepartureCityIdAdapter findByDepartureCityIdAdapter
     ) throws SQLException {
         return new TransportationServiceOutputPortAggregateImpl(
                 createBookingAdapter,
@@ -72,7 +73,8 @@ public class TransportationServiceApplication {
                 findByPhoneAdapter,
                 findTypesAdapter,
                 findAllRouteStepAdapter,
-                findByRouteStepsIdsAdapter
+                findByRouteStepsIdsAdapter,
+                findByDepartureCityIdAdapter
         );
     }
 

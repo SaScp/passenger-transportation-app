@@ -1,7 +1,7 @@
 package org.service.output_port.find;
 
 import org.service.output_port.TransportationServiceOutputPort;
-import org.service.output_port.entity.RouteStepEntity;
+import org.service.entity.RouteStepEntity;
 
 import java.util.List;
 

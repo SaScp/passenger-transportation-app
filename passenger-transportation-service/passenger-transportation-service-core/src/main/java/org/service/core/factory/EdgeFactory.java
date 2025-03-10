@@ -1,8 +1,8 @@
 package org.service.core.factory;
 
 import org.service.entity.LocationEntity;
-import org.service.output_port.entity.EdgeEntity;
-import org.service.output_port.entity.RouteStepEntity;
+import org.service.entity.EdgeEntity;
+import org.service.entity.RouteStepEntity;
 
 import java.util.*;
 import java.util.function.Function;

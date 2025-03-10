@@ -24,7 +24,7 @@ public class RouteStep {
     @Column(name = "route_step")
     private Integer routeStep;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "edge_id", referencedColumnName = "edge_id")
     private Edge edgeId;
 

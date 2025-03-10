@@ -15,14 +15,14 @@ public class TransportationServiceOutputPortAggregateImpl implements Transportat
     private final FindTypesTransportationServiceOutputPort findTypesTransportationServiceOutputPort;
     private final FindAllRouteStepTransportationServiceOutputPort findAllRouteStepTransportationServiceOutputPort;
     private final FindByRouteStepsIdsTransportationServiceOutputPurt findByRouteStepsIdsTransportationServiceOutputPurt;
-
+    private final FindAllRoutesByDepartureCityOutputPort findAllRoutesByDepartureCityOutputPort;
 
     public TransportationServiceOutputPortAggregateImpl(CreateBookingTransportationServiceOutputPort createBookingTransportationServiceOutputPort,
                                                         RevokeBookingTransportationServiceOutputPort revokeBookingTransportationServiceOutputPort,
                                                         FindByParamsTransportationServiceOutputPort findByParamsTransportationServiceOutputPort,
                                                         FindAllTransportationServiceOutputPort findAllTransportationServiceOutputPort,
                                                         FindByPhoneTransportationServiceOutputPort findByPhoneTransportationServiceOutputPort,
-                                                        FindTypesTransportationServiceOutputPort findTypesTransportationServiceOutputPort, FindAllRouteStepTransportationServiceOutputPort findAllRouteStepTransportationServiceOutputPort, FindByRouteStepsIdsTransportationServiceOutputPurt findByRouteStepsIdsTransportationServiceOutputPurt) {
+                                                        FindTypesTransportationServiceOutputPort findTypesTransportationServiceOutputPort, FindAllRouteStepTransportationServiceOutputPort findAllRouteStepTransportationServiceOutputPort, FindByRouteStepsIdsTransportationServiceOutputPurt findByRouteStepsIdsTransportationServiceOutputPurt, FindAllRoutesByDepartureCityOutputPort findAllRoutesByDepartureCityOutputPort) {
         this.createBookingTransportationServiceOutputPort = createBookingTransportationServiceOutputPort;
         this.revokeBookingTransportationServiceOutputPort = revokeBookingTransportationServiceOutputPort;
         this.findByParamsTransportationServiceOutputPort = findByParamsTransportationServiceOutputPort;
@@ -31,11 +31,17 @@ public class TransportationServiceOutputPortAggregateImpl implements Transportat
         this.findTypesTransportationServiceOutputPort = findTypesTransportationServiceOutputPort;
         this.findAllRouteStepTransportationServiceOutputPort = findAllRouteStepTransportationServiceOutputPort;
         this.findByRouteStepsIdsTransportationServiceOutputPurt = findByRouteStepsIdsTransportationServiceOutputPurt;
+        this.findAllRoutesByDepartureCityOutputPort = findAllRoutesByDepartureCityOutputPort;
     }
 
 
     public FindByRouteStepsIdsTransportationServiceOutputPurt getFindByRouteStepsIdsTransportationServiceOutputPurt() {
         return findByRouteStepsIdsTransportationServiceOutputPurt;
+    }
+
+    @Override
+    public FindAllRoutesByDepartureCityOutputPort getFindAllRoutesByDepartureCityOutputPort() {
+        return findAllRoutesByDepartureCityOutputPort;
     }
 
     public CreateBookingTransportationServiceOutputPort getCreateBookingTransportationServiceOutputPort() {

@@ -21,7 +21,7 @@ export default {
       routes: ref([]),
       err: '',
       page_num: ref(0),
-      page_size: ref(20),
+      page_size: ref(5),
       is_find: false,
       is_zero: false
     };

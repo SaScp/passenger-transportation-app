@@ -1,7 +1,5 @@
-package org.service.output_port.entity;
+package org.service.entity;
 
-
-import org.service.entity.LocationEntity;
 
 import java.io.Serializable;
 

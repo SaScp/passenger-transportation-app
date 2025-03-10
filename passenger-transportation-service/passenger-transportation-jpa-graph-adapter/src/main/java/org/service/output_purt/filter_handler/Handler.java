@@ -34,14 +34,8 @@ public abstract class Handler {
 
     public static Handler createHandler(CriteriaBuilder builder, Root<Route> root) {
 
-        root.fetch("departureCity");
-        root.fetch("arrivalCity");
 
-        Fetch<Route, RouteStep> routeStepsFetch = root.fetch("routeSteps");
-        Fetch<RouteStep, Location> edgeId = routeStepsFetch.fetch("edgeId");
 
-        edgeId.fetch("fromLocationId");
-        edgeId.fetch("toLocationId");
         TypeParamHandler typeParamHandler = new TypeParamHandler(builder, root);
         FromParamHandler fromParamHandler = new FromParamHandler(builder, root);
         ToParamHandler toParamHandler = new ToParamHandler(builder, root);

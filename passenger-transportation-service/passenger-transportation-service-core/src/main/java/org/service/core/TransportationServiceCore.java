@@ -6,9 +6,8 @@ import org.service.entity.*;
 import org.service.exception.ProblemDetailsException;
 import org.service.input_port.TransportationServiceInputPort;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
-import org.service.output_port.entity.RouteStepEntity;
+import org.service.entity.RouteStepEntity;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,6 +75,11 @@ public class TransportationServiceCore implements TransportationServiceInputPort
         Set<Map<String, String>> nodes = ResponseFactory.createResponsePart(routeStepsByIds, Type.NODE);
         Set<Map<String, String>> edges = ResponseFactory.createResponsePart(routeStepsByIds, Type.EDGE);
         return new GraphEntity(nodes, edges);
+    }
+
+    @Override
+    public List<RoutesEntity> findRoutesByDepId(String id, PageEntity pageEntity) {
+        return aggregate.getFindAllRoutesByDepartureCityOutputPort().findAllByDepartureCityId(id, pageEntity);
     }
 
 }

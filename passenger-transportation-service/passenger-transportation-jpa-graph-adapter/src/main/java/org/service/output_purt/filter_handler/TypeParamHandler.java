@@ -1,11 +1,9 @@
 package org.service.output_purt.filter_handler;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.Subquery;
+import jakarta.persistence.criteria.*;
 import org.service.entity.ParamsEntity;
 import org.service.output_purt.model.Edge;
+import org.service.output_purt.model.Location;
 import org.service.output_purt.model.Route;
 import org.service.output_purt.model.RouteStep;
 
@@ -28,7 +26,6 @@ public class TypeParamHandler extends Handler {
                 .filter(type -> !(type.isEmpty() && type.isBlank()))
                 .map(obj -> {
                    return builder.not(builder.exists(subquery.select(builder.literal(1L))
-
                             .where(
                                     builder.equal(subRouteStep.get("routeId"), root.get("id")),
                                     builder.notEqual(subEdge.get("cType"), obj)

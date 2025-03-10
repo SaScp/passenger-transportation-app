@@ -2,7 +2,7 @@ package org.service.output_purt.jpa;
 
 import lombok.AllArgsConstructor;
 import org.service.output_port.find.FindAllRouteStepTransportationServiceOutputPort;
-import org.service.output_port.entity.RouteStepEntity;
+import org.service.entity.RouteStepEntity;
 import org.service.output_purt.mapper.RouteStepMapper;
 import org.service.output_purt.model.RouteStep;
 import org.service.output_purt.repository.RouteStepRepository;
@@ -17,7 +17,6 @@ import java.util.List;
 public class TransportationJpaFindAllRouteStepAdapter implements FindAllRouteStepTransportationServiceOutputPort {
 
     private final RouteStepRepository repository;
-
 
     @Override
     //@Cacheable(key = "#result", value = "TransportationJpaFindAllAdapter::findAll")

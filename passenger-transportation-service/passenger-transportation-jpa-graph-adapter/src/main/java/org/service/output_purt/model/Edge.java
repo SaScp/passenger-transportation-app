@@ -18,11 +18,11 @@ public class Edge {
     @Column(name = "edge_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_location_id", referencedColumnName = "id")
     private Location fromLocationId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_location_id", referencedColumnName = "id")
     private Location toLocationId;
 

@@ -1,6 +1,6 @@
 package org.service.core.factory;
 
-import org.service.output_port.entity.RouteStepEntity;
+import org.service.entity.RouteStepEntity;
 
 import java.util.*;
 import java.util.function.Function;

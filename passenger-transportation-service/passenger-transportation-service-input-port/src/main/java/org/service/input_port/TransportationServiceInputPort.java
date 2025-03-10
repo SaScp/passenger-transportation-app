@@ -22,4 +22,6 @@ public interface TransportationServiceInputPort {
     List<TypeEntity> findAllType();
 
     GraphEntity findGraphByIds(List<String> ids);
+
+    List<RoutesEntity> findRoutesByDepId(String id, PageEntity pageEntity);
 }
