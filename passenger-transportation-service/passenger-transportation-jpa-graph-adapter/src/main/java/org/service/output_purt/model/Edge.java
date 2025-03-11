@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Getter
@@ -12,6 +15,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "t_location_graph")
+@NamedEntityGraph(
+        name = "Edge.withCType",
+        attributeNodes = @NamedAttributeNode("cType")
+)
 public class Edge {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -31,6 +38,7 @@ public class Edge {
 
     @Column(name = "price")
     private Double price;
+
 
     @Column(name = "type_id")
     private Integer cType;

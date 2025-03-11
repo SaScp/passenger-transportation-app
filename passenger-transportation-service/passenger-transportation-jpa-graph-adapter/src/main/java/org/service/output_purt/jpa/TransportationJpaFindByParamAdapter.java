@@ -1,5 +1,6 @@
 package org.service.output_purt.jpa;
 
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -13,9 +14,11 @@ import org.service.entity.RoutesEntity;
 import org.service.output_port.find.FindByParamsTransportationServiceOutputPort;
 import org.service.output_purt.filter_handler.HandlerExecutor;
 import org.service.output_purt.mapper.RouteMapper;
+import org.service.output_purt.model.Edge;
 import org.service.output_purt.model.Location;
 import org.service.output_purt.model.Route;
 import org.service.output_purt.model.RouteStep;
+import org.service.output_purt.repository.RouteRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -29,7 +32,9 @@ import java.util.List;
 public class TransportationJpaFindByParamAdapter implements FindByParamsTransportationServiceOutputPort {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    private final RouteRepository repository;
 
     @Override
     @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
@@ -37,7 +42,9 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<String> idQuery = builder.createQuery(String.class);
+
         Root<Route> rootObj = idQuery.from(Route.class);
+
 
         HandlerExecutor handlerExecutor = new HandlerExecutor(builder, rootObj);
         List<Predicate> predicateFilterList = handlerExecutor.execute(entity);
@@ -47,8 +54,10 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
             idQuery.where(builder.and(predicateFilterList.toArray(new Predicate[0])));
         }
 
+
         idQuery.orderBy(builder.asc(rootObj.get("departureTime")));
         TypedQuery<String> typedIdQuery = entityManager.createQuery(idQuery);
+
         typedIdQuery.setFirstResult(pageEntity.getPageNum() * pageEntity.getPageSize());
         typedIdQuery.setMaxResults(pageEntity.getPageSize());
 
@@ -56,22 +65,7 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
         List<String> routeIds = typedIdQuery.getResultList();
         if (routeIds.isEmpty()) return List.of();
 
-        CriteriaQuery<Route> findQuery = builder.createQuery(Route.class);
-        Root<Route> root = findQuery.from(Route.class);
-
-        Fetch<Route, RouteStep> routeStepsFetch = root.fetch("routeSteps");
-        Fetch<RouteStep, Location> edgeId = routeStepsFetch.fetch("edgeId");
-
-        edgeId.fetch("fromLocationId");
-        edgeId.fetch("toLocationId");
-
-
-
-        findQuery.select(root).where(root.get("id").in(routeIds))
-                .orderBy(builder.asc(root.get("departureTime")));
-
-        var resultList = entityManager.createQuery(findQuery).getResultList();
-
+        var resultList = repository.findRoutesByIdIn(routeIds);
 
         return RouteMapper.INSTANCE.routesToRouteEntitys(resultList);
     }

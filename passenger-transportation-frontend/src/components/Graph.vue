@@ -75,6 +75,7 @@ export default {
 
       if (params.nodes.length > 0) {
         const clickedNodeId = params.nodes[0]
+
         this.$emit("create-new-route", clickedNodeId);
       }
     })

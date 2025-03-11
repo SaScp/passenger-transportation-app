@@ -8,11 +8,12 @@
             :key="route.id"
             :route="route"
             :is-finder="true"
+            :isFind="true"
             @highlight-route="highlightRoute"
         />
         <div class="swiper">
           <button @click="prev" v-if="is_find===true">Предыдущая</button>
-          <a>{{ page_num + 1}}</a>
+          <a v-if="is_find===true">{{ page_num + 1}}</a>
           <button @click="next" v-if="is_find===true">Следующая</button>
         </div>
       </div>
@@ -45,7 +46,7 @@ export default {
       page_num: ref(0),
       page_size: ref(5),
       is_find: false,
-      is_zero: false
+      is_zero: false,
     };
   },
   async mounted() {
@@ -127,6 +128,8 @@ input {
 .info {
   display: flex;
   flex-flow: row;
+  justify-content: center;
+
 }
 
 button {

@@ -25,6 +25,8 @@ public abstract class Handler {
 
     protected CriteriaBuilder builder;
 
+
+
     protected Handler nextNode;
 
     protected Handler(CriteriaBuilder builder, Root<Route> root) {
@@ -33,7 +35,6 @@ public abstract class Handler {
     }
 
     public static Handler createHandler(CriteriaBuilder builder, Root<Route> root) {
-
 
 
         TypeParamHandler typeParamHandler = new TypeParamHandler(builder, root);

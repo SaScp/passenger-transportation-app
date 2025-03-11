@@ -21,7 +21,6 @@ export default {
     },
     message: ''
   },
-
   computed: {
     modalClass() {
       if (this.statusCode >= 200 && this.statusCode < 300) {

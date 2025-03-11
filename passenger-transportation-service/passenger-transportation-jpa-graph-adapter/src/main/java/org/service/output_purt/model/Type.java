@@ -23,4 +23,5 @@ public class Type {
 
     @Column(name = "description")
     private String description;
+
 }

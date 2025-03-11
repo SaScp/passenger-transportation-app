@@ -4,6 +4,7 @@
       <label for="locationFilter">
         Фильтры
       </label>
+
       <input
           id="locationFilter"
           v-model="from"
@@ -31,11 +32,12 @@
             v-for="route in routeData"
             :key="route.id"
             :route="route"
+            :is-find="true"
             @highlight-route="highlightRoute"
         />
         <div class="swiper">
           <button @click="prev" v-if="is_find===true">Предыдущая</button>
-          <a>{{ page_num + 1}}</a>
+          <a v-if="is_find===true">{{ page_num + 1}}</a>
           <button @click="next" v-if="is_find===true">Следующая</button>
         </div>
 
@@ -98,6 +100,7 @@ export default {
         if (routeResponse.data.length <= 0) {
           this.page_num--;
         } else {
+
           this.routeData = routeResponse.data;
         }
         console.log(routeResponse.request)
@@ -185,21 +188,37 @@ function getFormattedTime() {
 <style scoped>
 .app-container {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   padding: 20px;
 }
-
+.type-group {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
 .filter-section {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
   margin-bottom: 20px;
+  label {
+    display: flex;
+    align-items: center;
+    font-family: Avenir, sans-serif;
+  }
 }
 
 input {
   margin-left: 10px;
+  margin-right: 10px;
   padding: 5px;
 }
 
 .info {
   display: flex;
+  justify-content: center;
   flex-flow: row;
 }
 

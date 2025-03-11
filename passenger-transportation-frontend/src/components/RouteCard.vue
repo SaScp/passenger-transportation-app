@@ -17,10 +17,14 @@
             <button type="submit" class="inner-booking-button">Забронировать</button>
           </form>
         </div>
-        <button @click="highlightRoute">Выделить маршрут</button>
+        <div v-if="isFind">
+          <button @click="highlightRoute">Выделить маршрут</button>
+        </div>
+
       </div>
     </div>
-    <Modal :isOpen="isModalOpen" :message="message" :statusCode="statusCode" @close="isModalOpen = false" id="modal">
+
+   <Modal :isOpen="isModalOpen" :message="message" :statusCode="statusCode" @close="isModalOpen = false" id="modal">
     </Modal>
   </div>
 </template>
@@ -33,12 +37,15 @@ import axios from "axios";
 import route from "@/route.js";
 import {createBooking} from "@/api.js";
 import Modal from "@/components/Modal.vue";
+import RouteStep from "@/components/RouteStep.vue";
+
 
 export default {
-  components: {Modal},
+  components: { RouteStep, Modal},
   props: {
     route: Object,
     isFinder: Boolean,
+    isFind: Boolean
   },
   data() {
     return {

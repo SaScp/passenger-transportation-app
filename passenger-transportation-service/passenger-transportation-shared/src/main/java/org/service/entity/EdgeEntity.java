@@ -5,6 +5,6 @@ import java.io.Serializable;
 
 
 
-public record EdgeEntity(LocationEntity fromLocationId, LocationEntity toLocationId, Integer type) implements Serializable {
+public record EdgeEntity(LocationEntity fromLocationId, LocationEntity toLocationId, String type) implements Serializable {
 
 }

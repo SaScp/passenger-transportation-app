@@ -1,11 +1,9 @@
 package org.service.output_purt.filter_handler;
 
+import jakarta.persistence.EntityGraph;
 import jakarta.persistence.criteria.*;
 import org.service.entity.ParamsEntity;
-import org.service.output_purt.model.Edge;
-import org.service.output_purt.model.Location;
-import org.service.output_purt.model.Route;
-import org.service.output_purt.model.RouteStep;
+import org.service.output_purt.model.*;
 
 
 import java.util.Optional;
@@ -21,8 +19,8 @@ public class TypeParamHandler extends Handler {
         Subquery<Long> subquery = builder.createQuery().subquery(Long.class);
         Root<RouteStep> subRouteStep = subquery.from(RouteStep.class);
         Join<RouteStep, Edge> subEdge = subRouteStep.join("edgeId");
-        this.criteriaPredicate.add(Optional.ofNullable(entity.getType())
 
+        this.criteriaPredicate.add(Optional.ofNullable(entity.getType())
                 .filter(type -> !(type.isEmpty() && type.isBlank()))
                 .map(obj -> {
                    return builder.not(builder.exists(subquery.select(builder.literal(1L))
@@ -31,6 +29,14 @@ public class TypeParamHandler extends Handler {
                                     builder.notEqual(subEdge.get("cType"), obj)
                             )));
 
+                })
+                .or(() -> {
+                    subquery.select(builder.literal(1L))
+                            .where(builder.equal(subRouteStep.get("routeId"), root.get("id")))
+                            .groupBy(subRouteStep.get("routeId"))
+                            .having(builder.greaterThan(builder.countDistinct(subEdge.get("cType")), 1L));
+
+                    return Optional.of(builder.exists(subquery));
                 }));
     }
 }

@@ -17,6 +17,6 @@ public interface RouteStepRepository extends JpaRepository<RouteStep, RouteStepI
     List<RouteStep> findRouteStepsByRouteIdIn(List<String> ids);
 
     @Override
-    @EntityGraph(attributePaths = {"edgeId.fromLocationId","edgeId.toLocationId"})
+    @EntityGraph(attributePaths = {"edgeId.fromLocationId","edgeId.toLocationId", "edgeId.cType"})
     List<RouteStep> findAll();
 }

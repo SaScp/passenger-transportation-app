@@ -41,16 +41,16 @@ public interface RouteMapper {
 
     @Named("mapType")
     default String mapType(List<RouteStep> routeSteps) {
-        Integer type = -1;
+        String type = "";
         for (var i : routeSteps) {
-            if (type == -1) {
-                type = i.getEdgeId().getCType();
+            if (type.isEmpty()) {
+                type = i.getEdgeId().getCType().toString();
             }
-            if (!Objects.equals(i.getEdgeId().getCType(), type)) {
-                return "null";
+            if (!Objects.equals(i.getEdgeId().getCType().toString(), type)) {
+                return "Микс";
             }
         }
-        return type.toString();
+        return type;
     }
 
     @Named("mapPrice")
@@ -62,6 +62,5 @@ public interface RouteMapper {
         return sum;
     }
 
-    // Метод для маппинга Location -> LocationEntity; MapStruct сам сгенерирует реализацию, если имена полей совпадают
     LocationEntity locationToLocationEntity(Location location);
 }

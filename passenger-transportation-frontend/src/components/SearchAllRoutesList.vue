@@ -1,6 +1,8 @@
 <template>
   <section class="find-all-routes">
-    <RouteCard v-for="route in routes" :key="route.id" :route="route"/>
+    <div class="routes">
+      <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" :is-find="false" />
+    </div>
     <div class="swiper">
       <button @click="prev" v-if="is_find===true">Предыдущая</button>
       <a>{{ page_num + 1}}</a>
@@ -71,7 +73,15 @@ export default {
   justify-content: center;
   align-items: center;
 }
+#app {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
 .find-all-routes {
+  display: flex;
   margin: 20px;
+  flex-flow: column;
 }
 </style>

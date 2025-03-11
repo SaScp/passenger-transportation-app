@@ -42,12 +42,12 @@ public class EdgeFactory implements Function<List<RouteStepEntity>, Set<Map<Stri
                 Optional.ofNullable(step.edgeId()).map(EdgeEntity::fromLocationId).map(LocationEntity::id).orElse("UNKNOWN"),
                 Optional.ofNullable(step.edgeId()).map(EdgeEntity::toLocationId).map(LocationEntity::id).orElse("UNKNOWN"),
                 step.routeId(),
-                Optional.ofNullable(step.edgeId()).map(EdgeEntity::type).orElse(-1)
+                Optional.ofNullable(step.edgeId()).map(EdgeEntity::type).orElse("UNKNOWN")
         );
     }
 
 
-    private Map<String, String> createEdge(String id, String from, String to, String routeId, Integer type) {
-        return Map.of("id", String.format("%s-%s", routeId, id), "from", from, "to", to, "route_id", routeId, "type", type.toString());
+    private Map<String, String> createEdge(String id, String from, String to, String routeId, String type) {
+        return Map.of("id", String.format("%s-%s", routeId, id), "from", from, "to", to, "route_id", routeId, "type", type);
     }
 }
