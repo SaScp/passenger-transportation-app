@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface RouteStepRepository extends JpaRepository<RouteStep, RouteStepId> {
 
-    @EntityGraph(attributePaths = {"edgeId.fromLocationId","edgeId.toLocationId"})
+    @EntityGraph(attributePaths = {"edgeId.fromLocationId","edgeId.toLocationId", "edgeId.type"})
     List<RouteStep> findRouteStepsByRouteIdIn(List<String> ids);
 
     @Override
-    @EntityGraph(attributePaths = {"edgeId.fromLocationId","edgeId.toLocationId", "edgeId.cType"})
+    @EntityGraph(attributePaths = {"edgeId.fromLocationId","edgeId.toLocationId", "edgeId.type"})
     List<RouteStep> findAll();
 }

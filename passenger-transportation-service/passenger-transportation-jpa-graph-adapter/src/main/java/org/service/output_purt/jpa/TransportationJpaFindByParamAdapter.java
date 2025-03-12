@@ -19,6 +19,7 @@ import org.service.output_purt.model.Location;
 import org.service.output_purt.model.Route;
 import org.service.output_purt.model.RouteStep;
 import org.service.output_purt.repository.RouteRepository;
+import org.service.output_purt.repository.TypeRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -40,30 +41,35 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
     @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<String> idQuery = builder.createQuery(String.class);
+        List<String> routeIds = null;
 
-        Root<Route> rootObj = idQuery.from(Route.class);
+        if (entity.getRouteId() == null || entity.getRouteId().isEmpty()) {
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<String> idQuery = builder.createQuery(String.class);
+
+            Root<Route> rootObj = idQuery.from(Route.class);
 
 
-        HandlerExecutor handlerExecutor = new HandlerExecutor(builder, rootObj);
-        List<Predicate> predicateFilterList = handlerExecutor.execute(entity);
+            HandlerExecutor handlerExecutor = new HandlerExecutor(builder, rootObj, idQuery);
+            List<Predicate> predicateFilterList = handlerExecutor.execute(entity);
 
-        idQuery.select(rootObj.get("id"));
-        if (!predicateFilterList.isEmpty()) {
-            idQuery.where(builder.and(predicateFilterList.toArray(new Predicate[0])));
+            idQuery.select(rootObj.get("id"));
+            if (!predicateFilterList.isEmpty()) {
+                idQuery.where(builder.and(predicateFilterList.toArray(new Predicate[0])));
+            }
+            idQuery.orderBy(builder.asc(rootObj.get("departureTime")));
+            TypedQuery<String> typedIdQuery = entityManager.createQuery(idQuery);
+
+            typedIdQuery.setFirstResult(pageEntity.getPageNum() * pageEntity.getPageSize());
+            typedIdQuery.setMaxResults(pageEntity.getPageSize());
+
+            routeIds = typedIdQuery.getResultList();
+            if (routeIds.isEmpty()) return List.of();
+        } else {
+            routeIds = entity.getRouteId();
         }
 
 
-        idQuery.orderBy(builder.asc(rootObj.get("departureTime")));
-        TypedQuery<String> typedIdQuery = entityManager.createQuery(idQuery);
-
-        typedIdQuery.setFirstResult(pageEntity.getPageNum() * pageEntity.getPageSize());
-        typedIdQuery.setMaxResults(pageEntity.getPageSize());
-
-
-        List<String> routeIds = typedIdQuery.getResultList();
-        if (routeIds.isEmpty()) return List.of();
 
         var resultList = repository.findRoutesByIdIn(routeIds);
 

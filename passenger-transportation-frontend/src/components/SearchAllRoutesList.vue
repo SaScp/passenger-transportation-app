@@ -1,6 +1,6 @@
 <template>
   <section class="find-all-routes">
-    <div class="routes">
+    <div class="routes" id="routes">
       <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" :is-find="false" />
     </div>
     <div class="swiper">
@@ -23,7 +23,7 @@ export default {
       routes: ref([]),
       err: '',
       page_num: ref(0),
-      page_size: ref(5),
+      page_size: ref(6),
       is_find: false,
       is_zero: false
     };
@@ -38,10 +38,12 @@ export default {
         if (this.page_num) params.page_num = this.page_num
         if (this.page_size) params.page_size = this.page_size
         const response = await getAllRoutes(params);
-        this.is_find = true
+
         if (response.data.length <= 0) {
+
           this.page_num--;
         } else {
+          this.is_find = true
           this.routes = response.data;
         }
 
@@ -79,9 +81,14 @@ export default {
   justify-content: center;
   align-items: center;
 }
+#routes {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
 .find-all-routes {
   display: flex;
   margin: 20px;
+  grid-column: auto;
   flex-flow: column;
 }
 </style>

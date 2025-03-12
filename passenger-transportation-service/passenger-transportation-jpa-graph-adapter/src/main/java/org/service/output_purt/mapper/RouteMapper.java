@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Mapper(componentModel = "spring", imports = RouteStepMapper.class)
+@Mapper
 public interface RouteMapper {
 
     RouteMapper INSTANCE = Mappers.getMapper(RouteMapper.class);
@@ -32,7 +32,7 @@ public interface RouteMapper {
 
     @Mapping(target = "edgeId.fromLocationId.label", source = "edgeId.fromLocationId.CName")
     @Mapping(target = "edgeId.toLocationId.label", source = "edgeId.toLocationId.CName")
-    @Mapping(target = "edgeId.type", source = "edgeId.CType")
+    @Mapping(target = "edgeId.type", source = "edgeId.type.typeName")
     RouteStepEntity routeStepToRouteStepEntity(RouteStep routeSteps);
 
     List<RouteStepEntity> routeStepsToRouteStepEntitys(List<RouteStep> routeSteps);
@@ -44,9 +44,9 @@ public interface RouteMapper {
         String type = "";
         for (var i : routeSteps) {
             if (type.isEmpty()) {
-                type = i.getEdgeId().getCType().toString();
+                type = i.getEdgeId().getType().getTypeName();
             }
-            if (!Objects.equals(i.getEdgeId().getCType().toString(), type)) {
+            if (!Objects.equals(i.getEdgeId().getType().getTypeName(), type)) {
                 return "Микс";
             }
         }

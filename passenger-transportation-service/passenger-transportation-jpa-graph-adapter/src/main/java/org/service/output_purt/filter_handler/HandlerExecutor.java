@@ -1,6 +1,7 @@
 package org.service.output_purt.filter_handler;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.service.entity.ParamsEntity;
@@ -14,8 +15,8 @@ public class HandlerExecutor {
 
     private final Handler parentHandler;
 
-    public HandlerExecutor(CriteriaBuilder builder, Root<Route> root) {
-        this.parentHandler = Handler.createHandler(builder, root);
+    public HandlerExecutor(CriteriaBuilder builder, Root<Route> root, CriteriaQuery<String> criteriaQuery) {
+        this.parentHandler = Handler.createHandler(builder, root, criteriaQuery);
     }
 
     public List<Predicate> execute(ParamsEntity entity) {

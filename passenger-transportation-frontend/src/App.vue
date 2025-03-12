@@ -1,5 +1,7 @@
 <template>
+
   <div id="app">
+
     <header class="main-header">
       <nav class="nav-menu">
         <router-link to="/search-route" class="nav-item" active-class="active-link">
@@ -25,7 +27,9 @@ export default defineComponent({
 });
 </script>
 <style>
+
 *{
+  font-family: cursive;
   margin: 0;
 }
 .main-header {
@@ -34,6 +38,7 @@ export default defineComponent({
   padding: 20px 20px;
   border: 2px solid #ccc;
   border-radius: 15px;
+  background: #11263A;
 }
 
 .nav-menu {
@@ -43,7 +48,7 @@ export default defineComponent({
 
 .nav-item {
   text-decoration: none;
-  color: #555;
+  color: white;
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -52,26 +57,28 @@ export default defineComponent({
 
 .active-link {
   font-weight: bold;
-  border-bottom: 2px solid black;
-  color: black;
+  border-bottom: 2px solid white;
+  color: white;
 }
 
 h2 {
   text-align: center;
+  font-family: cursive;
 }
 
 input {
   padding: 10px;
   margin: 10px 0;
   border-radius: 4px;
+  font-family: cursive;
   border: 1px solid #ccc;
 }
 button{
   margin: 15px;
   padding: 10px;
-  background-color: #f2f2f2;
+  background-color: #59ABE8;
   border-radius: 15px;
-  font-family: Avenir, sans-serif;
+  font-family: cursive;
   max-width: 100%;
   a {
     text-decoration: none;

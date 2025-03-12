@@ -1,31 +1,29 @@
 <template>
   <div class="app-container">
     <div class="filter-section">
-      <label for="locationFilter">
-        Фильтры
-      </label>
-
       <input
+          class="locationFilter"
           id="locationFilter"
           v-model="from"
           placeholder="Введите откуда поедите"
       />
       <input
+          class="locationFilter"
           id="locationFilter"
           v-model="to"
           placeholder="Введите куда поедете"
       />
-      <select v-model="type" class="type-group">
-        <option class="inner-type-group" v-for="typeEl in types" v-bind:value="typeEl.id">
+      <select  v-model="type" class="type-group locationFilter">
+        <option class="inner-type-group locationFilter" v-for="typeEl in types" v-bind:value="typeEl.id">
           {{ typeEl.typeName }}
         </option>
       </select>
-      <input type="date" id="dateInput">
-      <input type="time" id="timeInput">
+      <input type="date" id="dateInput" class="locationFilter">
+      <input type="time" id="timeInput" class="locationFilter">
       <button @click="fetchRoutesAndEdges">Применить фильтр</button>
     </div>
     <div class="info">
-      <NetworkGraph :graph="graph" ref="networkGraph" />
+      <NetworkGraph  :graph="graph" ref="networkGraph" />
       <div class="routes">
         <RouteItem
             :is-finder="true"
@@ -73,7 +71,8 @@ export default {
       page_num: ref(0),
       page_size: ref(5),
       is_find: false,
-      is_zero: false
+      is_zero: false,
+      is_find_graph: true
     };
   },
   mounted() {
@@ -96,11 +95,11 @@ export default {
               params: params
             }
         );
-        this.is_find = true
         if (routeResponse.data.length <= 0) {
           this.page_num--;
+          console.log("not found")
         } else {
-
+          this.is_find = true
           this.routeData = routeResponse.data;
         }
         console.log(routeResponse.request)
@@ -113,6 +112,11 @@ export default {
         const edgesResponse = await axios.get(
             `http://localhost:9000/dev/api/v1/booking/find-by-ids?id=${routeIds}`
         );
+        /*if (edgesResponse.data.length > 0) {
+          this.is_find_graph = true;
+        } else {
+          this.is_find_graph = false;
+        }*/
         console.log(edgesResponse)
         this.graph = {
           nodes: edgesResponse.data.nodes || [],
@@ -186,6 +190,10 @@ function getFormattedTime() {
 </script>
 
 <style scoped>
+
+.locationFilter {
+  border-radius: 15px;
+}
 .app-container {
   display: flex;
   justify-content: center;
@@ -203,6 +211,11 @@ function getFormattedTime() {
   flex-flow: row;
   justify-content: center;
   margin-bottom: 20px;
+  border-radius: 15px;
+  button {
+    background: #14181F;
+    color: white;
+  }
   label {
     display: flex;
     align-items: center;
@@ -224,7 +237,7 @@ input {
 
 button {
   margin-left: 10px;
-  padding: 5px 10px;
+  padding: 10px 10px;
   cursor: pointer;
 }
 </style>

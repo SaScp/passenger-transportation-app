@@ -18,11 +18,11 @@ public interface RouteRepository extends JpaRepository<Route, String> {
     @Query("select route.id from Route route where route.departureCity.id = :id")
     List<String> findRoutesIdByDepId(@Param("id") String id, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"departureCity", "arrivalCity", "routeSteps", "routeSteps.edgeId.toLocationId","routeSteps.edgeId.fromLocationId", "routeSteps.edgeId.cType"})
+    @EntityGraph(attributePaths = {"departureCity", "arrivalCity", "routeSteps", "routeSteps.edgeId.toLocationId","routeSteps.edgeId.fromLocationId", "routeSteps.edgeId.type"})
     List<Route> findRoutesByIdIn(List<String> ids);
 
     @Override
-    @EntityGraph(attributePaths = {"departureCity", "arrivalCity"})
+    @EntityGraph(attributePaths = {"departureCity", "arrivalCity",  "routeSteps"})
     Page<Route> findAll(Pageable pageable);
 
     @Query("select route.id from Route route")

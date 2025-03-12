@@ -15,10 +15,6 @@ import org.hibernate.annotations.FetchMode;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "t_location_graph")
-@NamedEntityGraph(
-        name = "Edge.withCType",
-        attributeNodes = @NamedAttributeNode("cType")
-)
 public class Edge {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -39,7 +35,10 @@ public class Edge {
     @Column(name = "price")
     private Double price;
 
-
-    @Column(name = "type_id")
+    @Column(name = "type_id",  insertable = false, updatable = false)
     private Integer cType;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    private Type type;
 }

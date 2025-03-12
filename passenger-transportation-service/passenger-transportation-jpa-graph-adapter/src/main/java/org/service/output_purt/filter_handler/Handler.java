@@ -1,9 +1,6 @@
 package org.service.output_purt.filter_handler;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.Fetch;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.service.entity.ParamsEntity;
@@ -25,6 +22,7 @@ public abstract class Handler {
 
     protected CriteriaBuilder builder;
 
+    protected CriteriaQuery<String> criteriaQuery;
 
 
     protected Handler nextNode;
@@ -34,20 +32,18 @@ public abstract class Handler {
         this.root = root;
     }
 
-    public static Handler createHandler(CriteriaBuilder builder, Root<Route> root) {
-
+    public static Handler createHandler(CriteriaBuilder builder, Root<Route> root, CriteriaQuery<String> criteriaQuery) {
 
         TypeParamHandler typeParamHandler = new TypeParamHandler(builder, root);
         FromParamHandler fromParamHandler = new FromParamHandler(builder, root);
         ToParamHandler toParamHandler = new ToParamHandler(builder, root);
         TimeParamHandler timeParamHandler = new TimeParamHandler(builder, root);
-        IdParamHandler idParamHandler = new IdParamHandler(builder, root);
+
 
 
         typeParamHandler.nextNode(timeParamHandler);
         timeParamHandler.nextNode(fromParamHandler);
         fromParamHandler.nextNode(toParamHandler);
-        toParamHandler.nextNode(idParamHandler);
         return typeParamHandler;
     }
 

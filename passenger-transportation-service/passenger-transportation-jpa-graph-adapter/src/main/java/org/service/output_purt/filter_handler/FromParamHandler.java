@@ -1,9 +1,6 @@
 package org.service.output_purt.filter_handler;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.service.entity.ParamsEntity;
 import org.service.output_purt.model.Location;
 import org.service.output_purt.model.Route;

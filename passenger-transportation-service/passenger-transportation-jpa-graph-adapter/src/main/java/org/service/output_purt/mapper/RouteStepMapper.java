@@ -17,7 +17,7 @@ public interface RouteStepMapper {
 
     @Mapping(target = "edgeId.fromLocationId.label", source = "edgeId.fromLocationId.CName")
     @Mapping(target = "edgeId.toLocationId.label", source = "edgeId.toLocationId.CName")
-    @Mapping(target = "edgeId.type", source = "edgeId.CType")
+    @Mapping(target = "edgeId.type", source = "edgeId.type.typeName")
     RouteStepEntity routeStepToRouteStepEntity(RouteStep routeSteps);
 
     List<RouteStepEntity> routeStepsToRouteStepEntitys(List<RouteStep> routeSteps);

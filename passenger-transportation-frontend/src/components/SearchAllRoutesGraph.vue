@@ -80,12 +80,14 @@ export default {
         const response = await axios.get("http://localhost:9000/dev/api/v1/booking/find-routes-by-dep-id", {
           params: params
         });
-        this.is_find = true
+
         if (response.data.length <= 0) {
           if (this.page_num >= 0)
             this.page_num--;
           this.routeData = []
+          this.is_find = false;
         } else {
+          this.is_find = true
           this.routeData = response.data;
         }
       } catch (error) {
@@ -129,7 +131,6 @@ input {
   display: flex;
   flex-flow: row;
   justify-content: center;
-
 }
 
 button {

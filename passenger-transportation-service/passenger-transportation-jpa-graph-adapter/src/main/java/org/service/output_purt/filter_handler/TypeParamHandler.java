@@ -1,10 +1,9 @@
 package org.service.output_purt.filter_handler;
 
-import jakarta.persistence.EntityGraph;
 import jakarta.persistence.criteria.*;
 import org.service.entity.ParamsEntity;
 import org.service.output_purt.model.*;
-
+import org.service.output_purt.repository.TypeRepository;
 
 import java.util.Optional;
 
@@ -16,9 +15,12 @@ public class TypeParamHandler extends Handler {
 
     @Override
     protected void addParam(ParamsEntity entity) {
+
         Subquery<Long> subquery = builder.createQuery().subquery(Long.class);
         Root<RouteStep> subRouteStep = subquery.from(RouteStep.class);
         Join<RouteStep, Edge> subEdge = subRouteStep.join("edgeId");
+
+
 
         this.criteriaPredicate.add(Optional.ofNullable(entity.getType())
                 .filter(type -> !(type.isEmpty() && type.isBlank()))
