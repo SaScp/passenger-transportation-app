@@ -3,7 +3,7 @@ package org.service.output_port.jdbc.adapter;
 import org.service.entity.BookingEntity;
 import org.service.exception.ProblemDetailsException;
 import org.service.output_port.JdbcLruIdCache;
-import org.service.output_port.RevokeBookingTransportationServiceOutputPort;
+import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPort;
 import org.service.output_port.filter_handler.SQLConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

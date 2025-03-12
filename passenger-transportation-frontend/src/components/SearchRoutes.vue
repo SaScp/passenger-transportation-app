@@ -141,7 +141,7 @@ export default {
             "http://localhost:9000/dev/api/v1/booking/find-types"
         );
         this.types = response.data;
-        this.types.push({id: null, typeName: "микс"});
+        this.types.push({id: -1, typeName: "микс"});
       } catch (err) {
         console.error("Ошибка при поиске маршрутов:", err);
       }

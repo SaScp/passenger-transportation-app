@@ -40,11 +40,6 @@
             <artifactId>hibernate-community-dialects</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.service.output_port.jdbc</groupId>
-            <artifactId>passenger-transportation-jdbc-adapter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.service.ouptput_port.jpa</groupId>
             <artifactId>passenger-transportation-jpa-graph-adapter</artifactId>
             <version>1.0-SNAPSHOT</version>

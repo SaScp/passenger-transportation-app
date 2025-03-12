@@ -2,7 +2,7 @@
   <div class="network">
     <div
         ref="networkContainer"
-        style="height: 700px; width: 1200px; border: 1px solid lightgray;"
+        style="height: 700px; width: 1000px; border: 1px solid lightgray;"
     ></div>
   </div>
 </template>
@@ -29,13 +29,13 @@ export default {
         layout: { randomSeed: 1 },
         interaction: {
           hover: true,
-          selectConnectedEdges: false
+          selectConnectedEdges: true
         },
         physics: {
           barnesHut: {
             springLength: 150,
             gravitationalConstant: -50000,
-            centralGravity: 0.001,
+            centralGravity: 0.0001,
             springConstant: 0.0001,
             damping: 0.1
           },
@@ -51,8 +51,19 @@ export default {
             type: 'curvedCW',
             roundness: 0.2
           },
+          arrows: {
+            to: {
+              enabled: true,
+              imageHeight: undefined,
+              imageWidth: undefined,
+              scaleFactor: 2,
+              src: undefined,
+              type: "arrow"
+            }
+          },
+
           width: 6,
-          color: { color: '#2B7CE9' }
+          color: { color: '#2B7CE9'}
         }
       }
     };
@@ -76,10 +87,8 @@ export default {
     );
     this.network.on('click', (params) => {
 
-
       if (params.nodes.length > 0) {
         const clickedNodeId = params.nodes[0]
-
         this.$emit("create-new-route", clickedNodeId);
       }
     })
@@ -103,14 +112,19 @@ export default {
       }
     },
     highlightRoute(routeEdgeIds) {
-      // Сброс цвета для всех ребер
+
       this.edges.forEach(edge => {
         this.edges.update({id: edge.id, color: {color: undefined}});
+
       });
-      // routeEdgeIds ожидается как массив объектов { from, to }
+      this.nodes.forEach(edge => {
+        console.log(edge.id)
+        this.nodes.update({id: edge.id, color: {background: "#97c2fc"}});
+      });
       this.edges.forEach(edge => {
         if (routeEdgeIds.some(r => r.fromLocationId.id === edge.from && r.toLocationId.id === edge.to)) {
           this.edges.update({id: edge.id, color: {color: "green"}});
+          this.nodes.update({id: edge.to, color: { background: "green" }})
         }
       });
       if (this.network) {

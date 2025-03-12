@@ -5,7 +5,8 @@ import org.service.core.TransportationServiceCore;
 
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregateImpl;
-import org.service.output_purt.jpa.*;
+import org.service.output_port.filter_handler.HandlerExecutor;
+import org.service.output_port.jpa.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -65,6 +66,8 @@ public class TransportationServiceApplication {
             TransportationFindByRouteStepsIdsAdapter findByRouteStepsIdsAdapter,
             TransportationFindByDepartureCityIdAdapter findByDepartureCityIdAdapter
     ) throws SQLException {
+
+        HandlerExecutor handlerExecutor = new HandlerExecutor(null, null);
         return new TransportationServiceOutputPortAggregateImpl(
                 createBookingAdapter,
                 revokeBookingAdapter,
