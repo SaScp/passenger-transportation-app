@@ -14,7 +14,7 @@ spring:
     url: ${SQL_URL}
     user: ${SQL_USERNAME}
     password:  ${SQL_PASSWORD}
-    enabled: false
+
   jpa:
     database-platform: ${SQL_DIALECT}
     show-sql: ${SHOW_SQL:true}

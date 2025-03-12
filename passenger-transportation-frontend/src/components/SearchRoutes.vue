@@ -13,8 +13,12 @@
           v-model="to"
           placeholder="Введите куда поедете"
       />
-      <select  v-model="type" class="type-group locationFilter">
-        <option class="inner-type-group locationFilter" v-for="typeEl in types" v-bind:value="typeEl.id">
+      <select v-model="type" class="type-group locationFilter">
+        <option
+            class="inner-type-group locationFilter"
+            v-for="typeEl in types"
+            :key="typeEl.id"
+            :value="typeEl.id">
           {{ typeEl.typeName }}
         </option>
       </select>
@@ -26,19 +30,18 @@
       <NetworkGraph  :graph="graph" ref="networkGraph" />
       <div class="routes">
         <RouteItem
-            :is-finder="true"
             v-for="route in routeData"
             :key="route.id"
             :route="route"
+            :is-finder="true"
             :is-find="true"
             @highlight-route="highlightRoute"
         />
-        <div class="swiper">
-          <button @click="prev" v-if="is_find===true">Предыдущая</button>
-          <a v-if="is_find===true">{{ page_num + 1}}</a>
-          <button @click="next" v-if="is_find===true">Следующая</button>
+        <div class="pagination-buttons" v-if="is_find">
+          <button @click="prev" :disabled="page_num === 0">Предыдущая</button>
+          <span>Страница {{ page_num + 1 }}</span>
+          <button @click="next" :disabled="!hasMore">Следующая</button>
         </div>
-
       </div>
     </div>
   </div>
@@ -48,7 +51,6 @@
 import axios from "axios";
 import NetworkGraph from "@/components/Graph.vue";
 import RouteItem from "@/components/RouteCard.vue";
-import {ref} from "vue";
 
 export default {
   name: "App",
@@ -63,16 +65,17 @@ export default {
       time: null,
       type: null,
       types: [],
+      // routeData содержит только текущую страницу
       routeData: [],
+      // Флаг наличия следующей страницы
+      hasMore: true,
       graph: {
         nodes: [],
         edges: []
       },
-      page_num: ref(0),
-      page_size: ref(5),
-      is_find: false,
-      is_zero: false,
-      is_find_graph: true
+      page_num: 0,
+      page_size: 3,
+      is_find: false
     };
   },
   mounted() {
@@ -82,42 +85,35 @@ export default {
     async fetchRoutesAndEdges() {
       try {
         this.time = getFormattedTime();
-        console.log(this.time)
         const params = {};
-        if (this.type) params.type = this.type
-        if (this.from) params.from = this.from
-        if (this.to) params.to = this.to
-        if (this.time) params.time = this.time
-        if (this.page_num) params.page_num = this.page_num
-        if (this.page_size) params.page_size = this.page_size
-        const routeResponse = await axios.get(
-            "http://localhost:9000/dev/api/v1/booking/find", {
-              params: params
-            }
-        );
-        if (routeResponse.data.length <= 0) {
-          this.page_num--;
-          console.log("not found")
-        } else {
-          this.is_find = true
-          this.routeData = routeResponse.data;
-        }
-        console.log(routeResponse.request)
-        console.log(routeResponse.data)
-        //this.routeData = routeResponse.data || [];
+        if (this.type) params.type = this.type;
+        if (this.from) params.from = this.from;
+        if (this.to) params.to = this.to;
+        if (this.time) params.time = this.time;
+        // Передаем номер и размер страницы
+        params.page_num = this.page_num;
+        params.page_size = this.page_size;
 
-        console.log(this.routeData)
+        const routeResponse = await axios.get(
+            "http://localhost:9000/dev/api/v1/booking/find", {params}
+        );
+
+        const data = routeResponse.data || [];
+        if (data.length === 0 && this.page_num > 0) {
+
+          this.page_num--;
+          this.hasMore = false;
+        } else {
+          this.is_find = data.length > 0;
+          this.routeData = data;
+          this.hasMore = data.length === this.page_size;
+        }
+
+        // Обновление графа
         const routeIds = this.routeData.map(route => route.id).join(",");
-        console.log(`http://localhost:9000/dev/api/v1/booking/find-by-ids?id=${routeIds}`)
         const edgesResponse = await axios.get(
             `http://localhost:9000/dev/api/v1/booking/find-by-ids?id=${routeIds}`
         );
-        /*if (edgesResponse.data.length > 0) {
-          this.is_find_graph = true;
-        } else {
-          this.is_find_graph = false;
-        }*/
-        console.log(edgesResponse)
         this.graph = {
           nodes: edgesResponse.data.nodes || [],
           edges: edgesResponse.data.edges || []
@@ -126,38 +122,35 @@ export default {
         console.error("Ошибка при получении данных:", error);
       }
     },
-    async next() {
-      if (this.routeData.length !== 0) {
+    next() {
+      if (this.hasMore) {
         this.page_num++;
-        await this.fetchRoutesAndEdges()
+        this.fetchRoutesAndEdges();
       }
     },
-    async prev() {
+    prev() {
       if (this.page_num > 0) {
         this.page_num--;
-        this.is_zero = false;
-        await this.fetchRoutesAndEdges()
+         this.hasMore = true;
+        this.fetchRoutesAndEdges();
       }
     },
     async searchType() {
       try {
         const response = await axios.get(
-            `http://localhost:9000/dev/api/v1/booking/find-types`
-        )
+            "http://localhost:9000/dev/api/v1/booking/find-types"
+        );
         this.types = response.data;
-        this.types.push({id: null, typeName: "микс"})
+        this.types.push({id: null, typeName: "микс"});
       } catch (err) {
-        this.error = err.response ? err.response.data.detail : 'Ошибка при поиске маршрутов';
-        this.routes = [];
+        console.error("Ошибка при поиске маршрутов:", err);
       }
     },
     highlightRoute(routeEdgeIds) {
-      // Передаём событие выделения маршрута в компонент графа
       if (this.$refs.networkGraph) {
         this.$refs.networkGraph.highlightRoute(routeEdgeIds);
       }
-    },
-
+    }
   }
 };
 
@@ -183,44 +176,35 @@ function getFormattedTime() {
       `${String(date.getHours()).padStart(2, '0')}:` +
       `${String(date.getMinutes()).padStart(2, '0')}:` +
       `${String(date.getSeconds()).padStart(2, '0')}`;
-  console.log(formattedDate);
   return formattedDate;
 }
-
 </script>
 
 <style scoped>
-
 .locationFilter {
   border-radius: 15px;
 }
+
 .app-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: 20px;
 }
+
 .type-group {
   padding: 10px;
   margin: 10px 0;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+
 .filter-section {
   display: flex;
   flex-flow: row;
   justify-content: center;
   margin-bottom: 20px;
   border-radius: 15px;
-  button {
-    background: #14181F;
-    color: white;
-  }
-  label {
-    display: flex;
-    align-items: center;
-    font-family: Avenir, sans-serif;
-  }
 }
 
 input {
@@ -239,5 +223,16 @@ button {
   margin-left: 10px;
   padding: 10px 10px;
   cursor: pointer;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.pagination-buttons button {
+  margin: 0 10px;
 }
 </style>

@@ -3,10 +3,10 @@
     <div class="routes" id="routes">
       <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" :is-find="false" />
     </div>
-    <div class="swiper">
-      <button @click="prev" v-if="is_find===true">Предыдущая</button>
-      <a>{{ page_num + 1}}</a>
-      <button @click="next" v-if="is_find===true">Следующая</button>
+    <div class="swiper" v-if="is_find">
+      <button @click="prev" :disabled="page_num === 0">Предыдущая</button>
+      <a>{{ page_num + 1 }}</a>
+      <button @click="next" :disabled="!hasMore">Следующая</button>
     </div>
   </section>
 </template>
@@ -22,10 +22,11 @@ export default {
     return {
       routes: ref([]),
       err: '',
-      page_num: ref(0),
-      page_size: ref(6),
+      page_num: 0,
+      page_size: 6,
       is_find: false,
-      is_zero: false
+      is_zero: false,
+      hasMore: true
     };
   },
   mounted() {
@@ -40,11 +41,14 @@ export default {
         const response = await getAllRoutes(params);
 
         if (response.data.length <= 0) {
-
-          this.page_num--;
+          if (this.page_num > 0) this.page_num--;
+          this.routes = [];
+          this.is_find = false;
+          this.hasMore = false;
         } else {
-          this.is_find = true
+          this.is_find = true;
           this.routes = response.data;
+          this.hasMore = response.data.length === this.page_size;
         }
 
 
@@ -53,16 +57,17 @@ export default {
       }
     },
     async next() {
-      if (this.routes.length !== 0) {
+
+      if (this.hasMore) {
         this.page_num++;
-        await this.findAll()
+        await this.findAll();
       }
     },
     async prev() {
       if (this.page_num > 0) {
         this.page_num--;
-        this.is_zero = false;
-        await this.findAll()
+        this.hasMore = true;
+        await this.findAll();
       }
     }
   }

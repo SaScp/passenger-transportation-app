@@ -2,7 +2,7 @@
   <div class="network">
     <div
         ref="networkContainer"
-        style="height: 600px; border: 1px solid lightgray;"
+        style="height: 700px; width: 1200px; border: 1px solid lightgray;"
     ></div>
   </div>
 </template>
@@ -26,20 +26,24 @@ export default {
       nodes: new DataSet([]),
       edges: new DataSet([]),
       options: {
-        layout: { randomSeed: 3 },
+        layout: { randomSeed: 1 },
         interaction: {
           hover: true,
           selectConnectedEdges: false
         },
         physics: {
           barnesHut: {
-            springLength: 90,
-            gravitationalConstant: -10000,
-            centralGravity: 0.021,
-            springConstant: 0.04,
-            damping: 0.19
+            springLength: 150,
+            gravitationalConstant: -50000,
+            centralGravity: 0.001,
+            springConstant: 0.0001,
+            damping: 0.1
           },
           stabilization: true
+        },
+        nodes: {
+          size: 100, // Увеличенный размер всех узлов
+          font: { size: 60 } // Увеличенный шрифт
         },
         edges: {
           smooth: {
@@ -47,7 +51,7 @@ export default {
             type: 'curvedCW',
             roundness: 0.2
           },
-          width: 5,
+          width: 6,
           color: { color: '#2B7CE9' }
         }
       }

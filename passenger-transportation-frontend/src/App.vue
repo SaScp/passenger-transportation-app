@@ -67,7 +67,7 @@ h2 {
 }
 
 input {
-  padding: 10px;
+  padding: 5px;
   margin: 10px 0;
   border-radius: 4px;
   font-family: cursive;
