@@ -1,64 +1,66 @@
-CREATE TABLE IF NOT EXISTS t_location(
-                                         id TEXT PRIMARY KEY,
-                                         c_name TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS t_location (
+                                          id VARCHAR PRIMARY KEY,
+                                          c_name TEXT NOT NULL
 );
+
 CREATE TABLE IF NOT EXISTS t_transport_types (
-                                                 id INTEGER PRIMARY KEY,
+                                                 id SERIAL PRIMARY KEY,
                                                  type_name TEXT NOT NULL UNIQUE,
                                                  description TEXT
 );
-CREATE TABLE IF NOT EXISTS t_location_graph(
-                                               edge_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                               from_location_id TEXT NOT NULL ,
-                                               departure_time DATETIME NOT NULL,
-                                               to_location_id TEXT NOT NULL,
-                                               time_cost BIGINT NOT NULL,
-                                               price DOUBLE,
-                                               type_id INTEGER NOT NULL,
-                                               FOREIGN KEY (from_location_id) REFERENCES t_location(id),
-    FOREIGN KEY (to_location_id) REFERENCES t_location(id),
-    FOREIGN KEY (type_id) REFERENCES t_transport_types(id)
-    );
 
-
-
-CREATE TABLE IF NOT EXISTS t_user(
-                                     user_phone TEXT primary key
+CREATE TABLE IF NOT EXISTS t_location_graph (
+                                                edge_id SERIAL PRIMARY KEY,
+                                                from_location_id VARCHAR NOT NULL,
+                                                departure_time TIMESTAMP NOT NULL,
+                                                to_location_id VARCHAR NOT NULL,
+                                                time_cost BIGINT NOT NULL,
+                                                price DOUBLE PRECISION,
+                                                type_id INTEGER NOT NULL,
+                                                FOREIGN KEY (from_location_id) REFERENCES t_location(id) ON DELETE CASCADE,
+                                                FOREIGN KEY (to_location_id) REFERENCES t_location(id) ON DELETE CASCADE,
+                                                FOREIGN KEY (type_id) REFERENCES t_transport_types(id) ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS t_status(
-                                       id INTEGER PRIMARY KEY,
-                                       status TEXT NOT NULL UNIQUE
+
+CREATE TABLE IF NOT EXISTS t_user (
+                                      user_phone TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS t_status (
+                                        id SERIAL PRIMARY KEY,
+                                        status TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS t_route (
-                                       id TEXT PRIMARY KEY,
-                                       departure_city TEXT NOT NULL,
-                                       arrival_city   TEXT NOT NULL,
-                                       departure_time DATETIME NOT NULL,
-                                       arrival_time   DATETIME NOT NULL,
-                                       FOREIGN KEY (departure_city) REFERENCES t_location(id),
-    FOREIGN KEY (arrival_city) REFERENCES t_location(id)
-    );
-
-CREATE TABLE IF NOT EXISTS t_booking (
-                                         id TEXT PRIMARY KEY,
-                                         route_id TEXT NOT NULL,
-                                         booking_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-                                         status_id INTEGER NOT NULL,
-                                         user_phone TEXT NOT NULL,
-
-                                         FOREIGN KEY (status_id) REFERENCES t_status(id),
-    FOREIGN KEY (route_id) REFERENCES t_route(id),
-    FOREIGN KEY (user_phone) REFERENCES t_user(user_phone) ON DELETE CASCADE
-    );
-
-CREATE TABLE t_route_step (
-                              route_id TEXT NOT NULL,
-                              route_step INTEGER NOT NULL,
-                              edge_id TEXT NOT NULL,
-                              FOREIGN KEY (edge_id) REFERENCES t_location_graph(edge_id),
-                              FOREIGN KEY (route_id) REFERENCES t_route(id) ,
-                              PRIMARY KEY (route_id, route_step)
+                                       id VARCHAR PRIMARY KEY ,
+                                       departure_city VARCHAR NOT NULL,
+                                       arrival_city VARCHAR NOT NULL,
+                                       departure_time TIMESTAMP NOT NULL,
+                                       arrival_time TIMESTAMP NOT NULL,
+                                       FOREIGN KEY (departure_city) REFERENCES t_location(id) ON DELETE CASCADE,
+                                       FOREIGN KEY (arrival_city) REFERENCES t_location(id) ON DELETE CASCADE
 );
 
-CREATE INDEX department_time on t_location_graph(departure_time);
+CREATE TABLE IF NOT EXISTS t_booking (
+                                         id VARCHAR PRIMARY KEY ,
+                                         route_id VARCHAR NOT NULL,
+                                         booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                         status_id INTEGER NOT NULL,
+                                         user_phone TEXT NOT NULL,
+                                         FOREIGN KEY (status_id) REFERENCES t_status(id) ON DELETE CASCADE,
+                                         FOREIGN KEY (route_id) REFERENCES t_route(id) ON DELETE CASCADE,
+                                         FOREIGN KEY (user_phone) REFERENCES t_user(user_phone) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS t_route_step (
+                                            id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                                            route_id VARCHAR NOT NULL,
+                                            route_step INTEGER NOT NULL,
+                                            edge_id INTEGER NOT NULL,
+                                            FOREIGN KEY (edge_id) REFERENCES t_location_graph(edge_id) ON DELETE CASCADE,
+                                            FOREIGN KEY (route_id) REFERENCES t_route(id) ON DELETE CASCADE,
+                                            UNIQUE (route_id, route_step)
+);
+
+-- Создание индекса для ускорения поиска по времени отправления
+CREATE INDEX IF NOT EXISTS idx_departure_time ON t_location_graph (departure_time);

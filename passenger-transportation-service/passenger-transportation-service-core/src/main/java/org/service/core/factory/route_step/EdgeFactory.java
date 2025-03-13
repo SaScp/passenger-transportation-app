@@ -1,4 +1,4 @@
-package org.service.core.factory;
+package org.service.core.factory.route_step;
 
 import org.service.entity.LocationEntity;
 import org.service.entity.EdgeEntity;

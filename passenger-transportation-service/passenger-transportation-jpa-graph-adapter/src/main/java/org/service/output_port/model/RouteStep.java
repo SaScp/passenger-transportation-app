@@ -6,27 +6,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+import java.util.UUID;
+
 
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@IdClass(RouteStepId.class)
 @Table(name = "t_route_step")
 public class RouteStep {
-
     @Id
-    @Column(name = "route_id")
-    private String routeId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false)
+    private UUID id;
 
-    @Id
     @Column(name = "route_step")
     private Integer routeStep;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "edge_id", referencedColumnName = "edge_id")
     private Edge edgeId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id", referencedColumnName = "id")
+    private Route route;
+
+
+    public RouteStep(Integer routeStep, Edge edge) {
+        this.routeStep = routeStep;
+        this.edgeId = edge;
+    }
 
 
 }

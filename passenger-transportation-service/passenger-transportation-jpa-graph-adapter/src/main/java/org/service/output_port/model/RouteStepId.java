@@ -1,16 +1,23 @@
 package org.service.output_port.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 @Getter
 @Setter
 public class RouteStepId implements Serializable {
 
+    @Column(name = "route_id")
     private String routeId;
+
+    @Column(name = "route_step")
     private Integer routeStep;
 
     public RouteStepId() {

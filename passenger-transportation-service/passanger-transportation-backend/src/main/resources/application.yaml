@@ -6,6 +6,7 @@ spring:
     username: ${SQL_USERNAME}
     password: ${SQL_PASSWORD}
     url: ${SQL_URL}
+
   mvc:
     servlet:
       path: ${SERVLET_PATH:/api/v1/booking}
@@ -18,6 +19,10 @@ spring:
   jpa:
     database-platform: ${SQL_DIALECT}
     show-sql: ${SHOW_SQL:true}
+  properties:
+    hibernate:
+      order_inserts: true
+      jdbc.batch_size: 7
   threads:
     virtual:
       enabled: true
@@ -33,6 +38,7 @@ springdoc:
     path: ${SWAGGER_PATH:/swagger/}
   override-with-generic-response: false
 logging:
+
   level:
     org.service: ${LOG_LEVEL:error}
   file:

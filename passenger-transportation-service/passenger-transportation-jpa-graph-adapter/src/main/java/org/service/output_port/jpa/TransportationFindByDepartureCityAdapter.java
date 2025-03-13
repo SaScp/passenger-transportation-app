@@ -17,18 +17,18 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Transactional(readOnly = true)
-public class TransportationFindByDepartureCityIdAdapter implements FindAllRoutesByDepartureCityOutputPort {
+public class TransportationFindByDepartureCityAdapter implements FindAllRoutesByDepartureCityOutputPort {
 
     private final RouteRepository repository;
 
 
     @Override
-    @Cacheable(key = "#id + '_' + #pageEntity.hashCode()", value = "TransportationFindByDepartureCityIdAdapter::findAllByDepartureCityId")
-    public List<RoutesEntity> findAllByDepartureCityId(String id, PageEntity pageEntity) {
-        return RouteMapper.INSTANCE.routesToRouteEntitys(
-                repository.findRoutesByIdIn(
-                        repository.findRoutesIdByDepId(id, PageRequest.of(pageEntity.getPageNum(), pageEntity.getPageSize())),
-                        Sort.by(Sort.Order.by("departureTime")))
-        );
+    @Cacheable(key = "#id + '_' + #pageEntity.hashCode()", value = "TransportationFindByDepartureCityAdapter::findAllByDepartureCity")
+    public List<RoutesEntity> findAllByDepartureCity(String id, PageEntity pageEntity) {
+        repository.findAllRecursiveRoutes(id, pageEntity.getPageNum(), pageEntity.getPageSize() * pageEntity.getPageNum());
+        /*return RouteMapper.INSTANCE.routesToRouteEntitys(
+                repository.findAllRecursiveRoutes(id, pageEntity.getPageNum(), pageEntity.getPageSize() * pageEntity.getPageNum())
+        );*/
+        return null;
     }
 }

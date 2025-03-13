@@ -3,7 +3,7 @@ package org.service.output_port.filter_handler;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Root;
 import org.service.entity.ParamsEntity;
-import org.service.output_port.model.LocalDateTimeConverter;
+
 import org.service.output_port.model.Route;
 
 
@@ -18,7 +18,7 @@ public class TimeParamHandler extends Handler {
 
     @Override
     protected void addParam(ParamsEntity entity) {
-        LocalDateTimeConverter converter = new LocalDateTimeConverter();
+      /*  LocalDateTimeConverter converter = new LocalDateTimeConverter();
         this.criteriaPredicate.add(
                 Optional.ofNullable(entity.getTime())
                         .map(obj -> {
@@ -33,6 +33,6 @@ public class TimeParamHandler extends Handler {
                                 return Optional.empty();
                             }
                         })
-        );
+        );*/
     }
 }

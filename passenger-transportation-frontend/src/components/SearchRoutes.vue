@@ -18,7 +18,7 @@
             class="inner-type-group locationFilter"
             v-for="typeEl in types"
             :key="typeEl.id"
-            :value="typeEl.id">
+            :value="typeEl.typeName">
           {{ typeEl.typeName }}
         </option>
       </select>

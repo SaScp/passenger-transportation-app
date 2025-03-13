@@ -525,7 +525,7 @@ VALUES
 -- Таблица шагов маршрутов (t_route_step)
 ---------------------------------------------------
 -- Для ранее добавленных маршрутов
-INSERT INTO t_route_step (route_id, route_step, edge_id)
+INSERT INTO t_route_step ( route_id, route_step, edge_id)
 VALUES
     ('R1', 1, '1'),
     ('R2', 1, '2'),
@@ -537,152 +537,119 @@ VALUES
     ('R5', 1, '17'),
     ('R5', 2, '18'),
     ('R6', 1, '16'),
-    ('R7', 1, '14');
+    ('R7', 1, '14'),
 
 -- Для новых маршрутов (из первоначальных дополнительных данных)
 -- R8: Новосибирск -> Иркутск
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R8', 1, '19');
+    ('R8', 1, '19'),
 
 -- R9: Екатеринбург -> Кемерово -> Новосибирск
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R9', 1, '21'),
-       ('R9', 2, '22');
+        ('R9', 1, '21'),
+    ('R9', 2, '22'),
 
 -- R10: Москва -> Псков -> Санкт-Петербург
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R10', 1, '23'),
-       ('R10', 2, '31');
+    ('R10', 1, '23'),
+    ('R10', 2, '31'),
 
 -- R11: Санкт-Петербург -> Севастополь -> Москва
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R11', 1, '25'),
-       ('R11', 2, '26');
+    ('R11', 1, '25'),
+    ('R11', 2, '26'),
 
 -- R12: Сочи -> Москва
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R12', 1, '27');
+    ('R12', 1, '27'),
 
 -- R13: Москва -> Сочи
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R13', 1, '28');
+    ('R13', 1, '28'),
 
 -- R14: Уфа -> Ростов-на-Дону -> Самара
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R14', 1, '29'),
-       ('R14', 2, '30');
+    ('R14', 1, '29'),
+    ('R14', 2, '30'),
 
 ---------------------------------------------------
 -- Дополнительные шаги маршрутов (из расширенных данных)
 ---------------------------------------------------
 -- R15: OMS -> CHL -> AST
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R15', 1, '32'),
-       ('R15', 2, '33');
+    ('R15', 1, '32'),
+    ('R15', 2, '33'),
 
 -- R16: AST -> KZN -> UFA
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R16', 1, '34'),
-       ('R16', 2, '39');
+    ('R16', 1, '34'),
+    ('R16', 2, '39'),
 
 -- R17: MOW -> KHB -> MOW
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R17', 1, '36'),
-       ('R17', 2, '37');
+    ('R17', 1, '36'),
+    ('R17', 2, '37'),
 
 -- R18: Хабаровск -> VLA
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R18', 1, '35');
+    ('R18', 1, '35'),
 
 -- R19: SPB -> NIZ (через EKB)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R19', 1, '40'),
-       ('R19', 2, '41');
+    ('R19', 1, '40'),
+    ('R19', 2, '41'),
 
 -- R20: KZN -> OMS (через SAM)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R20', 1, '42'),
-       ('R20', 2, '43');
+    ('R20', 1, '42'),
+    ('R20', 2, '43'),
 
 -- R21: VLA -> MOW (через KHB)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R21', 1, '44'),
-       ('R21', 2, '45');
+    ('R21', 1, '44'),
+    ('R21', 2, '45'),
 
 -- R22: NOV -> UFA (через EKB и SAM)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R22', 1, '46'),
-       ('R22', 2, '47'),
-       ('R22', 3, '48');
+    ('R22', 1, '46'),
+    ('R22', 2, '47'),
+    ('R22', 3, '48'),
 
 -- R23: MOW -> NOV (прямой)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R23', 1, '49');
+    ('R23', 1, '49'),
 
 -- R24: VOL -> ROS (прямой)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R24', 1, '50');
+    ('R24', 1, '50'),
 
 -- R25: SAM -> ROS (такси)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R25', 1, '51');
+    ('R25', 1, '51'),
 
 -- R26: UFA -> CHL (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R26', 1, '52');
+    ('R26', 1, '52'),
 
 -- R27: CHL -> PER (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R27', 1, '53');
+    ('R27', 1, '53'),
 
 -- R28: PER -> NIZ (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R28', 1, '54');
+    ('R28', 1, '54'),
 
 -- R29: KRD -> SOCHI (автобус)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R29', 1, '55');
+    ('R29', 1, '55'),
 
 -- R30: SOCHI -> ROS (автобус)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R30', 1, '56');
+    ('R30', 1, '56'),
 
 -- R31: SEV -> SOCHI (автобус)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R31', 1, '57');
+    ('R31', 1, '57'),
 
 -- R32: NIZ -> KZN (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R32', 1, '58');
+    ('R32', 1, '58'),
 
 -- R33: ROS -> VOL (автобус)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R33', 1, '59');
+    ('R33', 1, '59'),
 
 -- R34: OMS -> NOV (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R34', 1, '60');
+    ('R34', 1, '60'),
 
 -- R35: IRK -> KEM (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R35', 1, '61');
+    ('R35', 1, '61'),
 
 -- R36: KEM -> NOV (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R36', 1, '62');
+    ('R36', 1, '62'),
 
 -- R37: CHL -> VOL (автобус)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R37', 1, '63');
+    ('R37', 1, '63'),
 
 -- R38: PER -> SAM (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R38', 1, '64');
+    ('R38', 1, '64'),
 
 -- R39: UFA -> KZN (поезд)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R39', 1, '65');
+    ('R39', 1, '65'),
 
 -- R40: MOW -> SEV (самолёт)
-INSERT INTO t_route_step (route_id, route_step, edge_id)
-VALUES ('R40', 1, '66');
+    ('R40', 1, '66');

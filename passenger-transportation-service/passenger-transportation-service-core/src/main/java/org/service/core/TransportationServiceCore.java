@@ -1,12 +1,12 @@
 package org.service.core;
 
-import org.service.core.factory.ResponseFactory;
+import org.service.core.factory.edge.EdgeResponseFactory;
 import org.service.core.factory.Type;
+import org.service.core.factory.route_step.RouteStepResponseFactory;
 import org.service.entity.*;
 import org.service.exception.ProblemDetailsException;
 import org.service.input_port.TransportationServiceInputPort;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
-import org.service.entity.RouteStepEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -29,9 +29,9 @@ public class TransportationServiceCore implements TransportationServiceInputPort
 
     @Override
     public GraphEntity findAll() {
-        List<RouteStepEntity> routeSteps = aggregate.getFindAllRouteStepTransportationServiceOutputPort().findAll();
-        Set<Map<String, String>> nodes = ResponseFactory.createResponsePart(routeSteps, Type.NODE);
-        Set<Map<String, String>> edges = ResponseFactory.createResponsePart(routeSteps, Type.EDGE);
+        List<EdgeEntity> routeSteps = aggregate.getFindAllRouteStepTransportationServiceOutputPort().findAll();
+        Set<Map<String, String>> nodes = EdgeResponseFactory.createResponsePart(routeSteps, Type.NODE);
+        Set<Map<String, String>> edges = EdgeResponseFactory.createResponsePart(routeSteps, Type.EDGE);
         return new GraphEntity(nodes, edges);
     }
 
@@ -72,14 +72,14 @@ public class TransportationServiceCore implements TransportationServiceInputPort
 
     public GraphEntity findGraphByIds(List<String> ids) {
         List<RouteStepEntity> routeStepsByIds = aggregate.getFindByRouteStepsIdsTransportationServiceOutputPurt().findRouteStepsByIds(ids);
-        Set<Map<String, String>> nodes = ResponseFactory.createResponsePart(routeStepsByIds, Type.NODE);
-        Set<Map<String, String>> edges = ResponseFactory.createResponsePart(routeStepsByIds, Type.EDGE);
+        Set<Map<String, String>> nodes = RouteStepResponseFactory.createResponsePart(routeStepsByIds, Type.NODE);
+        Set<Map<String, String>> edges = RouteStepResponseFactory.createResponsePart(routeStepsByIds, Type.EDGE);
         return new GraphEntity(nodes, edges);
     }
 
     @Override
     public List<RoutesEntity> findRoutesByDepId(String id, PageEntity pageEntity) {
-        return aggregate.getFindAllRoutesByDepartureCityOutputPort().findAllByDepartureCityId(id, pageEntity);
+        return aggregate.getFindAllRoutesByDepartureCityOutputPort().findAllByDepartureCity(id, pageEntity);
     }
 
 }

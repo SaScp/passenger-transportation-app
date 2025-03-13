@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface FindAllRoutesByDepartureCityOutputPort extends TransportationServiceOutputPort {
 
-    List<RoutesEntity> findAllByDepartureCityId(String id, PageEntity pageEntity);
+    List<RoutesEntity> findAllByDepartureCity(String id, PageEntity pageEntity);
 }

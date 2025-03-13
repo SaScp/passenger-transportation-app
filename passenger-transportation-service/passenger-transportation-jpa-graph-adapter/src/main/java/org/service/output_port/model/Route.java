@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,6 +21,7 @@ import java.util.Objects;
 public class Route {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private String id;
 
@@ -30,17 +33,14 @@ public class Route {
     @JoinColumn(name = "arrival_city", referencedColumnName = "id", nullable = false)
     private Location arrivalCity;
 
-    @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "departure_time", nullable = false)
     private LocalDateTime departureTime;
 
-    @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_id", referencedColumnName = "id", nullable = false)
-    private List<RouteStep> routeSteps;
+    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST},  orphanRemoval = true)
+    private List<RouteStep> routeSteps = new ArrayList<>();
 
 
     @Override
@@ -55,6 +55,10 @@ public class Route {
                 Objects.equals(routeSteps, route.routeSteps);
     }
 
+    public void add(RouteStep routeStep) {
+        routeStep.setRoute(this);
+        routeSteps.add(routeStep);
+    }
     @Override
     public int hashCode() {
         return Objects.hash(id, departureCity, arrivalCity, departureTime, arrivalTime, routeSteps);

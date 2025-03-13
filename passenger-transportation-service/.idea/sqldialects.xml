@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/passanger-transportation-backend/src/main/resources/db/migration/V1__create_schema.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/passanger-transportation-backend/src/main/resources/db/migration/V2__create_test_data.sql" dialect="SQLite" />
     <file url="file://$PROJECT_DIR$/passanger-transportation-graph-jpa-adapter/src/main/resources/schema.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-jpa-graph-adapter/src/test/resources/schema.sql" dialect="H2" />
   </component>
 </project>

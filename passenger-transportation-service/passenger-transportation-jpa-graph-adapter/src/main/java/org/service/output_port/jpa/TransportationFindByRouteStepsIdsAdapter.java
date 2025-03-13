@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.service.entity.RouteStepEntity;
 import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutputPurt;
 import org.service.output_port.mapper.RouteStepMapper;
+import org.service.output_port.model.Edge;
+import org.service.output_port.repository.EdgeRepository;
 import org.service.output_port.repository.RouteStepRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,7 @@ import java.util.List;
 public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStepsIdsTransportationServiceOutputPurt {
 
     private final RouteStepRepository routeStepRepository;
+    private final EdgeRepository edgeRepository;
 
     @Override
     @Cacheable(key = "#ids.hashCode()", value = "TransportationFindByRouteStepsIdsAdapter::findRouteStepsByIds")

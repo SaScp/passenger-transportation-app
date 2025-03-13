@@ -1,12 +1,17 @@
-package org.service.core.factory;
+package org.service.core.factory.route_step;
 
+
+import org.service.core.factory.Type;
 import org.service.entity.RouteStepEntity;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ResponseFactory {
+import static org.service.core.factory.Type.EDGE;
+import static org.service.core.factory.Type.NODE;
+
+public class RouteStepResponseFactory {
 
     private final static EdgeFactory edgeFactory;
     private final static NodeFactory nodeFactory;
