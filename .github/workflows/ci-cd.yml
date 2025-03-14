@@ -21,18 +21,10 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Build  Backend
+      - name: Build and test Backend
         run: |
           cd passenger-transportation-service
-          mvn clean package
-          
-  test-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test Backend
-        run: |
-          mvn test
-
+          mvn clean test package
   build-frontend:
     runs-on: ubuntu-latest
     steps:
