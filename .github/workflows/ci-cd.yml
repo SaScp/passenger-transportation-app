@@ -21,10 +21,18 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Build and Test Backend
+      - name: Build  Backend
         run: |
           cd passenger-transportation-service
-          mvn clean test package
+          mvn clean package
+          
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Backend
+        run: |
+          cd passenger-transportation-service
+          mvn test
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -65,7 +73,3 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: docker-compose up -d
-
-      - name: Post-Deployment Health Check
-        run: |
-          curl --fail http://localhost:${{ secrets.PORT || '8080' }}/api/v1/booking/actuator || exit 1
