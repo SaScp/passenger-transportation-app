@@ -4,7 +4,7 @@
   1. В командной строке зайти в директорию приложение:
   <code>../passanger-transortation-app</code>
   
-  2. Ввести команду docker-compose up --bulid для сборки и запуска обоих образов(backend и frontend)
+  2. Ввести команду <code>docker-compose up --build</code> для сборки и запуска обоих образов(backend и frontend)
 
   3. Готово forntend будет доступен по адресу <code>http://localhost</code>,
      <br>
@@ -12,20 +12,25 @@
      swagger backend -a будет доступен по адресу  <code>http://localhost:8080/api/v1/booking/swagger/swagger-ui/index.html</code>
 ### Отдельный запуск бэкенда (для разработки)
   1. если вы работаете в Intelij Idea то в конфигурации запуска проекта поставить в поле <code>Active profiles</code> значение <code>dev</code> или <code>prod</code> 
-  2. если запуск производиться из консоли, то при запуске проекта указать в качестве параметра  <code>spring.profiles.active</code> значение <code>dev</code> или <code>prod</code>
+  2. если запуск производиться из консоли, то
+      1. Перейти в консоле <code>../passenger-transportation-app/passenger-transportation-service</code>
+      2. выполнить <code>mvn clean package</code>
+      3. найти сгенерированый jar файл (он находиться в по пути: <code>../passenger-transportation-app/passenger-transportation-service/passanger-transportation-backend/target/</code>)
+      4. запустить приложение командой  <code>java -jar ../passenger-transportation-app/passenger-transportation-service/passanger-transportation-backend/target/{название файла}.jar</code>
+      5.  при запуске проекта указать в качестве параметра  <code>spring.profiles.active</code> значение <code>dev</code> или <code>prod</code> (это можно сделать добавив <code>--spring.profiles.active={профиль}</code>)
   
   P.S Для данного вида развертывания нужно заполнить пустые данные в <code>.env.dev</code> файле
 
 ### Отдельный запуск фронтенда (для разработки)
-  1. в консоле перейдите в в ../passenger-transportation-frontend
-  2. введите команду npm run dev
-  3. в случае ошибок связаных с незагруженными зависимостями введите команду npm install 
+  1. Перейти в консоле  <code>../passenger-transportation-frontend </code>
+  2. введите команду  <code>npm run dev </code>
+  3. в случае ошибок связаных с незагруженными зависимостями введите команду  <code>npm install</code>
 
 # Envorenment переменные
-Для разработки присутвует dev конфигурация храняться в файле <code>.env.dev</code> находится в <code>/passenger-transportation-service/passanger-transportation-backend/src/main/resources/.env.dev</code>
+Для разработки присутвует <code>dev</code> конфигурация храниться в файле <code>.env.dev</code> находится в <code>/passenger-transportation-service/passanger-transportation-backend/src/main/resources/.env.dev</code>
 <br>
 
-Для продакшена prod храняться в файле <code>.env</code> находится в <code>/.env</code>
+Для продакшена <code>prod</code> храняться в файле <code>.env</code> находится в <code>/.env</code>
 
 ### База данных
  1. <code>POSTGRES_HOST</code> - хост до базы данных
