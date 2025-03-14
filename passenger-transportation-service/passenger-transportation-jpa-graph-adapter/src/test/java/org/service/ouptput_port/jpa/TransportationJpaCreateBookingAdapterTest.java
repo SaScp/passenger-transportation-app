@@ -42,19 +42,22 @@ class TransportationJpaCreateBookingAdapterTest {
     private TestEntityManager testEntityManager;
 
 
-    private Route createAndPersistRoute(LocalDateTime departureTime, String id) {
 
-        Location cityA = testEntityManager.persistAndFlush(new Location("loc1" + id, "CityA"));
-        Location cityB = testEntityManager.persistAndFlush(new Location("loc2" + id, "CityB"));
+    public Route createAndPersistRoute(LocalDateTime departureTime, String id) {
+
+        Location cityA = testEntityManager.persist(new Location("loc1" + id, "CityA"));
+        Location cityB = testEntityManager.persist(new Location("loc2" + id, "CityB"));
+
         Route route = new Route(
-                id,
                 cityA,
                 cityB,
                 departureTime,
                 departureTime.plusHours(1),
                 new ArrayList<>()
         );
-        return testEntityManager.persistAndFlush(route);
+
+        return testEntityManager.persist(route);
+
     }
 
 
@@ -62,8 +65,8 @@ class TransportationJpaCreateBookingAdapterTest {
     @Test
     void createBookingSuccessfully() {
         // Arrange
-        createAndPersistRoute(LocalDateTime.now(), "route-1");
-        BookingParamsEntity entity = new BookingParamsEntity("+1234567890", "route-1");
+        Route route = createAndPersistRoute(LocalDateTime.now(), "route-1");
+        BookingParamsEntity entity = new BookingParamsEntity("+1234567890", route.getId());
 
         // Act
         adapter.create(entity);
@@ -73,15 +76,15 @@ class TransportationJpaCreateBookingAdapterTest {
 
         assertTrue(savedBooking.isPresent());
         assertEquals("+1234567890", savedBooking.get().getUserPhone().getNumberPhone());
-        assertEquals("route-1", savedBooking.get().getRoute());
+        assertEquals(route.getId(), savedBooking.get().getRoute());
     }
 
     @Test
     void createMultipleBookings() {
-        createAndPersistRoute(LocalDateTime.now(), "route-2");
-        createAndPersistRoute(LocalDateTime.now(), "route-3");
-        BookingParamsEntity entity1 = new BookingParamsEntity("+1234567890", "route-2");
-        BookingParamsEntity entity2 = new BookingParamsEntity("+1234567890", "route-3");
+        Route route = createAndPersistRoute(LocalDateTime.now(), "route-2");
+        Route route1 = createAndPersistRoute(LocalDateTime.now(), "route-3");
+        BookingParamsEntity entity1 = new BookingParamsEntity("+1234567890", route.getId());
+        BookingParamsEntity entity2 = new BookingParamsEntity("+1234567890", route1.getId());
 
         adapter.create(entity1);
         adapter.create(entity2);

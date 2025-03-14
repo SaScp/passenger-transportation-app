@@ -10,21 +10,5 @@ import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPo
  * **/
 public interface TransportationServiceOutputPortAggregate {
 
-    CreateBookingTransportationServiceOutputPort getCreateBookingTransportationServiceOutputPort();
-
-    RevokeBookingTransportationServiceOutputPort getRevokeBookingTransportationServiceOutputPort();
-
-    FindByParamsTransportationServiceOutputPort getFindByParamsTransportationServiceOutputPort();
-
-    FindAllTransportationServiceOutputPort getFindAllTransportationServiceOutputPort();
-
-    FindByPhoneTransportationServiceOutputPort getFindByPhoneTransportationServiceOutputPort();
-
-    FindTypesTransportationServiceOutputPort getFindTypesTransportationServiceOutputPort();
-
-    FindAllRouteStepTransportationServiceOutputPort getFindAllRouteStepTransportationServiceOutputPort();
-
-    FindByRouteStepsIdsTransportationServiceOutputPurt getFindByRouteStepsIdsTransportationServiceOutputPurt();
-
-    FindAllRoutesByDepartureCityOutputPort getFindAllRoutesByDepartureCityOutputPort();
+    public <T> T getOutputPort(Class<T> type);
 }

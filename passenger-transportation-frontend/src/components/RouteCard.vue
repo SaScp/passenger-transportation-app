@@ -37,11 +37,11 @@ import axios from "axios";
 import route from "@/route.js";
 import {createBooking} from "@/api.js";
 import Modal from "@/components/Modal.vue";
-import RouteStep from "@/components/RouteStep.vue";
+
 
 
 export default {
-  components: { RouteStep, Modal},
+  components: { Modal},
   props: {
     route: Object,
     isFinder: Boolean,

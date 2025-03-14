@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingParamsEntity;
 import org.service.exception.ProblemDetailsException;
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.create.CreateBookingTransportationServiceOutputPort;
 import org.service.output_port.exception.RouteIsNullException;
 import org.service.output_port.exception.RouteNotFoundException;
@@ -80,5 +81,10 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
             if (exception != null)
                 log.error("\nerror {} \nin {} \nmessage {}", exception.getClass(), exception.getStackTrace()[1], exception.getMessage());
         }
+    }
+
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return CreateBookingTransportationServiceOutputPort.class;
     }
 }

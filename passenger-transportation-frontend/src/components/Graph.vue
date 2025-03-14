@@ -2,8 +2,14 @@
   <div class="network">
     <div
         ref="networkContainer"
+        class="network-container"
         style="height: 700px; width: 1000px; border: 1px solid lightgray;"
     ></div>
+    <div class="rows">
+      <span> для приближение колесико мышки &#11014</span>
+      <span>для уменьшение колесико мышки &#11015</span>
+    </div>
+
   </div>
 </template>
 
@@ -90,6 +96,7 @@ export default {
 
       if (params.nodes.length > 0) {
         const clickedNodeId = params.nodes[0]
+        console.log(clickedNodeId)
         this.$emit("create-new-route", clickedNodeId);
       }
     })
@@ -115,35 +122,52 @@ export default {
       }
     },
     highlightRoute(routeEdgeIds) {
-
+      // Сбрасываем цвета всех рёбер и узлов
       this.edges.forEach(edge => {
-        this.edges.update({id: edge.id, color: {color: undefined}});
+        this.edges.update({ id: edge.id, color: { color: undefined } });
+      });
 
+      this.nodes.forEach(node => {
+        this.nodes.update({ id: node.id, color: { background: "#97c2fc" } });
       });
-      this.nodes.forEach(edge => {
-        console.log(edge.id)
-        this.nodes.update({id: edge.id, color: {background: "#97c2fc"}});
-      });
+
+      // Если маршрут пуст, выходим
+      if (!routeEdgeIds.length) return;
+
+      // Определяем первый и последний узел маршрута
+      const firstNodeId = routeEdgeIds[0].fromLocationId.id;
+      const lastNodeId = routeEdgeIds[routeEdgeIds.length - 1].toLocationId.id;
+
+      // Проходим по маршруту и выделяем рёбра и узлы
       this.edges.forEach(edge => {
         if (routeEdgeIds.some(r => r.fromLocationId.id === edge.from && r.toLocationId.id === edge.to)) {
-          this.edges.update({id: edge.id, color: {color: "green"}});
-          this.nodes.update({id: edge.to, color: { background: "green" }})
+          this.edges.update({ id: edge.id, color: { color: "green" } });
+          this.nodes.update({ id: edge.to, color: { background: "green" } });
         }
       });
+
+      // Красим первый и последний узел маршрута в красный
+      this.nodes.update({ id: firstNodeId, color: { background: "red" } });
+      this.nodes.update({ id: lastNodeId, color: { background: "red" } });
+
+      // Перерисовываем сеть
       if (this.network) {
         this.network.redraw();
-
       }
-    },
+    }
 
-
-  }
+  },
 };
 </script>
 
 <style scoped>
+.rows {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
 .network {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 </style>

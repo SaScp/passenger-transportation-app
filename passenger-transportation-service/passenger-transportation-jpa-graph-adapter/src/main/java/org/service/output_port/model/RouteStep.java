@@ -33,7 +33,8 @@ public class RouteStep {
     private Route route;
 
 
-    public RouteStep(Integer routeStep, Edge edge) {
+    public RouteStep(UUID id, Integer routeStep, Edge edge) {
+        this.id = id;
         this.routeStep = routeStep;
         this.edgeId = edge;
     }

@@ -26,11 +26,13 @@ public interface RouteMapper {
     @Mapping(target = "price", source = "routeSteps", qualifiedByName = "mapPrice")
     @Mapping(target = "departureCity.label", source = "departureCity.CName")
     @Mapping(target = "arrivalCity.label", source = "arrivalCity.CName")
+
     RoutesEntity routeToRoutesEntity(Route route);
 
     @Mapping(target = "edgeId.fromLocationId.label", source = "edgeId.fromLocationId.CName")
     @Mapping(target = "edgeId.toLocationId.label", source = "edgeId.toLocationId.CName")
     @Mapping(target = "edgeId.type", source = "edgeId.type.typeName")
+    @Mapping(target = "routeId", source = "route.id")
     RouteStepEntity routeStepToRouteStepEntity(RouteStep routeSteps);
 
     List<RouteStepEntity> routeStepsToRouteStepEntitys(List<RouteStep> routeSteps);

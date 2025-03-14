@@ -1,16 +1,11 @@
 package org.service.output_port.model;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-public final class RouteEntityTemp {
+public final class RoutePageEntity {
     private final String fromLocationId;
     private final String toLocationId;
     private final String[] edge_path;
@@ -20,7 +15,7 @@ public final class RouteEntityTemp {
     private final String transportType;
     private final LocalDateTime arr_time;
 
-    public RouteEntityTemp(
+    public RoutePageEntity(
             String fromLocationId,
             String toLocationId,
             String edge_path,
@@ -77,7 +72,7 @@ public final class RouteEntityTemp {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (RouteEntityTemp) obj;
+        var that = (RoutePageEntity) obj;
         return Objects.equals(this.fromLocationId, that.fromLocationId) &&
                 Objects.equals(this.toLocationId, that.toLocationId) &&
                 Objects.equals(this.edge_path, that.edge_path) &&

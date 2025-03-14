@@ -10,6 +10,8 @@ services:
       context: passenger-transportation-service
     networks:
       - passenger_app_net
+    depends_on:
+      - db_pg
     environment:
       - spring.profiles.active=prod
     healthcheck:
@@ -22,12 +24,14 @@ services:
       - ${PORT}:${PORT}
   db_pg:
     image: postgres:15
-    container_name: postgres_passsanger
+    container_name: passenger_postgres
     env_file:
       - .env
+    networks:
+      - passenger_app_net
     environment:
-      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
-      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5432"

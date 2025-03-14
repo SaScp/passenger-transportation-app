@@ -1,21 +1,16 @@
 package org.service.output_port.jpa;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.AllArgsConstructor;
 import org.service.entity.PageEntity;
 import org.service.entity.ParamsEntity;
 import org.service.entity.RoutesEntity;
 
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindByParamsTransportationServiceOutputPort;
 import org.service.output_port.mapper.RouteMapper;
-import org.service.output_port.model.Edge;
 import org.service.output_port.model.Route;
-import org.service.output_port.model.RouteEntityTemp;
-import org.service.output_port.model.RouteStep;
-import org.service.output_port.repository.EdgeRepository;
+import org.service.output_port.model.RoutePageEntity;
 import org.service.output_port.repository.RouteRepository;
-import org.service.output_port.repository.RouteStepRepository;
 import org.service.output_port.util.BatchUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -37,10 +32,11 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
     @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
-        List<String> routeIds = null;
-        List<Route> routesByIdIn = null;
+        List<String> routeIds;
+        List<Route> routesByIdIn;
+        System.out.println(entity.getTime());
         if (entity.getRouteId() == null || entity.getRouteId().isEmpty()) {
-            List<RouteEntityTemp> recursiveResults = repository.findRecursiveRoutes(entity.getFrom(), entity.getTo(), entity.getType(), pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
+            List<RoutePageEntity> recursiveResults = repository.findRecursiveRoutes(entity.getFrom(), entity.getTo(), entity.getType(), entity.getTime().toString(), pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
             Deque<String> idsQueue = new LinkedList<>();
             for (int i = 0; i < recursiveResults.size(); i++) {
                 idsQueue.push(UUID.nameUUIDFromBytes(recursiveResults.get(i).toString().getBytes()).toString());
@@ -62,5 +58,8 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
     }
 
 
-
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return FindByParamsTransportationServiceOutputPort.class;
+    }
 }

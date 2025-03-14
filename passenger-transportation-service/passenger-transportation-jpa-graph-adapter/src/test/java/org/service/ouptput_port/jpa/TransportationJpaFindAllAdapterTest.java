@@ -5,8 +5,8 @@ import org.service.entity.PageEntity;
 
 import org.service.entity.RoutesEntity;
 
+import org.service.ouptput_port.LocalDateTimeConverter;
 import org.service.output_port.jpa.TransportationJpaFindAllAdapter;
-import org.service.output_port.model.LocalDateTimeConverter;
 import org.service.output_port.model.Location;
 import org.service.output_port.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,6 @@ class TransportationJpaFindAllAdapterTest {
         Location cityA = testEntityManager.persistAndFlush(new Location("loc1" + UUID.randomUUID(), "CityA"));
         Location cityB = testEntityManager.persistAndFlush(new Location("loc2" + UUID.randomUUID(), "CityB"));
         Route route = new Route(
-                UUID.randomUUID().toString(),
                 cityA,
                 cityB,
                 departureTime,

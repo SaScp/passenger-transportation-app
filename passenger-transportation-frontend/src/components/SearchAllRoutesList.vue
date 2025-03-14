@@ -1,8 +1,18 @@
 <template>
   <section class="find-all-routes">
     <div class="routes" id="routes">
-      <RouteCard v-for="route in routes" :key="route.id" :route="route" :is-finder="true" :is-find="false" />
+      <div class="route-date" v-for="(routes, date) in groupedRoutes" :key="date">
+        <h2>📅 {{ date }}</h2>
+        <RouteCard
+            v-for="route in routes"
+            :key="route.id"
+            :route="route"
+            :is-finder="true"
+            :is-find="false"
+        />
+      </div>
     </div>
+
     <div class="swiper" v-if="is_find">
       <button @click="prev" :disabled="page_num === 0">Предыдущая</button>
       <a>{{ page_num + 1 }}</a>
@@ -70,6 +80,19 @@ export default {
         await this.findAll();
       }
     }
+  },
+  computed : {
+    groupedRoutes() {
+      const grouped = {};
+      this.routes.forEach(route => {
+        const date = route.departureTime.split("T")[0]; // Берём только дату (ГГГГ-ММ-ДД)
+        if (!grouped[date]) {
+          grouped[date] = [];
+        }
+        grouped[date].push(route);
+      });
+      return grouped;
+    }
   }
 }
 </script>
@@ -87,13 +110,14 @@ export default {
   align-items: center;
 }
 #routes {
-  display: grid;
-  grid-template-columns: auto auto auto;
-}
+   display: grid;
+   grid-template-columns: auto auto auto;
+ }
 .find-all-routes {
   display: flex;
   margin: 20px;
   grid-column: auto;
   flex-flow: column;
 }
+
 </style>

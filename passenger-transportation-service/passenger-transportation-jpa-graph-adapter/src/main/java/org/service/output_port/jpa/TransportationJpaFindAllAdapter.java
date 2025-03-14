@@ -2,6 +2,7 @@ package org.service.output_port.jpa;
 
 import org.service.entity.PageEntity;
 import org.service.entity.RoutesEntity;
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindAllTransportationServiceOutputPort;
 import org.service.output_port.mapper.RouteMapper;
 import org.service.output_port.repository.RouteRepository;
@@ -34,5 +35,10 @@ public class TransportationJpaFindAllAdapter implements FindAllTransportationSer
                         )
                 );
         return RouteMapper.INSTANCE.routesToRouteEntitys(repository.findRoutesByIdIn(routes.getContent(), Sort.by(Sort.Order.by("departureTime"))));
+    }
+
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return FindAllTransportationServiceOutputPort.class;
     }
 }

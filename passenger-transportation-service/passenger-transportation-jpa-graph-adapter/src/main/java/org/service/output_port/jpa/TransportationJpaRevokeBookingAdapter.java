@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.service.exception.ProblemDetailsException;
 
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPort;
 import org.service.output_port.exception.BookingNotFoundException;
 import org.service.output_port.model.Booking;
@@ -47,5 +48,9 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
                 .ifPresent(cache -> cache.evictIfPresent(booking.getUserPhone().getNumberPhone()));
     }
 
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return RevokeBookingTransportationServiceOutputPort.class;
+    }
 }
 

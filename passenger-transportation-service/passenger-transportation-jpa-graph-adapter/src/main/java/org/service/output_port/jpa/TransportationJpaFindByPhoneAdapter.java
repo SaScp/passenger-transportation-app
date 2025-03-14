@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingEntity;
 
 import org.service.entity.PageEntity;
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindByPhoneTransportationServiceOutputPort;
 import org.service.output_port.exception.BookingNotFoundException;
 import org.service.output_port.exception.UserNotFoundException;
@@ -45,5 +46,10 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
         Optional<List<Booking>> optionalListBookings = repository.findAllByNumberPhone_NumberPhone(phone);
         return optionalListBookings.map(BookingMapper.INSTANCE::bookingsToBookingEntitys)
                 .orElseThrow(BookingNotFoundException::new);
+    }
+
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return FindByPhoneTransportationServiceOutputPort.class;
     }
 }

@@ -15,7 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Table(name = "t_route")
 public class Route {
@@ -42,6 +42,22 @@ public class Route {
     @OneToMany(mappedBy = "route", fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST},  orphanRemoval = true)
     private List<RouteStep> routeSteps = new ArrayList<>();
 
+    public Route(String id, Location departureCity, Location arrivalCity, LocalDateTime departureTime, LocalDateTime arrivalTime, List<RouteStep> routeSteps) {
+        this.id = id;
+        this.departureCity = departureCity;
+        this.arrivalCity = arrivalCity;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.routeSteps = routeSteps;
+    }
+
+    public Route(Location departureCity, Location arrivalCity, LocalDateTime departureTime, LocalDateTime arrivalTime, List<RouteStep> routeSteps) {
+        this.departureCity = departureCity;
+        this.arrivalCity = arrivalCity;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.routeSteps = routeSteps;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -2,6 +2,7 @@ package org.service.output_port.jpa;
 
 import lombok.AllArgsConstructor;
 import org.service.entity.RouteStepEntity;
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutputPurt;
 import org.service.output_port.mapper.RouteStepMapper;
 import org.service.output_port.model.Edge;
@@ -19,11 +20,16 @@ import java.util.List;
 public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStepsIdsTransportationServiceOutputPurt {
 
     private final RouteStepRepository routeStepRepository;
-    private final EdgeRepository edgeRepository;
+
 
     @Override
     @Cacheable(key = "#ids.hashCode()", value = "TransportationFindByRouteStepsIdsAdapter::findRouteStepsByIds")
     public List<RouteStepEntity> findRouteStepsByIds(List<String> ids) {
         return RouteStepMapper.INSTANCE.routeStepsToRouteStepEntitys(routeStepRepository.findRouteStepsByRouteIdIn(ids));
+    }
+
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return FindByRouteStepsIdsTransportationServiceOutputPurt.class;
     }
 }

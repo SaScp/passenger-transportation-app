@@ -6,21 +6,27 @@
           ref="networkGraph"
           @create-new-route="createNewRoute"
       />
-      <div class="routes" v-if="routeData">
-        <RouteItem
-            v-for="route in routeData"
-            :key="route.id"
-            :route="route"
-            :is-finder="true"
-            :isFind="true"
-            @highlight-route="highlightRoute"
-        />
+      <section class="find-all-routes">
+        <div class="routes" id="routes-graph">
+          <div class="route-date" v-for="(routes, date) in groupedRoutes" :key="date">
+            <h2>📅 {{ date }}</h2>
+            <RouteItem
+                v-for="route in routes"
+                :key="route.id"
+                :route="route"
+                :is-finder="true"
+                :is-find="true"
+                @highlight-route="highlightRoute"
+            />
+          </div>
+        </div>
+
         <div class="swiper" v-if="is_find">
           <button @click="prev" :disabled="page_num === 0">Предыдущая</button>
           <a>{{ page_num + 1 }}</a>
           <button @click="next" :disabled="!hasMore">Следующая</button>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -29,6 +35,7 @@
 import axios from "axios";
 import NetworkGraph from "@/components/Graph.vue";
 import RouteItem from "@/components/RouteCard.vue";
+import {getAllGraphs, getRoutesByDepId} from "@/api.js";
 
 export default {
   name: "App",
@@ -55,9 +62,8 @@ export default {
   },
   async mounted() {
     try {
-      const edgesResponse = await axios.get(
-          "http://localhost:9000/dev/api/v1/booking/find-all-graph"
-      );
+      const edgesResponse = await getAllGraphs();
+      console.log(edgesResponse)
       this.graph = {
         nodes: edgesResponse.data.nodes || [],
         edges: edgesResponse.data.edges || []
@@ -74,18 +80,19 @@ export default {
       }
     },
     async createNewRoute(departureId) {
+      this.page_num = 0;
+      console.log(departureId);
+      await this.find(departureId);
+    },
+    async find(departureId) {
       try {
         const params = {};
         params.id = departureId;
         this.dep_id = departureId;
         params.page_num = this.page_num;
         params.page_size = this.page_size;
-        const response = await axios.get(
-            "http://localhost:9000/dev/api/v1/booking/find-routes-by-dep-id",
-            {params}
-        );
-
-        // Если ничего не найдено, сбрасываем данные и флаг is_find
+        const response = await getRoutesByDepId(params);
+        console.log(response.data)
         if (response.data.length <= 0) {
           if (this.page_num > 0) this.page_num--;
           this.routeData = [];
@@ -94,7 +101,7 @@ export default {
         } else {
           this.is_find = true;
           this.routeData = response.data;
-          // Если получено меньше элементов, чем page_size – следующей страницы нет
+
           this.hasMore = response.data.length === this.page_size;
         }
       } catch (error) {
@@ -104,15 +111,35 @@ export default {
     async next() {
       if (this.hasMore) {
         this.page_num++;
-        await this.createNewRoute(this.dep_id);
+        await this.find(this.dep_id);
       }
+    },
+    async createParams(departureId) {
+      return {
+        id: departureId,
+        page_num: this.page_num,
+        page_size: this.page_size
+      };
     },
     async prev() {
       if (this.page_num > 0) {
         this.page_num--;
         this.hasMore = true;
-        await this.createNewRoute(this.dep_id);
+        await this.find(this.dep_id);
       }
+    }
+  },
+  computed : {
+    groupedRoutes() {
+      const grouped = {};
+      this.routeData.forEach(route => {
+        const date = route.departureTime.split("T")[0];
+        if (!grouped[date]) {
+          grouped[date] = [];
+        }
+        grouped[date].push(route);
+      });
+      return grouped;
     }
   }
 };
@@ -144,5 +171,21 @@ button {
   margin-left: 10px;
   padding: 5px 10px;
   cursor: pointer;
+}
+#routes-graph {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+@media screen and (max-width: 1720px) {
+  .info {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+  .network-container {
+    height: 700px;
+    width: 700px;
+    border: 1px solid lightgray;
+  }
 }
 </style>

@@ -2,6 +2,7 @@ package org.service.output_port.jpa;
 
 import lombok.AllArgsConstructor;
 import org.service.entity.EdgeEntity;
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindAllRouteStepTransportationServiceOutputPort;
 import org.service.output_port.mapper.EdgeMapper;
 import org.service.output_port.model.Edge;
@@ -28,5 +29,10 @@ public class TransportationJpaFindAllRouteStepAdapter implements FindAllRouteSte
         List<RouteStep> routeSteps = repository.findAll();
         List<Edge> all = edgeRepository.findAll();
         return EdgeMapper.INSTANCE.edgesToEdgeEntitys(all);
+    }
+
+    @Override
+    public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
+        return FindAllRouteStepTransportationServiceOutputPort.class;
     }
 }

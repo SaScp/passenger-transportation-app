@@ -3,8 +3,9 @@
   <div id="app">
 
     <header class="main-header">
+      <img class="image-icon" src="@/assets/plane_takeoff_13263.ico">
       <nav class="nav-menu">
-        <router-link to="/search-route" class="nav-item" active-class="active-link">
+        <router-link to="/" class="nav-item" active-class="active-link">
           🔍 Поиск маршрутов
         </router-link>
         <router-link to="/find-all-routes" class="nav-item" active-class="active-link">
@@ -31,6 +32,10 @@ export default defineComponent({
 *{
   font-family: cursive;
   margin: 0;
+}
+.image-icon {
+  width: 50px;
+  margin-right: 15px;
 }
 .main-header {
   display: flex;

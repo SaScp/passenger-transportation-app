@@ -2,7 +2,7 @@ package org.service.output_port.util;
 
 import org.service.output_port.model.Edge;
 import org.service.output_port.model.Route;
-import org.service.output_port.model.RouteEntityTemp;
+import org.service.output_port.model.RoutePageEntity;
 import org.service.output_port.model.RouteStep;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,15 +31,15 @@ public class BatchUtils {
         this.routeUtils = routeUtils;
     }
 
-    public void executeSaveAll(Deque<String> idsQueue, List<RouteEntityTemp> recursiveResults, List<Route> routesByIdIn) {
+    public void executeSaveAll(Deque<String> idsQueue, List<RoutePageEntity> recursiveResults, List<Route> routesByIdIn) {
         if (!idsQueue.isEmpty()) {
-            Map<Long, Edge> idsEl = edgeUtils.getLongEdgeMap(recursiveResults);
-            List<Route> routes = routeUtils.getRoutes(recursiveResults, idsQueue, idsEl);
+            Map<Long, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
+            List<Route> routes = routeUtils.getRoutes(recursiveResults, idsQueue, longEdgeMap);
 
             executeBatchRoutesInsert(routes);
             List<RouteStep> steps = new ArrayList<>();
-            for (var i : routes) {
-                steps.addAll(i.getRouteSteps());
+            for (var route : routes) {
+                steps.addAll(route.getRouteSteps());
             }
             executeBatchRouteStepInsert(steps);
 

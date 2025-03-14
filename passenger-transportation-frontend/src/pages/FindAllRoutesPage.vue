@@ -5,10 +5,6 @@
       <router-link to="/find-all-routes/graph" class="nav-item" active-class="active-link">
         📋 Все маршруты на карте
       </router-link>
-
-      <router-link to="/find-all-routes/list" class="nav-item" active-class="active-link">
-        📋 Все маршруты списком
-      </router-link>
     </nav>
   </header>
   <router-view/>

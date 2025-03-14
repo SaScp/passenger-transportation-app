@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 
 
-@ComponentScans(value = {@ComponentScan("org.service.output_port.jpa"), @ComponentScan("org.service.output_port.repository")})
+@ComponentScans(value = {@ComponentScan("org.service.output_port.jpa"), @ComponentScan("org.service.output_port.repository"), @ComponentScan("org.service.output_port.util")})
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = "org.service.output_port.repository")
@@ -36,6 +36,8 @@ public class JpaTestConfiguration {
 
     @Autowired
     private RouteRepository repository;
+
+
 
     @Bean
     public CacheManager cacheManager() {

@@ -26,8 +26,11 @@
       <input type="time" id="timeInput" class="locationFilter">
       <button @click="fetchRoutesAndEdges">Применить фильтр</button>
     </div>
-    <div class="info">
-      <NetworkGraph  :graph="graph" ref="networkGraph" />
+    <div class="not_found" v-if="isFind === false">
+      <span>Похоже ничего не найдено ;(</span>
+    </div>
+    <div class="info" v-if="isFind===true">
+      <NetworkGraph :graph="graph" ref="networkGraph" />
       <div class="routes">
         <RouteItem
             v-for="route in routeData"
@@ -43,6 +46,7 @@
           <button @click="next" :disabled="!hasMore">Следующая</button>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -51,6 +55,7 @@
 import axios from "axios";
 import NetworkGraph from "@/components/Graph.vue";
 import RouteItem from "@/components/RouteCard.vue";
+import {findById, findRoutesByParams, getAllTypes} from "@/api.js";
 
 export default {
   name: "App",
@@ -65,9 +70,8 @@ export default {
       time: null,
       type: null,
       types: [],
-      // routeData содержит только текущую страницу
+      isFind: false,
       routeData: [],
-      // Флаг наличия следующей страницы
       hasMore: true,
       graph: {
         nodes: [],
@@ -83,6 +87,10 @@ export default {
   },
   methods: {
     async fetchRoutesAndEdges() {
+      this.page_num = 0;
+      await this.fetchData();
+    },
+    async fetchData() {
       try {
         this.time = getFormattedTime();
         const params = {};
@@ -94,11 +102,15 @@ export default {
         params.page_num = this.page_num;
         params.page_size = this.page_size;
 
-        const routeResponse = await axios.get(
-            "http://localhost:9000/dev/api/v1/booking/find", {params}
-        );
+        const routeResponse = await findRoutesByParams(params);
 
         const data = routeResponse.data || [];
+
+        if (this.page_num === 0 && data.length === 0) {
+          this.isFind = false
+        } else {
+          this.isFind = true
+        }
         if (data.length === 0 && this.page_num > 0) {
 
           this.page_num--;
@@ -107,13 +119,13 @@ export default {
           this.is_find = data.length > 0;
           this.routeData = data;
           this.hasMore = data.length === this.page_size;
+
         }
 
+        console.log(this.isFind)
         // Обновление графа
         const routeIds = this.routeData.map(route => route.id).join(",");
-        const edgesResponse = await axios.get(
-            `http://localhost:9000/dev/api/v1/booking/find-by-ids?id=${routeIds}`
-        );
+        const edgesResponse = await findById(routeIds)
         this.graph = {
           nodes: edgesResponse.data.nodes || [],
           edges: edgesResponse.data.edges || []
@@ -125,21 +137,19 @@ export default {
     next() {
       if (this.hasMore) {
         this.page_num++;
-        this.fetchRoutesAndEdges();
+        this.fetchData();
       }
     },
     prev() {
       if (this.page_num > 0) {
         this.page_num--;
          this.hasMore = true;
-        this.fetchRoutesAndEdges();
+        this.fetchData();
       }
     },
     async searchType() {
       try {
-        const response = await axios.get(
-            "http://localhost:9000/dev/api/v1/booking/find-types"
-        );
+        const response = await getAllTypes();
         this.types = response.data;
         this.types.push({id: -1, typeName: "микс"});
       } catch (err) {
@@ -198,7 +208,10 @@ function getFormattedTime() {
   border-radius: 4px;
   border: 1px solid #ccc;
 }
-
+.not_found {
+  display: flex;
+  justify-content: center;
+}
 .filter-section {
   display: flex;
   flex-flow: row;

@@ -3,6 +3,7 @@ package org.service;
 import org.service.core.TransportationServiceCore;
 
 
+import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregateImpl;
 import org.service.output_port.jpa.*;
@@ -20,6 +21,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @EnableAsync
 @EnableCaching
@@ -35,35 +39,22 @@ public class TransportationServiceApplication {
     }
 
 
-
     /**
      * Бин jpa агрегатора
      * @return TransportationServiceOutputPortAggregateImpl
      * **/
     @Profile({"prod", "dev"})
     @Bean("jpaAggregate")
-    public TransportationServiceOutputPortAggregate transportationServiceJpaOutputPortAggregateImpl(
-            TransportationJpaFindByPhoneAdapter findByPhoneAdapter,
-            TransportationJpaFindByParamAdapter findByParamAdapter,
-            TransportationJpaCreateBookingAdapter createBookingAdapter,
-            TransportationJpaRevokeBookingAdapter revokeBookingAdapter,
-            TransportationJpaFindAllRouteStepAdapter findAllRouteStepAdapter,
-            TransportationJpaFindTypesAdapter findTypesAdapter,
-            TransportationJpaFindAllAdapter findAllAdapter,
-            TransportationFindByRouteStepsIdsAdapter findByRouteStepsIdsAdapter,
-            TransportationFindByDepartureCityAdapter findByDepartureCityIdAdapter
-    ) throws SQLException {
+    public TransportationServiceOutputPortAggregate transportationServiceJpaOutputPortAggregateImpl(List<TransportationServiceOutputPort> transportationServiceOutputPorts)  {
+
+        Map<Class<? >, TransportationServiceOutputPort> transportationServiceOutputPortMap = new HashMap<>();
+
+        for (var i : transportationServiceOutputPorts) {
+            transportationServiceOutputPortMap.put(i.getOutputPortType(), i);
+        }
 
         return new TransportationServiceOutputPortAggregateImpl(
-                createBookingAdapter,
-                revokeBookingAdapter,
-                findByParamAdapter,
-                findAllAdapter,
-                findByPhoneAdapter,
-                findTypesAdapter,
-                findAllRouteStepAdapter,
-                findByRouteStepsIdsAdapter,
-                findByDepartureCityIdAdapter
+                transportationServiceOutputPortMap
         );
     }
 
