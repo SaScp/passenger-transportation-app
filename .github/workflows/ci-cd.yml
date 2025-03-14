@@ -22,7 +22,9 @@ jobs:
           java-version: '21'
 
       - name: Build and Test Backend
-        run: mvn clean test package
+        run: |
+          cd passenger-transportation-service
+          mvn clean test package
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -53,12 +55,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-    
-
       - name: Build Docker Images
         run: docker-compose build
 
-  
       - name: Deploy with Docker Compose
         run: docker-compose up -d
 
