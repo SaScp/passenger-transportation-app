@@ -6,7 +6,7 @@
         <time>Время брони: {{ booking.bookingTime }}</time>
         <p>Статус: {{ booking.status }}</p>
       </div>
-      <div class="inner-booking-button" v-if="booking.status !== 'отменено' && isActive">
+      <div class="inner-booking-button" v-if="booking.status !== 'Отменено' && isActive">
         <button @click="revokeBooking(booking)">Отменить бронь</button>
       </div>
       <div class="load-route-info" :class="{ hovered: isHovered }"
@@ -57,12 +57,11 @@ export default {
       try {
         const response = await revokeBooking(booking.id);
         if (response.status === 200) {
-          this.isActive = false//this.cancelMessage = 'Бронирование успешно отменено';
+          this.isActive = false
           booking.status = 'отменено'
         }
       }catch(err)
       {
-       //this.cancelMessage = 'Ошибка при отмене бронирования';
       }
 
     }

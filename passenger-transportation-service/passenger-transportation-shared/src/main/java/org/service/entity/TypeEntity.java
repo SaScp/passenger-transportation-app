@@ -1,4 +1,4 @@
 package org.service.entity;
 
-public record TypeEntity(String transportType) {
+public record TypeEntity(Long id, String typeName) {
 }

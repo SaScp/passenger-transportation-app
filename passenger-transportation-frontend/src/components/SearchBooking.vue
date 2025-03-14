@@ -40,6 +40,7 @@ export default {
       await getBookingsByPhone(this.phone)
           .then(response => {
             this.bookings = response.data;
+            console.log(response.data)
           })
           .catch(err => {
                 this.err = err.response.data.detail

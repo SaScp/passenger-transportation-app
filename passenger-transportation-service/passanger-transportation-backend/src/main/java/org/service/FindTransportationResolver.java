@@ -53,7 +53,7 @@ public class FindTransportationResolver extends RequestParamMethodArgumentResolv
 
     private static LocalDateTime getTransportationTime(String timeParam, DateTimeFormatter formatter) {
         return timeParam == null || (timeParam.isBlank() || timeParam.isEmpty()) ?
-                null : LocalDateTime.parse(timeParam, formatter);
+                LocalDateTime.now() : LocalDateTime.parse(timeParam, formatter);
     }
 
 

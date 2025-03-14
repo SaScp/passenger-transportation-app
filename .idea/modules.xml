@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-graph-jpa-adapter/passanger-transportation-graph-jpa-adapter.iml" filepath="$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-graph-jpa-adapter/passanger-transportation-graph-jpa-adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/passenger-transportation-app.iml" filepath="$PROJECT_DIR$/.idea/passenger-transportation-app.iml" />
     </modules>
   </component>

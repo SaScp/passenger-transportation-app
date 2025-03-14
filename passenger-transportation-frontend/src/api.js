@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const api = axios.create({
     baseURL: "http://localhost:8080/api/v1/booking",
 });
@@ -17,7 +16,27 @@ export const getBookingsByPhone = async (phone) => {
         params: { phone: phone },
     });
 };
-
+export const findById = async (routeIds) => {
+   return  api.get(
+        `/find-by-ids?id=${routeIds}`
+    );
+}
+export const getAllTypes = async () => {
+    return api.get(
+        "/find-types"
+    );
+};
+export const getAllGraphs = async () => {
+    return api.get(
+        "/find-all-graph"
+    );
+};
+export const getRoutesByDepId = async (params) =>{
+    return api.get(
+        "/find-routes-by-dep-id",
+        {params}
+    );
+}
 export const revokeBooking = async (booking_id) => {
     return await api.delete("/revoke", { params: { booking_id } });
 };

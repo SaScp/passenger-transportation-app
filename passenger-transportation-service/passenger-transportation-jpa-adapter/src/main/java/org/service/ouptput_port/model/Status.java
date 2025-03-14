@@ -21,7 +21,4 @@ public class Status {
     @Column(name = "status")
     private String status;
 
-    public Status(Long id) {
-        this.id = id;
-    }
 }

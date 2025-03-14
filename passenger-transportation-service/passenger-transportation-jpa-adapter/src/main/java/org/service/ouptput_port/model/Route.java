@@ -41,6 +41,4 @@ public class Route {
 
     @Column(name = "price")
     private int price;
-
-
 }

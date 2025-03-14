@@ -8,6 +8,7 @@ COPY /passenger-transportation-service-output-port /passenger-transportation-ser
 COPY /passenger-transportation-service-spring-web-adapter /passenger-transportation-service-spring-web-adapter
 COPY /passenger-transportation-shared /passenger-transportation-shared
 COPY /passenger-transportation-jpa-adapter /passenger-transportation-jpa-adapter
+COPY /passenger-transportation-jpa-graph-adapter /passenger-transportation-jpa-graph-adapter
 COPY /pom.xml /
 
 RUN mvn -f /pom.xml clean package

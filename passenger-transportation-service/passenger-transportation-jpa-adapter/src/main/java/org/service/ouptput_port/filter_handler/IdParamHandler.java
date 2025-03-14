@@ -16,6 +16,6 @@ public class IdParamHandler extends Handler {
     @Override
     protected void addParam(ParamsEntity entity) {
         this.criteriaPredicate.add(Optional.ofNullable(entity.getRouteId())
-                .map(obj -> builder.equal(root.get("id"), obj)));
+                .map(obj -> builder.equal(root.get("id"), obj.getFirst())));
     }
 }

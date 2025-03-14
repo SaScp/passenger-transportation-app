@@ -3,17 +3,12 @@ spring:
     type: simple
   datasource:
     driver-class-name: ${SQL_DRIVER}
-    username: ${SQL_USERNAME}
-    password: ${SQL_PASSWORD}
-    url: ${SQL_URL}
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
   mvc:
     servlet:
       path: ${SERVLET_PATH:/api/v1/booking}
-  flyway:
-    driver-class-name:  ${SQL_DRIVER}
-    url: ${SQL_URL}
-    user: ${SQL_USERNAME}
-    password:  ${SQL_PASSWORD}
   jpa:
     database-platform: ${SQL_DIALECT}
     show-sql: ${SHOW_SQL:true}

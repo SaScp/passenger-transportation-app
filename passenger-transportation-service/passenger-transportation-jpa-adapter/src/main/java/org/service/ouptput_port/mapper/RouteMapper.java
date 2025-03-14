@@ -8,8 +8,9 @@ import org.service.ouptput_port.model.Route;
 import org.service.ouptput_port.model.TransportType;
 
 import java.util.List;
+import java.util.Optional;
 
-@Mapper
+@Mapper()
 public interface RouteMapper {
 
     RouteMapper INSTANCE = Mappers.getMapper(RouteMapper.class);
@@ -17,6 +18,6 @@ public interface RouteMapper {
     public List<RoutesEntity> routesToRouteEntitys(List<Route> routes);
 
     default String map(TransportType value){
-        return value == null? "" : value.getTransportType();
+        return Optional.ofNullable(value).map(TransportType::getTransportType).orElse("not found");
     }
 }

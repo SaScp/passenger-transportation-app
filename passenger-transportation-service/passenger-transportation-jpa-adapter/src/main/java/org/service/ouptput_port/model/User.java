@@ -20,11 +20,4 @@ public class User {
     @Column(name = "user_phone", nullable = false)
     private String numberPhone;
 
-    public String getNumberPhone() {
-        return numberPhone;
-    }
-
-    public void setNumberPhone(String id) {
-        this.numberPhone = id;
-    }
 }

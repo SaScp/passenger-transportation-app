@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS t_status (
-                                        id INT PRIMARY KEY,
+                                        id BIGINT PRIMARY KEY,
                                         status VARCHAR(255) NOT NULL UNIQUE
     );
 

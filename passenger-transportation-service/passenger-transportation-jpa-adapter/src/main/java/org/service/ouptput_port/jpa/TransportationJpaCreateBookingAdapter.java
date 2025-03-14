@@ -39,7 +39,7 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
 
     @Override
     public void create(BookingParamsEntity entity) {
-        User user = Optional.ofNullable(entityManager.getReference(User.class, entity.getNumberPhone()))
+        User user = Optional.ofNullable(entityManager.find(User.class, entity.getNumberPhone()))
                 .orElse(new User(entity.getNumberPhone()));
         if (entity.getRouteId() == null) {
             throw new RouteIsNullException();
@@ -49,16 +49,16 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
             Booking newBooking = new Booking(
                     id,
                     LocalDateTime.now(),
-                    entityManager.getReference(Status.class, CREATED_STATUS_ID),
+                    entityManager.find(Status.class, CREATED_STATUS_ID),
                     user,
                     entity.getRouteId()
             );
             Booking save = bookingRepository.save(newBooking);
 
             Optional.ofNullable(cacheManager.getCache("TransportationJpaFindByPhoneAdapter::findBy"))
-                    .ifPresent((cache) -> Optional.ofNullable(cache.get(entity.getNumberPhone(), List.class))
-                            .map(e -> e.add(BookingMapper.INSTANCE.bookingToBookingEntity(save))
-                            )
+                    .ifPresent(
+                            cache -> Optional.ofNullable(cache.get(entity.getNumberPhone(), List.class))
+                                    .map(e -> e.add(BookingMapper.INSTANCE.bookingToBookingEntity(save)))
                     );
 
         } catch (Exception e) {

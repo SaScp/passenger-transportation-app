@@ -2,6 +2,7 @@ package org.service.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public final class ParamsEntity implements Serializable {
@@ -9,7 +10,7 @@ public final class ParamsEntity implements Serializable {
     private String type;
     private String from;
     private String to;
-    private String routeId;
+    private List<String> routeId;
 
     public ParamsEntity(LocalDateTime time,
                         String type,
@@ -22,14 +23,14 @@ public final class ParamsEntity implements Serializable {
         this.to = to;
     }
 
-    public ParamsEntity(String routeId) {
+    public ParamsEntity(List<String> routeId) {
         this.routeId = routeId;
     }
 
     public ParamsEntity() {
     }
 
-    public ParamsEntity(LocalDateTime time, String type, String from, String to, String routeId) {
+    public ParamsEntity(LocalDateTime time, String type, String from, String to, List<String> routeId) {
         this.time = time;
         this.type = type;
         this.from = from;
@@ -53,7 +54,7 @@ public final class ParamsEntity implements Serializable {
         return to;
     }
 
-    public String getRouteId() {
+    public List<String> getRouteId() {
         return routeId;
     }
 
@@ -99,7 +100,7 @@ public final class ParamsEntity implements Serializable {
         this.to = to;
     }
 
-    public void setRouteId(String routeId) {
+    public void setRouteId(List<String> routeId) {
         this.routeId = routeId;
     }
 }

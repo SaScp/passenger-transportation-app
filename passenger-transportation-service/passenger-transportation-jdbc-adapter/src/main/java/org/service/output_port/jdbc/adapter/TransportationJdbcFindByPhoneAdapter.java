@@ -1,7 +1,8 @@
 package org.service.output_port.jdbc.adapter;
 
 import org.service.entity.BookingEntity;
-import org.service.output_port.FindByPhoneTransportationServiceOutputPort;
+import org.service.entity.PageEntity;
+import org.service.output_port.find.FindByPhoneTransportationServiceOutputPort;
 import org.service.output_port.JdbcLruIdCache;
 import org.service.output_port.factory.BookingFactory;
 import org.service.output_port.filter_handler.SQLConstant;
@@ -27,7 +28,7 @@ public class TransportationJdbcFindByPhoneAdapter extends MappingSqlQuery<Bookin
 
 
     @Override
-    public List<BookingEntity> findBy(String phone) {
+    public List<BookingEntity> findBy(String phone, PageEntity pageEntity) {
         if (lruIdCache.containsKey(phone)) {
             return lruIdCache.get(phone);
         }

@@ -1,7 +1,7 @@
 package org.service.output_port.jdbc.adapter;
 
 import org.service.entity.TypeEntity;
-import org.service.output_port.FindTypesTransportationServiceOutputPort;
+import org.service.output_port.find.FindTypesTransportationServiceOutputPort;
 import org.service.output_port.JdbcLruIdCache;
 import org.springframework.jdbc.object.MappingSqlQuery;
 
@@ -25,6 +25,6 @@ public class TransportationJdbcFindTypesAdapter extends MappingSqlQuery<TypeEnti
 
     @Override
     protected TypeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new TypeEntity(rs.getString("type_name"));
+        return new TypeEntity(rs.getLong("id"), rs.getString("type_name"));
     }
 }

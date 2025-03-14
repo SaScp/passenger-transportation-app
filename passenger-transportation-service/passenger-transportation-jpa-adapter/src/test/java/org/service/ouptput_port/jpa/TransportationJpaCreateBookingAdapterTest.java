@@ -1,5 +1,6 @@
 package org.service.ouptput_port.jpa;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,11 +47,8 @@ class TransportationJpaCreateBookingAdapterTest {
     @Autowired
     private BookingRepository bookingRepository;
 
-
     @Autowired
     private TransportationJpaCreateBookingAdapter adapter;
-
-
 
     @Test
     void createBookingSuccessfully() {
@@ -60,6 +58,7 @@ class TransportationJpaCreateBookingAdapterTest {
 
         // Act
         adapter.create(entity);
+
 
         Optional<Booking> savedBooking = bookingRepository.findAll().stream().findFirst();
 
@@ -76,6 +75,7 @@ class TransportationJpaCreateBookingAdapterTest {
 
         adapter.create(entity1);
         adapter.create(entity2);
+
 
         List<Booking> bookings = bookingRepository.findAll();
         assertEquals(2, bookings.size());

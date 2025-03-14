@@ -3,10 +3,15 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/passanger-transportation-backend/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passanger-transportation-backend/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passanger-transportation-graph-jpa-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-graph-output-port/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-graph-output-port/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-jdbc-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-jdbc-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-jpa-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-jpa-adapter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-jpa-graph-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-jpa-graph-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service-input-port/src/main/java" charset="UTF-8" />

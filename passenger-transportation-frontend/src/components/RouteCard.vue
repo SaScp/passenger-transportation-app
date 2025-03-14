@@ -1,10 +1,10 @@
 <template>
   <div class="route-card">
     <div class="route-details">
-      <h3>{{ route.departureCity }} → {{ route.arrivalCity }}</h3>
+      <h3>{{ route.departureCity.label }} → {{ route.arrivalCity.label}}</h3>
       <p>Время Отбытия: {{ route.departureTime }}</p>
       <p>Время Прибытия: {{ route.arrivalTime }}</p>
-      <p>Тип: {{ route.transportType }}</p>
+      <p>Тип: {{ route.type }}</p>
       <p>Цена: {{ route.price }} руб</p>
       <div class="booking-button" v-if="isFinder">
         <button v-if="!isFormVisible" class="inner-booking-button" @click="toggleForm">Забронировать</button>
@@ -17,9 +17,14 @@
             <button type="submit" class="inner-booking-button">Забронировать</button>
           </form>
         </div>
+        <div v-if="isFind">
+          <button @click="highlightRoute">Выделить маршрут</button>
+        </div>
+
       </div>
     </div>
-    <Modal :isOpen="isModalOpen" :message="message" :statusCode="statusCode" @close="isModalOpen = false" id="modal">
+
+   <Modal :isOpen="isModalOpen" :message="message" :statusCode="statusCode" @close="isModalOpen = false" id="modal">
     </Modal>
   </div>
 </template>
@@ -33,11 +38,14 @@ import route from "@/route.js";
 import {createBooking} from "@/api.js";
 import Modal from "@/components/Modal.vue";
 
+
+
 export default {
-  components: {Modal},
+  components: { Modal},
   props: {
     route: Object,
     isFinder: Boolean,
+    isFind: Boolean
   },
   data() {
     return {
@@ -88,6 +96,9 @@ export default {
       console.log(code)
       this.statusCode = code;
       this.isModalOpen = true;
+    },
+    highlightRoute() {
+      this.$emit("highlight-route", this.route.routeSteps.map(step => step.edgeId));
     }
   }
 };
