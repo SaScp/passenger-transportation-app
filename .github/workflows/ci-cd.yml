@@ -68,4 +68,4 @@ jobs:
 
       - name: Post-Deployment Health Check
         run: |
-          curl --fail http://localhost:${{ secrets.PORT || '8080' }} || exit 1
+          curl --fail http://localhost:${{ secrets.PORT || '8080' }}/api/v1/booking/actuator || exit 1
