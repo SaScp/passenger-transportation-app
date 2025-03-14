@@ -30,9 +30,6 @@ import java.util.Map;
 @SpringBootApplication
 public class TransportationServiceApplication {
 
-    @Value("${cache.lru.size}")
-    public Integer cacheSize;
-
 
     public static void main(String[] args) {
         SpringApplication.run(TransportationServiceApplication.class, args);
