@@ -29,7 +29,6 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
 
     private final EntityManager entityManager;
 
-
     private CacheManager cacheManager;
 
     @Override

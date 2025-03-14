@@ -67,6 +67,7 @@ export default {
     }
   },
   methods: {
+
     highlightRoute(routeEdgeIds) {
       if (this.$refs.networkGraph) {
         this.$refs.networkGraph.highlightRoute(routeEdgeIds);

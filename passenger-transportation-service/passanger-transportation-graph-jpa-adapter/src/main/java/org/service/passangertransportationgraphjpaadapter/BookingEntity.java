@@ -1,7 +1,5 @@
 package org.service.passangertransportationgraphjpaadapter;
 
-import org.service.passangertransportationgraphjpaadapter.model.Booking;
-
 public record BookingEntity(
         String id,
         String bookingTime,

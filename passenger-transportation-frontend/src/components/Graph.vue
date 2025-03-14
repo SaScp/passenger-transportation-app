@@ -35,7 +35,7 @@ export default {
           barnesHut: {
             springLength: 150,
             gravitationalConstant: -50000,
-            centralGravity: 0.0001,
+            centralGravity: 0.00001,
             springConstant: 0.0001,
             damping: 0.1
           },
@@ -85,6 +85,7 @@ export default {
         { nodes: this.nodes, edges: this.edges },
         this.options
     );
+
     this.network.on('click', (params) => {
 
       if (params.nodes.length > 0) {
@@ -93,6 +94,7 @@ export default {
       }
     })
     this.updateGraph(this.graph);
+
   },
   methods: {
     updateGraph(newGraph) {
@@ -109,6 +111,7 @@ export default {
       }
       if (this.network) {
         this.network.redraw();
+        this.network.fit();
       }
     },
     highlightRoute(routeEdgeIds) {
@@ -129,6 +132,7 @@ export default {
       });
       if (this.network) {
         this.network.redraw();
+
       }
     },
 

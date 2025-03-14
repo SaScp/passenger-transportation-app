@@ -13,8 +13,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @EnableAsync
@@ -25,28 +29,12 @@ public class TransportationServiceApplication {
     @Value("${cache.lru.size}")
     public Integer cacheSize;
 
+
     public static void main(String[] args) {
         SpringApplication.run(TransportationServiceApplication.class, args);
     }
 
 
-    /**
-     * @param dataSource
-     * Бин jdbc агрегатора
-     * @return TransportationServiceOutputPortAggregateImpl
-     * **/
-  /*  @Profile("dev")
-    @Bean("jdbcAggregate")
-    public TransportationServiceOutputPortAggregate transportationServiceJdbcOutputPortAggregateImpl(DataSource dataSource) throws SQLException {
-        return new TransportationServiceOutputPortAggregateImpl(
-                new TransportationJdbcCreateBookingAdapter(dataSource, bookingjdbcCache()),
-                new TransportationJdbcRevokeBookingAdapter(dataSource, bookingjdbcCache()),
-                new TransportationJdbcFindByParamsAdapter(dataSource, routeJdbcCache()),
-                new TransportationJdbcFindAllAdapter(dataSource),
-                new TransportationJdbcFindByPhoneAdapter(dataSource, bookingjdbcCache()),
-                new TransportationJdbcFindTypesAdapter(dataSource)
-        );
-    }*/
 
     /**
      * Бин jpa агрегатора
@@ -86,13 +74,6 @@ public class TransportationServiceApplication {
         return new TransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 
-/*    @Bean("booking_jdbc_cache")
-    public JdbcLruIdCache<String, List<BookingEntity>> bookingjdbcCache() {
-        return new JdbcLruIdCache<>(cacheSize);
-    }
 
-    @Bean("route_jdbc_cache")
-    public JdbcLruIdCache<Result, List<RoutesEntity>> routeJdbcCache() {
-        return new JdbcLruIdCache<>(cacheSize);
-    }*/
+
 }
