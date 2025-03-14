@@ -31,7 +31,6 @@ jobs:
     steps:
       - name: Test Backend
         run: |
-          cd passenger-transportation-service
           mvn test
 
   build-frontend:
