@@ -16,6 +16,11 @@
   
   P.S Для данного вида развертывания нужно заполнить пустые данные в <code>.env.dev</code> файле
 
+### Отдельный запуск фронтенда (для разработки)
+  1. в консоле перейдите в в ../passenger-transportation-frontend
+  2. введите команду npm run dev
+  3. в случае ошибок связаных с незагруженными зависимостями введите команду npm install 
+
 # Envorenment переменные
 Для разработки присутвует dev конфигурация храняться в файле <code>.env.dev</code> находится в <code>/passenger-transportation-service/passanger-transportation-backend/src/main/resources/.env.dev</code>
 <br>
