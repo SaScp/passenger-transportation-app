@@ -92,7 +92,7 @@ public class TransportationRestController {
             }
     )
     @GetMapping("/find-all")
-    public CompletableFuture<List<RoutesEntity>> findAllTransport(@PageSettingParam PageEntity pageEntity) {
+    public CompletableFuture<List<RoutesEntity>> findAllTransport(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findAll(pageEntity));
     }
 
@@ -130,25 +130,51 @@ public class TransportationRestController {
     )
 
     @GetMapping("/find-by-phone")
-    public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone, @PageSettingParam PageEntity pageEntity) {
+    public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone,@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone, pageEntity));
     }
 
     @Operation(
             summary = "Просмотр маршрута по id",
-            description = "Позволяет посмотреть просмотреть маршрут по id"
+            description = "Позволяет посмотреть просмотреть маршрут по id",
+            parameters = {
+                    @Parameter(name = "page_num",
+                            required = true,
+                            allowEmptyValue = true),
+                    @Parameter(name = "page_size",
+                            required = true,
+                            allowEmptyValue = true)
+                    }
     )
     @GetMapping("/find-by-id")
-    public CompletableFuture<List<RoutesEntity>> findTransportById(@PageSettingParam PageEntity pageEntity,
+    public CompletableFuture<List<RoutesEntity>> findTransportById(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity,
                                                  @RequestParam(value = "route_id") List<String> id) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findByParams(new ParamsEntity(id), pageEntity));
     }
 
+
+    @Operation(
+            summary = "Просмотр маршрутов по id города отправления",
+            description = "позволяет просматривать все маршруты по id города отправления",
+            parameters = {
+                    @Parameter(name = "page_num",
+                            required = true,
+                            allowEmptyValue = true),
+                    @Parameter(name = "page_size",
+                            required = true,
+                            allowEmptyValue = true)
+            }
+    )
     @GetMapping("/find-routes-by-dep-id")
-    public CompletableFuture<List<RoutesEntity>> findTransportByDepId(@PageSettingParam PageEntity pageEntity, @RequestParam(value = "id") String id) {
+    public CompletableFuture<List<RoutesEntity>> findTransportByDepId(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity, @RequestParam(value = "id") String id) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findRoutesByDepId(id, pageEntity));
     }
 
+
+    @Operation(
+            summary = "Просмотр всех типов поездки",
+            description = "позволяет просматривать все типы поездки"
+    )
     @GetMapping("/find-types")
     public CompletableFuture<List<TypeEntity>> findTypes() {
         return CompletableFuture.supplyAsync(this.inputPort::findAllType);
