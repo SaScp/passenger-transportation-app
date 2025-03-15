@@ -14,7 +14,7 @@
   1. если вы работаете в Intelij Idea то в конфигурации запуска проекта поставить в поле <code>Active profiles</code> значение <code>dev</code> или <code>prod</code> 
   2. если запуск производиться из консоли, то
       1. Перейти в консоле <code>../passenger-transportation-app/passenger-transportation-service</code>
-      2. выполнить <code>mvn clean package</code>
+      2. выполнить <code>mvn clean package</code> если будут появляться ошибки тестов, то нужно ввести команду <code>mvn install -X</code> в <code>../passenger-transportation-app</code>
       3. найти сгенерированый jar файл (он находиться в по пути: <code>../passenger-transportation-app/passenger-transportation-service/passanger-transportation-backend/target/</code>)
       4. запустить приложение командой  <code>java -jar ../passenger-transportation-app/passenger-transportation-service/passanger-transportation-backend/target/{название файла}.jar</code>
       5.  при запуске проекта указать в качестве параметра  <code>spring.profiles.active</code> значение <code>dev</code> или <code>prod</code> (это можно сделать добавив <code>--spring.profiles.active={профиль}</code>)
