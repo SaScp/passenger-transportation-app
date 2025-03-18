@@ -5,7 +5,7 @@ import org.service.entity.RouteStepEntity;
 
 import java.util.List;
 
-public interface FindByRouteStepsIdsTransportationServiceOutputPurt extends TransportationServiceOutputPort {
+public interface FindByRouteStepsIdsTransportationServiceOutputPort extends TransportationServiceOutputPort {
 
     List<RouteStepEntity> findRouteStepsByIds(List<String> ids);
 }

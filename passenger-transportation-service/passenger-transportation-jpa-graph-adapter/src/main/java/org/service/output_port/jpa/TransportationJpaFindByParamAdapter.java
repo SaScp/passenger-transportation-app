@@ -34,20 +34,22 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
         List<String> routeIds;
         List<Route> routesByIdIn;
-        System.out.println(entity.getTime());
+        Map<String, RoutePageEntity> routePageEntityMap = new HashMap<>();
+
+
         if (entity.getRouteId() == null || entity.getRouteId().isEmpty()) {
             List<RoutePageEntity> recursiveResults = repository.findRecursiveRoutes(entity.getFrom(), entity.getTo(), entity.getType(), entity.getTime().toString(), pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
-            Deque<String> idsQueue = new LinkedList<>();
             for (int i = 0; i < recursiveResults.size(); i++) {
-                idsQueue.push(UUID.nameUUIDFromBytes(recursiveResults.get(i).toString().getBytes()).toString());
+                routePageEntityMap.put(UUID.nameUUIDFromBytes(recursiveResults.get(i).toString().getBytes()).toString(), recursiveResults.get(i));
             }
 
-            routesByIdIn = repository.findRoutesByIdIn(idsQueue);
+            routesByIdIn = repository.findRoutesByIdIn(routePageEntityMap.keySet());
+
             for (var i : routesByIdIn) {
-                idsQueue.remove(i.getId());
+                routePageEntityMap.remove(i.getId());
             }
 
-            batchUpdate.executeSaveAll(idsQueue, recursiveResults, routesByIdIn);
+            batchUpdate.executeSaveAll(routePageEntityMap, recursiveResults, routesByIdIn);
         } else {
             routeIds = entity.getRouteId();
             routesByIdIn = repository.findRoutesByIdIn(routeIds);

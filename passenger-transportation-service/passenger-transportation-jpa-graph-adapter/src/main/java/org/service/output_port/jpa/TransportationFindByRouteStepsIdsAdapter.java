@@ -3,10 +3,8 @@ package org.service.output_port.jpa;
 import lombok.AllArgsConstructor;
 import org.service.entity.RouteStepEntity;
 import org.service.output_port.TransportationServiceOutputPort;
-import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutputPurt;
+import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutputPort;
 import org.service.output_port.mapper.RouteStepMapper;
-import org.service.output_port.model.Edge;
-import org.service.output_port.repository.EdgeRepository;
 import org.service.output_port.repository.RouteStepRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,7 @@ import java.util.List;
 @Component
 @Transactional(readOnly = true)
 @AllArgsConstructor
-public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStepsIdsTransportationServiceOutputPurt {
+public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStepsIdsTransportationServiceOutputPort {
 
     private final RouteStepRepository routeStepRepository;
 
@@ -30,6 +28,6 @@ public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStep
 
     @Override
     public Class<? extends TransportationServiceOutputPort> getOutputPortType() {
-        return FindByRouteStepsIdsTransportationServiceOutputPurt.class;
+        return FindByRouteStepsIdsTransportationServiceOutputPort.class;
     }
 }

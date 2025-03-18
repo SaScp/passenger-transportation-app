@@ -30,17 +30,18 @@ public class TransportationFindByDepartureCityAdapter implements FindAllRoutesBy
     public List<RoutesEntity> findAllByDepartureCity(String id, PageEntity pageEntity) {
 
         List<RoutePageEntity> recursiveResults = repository.findAllRecursiveRoutesById(id, pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
-        Deque<String> idsQueue = new LinkedList<>();
+        Map<String, RoutePageEntity> routePageEntityMap = new HashMap<>();
         for (int i = 0; i < recursiveResults.size(); i++) {
-            idsQueue.push(UUID.nameUUIDFromBytes(recursiveResults.get(i).toString().getBytes()).toString());
+            routePageEntityMap.put(UUID.nameUUIDFromBytes(recursiveResults.get(i).toString().getBytes()).toString(), recursiveResults.get(i));
         }
 
-        List<Route> routesByIdIn = repository.findRoutesByIdIn(idsQueue);
+        List<Route> routesByIdIn = repository.findRoutesByIdIn(routePageEntityMap.keySet());
+
         for (var i : routesByIdIn) {
-            idsQueue.remove(i.getId());
+            routePageEntityMap.remove(i.getId());
         }
 
-        batchUpdate.executeSaveAll(idsQueue, recursiveResults, routesByIdIn);
+        batchUpdate.executeSaveAll(routePageEntityMap, recursiveResults, routesByIdIn);
 
 
         return RouteMapper.INSTANCE.routesToRouteEntitys(routesByIdIn);

@@ -12,28 +12,30 @@ import java.util.*;
 @Component
 public class RouteUtils {
 
-    public  List<Route> getRoutes(List<RoutePageEntity> recursiveResults, Deque<String> idsQueue, Map<Long, Edge> longEdgeMap) {
+    public  List<Route> getRoutes(List<RoutePageEntity> recursiveResults, Map<String, RoutePageEntity> idsQueue, Map<Long, Edge> longEdgeMap) {
         List<Route> routes = new ArrayList<>();
 
-        for (var recursionElement : recursiveResults) {
+        for (var i : idsQueue.keySet()) {
             if (idsQueue.isEmpty()) {
                 break;
             }
             Route route = new Route();
-            route.setId(idsQueue.poll());
+            route.setId(i);
+            RoutePageEntity routePageEntity = idsQueue.get(i);
             int indexRouteStep = 1;
-            if (recursionElement.path() != null) {
-                for (var recursionPath : recursionElement.path()) {
+            if (routePageEntity.path() != null) {
+                for (var recursionPath : routePageEntity.path()) {
                     RouteStep routeStep = new RouteStep(UUID.randomUUID(), indexRouteStep++, longEdgeMap.get(Long.parseLong(recursionPath)));
                     route.add(routeStep);
                 }
             }
-            route.setArrivalTime(recursionElement.getArrivTime());
-            route.setDepartureTime(recursionElement.depTime());
-            route.setDepartureCity(longEdgeMap.get(Long.parseLong(recursionElement.path()[0])).getFromLocationId());
-            route.setArrivalCity(longEdgeMap.get(Long.parseLong(recursionElement.path()[recursionElement.path().length - 1])).getToLocationId());
+            route.setArrivalTime(routePageEntity.getArrivTime());
+            route.setDepartureTime(routePageEntity.depTime());
+            route.setDepartureCity(longEdgeMap.get(Long.parseLong(routePageEntity.path()[0])).getFromLocationId());
+            route.setArrivalCity(longEdgeMap.get(Long.parseLong(routePageEntity.path()[routePageEntity.path().length - 1])).getToLocationId());
             routes.add(route);
         }
+
         return routes;
     }
 }

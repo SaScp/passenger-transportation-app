@@ -3,7 +3,6 @@ package org.service.core;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.service.entity.*;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
@@ -12,10 +11,8 @@ import org.service.output_port.find.*;
 import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPort;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -47,7 +44,7 @@ class TransportationServiceCoreTest {
     private FindTypesTransportationServiceOutputPort findTypesOutputPort;
 
     @Mock
-    private FindByRouteStepsIdsTransportationServiceOutputPurt findByRouteStepsIdsOutputPort;
+    private FindByRouteStepsIdsTransportationServiceOutputPort findByRouteStepsIdsOutputPort;
 
     @Mock
     private FindAllRoutesByDepartureCityOutputPort findAllRoutesByDepartureCityOutputPort;
@@ -64,7 +61,7 @@ class TransportationServiceCoreTest {
         when(aggregate.getOutputPort(RevokeBookingTransportationServiceOutputPort.class)).thenReturn(revokeBookingOutputPort);
         when(aggregate.getOutputPort(FindByPhoneTransportationServiceOutputPort.class)).thenReturn(findByPhoneOutputPort);
         when(aggregate.getOutputPort(FindTypesTransportationServiceOutputPort.class)).thenReturn(findTypesOutputPort);
-        when(aggregate.getOutputPort(FindByRouteStepsIdsTransportationServiceOutputPurt.class)).thenReturn(findByRouteStepsIdsOutputPort);
+        when(aggregate.getOutputPort(FindByRouteStepsIdsTransportationServiceOutputPort.class)).thenReturn(findByRouteStepsIdsOutputPort);
         when(aggregate.getOutputPort(FindAllRoutesByDepartureCityOutputPort.class)).thenReturn(findAllRoutesByDepartureCityOutputPort);
 
         transportationServiceCore = new TransportationServiceCore(aggregate);

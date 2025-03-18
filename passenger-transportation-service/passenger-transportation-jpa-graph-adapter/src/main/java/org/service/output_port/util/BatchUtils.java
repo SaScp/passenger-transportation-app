@@ -31,7 +31,7 @@ public class BatchUtils {
         this.routeUtils = routeUtils;
     }
 
-    public void executeSaveAll(Deque<String> idsQueue, List<RoutePageEntity> recursiveResults, List<Route> routesByIdIn) {
+    public void executeSaveAll(Map<String, RoutePageEntity> idsQueue, List<RoutePageEntity> recursiveResults, List<Route> routesByIdIn) {
         if (!idsQueue.isEmpty()) {
             Map<Long, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
             List<Route> routes = routeUtils.getRoutes(recursiveResults, idsQueue, longEdgeMap);

@@ -83,7 +83,7 @@ public class TransportationServiceCore implements TransportationServiceInputPort
 
 
     public GraphEntity findGraphByIds(List<String> ids) {
-        List<RouteStepEntity> routeStepsByIds = aggregate.getOutputPort(FindByRouteStepsIdsTransportationServiceOutputPurt.class).findRouteStepsByIds(ids);
+        List<RouteStepEntity> routeStepsByIds = aggregate.getOutputPort(FindByRouteStepsIdsTransportationServiceOutputPort.class).findRouteStepsByIds(ids);
         Set<Map<String, String>> nodes = RouteStepResponseFactory.createResponsePart(routeStepsByIds, Type.NODE);
         Set<Map<String, String>> edges = RouteStepResponseFactory.createResponsePart(routeStepsByIds, Type.EDGE);
         return new GraphEntity(nodes, edges);
