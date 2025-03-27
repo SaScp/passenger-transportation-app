@@ -8,8 +8,10 @@
         <artifactId>passenger-transportation-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <groupId>org.service.core</groupId>
     <artifactId>passenger-transportation-service-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -37,6 +39,5 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-
     </dependencies>
 </project>

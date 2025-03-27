@@ -1,8 +1,10 @@
 package org.service.output_port.util;
 
+import org.service.output_port.factory.RouteFactory;
+import org.service.output_port.factory.RouteFactoryImpl;
 import org.service.output_port.model.Edge;
 import org.service.output_port.model.Route;
-import org.service.output_port.model.RoutePageEntity;
+import org.service.output_port.entity.RoutePageEntity;
 import org.service.output_port.model.RouteStep;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,10 +13,7 @@ import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class BatchUtils {
@@ -23,18 +22,18 @@ public class BatchUtils {
 
     private final EdgeUtils edgeUtils;
 
-    private final RouteUtils routeUtils;
+    private final RouteFactory routeFactory;
 
-    public BatchUtils(JdbcTemplate jdbcTemplate, EdgeUtils edgeUtils, RouteUtils routeUtils) {
+    public BatchUtils(JdbcTemplate jdbcTemplate, EdgeUtils edgeUtils) {
         this.jdbcTemplate = jdbcTemplate;
         this.edgeUtils = edgeUtils;
-        this.routeUtils = routeUtils;
+        this.routeFactory = new RouteFactoryImpl();
     }
 
     public void executeSaveAll(Map<String, RoutePageEntity> idsQueue, List<RoutePageEntity> recursiveResults, List<Route> routesByIdIn) {
         if (!idsQueue.isEmpty()) {
             Map<Long, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
-            List<Route> routes = routeUtils.getRoutes(recursiveResults, idsQueue, longEdgeMap);
+            List<Route> routes = routeFactory.createRoute(idsQueue, longEdgeMap);
 
             executeBatchRoutesInsert(routes);
             List<RouteStep> steps = new ArrayList<>();

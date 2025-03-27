@@ -1,7 +1,7 @@
 package org.service.output_port.util;
 
 import org.service.output_port.model.Edge;
-import org.service.output_port.model.RoutePageEntity;
+import org.service.output_port.entity.RoutePageEntity;
 import org.service.output_port.repository.EdgeRepository;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ public class EdgeUtils {
     public Map<Long, Edge> getLongEdgeMap(List<RoutePageEntity> recursiveResults) {
         List<String> ids = new ArrayList<>();
         recursiveResults.forEach(row -> {
-            Collections.addAll(ids, row.path());
+            Collections.addAll(ids, row.getEdgePath());
         });
         var a = edgeRepository.findAllByIdIn(ids);
         Map<Long, Edge> longEdgeMap = new HashMap<>();

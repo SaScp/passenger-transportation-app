@@ -20,13 +20,11 @@ import java.util.List;
 @AllArgsConstructor
 public class TransportationJpaFindAllRouteStepAdapter implements FindAllRouteStepTransportationServiceOutputPort {
 
-    private final RouteStepRepository repository;
     private final EdgeRepository edgeRepository;
 
     @Override
     @Cacheable("TransportationJpaFindAllAdapter::findAll")
     public List<EdgeEntity> findAll() {
-        List<RouteStep> routeSteps = repository.findAll();
         List<Edge> all = edgeRepository.findAll();
         return EdgeMapper.INSTANCE.edgesToEdgeEntitys(all);
     }

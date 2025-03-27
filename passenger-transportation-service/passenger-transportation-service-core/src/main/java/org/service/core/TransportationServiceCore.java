@@ -49,7 +49,7 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     @Override
     public void createBooking(BookingParamsEntity bookingParams) {
         try {
-            if (isPhone(bookingParams.getNumberPhone())) {
+            if (isPhone(bookingParams.numberPhone())) {
                 aggregate.getOutputPort(CreateBookingTransportationServiceOutputPort.class).create(bookingParams);
             } else {
                 throw new IsNotPhoneException();

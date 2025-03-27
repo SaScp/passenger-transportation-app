@@ -15,14 +15,16 @@ import org.service.output_port.model.Route;
 import org.service.output_port.model.Status;
 import org.service.output_port.model.User;
 import org.service.output_port.repository.BookingRepository;
-import org.springframework.cache.CacheManager;
+import org.service.output_port.util.CacheUtils;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @Slf4j
 @Component
@@ -34,43 +36,45 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
 
     private final EntityManager entityManager;
 
-    private final CacheManager cacheManager;
+    private final CacheUtils cacheUtils;
 
     public static final Long CREATED_STATUS_ID = 1L;
 
     @Override
+    @CachePut(value = "TransportationJpaFindByPhoneAdapter::findBy")
     public void create(BookingParamsEntity entity) {
-        if (entity.getRouteId() == null) {
+        if (entity.routeId() == null) {
             throw new RouteIsNullException();
         }
 
-        if (entityManager.find(Route.class, entity.getRouteId()) == null) {
+        if (entityManager.find(Route.class, entity.routeId()) == null) {
             throw new RouteNotFoundException();
         }
 
-        User user = Optional.ofNullable(entityManager.find(User.class, entity.getNumberPhone()))
-                .orElse(new User(entity.getNumberPhone()));
+        User user = Optional.ofNullable(entityManager.find(User.class, entity.numberPhone()))
+                .orElse(new User(entity.numberPhone()));
 
 
         String id = UUID.randomUUID().toString();
 
-        Exception exception = null;
-        try {
+        checkCause(() -> {
             Booking newBooking = new Booking(
                     id,
                     LocalDateTime.now(),
                     entityManager.find(Status.class, CREATED_STATUS_ID),
                     user,
-                    entity.getRouteId()
+                    entity.routeId()
             );
+
             Booking save = bookingRepository.save(newBooking);
+            cacheUtils.createBooking("TransportationJpaFindByPhoneAdapter::findBy", entity.numberPhone(), BookingMapper.INSTANCE.bookingToBookingEntity(save));
+        });
+    }
 
-            Optional.ofNullable(cacheManager.getCache("TransportationJpaFindByPhoneAdapter::findBy"))
-                    .ifPresent(
-                            cache -> Optional.ofNullable(cache.get(entity.getNumberPhone(), List.class))
-                                    .map(e -> e.add(BookingMapper.INSTANCE.bookingToBookingEntity(save)))
-                    );
-
+    private void checkCause(Runnable bookingConsumer) {
+        Exception exception = null;
+        try {
+           bookingConsumer.run();
         } catch (ProblemDetailsException e) {
             exception = e;
             throw new ProblemDetailsException(e.getCode(), e.getMessage());

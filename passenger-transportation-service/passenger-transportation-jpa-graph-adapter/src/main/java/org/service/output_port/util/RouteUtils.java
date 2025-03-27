@@ -1,41 +1,39 @@
 package org.service.output_port.util;
 
-import org.service.output_port.model.Edge;
+import lombok.AllArgsConstructor;
 import org.service.output_port.model.Route;
-import org.service.output_port.model.RoutePageEntity;
-import org.service.output_port.model.RouteStep;
+import org.service.output_port.entity.RoutePageEntity;
+import org.service.output_port.repository.RouteRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 
 @Component
+@AllArgsConstructor
 public class RouteUtils {
 
-    public  List<Route> getRoutes(List<RoutePageEntity> recursiveResults, Map<String, RoutePageEntity> idsQueue, Map<Long, Edge> longEdgeMap) {
-        List<Route> routes = new ArrayList<>();
+    private final RouteRepository repository;
 
-        for (var i : idsQueue.keySet()) {
-            if (idsQueue.isEmpty()) {
-                break;
-            }
-            Route route = new Route();
-            route.setId(i);
-            RoutePageEntity routePageEntity = idsQueue.get(i);
-            int indexRouteStep = 1;
-            if (routePageEntity.path() != null) {
-                for (var recursionPath : routePageEntity.path()) {
-                    RouteStep routeStep = new RouteStep(UUID.randomUUID(), indexRouteStep++, longEdgeMap.get(Long.parseLong(recursionPath)));
-                    route.add(routeStep);
-                }
-            }
-            route.setArrivalTime(routePageEntity.getArrivTime());
-            route.setDepartureTime(routePageEntity.depTime());
-            route.setDepartureCity(longEdgeMap.get(Long.parseLong(routePageEntity.path()[0])).getFromLocationId());
-            route.setArrivalCity(longEdgeMap.get(Long.parseLong(routePageEntity.path()[routePageEntity.path().length - 1])).getToLocationId());
-            routes.add(route);
+    private final BatchUtils batchUtils;
+
+    public List<Route> getRoutesFromResult(List<RoutePageEntity> recursiveResults) {
+
+        Map<String, RoutePageEntity> routePageEntityMap = new HashMap<>();
+        List<Route> routesByIdIn;
+
+        recursiveResults.forEach((routePageEntity -> {
+                    routePageEntityMap.put(UUID.nameUUIDFromBytes(routePageEntity.toString().getBytes()).toString(), routePageEntity);
+                })
+        );
+        routesByIdIn = repository.findRoutesByIdIn(routePageEntityMap.keySet());
+
+        for (var i : routesByIdIn) {
+            routePageEntityMap.remove(i.getId());
         }
-
-        return routes;
+        batchUtils.executeSaveAll(routePageEntityMap, recursiveResults, routesByIdIn);
+        return routesByIdIn;
     }
+
+
 }

@@ -1,11 +1,11 @@
-package org.service.output_port.model;
+package org.service.output_port.entity;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
-public final class RoutePageEntity {
+public class RoutePageEntity {
     private final String fromLocationId;
     private final String toLocationId;
     private final String[] edge_path;
@@ -36,35 +36,35 @@ public final class RoutePageEntity {
         this.arr_time = arr_time.toLocalDateTime();
     }
 
-    public String fromLocationId() {
+    public String getFromLocationId() {
         return fromLocationId;
     }
 
-    public String toLocationId() {
+    public String getToLocationId() {
         return toLocationId;
     }
 
-    public String[] path() {
+    public String[] getEdgePath() {
         return edge_path;
     }
 
-    public Double totalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public LocalDateTime depTime() {
+    public LocalDateTime getDepTime() {
         return depTime;
     }
 
-    public Long totalTimeCost() {
+    public Long getTotalTimeCost() {
         return totalTimeCost;
     }
 
-    public String transportType() {
+    public String getTransportType() {
         return transportType;
     }
 
-    public LocalDateTime getArrivTime() {
+    public LocalDateTime getArrTime() {
         return arr_time;
     }
 
