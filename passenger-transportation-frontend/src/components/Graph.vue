@@ -1,22 +1,28 @@
 <template>
   <div class="network">
-    <div
-        ref="networkContainer"
-        class="network-container"
-        style="height: 700px; width: 1000px; border: 1px solid lightgray;"
-    ></div>
-    <div class="rows">
-      <span> для приближение колесико мышки &#11014</span>
-      <span>для уменьшение колесико мышки &#11015</span>
+    <div ref="networkContainer" class="network-container"></div>
+    <!-- Легенда -->
+    <div class="legend">
+      <h3>Легенда</h3>
+      <ul class="legend-container">
+        <li><span class="legend-box standard"></span> Стандартный узел/ребро</li>
+        <li><span class="legend-box highlighted"></span> Выделенный маршрут</li>
+        <li><span class="legend-box airplane"></span> Самолет</li>
+        <li><span class="legend-box train"></span> Поезд</li>
+        <li><span class="legend-box bus"></span> Автобус</li>
+        <li><span class="legend-box taxi"></span> Такси</li>
+        <li><span class="legend-box marshrutka"></span> Маршрутка</li>
+      </ul>
     </div>
-
+    <div class="rows">
+      <span>Для приближения используйте колесико мыши &#11014;</span>
+      <span>Для уменьшения используйте колесико мыши &#11015;</span>
+    </div>
   </div>
 </template>
 
 <script>
 import { Network, DataSet } from "vis-network/standalone";
-import axios from "axios";
-
 export default {
   name: "NetworkGraph",
   props: {
@@ -28,15 +34,11 @@ export default {
   data() {
     return {
       network: null,
-      // Используем DataSet для узлов и ребер
       nodes: new DataSet([]),
       edges: new DataSet([]),
       options: {
         layout: { randomSeed: 1 },
-        interaction: {
-          hover: true,
-          selectConnectedEdges: true
-        },
+        interaction: { hover: true, selectConnectedEdges: true },
         physics: {
           barnesHut: {
             springLength: 150,
@@ -48,38 +50,22 @@ export default {
           stabilization: true
         },
         nodes: {
-          size: 100, // Увеличенный размер всех узлов
-          font: { size: 60 } // Увеличенный шрифт
+          shape: "dot",
+          size: 30,
+          font: { size: 16 },
+          borderWidth: 2
         },
         edges: {
-          smooth: {
-            enabled: true,
-            type: 'curvedCW',
-            roundness: 0.2
-          },
-          arrows: {
-            to: {
-              enabled: true,
-              imageHeight: undefined,
-              imageWidth: undefined,
-              scaleFactor: 2,
-              src: undefined,
-              type: "arrow"
-            }
-          },
-
-          width: 6,
-          color: { color: '#2B7CE9'}
+          smooth: { enabled: true, type: "curvedCW", roundness: 0.2 },
+          width: 3,
+          arrows: { to: { enabled: true, scaleFactor: 1.2 } }
         }
       }
     };
   },
   watch: {
-    // При изменении объекта graph обновляем данные графа
     graph: {
-      handler(newGraph) {
-        this.updateGraph(newGraph);
-      },
+      handler(newGraph) { this.updateGraph(newGraph); },
       deep: true,
       immediate: true
     }
@@ -91,83 +77,156 @@ export default {
         { nodes: this.nodes, edges: this.edges },
         this.options
     );
-
-    this.network.on('click', (params) => {
-
+    this.network.on("click", (params) => {
       if (params.nodes.length > 0) {
-        const clickedNodeId = params.nodes[0]
-        console.log(clickedNodeId)
+        const clickedNodeId = params.nodes[0];
         this.$emit("create-new-route", clickedNodeId);
       }
-    })
+    });
     this.updateGraph(this.graph);
-
   },
   methods: {
     updateGraph(newGraph) {
-      // Очищаем текущие данные
       this.nodes.clear();
       this.edges.clear();
-
-      // Добавляем новые узлы и ребра
-      if (newGraph.nodes && newGraph.nodes.length > 0) {
-        this.nodes.add(newGraph.nodes);
+      if (newGraph.nodes && newGraph.nodes.length) {
+        const formattedNodes = newGraph.nodes.map((node) => ({
+          ...node,
+          label: node.label,
+          title: node.label,
+          color: this.getNodeColor(node.type)
+        }));
+        this.nodes.add(formattedNodes);
       }
-      if (newGraph.edges && newGraph.edges.length > 0) {
-        this.edges.add(newGraph.edges);
+      if (newGraph.edges && newGraph.edges.length) {
+        const formattedEdges = newGraph.edges.map((edge) => ({
+          ...edge,
+          title: `Тип: ${edge.type}`,
+          label: edge.type,
+          color: { color: this.getEdgeColor(edge.type) }
+        }));
+        this.edges.add(formattedEdges);
       }
       if (this.network) {
         this.network.redraw();
         this.network.fit();
       }
     },
+    getNodeColor(type) {
+      switch (type) {
+        case "Самолет": return { background: "#e67e22", border: "#d35400" };
+        case "Поезд": return { background: "#8e44ad", border: "#71368a" };
+        case "Автобус": return { background: "#2B7CE9", border: "#1f5aa4" };
+        case "Такси": return { background: "#95a5a6", border: "#7f8c8d" };
+        case "Маршрутка": return { background: "#27ae60", border: "#1e8449" };
+        default: return { background: "#97c2fc", border: "#2B7CE9" };
+      }
+    },
+    getEdgeColor(type) {
+      switch (type) {
+        case "Самолет": return "#e67e22";
+        case "Поезд": return "#8e44ad";
+        case "Автобус": return "#2B7CE9";
+        case "Такси": return "#95a5a6";
+        case "Маршрутка": return "#27ae60";
+        default: return "#2B7CE9";
+      }
+    },
     highlightRoute(routeEdgeIds) {
-      // Сбрасываем цвета всех рёбер и узлов
-      this.edges.forEach(edge => {
-        this.edges.update({ id: edge.id, color: { color: undefined } });
+      this.edges.forEach((edge) => {
+        this.edges.update({ id: edge.id, color: { color: this.getEdgeColor(edge.type) } });
       });
-
-      this.nodes.forEach(node => {
-        this.nodes.update({ id: node.id, color: { background: "#97c2fc" } });
+      this.nodes.forEach((node) => {
+        const baseColor = this.getNodeColor(node.type);
+        this.nodes.update({ id: node.id, color: { background: baseColor.background } });
       });
-
-      // Если маршрут пуст, выходим
-      if (!routeEdgeIds.length) return;
-
-      // Определяем первый и последний узел маршрута
+      if (!routeEdgeIds || !routeEdgeIds.length) return;
       const firstNodeId = routeEdgeIds[0].fromLocationId.id;
       const lastNodeId = routeEdgeIds[routeEdgeIds.length - 1].toLocationId.id;
-
-      // Проходим по маршруту и выделяем рёбра и узлы
-      this.edges.forEach(edge => {
-        if (routeEdgeIds.some(r => r.fromLocationId.id === edge.from && r.toLocationId.id === edge.to)) {
-          this.edges.update({ id: edge.id, color: { color: "green" } });
-          this.nodes.update({ id: edge.to, color: { background: "green" } });
-        }
+      routeEdgeIds.forEach((r) => {
+        const foundEdge = this.edges.get({
+          filter: (e) => e.from === r.fromLocationId.id && e.to === r.toLocationId.id
+        })[0];
+        if (foundEdge) this.edges.update({ id: foundEdge.id, color: { color: "green" } });
+        this.nodes.update({ id: r.fromLocationId.id, color: { background: "green" } });
+        this.nodes.update({ id: r.toLocationId.id, color: { background: "green" } });
       });
-
-      // Красим первый и последний узел маршрута в красный
       this.nodes.update({ id: firstNodeId, color: { background: "red" } });
       this.nodes.update({ id: lastNodeId, color: { background: "red" } });
-
-      // Перерисовываем сеть
-      if (this.network) {
-        this.network.redraw();
-      }
+      if (this.network) this.network.redraw();
     }
-
-  },
+  }
 };
 </script>
 
 <style scoped>
-.rows {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
 .network {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.network-container {
+  width: 1000px;
+  height: 700px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.rows {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+.legend {
+  margin: 20px auto 10px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px 15px;
+  max-width: 1000px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.legend h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #333;
+}
+.legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  font-size: 14px;
+  color: #555;
+}
+.legend-box {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.legend-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.legend-box.standard { background: #97c2fc; }
+.legend-box.highlighted { background: green; }
+.legend-box.airplane { background: #e67e22; }
+.legend-box.train { background: #8e44ad; }
+.legend-box.bus { background: #2B7CE9; }
+.legend-box.taxi { background: #95a5a6; }
+.legend-box.marshrutka { background: #27ae60; }
+@media screen and (max-width: 1200px) {
+  .network-container { width: 100%; height: 500px; }
 }
 </style>
