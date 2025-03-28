@@ -32,7 +32,7 @@ public class BatchUtils {
 
     public void executeSaveAll(Map<String, RoutePageEntity> idsQueue, List<RoutePageEntity> recursiveResults, List<Route> routesByIdIn) {
         if (!idsQueue.isEmpty()) {
-            Map<Long, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
+            Map<Integer, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
             List<Route> routes = routeFactory.createRoute(idsQueue, longEdgeMap);
 
             executeBatchRoutesInsert(routes);

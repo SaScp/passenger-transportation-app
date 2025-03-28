@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class RouteFactoryImpl implements RouteFactory {
     @Override
-    public List<Route> createRoute(Map<String, RoutePageEntity> idsQueue, Map<Long, Edge> longEdgeMap) {
+    public List<Route> createRoute(Map<String, RoutePageEntity> idsQueue, Map<Integer, Edge> longEdgeMap) {
         List<Route> routes = new ArrayList<>();
 
         for (var i : idsQueue.keySet()) {
@@ -22,14 +22,14 @@ public class RouteFactoryImpl implements RouteFactory {
             int indexRouteStep = 1;
             if (routePageEntity.getEdgePath() != null) {
                 for (var recursionPath : routePageEntity.getEdgePath()) {
-                    RouteStep routeStep = new RouteStep(UUID.randomUUID(), indexRouteStep++, longEdgeMap.get(Long.parseLong(recursionPath)));
+                    RouteStep routeStep = new RouteStep(UUID.randomUUID(), indexRouteStep++, longEdgeMap.get(recursionPath));
                     route.add(routeStep);
                 }
             }
             route.setArrivalTime(routePageEntity.getArrTime());
             route.setDepartureTime(routePageEntity.getDepTime());
-            route.setDepartureCity(longEdgeMap.get(Long.parseLong(routePageEntity.getEdgePath()[0])).getFromLocationId());
-            route.setArrivalCity(longEdgeMap.get(Long.parseLong(routePageEntity.getEdgePath()[routePageEntity.getEdgePath().length - 1])).getToLocationId());
+            route.setDepartureCity(longEdgeMap.get(routePageEntity.getEdgePath()[0]).getFromLocationId());
+            route.setArrivalCity(longEdgeMap.get(routePageEntity.getEdgePath()[routePageEntity.getEdgePath().length - 1]).getToLocationId());
             routes.add(route);
         }
 

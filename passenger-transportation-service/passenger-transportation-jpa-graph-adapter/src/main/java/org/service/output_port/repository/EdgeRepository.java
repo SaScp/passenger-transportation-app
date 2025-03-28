@@ -12,7 +12,7 @@ import java.util.List;
 public interface EdgeRepository extends JpaRepository<Edge, Long> {
 
     @EntityGraph(attributePaths = {"fromLocationId", "toLocationId", "type"})
-    List<Edge> findAllByIdIn(List<String> ids);
+    List<Edge> findAllByIdIn(List<Integer> ids);
 
     @Override
     @EntityGraph(attributePaths = {"fromLocationId", "toLocationId", "type"})

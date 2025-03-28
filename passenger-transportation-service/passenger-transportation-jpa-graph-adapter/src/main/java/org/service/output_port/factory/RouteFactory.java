@@ -9,5 +9,5 @@ import java.util.Map;
 
 public interface RouteFactory {
 
-    List<Route> createRoute(Map<String, RoutePageEntity> idsQueue, Map<Long, Edge> longEdgeMap);
+    List<Route> createRoute(Map<String, RoutePageEntity> idsQueue, Map<Integer, Edge> longEdgeMap);
 }

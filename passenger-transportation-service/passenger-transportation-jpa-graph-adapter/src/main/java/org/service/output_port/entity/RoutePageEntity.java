@@ -8,7 +8,7 @@ import java.util.Objects;
 public class RoutePageEntity {
     private final String fromLocationId;
     private final String toLocationId;
-    private final String[] edge_path;
+    private final Integer[] edge_path;
     private final Double totalPrice;
     private final LocalDateTime depTime;
     private final Long totalTimeCost;
@@ -18,7 +18,7 @@ public class RoutePageEntity {
     public RoutePageEntity(
             String fromLocationId,
             String toLocationId,
-            String edge_path,
+            Integer[] edge_path,
             Double totalPrice,
             Timestamp depTime,
             Timestamp arr_time,
@@ -27,8 +27,7 @@ public class RoutePageEntity {
     ) {
         this.fromLocationId = fromLocationId;
         this.toLocationId = toLocationId;
-        String[] split = edge_path.replace(",", " ").trim().split(" ");
-        this.edge_path = split;
+        this.edge_path = edge_path;
         this.totalPrice = totalPrice;
         this.depTime = depTime.toLocalDateTime();
         this.totalTimeCost = totalTimeCost;
@@ -44,7 +43,7 @@ public class RoutePageEntity {
         return toLocationId;
     }
 
-    public String[] getEdgePath() {
+    public Integer[] getEdgePath() {
         return edge_path;
     }
 

@@ -17,17 +17,17 @@ public class EdgeUtils {
     }
 
 
-    public Map<Long, Edge> getLongEdgeMap(List<RoutePageEntity> recursiveResults) {
-        List<String> ids = new ArrayList<>();
+    public Map<Integer, Edge> getLongEdgeMap(List<RoutePageEntity> recursiveResults) {
+        List<Integer> ids = new ArrayList<>();
         recursiveResults.forEach(row -> {
             Collections.addAll(ids, row.getEdgePath());
         });
         var a = edgeRepository.findAllByIdIn(ids);
-        Map<Long, Edge> longEdgeMap = new HashMap<>();
+        Map<Integer, Edge> longEdgeMap = new HashMap<>();
 
         for (var j : a) {
             if (!longEdgeMap.containsKey(j.getId())) {
-                longEdgeMap.put(j.getId(), j);
+                longEdgeMap.put(Math.toIntExact(j.getId()), j);
             }
         }
         return longEdgeMap;
