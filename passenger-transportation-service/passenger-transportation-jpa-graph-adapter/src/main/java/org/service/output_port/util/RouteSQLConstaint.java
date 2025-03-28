@@ -41,7 +41,8 @@ public class RouteSQLConstaint {
            FROM bfs rp
             INNER JOIN t_location_graph t ON rp.to_location_id = t.from_location_id
             INNER JOIN t_transport_types tt ON t.type_id = tt.id
-           WHERE NOT t.to_location_id = ANY (rp.path_array) -- Избегаем циклов
+           WHERE NOT t.to_location_id = ANY (rp.path_array) 
+           
            )
             
             

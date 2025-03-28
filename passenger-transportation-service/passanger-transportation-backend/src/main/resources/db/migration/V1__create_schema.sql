@@ -76,4 +76,6 @@ CREATE INDEX IF NOT EXISTS idx_from_to_type ON t_location_graph (from_location_i
 CREATE INDEX IF NOT EXISTS idx_edge_id ON t_location_graph (edge_id);
 CREATE INDEX IF NOT EXISTS idx_route_step_route_id ON t_route_step (route_id);
 CREATE INDEX IF NOT EXISTS idx_route_step_edge_id ON t_route_step (edge_id);
-
+CREATE INDEX IF NOT EXISTS  idx_location_name ON t_location(c_name) ;
+CREATE INDEX IF NOT EXISTS idx_initial_edges
+    ON t_location_graph(from_location_id, departure_time);
