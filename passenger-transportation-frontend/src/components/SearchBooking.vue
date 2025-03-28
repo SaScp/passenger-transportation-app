@@ -6,7 +6,7 @@
         <div class="form-phone">
           <input v-model="phone" type="text" placeholder="Номер телефона" class="form-control"/>
         </div>
-        <button type="submit" class="btn btn-primary">Найти поездки</button>
+        <button type="submit" class="btn btn-primary filter-btn">Найти поездки</button>
       </form>
     </div>
     <hr class="line-search">

@@ -7,18 +7,18 @@
       <p>Тип: {{ route.type }}</p>
       <p>Цена: {{ route.price }} руб</p>
       <div class="booking-button" v-if="isFinder">
-        <button v-if="!isFormVisible" class="inner-booking-button" @click="toggleForm">Забронировать</button>
+        <button v-if="!isFormVisible" class="inner-booking-button filter-btn" @click="toggleForm">Забронировать</button>
         <div v-if="isFormVisible">
           <form @submit.prevent="submitData(route.id)">
             <div class="form-group">
               <input v-model="phone" type="text" placeholder="Ваш номер телефона" class="form-control"/>
               <div v-if="isNull" class="error-message">Введите номер телефона</div>
             </div>
-            <button type="submit" class="inner-booking-button">Забронировать</button>
+            <button type="submit" class="inner-booking-button filter-btn">Забронировать</button>
           </form>
         </div>
         <div v-if="isFind">
-          <button @click="highlightRoute">Выделить маршрут</button>
+          <button class="filter-btn" @click="highlightRoute">Выделить маршрут</button>
         </div>
 
       </div>
@@ -132,9 +132,16 @@ export default {
 }
 
 .form-control {
-  max-width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  width: 180px;
+  transition: border 0.3s;
 }
-
+.form-control:focus {
+  border-color: #2b7ce9;
+}
 .booking-button {
   display: flex;
   justify-content: center;

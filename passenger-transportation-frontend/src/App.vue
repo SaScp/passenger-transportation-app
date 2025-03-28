@@ -78,17 +78,21 @@ input {
   font-family: cursive;
   border: 1px solid #ccc;
 }
-button{
-  margin: 15px;
-  padding: 10px;
-  background-color: #59ABE8;
-  border-radius: 15px;
-  font-family: cursive;
-  max-width: 100%;
-  a {
-    text-decoration: none;
-    color: #333;
-  }
+
+.filter-btn {
+  background: #2b7ce9;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  margin: 10px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 16px;
+}
+
+.filter-btn:hover {
+  background: #1f5aa4;
 }
 
 </style>

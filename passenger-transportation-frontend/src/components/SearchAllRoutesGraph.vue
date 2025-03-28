@@ -113,7 +113,8 @@ export default {
       }
     },
     formatDateHeader(dateStr) {
-      const [year, month, day] = dateStr.split("-");
+      const [year, month, day] = dateStr.substring(0, dateStr.lastIndexOf(" ")).split("-");
+
       return `${day}.${month}.${year}`;
     }
   },

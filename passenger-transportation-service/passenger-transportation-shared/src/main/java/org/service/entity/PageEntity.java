@@ -19,6 +19,6 @@ public record PageEntity(
     }
 
     private static Integer getInt(String obj, Integer orElseObj) {
-        return Optional.ofNullable(obj).map(Integer::parseInt).filter(e -> e > 0).orElse(orElseObj);
+        return Optional.ofNullable(obj).filter(e -> e.matches("\\d+")).map(Integer::parseInt).filter(e -> e > 0).orElse(orElseObj);
     }
 }
