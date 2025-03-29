@@ -28,7 +28,7 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
     @Override
     @Transactional
-    @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
+    @Cacheable(key = "#entity.hashCode() - #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
         if (entity.routeId() == null || entity.routeId().isEmpty()) {
@@ -39,7 +39,7 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
                     entity.type(),
                     entity.time().toString(),
                     pageEntity.pageSize(),
-                    pageEntity.pageNum() * pageEntity.pageSize());
+                    pageEntity.pageNum() * pageEntity.pageSize(), 5);
 
             return RouteMapper.INSTANCE.routesToRouteEntitys(routeUtils.getRoutesFromResult(recursiveResults));
         } else {

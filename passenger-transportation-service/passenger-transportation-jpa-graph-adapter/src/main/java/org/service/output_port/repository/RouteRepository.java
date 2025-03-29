@@ -39,19 +39,20 @@ public interface RouteRepository extends JpaRepository<Route, String> {
 
 
     @Query(value = RouteSQLConstaint.SELECT_ALL_ROUTE_BY_PARAM_WITH_DFS, nativeQuery = true)
-
     List<RoutePageEntity> findRecursiveRoutes(
             @Param("fromLocation") String fromLocation,
             @Param("toLocation") String toLocation,
             @NotNull @Param("type") String type,
             @Param("depTime") String depTime,
             @Param("limit") int limit,
-            @Param("offset") int offset);
+            @Param("offset") int offset,
+            @Param("level") int level);
 
 
     @Query(value = RouteSQLConstaint.SELECT_ALL_ROUTE_WITH_DFS, nativeQuery = true)
     List<RoutePageEntity> findAllRecursiveRoutesById(
             @Param("fromLocation") String fromLocation,
             @Param("limit") int limit,
-            @Param("offset") int offset);
+            @Param("offset") int offset,
+            @Param("level") int level);
 }

@@ -31,7 +31,8 @@ public class TransportationFindByDepartureCityAdapter implements FindAllRoutesBy
         List<RoutePageEntity> recursiveResults = repository.findAllRecursiveRoutesById(
                 id,
                 pageEntity.pageSize(),
-                pageEntity.pageNum() * pageEntity.pageSize()
+                pageEntity.pageNum() * pageEntity.pageSize(),
+                6
         );
 
         return RouteMapper.INSTANCE.routesToRouteEntitys(routeUtils.getRoutesFromResult(recursiveResults));
