@@ -29,7 +29,6 @@ public class NodeFactory implements Function<List<RouteStepEntity>, Set<Map<Stri
         return result;
     }
 
-
     private Set<Map<String, String>> createNode(List<RouteStepEntity> steps, int index) {
         return Set.of(
                 Map.of("id",
