@@ -84,7 +84,7 @@ input {
   color: #fff;
   border: none;
   padding: 12px 24px;
-  margin: 10px;
+  margin: 5px;
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s;

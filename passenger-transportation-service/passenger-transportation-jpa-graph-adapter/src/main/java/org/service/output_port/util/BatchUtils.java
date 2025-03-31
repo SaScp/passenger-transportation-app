@@ -20,20 +20,13 @@ public class BatchUtils {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final EdgeUtils edgeUtils;
 
-    private final RouteFactory routeFactory;
-
-    public BatchUtils(JdbcTemplate jdbcTemplate, EdgeUtils edgeUtils) {
+    public BatchUtils(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.edgeUtils = edgeUtils;
-        this.routeFactory = new RouteFactoryImpl();
     }
 
-    public void executeSaveAll(Map<String, RoutePageEntity> idsQueue, List<RoutePageEntity> recursiveResults, List<Route> routesByIdIn) {
+    public void executeSaveAll(Map<String, RoutePageEntity> idsQueue, List<Route> routes) {
         if (!idsQueue.isEmpty()) {
-            Map<Integer, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
-            List<Route> routes = routeFactory.createRoute(idsQueue, longEdgeMap);
 
             executeBatchRoutesInsert(routes);
             List<RouteStep> steps = new ArrayList<>();
@@ -42,7 +35,6 @@ public class BatchUtils {
             }
             executeBatchRouteStepInsert(steps);
 
-            routesByIdIn.addAll(routes);
         }
     }
 

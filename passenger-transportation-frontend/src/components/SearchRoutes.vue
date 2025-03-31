@@ -273,6 +273,8 @@ function getFormattedTime() {
   gap: 20px;
   max-width: 600px;
   width: 100%;
+  max-height: 800px; /* можно настроить по необходимости */
+  overflow-y: auto;
 }
 
 /* Стили для пагинации */

@@ -164,6 +164,8 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
+  max-height: 800px; /* можно настроить по необходимости */
+  overflow-y: auto;
 }
 
 .route-date {

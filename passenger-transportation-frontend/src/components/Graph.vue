@@ -5,7 +5,7 @@
       <p>Загрузка графа...</p>
     </div>
     <div  class="network">
-      <div v-if="isLoading === false" ref="networkContainer" class="network-container"></div>
+      <div v-show="!isLoading" ref="networkContainer" class="network-container"></div>
       <!-- Легенда -->
       <div class="legend">
         <h3>Легенда</h3>
@@ -50,27 +50,29 @@ export default {
         interaction: { hover: true, selectConnectedEdges: true },
         physics: {
           barnesHut: {
-            springLength: 250,
-            gravitationalConstant: -50000,
+            springLength: 550,
+            gravitationalConstant: -1050000,
             centralGravity: 0.00001,
-            springConstant: 0.000001,
+            springConstant: 0.00001,
             damping: 0.1
           },
           stabilization: true
         },
         nodes: {
           shape: "dot",
-          size: 150,
-          font: { size: 16 },
+          size: 350,
+          font: { size: 55 },
           borderWidth: 2
         },
         edges: {
           smooth: { enabled: true, type: "curvedCW", roundness: 0.2 },
           width: 15,
           arrows: { to: { enabled: true, scaleFactor: 1.2 } }
-        }
-      }
-    };
+        },
+
+      },
+
+    }
   },
   watch: {
     graph: {
@@ -87,19 +89,30 @@ export default {
     }
   },
   mounted() {
-    const container = this.$refs.networkContainer;
-    this.network = new Network(
-        container,
-        { nodes: this.nodes, edges: this.edges },
-        this.options
-    );
-    this.network.on("click", (params) => {
-      if (params.nodes.length > 0) {
-        const clickedNodeId = params.nodes[0];
-        this.$emit("create-new-route", clickedNodeId);
+    // Убеждаемся, что контейнер существует
+    this.$nextTick(() => {
+      const container = this.$refs.networkContainer;
+      if (!container) {
+        console.error("Network container not found!");
+        return;
       }
+
+      this.network = new Network(
+          container,
+          { nodes: this.nodes, edges: this.edges },
+          this.options
+      );
+
+
+      this.network.on("click", (params) => {
+        if (params.nodes.length > 0) {
+          this.$emit("create-new-route", params.nodes[0]);
+        }
+      });
+
+      this.updateGraph(this.graph);
+
     });
-    this.updateGraph(this.graph);
   },
   methods: {
     updateGraph(newGraph) {
@@ -127,10 +140,16 @@ export default {
       }
       if (this.network) {
         this.network.redraw();
-        this.network.fit();
+        this.network.fit({  animation: {             // animation object, can also be Boolean
+            duration: 10,                 // animation duration in milliseconds (Number)
+            easingFunction: "easeInOutQuad" // Animation easing function, available are:
+          }    });
+        this.network.moveTo({scale: 0.005})
       }
-      setTimeout(() => { console.log("мир"); }, 3000);
-      this.isLoading = false;
+
+      setTimeout(function (scope) {
+        scope.isLoading = false;
+      }, 3000, this);
     },
 
     getNodeColor(type) {

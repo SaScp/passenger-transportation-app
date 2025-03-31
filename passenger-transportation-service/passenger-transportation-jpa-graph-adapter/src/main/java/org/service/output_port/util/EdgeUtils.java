@@ -26,7 +26,7 @@ public class EdgeUtils {
         Map<Integer, Edge> longEdgeMap = new HashMap<>();
 
         for (var j : a) {
-            if (!longEdgeMap.containsKey(j.getId())) {
+            if (!longEdgeMap.containsKey(j.getId().intValue())) {
                 longEdgeMap.put(Math.toIntExact(j.getId()), j);
             }
         }
