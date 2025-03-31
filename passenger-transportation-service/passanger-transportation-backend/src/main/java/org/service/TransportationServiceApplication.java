@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -61,5 +62,14 @@ public class TransportationServiceApplication {
         return new TransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 
-
+    @Bean(name = "taskExecutor")
+    public ThreadPoolTaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(1); // Минимальное количество активных потоков
+        executor.setMaxPoolSize(10000); // Максимальное количество потоков
+        executor.setQueueCapacity(10000); // Размер очереди задач
+        executor.setThreadNamePrefix("AsyncThread-"); // Префикс имени потока
+        executor.initialize();
+        return executor;
+    }
 }

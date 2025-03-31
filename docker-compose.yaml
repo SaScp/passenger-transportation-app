@@ -49,3 +49,17 @@ services:
       start_period: 1m
     ports:
       - "80:80"
+  passenger_redis:
+    image: redis:latest
+    container_name: passenger_redis
+    profiles:
+      - prod
+      - dev
+    depends_on:
+      - db_pg
+    networks:
+      - passenger_app_net
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"

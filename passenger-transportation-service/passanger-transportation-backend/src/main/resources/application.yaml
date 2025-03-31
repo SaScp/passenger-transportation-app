@@ -1,11 +1,17 @@
 spring:
   cache:
-    type: simple
+    type: redis
   datasource:
     driver-class-name: ${SQL_DRIVER}
     url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      repositories:
+        enabled: false
+      port: ${REDIS_PORT}
   mvc:
     servlet:
       path: ${SERVLET_PATH:/api/v1/booking}
@@ -15,6 +21,7 @@ spring:
   threads:
     virtual:
       enabled: true
+
 server:
   port: ${PORT:8080}
 cache:
