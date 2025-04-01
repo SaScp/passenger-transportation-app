@@ -34,8 +34,8 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
         if (entity.routeId() == null || entity.routeId().isEmpty()) {
 
             List<RoutePageEntity> recursiveResults = repository.findRecursiveRoutes(
-                    entity.from(),
-                    entity.to(),
+                    entity.from() + "%",
+                    entity.to() + "%",
                     entity.type(),
                     entity.time().toString(),
                     pageEntity.pageSize(),

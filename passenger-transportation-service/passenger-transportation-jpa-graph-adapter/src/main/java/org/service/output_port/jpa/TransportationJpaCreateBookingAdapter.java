@@ -16,19 +16,15 @@ import org.service.output_port.model.Status;
 import org.service.output_port.model.User;
 import org.service.output_port.repository.BookingRepository;
 import org.service.output_port.util.CacheUtils;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 @Slf4j
 @Component
-@Transactional
 @AllArgsConstructor
 public class TransportationJpaCreateBookingAdapter implements CreateBookingTransportationServiceOutputPort {
 
@@ -41,7 +37,7 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
     public static final Long CREATED_STATUS_ID = 1L;
 
     @Override
-    @CachePut(value = "TransportationJpaFindByPhoneAdapter::findBy")
+    @Transactional
     public void create(BookingParamsEntity entity) {
         if (entity.routeId() == null) {
             throw new RouteIsNullException();
@@ -67,8 +63,10 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
             );
 
             Booking save = bookingRepository.save(newBooking);
-            cacheUtils.createBooking("TransportationJpaFindByPhoneAdapter::findBy", entity.numberPhone(), BookingMapper.INSTANCE.bookingToBookingEntity(save));
+
+            cacheUtils.createBooking("TransportationJpaFindByPhoneAdapter::findBy", entity.numberPhone().hashCode(), BookingMapper.INSTANCE.bookingToBookingEntity(save));
         });
+
     }
 
     private void checkCause(Runnable bookingConsumer) {
@@ -86,6 +84,8 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
                 log.error("\nerror {} \nin {} \nmessage {}", exception.getClass(), exception.getStackTrace()[1], exception.getMessage());
         }
     }
+
+
 
     @Override
     public Class<? extends TransportationServiceOutputPort> getOutputPortType() {

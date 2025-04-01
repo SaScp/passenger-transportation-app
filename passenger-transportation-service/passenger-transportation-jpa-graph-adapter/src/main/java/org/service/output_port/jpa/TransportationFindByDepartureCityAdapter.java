@@ -17,7 +17,6 @@ import java.util.*;
 
 @Component
 @AllArgsConstructor
-@Transactional
 public class TransportationFindByDepartureCityAdapter implements FindAllRoutesByDepartureCityOutputPort {
 
     private final RouteRepository repository;
@@ -25,6 +24,7 @@ public class TransportationFindByDepartureCityAdapter implements FindAllRoutesBy
     private final RouteUtils routeUtils;
 
     @Override
+    @Transactional
     @Cacheable(key = "#id + '_' + #pageEntity.hashCode()", value = "TransportationFindByDepartureCityAdapter::findAllByDepartureCity")
     public List<RoutesEntity> findAllByDepartureCity(String id, PageEntity pageEntity) {
 

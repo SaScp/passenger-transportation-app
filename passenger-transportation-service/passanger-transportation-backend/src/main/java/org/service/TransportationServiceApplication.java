@@ -6,29 +6,24 @@ import org.service.core.TransportationServiceCore;
 import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregateImpl;
-import org.service.output_port.jpa.*;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @EnableAsync
 @EnableCaching
+@EnableScheduling
 @SpringBootApplication
 public class TransportationServiceApplication {
 

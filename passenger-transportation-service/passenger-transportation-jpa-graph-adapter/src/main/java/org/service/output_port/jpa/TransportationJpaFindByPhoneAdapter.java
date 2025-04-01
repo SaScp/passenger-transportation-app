@@ -35,7 +35,7 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
     }
 
     @Override
-    @Cacheable(key = "#phone", value = "TransportationJpaFindByPhoneAdapter::findBy")
+    @Cacheable(key = "#phone.hashCode()", value = "TransportationJpaFindByPhoneAdapter::findBy")
     public List<BookingEntity> findBy(String phone, PageEntity pageEntity) {
 
         if (!userRepository.existsById(phone)) {

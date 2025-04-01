@@ -24,9 +24,6 @@ spring:
 
 server:
   port: ${PORT:8080}
-cache:
-  lru:
-    size: ${LRU_CACHE_SIZE:100}
 springdoc:
   api-docs:
     path: ${SWAGGER_API_PATH:/docs/}

@@ -82,7 +82,7 @@ class TransportationServiceCoreTest {
 
     @Test
     void testCreateBookingValidPhone() {
-        BookingParamsEntity bookingParams = new BookingParamsEntity("+7 (123) 456-78-90", "route1");
+        BookingParamsEntity bookingParams = new BookingParamsEntity("7(123)456-78-90", "route1");
 
         assertDoesNotThrow(() -> transportationServiceCore.createBooking(bookingParams));
         verify(createBookingOutputPort, times(1)).create(bookingParams);

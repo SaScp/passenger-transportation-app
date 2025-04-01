@@ -1,10 +1,6 @@
 package org.service.output_port.util;
 
-import org.service.output_port.factory.RouteFactory;
-import org.service.output_port.factory.RouteFactoryImpl;
-import org.service.output_port.model.Edge;
 import org.service.output_port.model.Route;
-import org.service.output_port.entity.RoutePageEntity;
 import org.service.output_port.model.RouteStep;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,8 +21,7 @@ public class BatchUtils {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void executeSaveAll(Map<String, RoutePageEntity> idsQueue, List<Route> routes) {
-        if (!idsQueue.isEmpty()) {
+    public void executeSaveAll(List<Route> routes) {
 
             executeBatchRoutesInsert(routes);
             List<RouteStep> steps = new ArrayList<>();
@@ -35,7 +30,7 @@ public class BatchUtils {
             }
             executeBatchRouteStepInsert(steps);
 
-        }
+
     }
 
     private void executeBatchRouteStepInsert(List<RouteStep> steps) {

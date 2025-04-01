@@ -20,7 +20,7 @@ public class TransportationServiceCore implements TransportationServiceInputPort
 
    private final TransportationServiceOutputPortAggregate aggregate;
 
-    private static final String PHONE_PATTERN = "^(?:\\+7|8)[\\s-]?\\(?\\d{3}\\)?[\\s-]?\\d{3}[\\s-]?\\d{2}[\\s-]?\\d{2}$";
+    private static final String PHONE_PATTERN = "^(?:\\+?7|8)[\\s-]?\\(?\\d{3}\\)?[\\s-]?\\d{3}[\\s-]?\\d{2}[\\s-]?\\d{2}$";
 
     public TransportationServiceCore(TransportationServiceOutputPortAggregate aggregate) {
         this.aggregate = aggregate;
@@ -50,7 +50,8 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     public void createBooking(BookingParamsEntity bookingParams) {
         try {
             if (isPhone(bookingParams.numberPhone())) {
-                aggregate.getOutputPort(CreateBookingTransportationServiceOutputPort.class).create(bookingParams);
+
+                aggregate.getOutputPort(CreateBookingTransportationServiceOutputPort.class).create(generateByPattern(bookingParams));
             } else {
                 throw new IsNotPhoneException();
             }
@@ -62,6 +63,11 @@ public class TransportationServiceCore implements TransportationServiceInputPort
         }
     }
 
+    private BookingParamsEntity generateByPattern(BookingParamsEntity entity) {
+        return new BookingParamsEntity(entity.numberPhone().replaceAll(" ", "").replaceAll("\\+", "") ,
+                entity.routeId());
+    }
+
     @Override
     public void revokeBooking(String id) {
          aggregate.getOutputPort(RevokeBookingTransportationServiceOutputPort.class).revoke(id);
@@ -70,6 +76,7 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     @Override
     public List<BookingEntity> findByPhone(String phone, PageEntity pageEntity) {
         if (isPhone(phone)) {
+            phone = phone.replaceAll(" ", "").replaceAll("\\+", "");
             return aggregate.getOutputPort(FindByPhoneTransportationServiceOutputPort.class).findBy(phone, pageEntity);
         } else {
             throw new IsNotPhoneException();
@@ -95,6 +102,7 @@ public class TransportationServiceCore implements TransportationServiceInputPort
     }
 
     private boolean isPhone(String phone) {
+
         return Pattern.compile(PHONE_PATTERN).matcher(phone).find();
     }
 }

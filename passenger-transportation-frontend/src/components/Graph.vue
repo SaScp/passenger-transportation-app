@@ -61,7 +61,7 @@ export default {
         nodes: {
           shape: "dot",
           size: 350,
-          font: { size: 55 },
+          font: { size: 355 },
           borderWidth: 2
         },
         edges: {

@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional(readOnly = true)
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStepsIdsTransportationServiceOutputPort {
 
     private final RouteStepRepository routeStepRepository;

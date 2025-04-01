@@ -37,17 +37,19 @@ public class RouteUtils {
         Map<Integer, Edge> longEdgeMap = edgeUtils.getLongEdgeMap(recursiveResults);
         List<Route> routes = routeFactory.createRoute(routePageEntityMap, longEdgeMap);
 
-        execBatch(routePageEntityMap);
+        execBatch(routePageEntityMap, longEdgeMap);
         return routes;
     }
 
-    private void execBatch(Map<String, RoutePageEntity> routePageEntityMap) {
+    private void execBatch(Map<String, RoutePageEntity> routePageEntityMap, Map<Integer, Edge> longEdgeMap) {
         List<Route> routesByIdIn = repository.findRoutesByIdIn(routePageEntityMap.keySet());
 
         for (var i : routesByIdIn) {
             routePageEntityMap.remove(i.getId());
         }
-        batchUtils.executeSaveAll(routePageEntityMap, routesByIdIn);
+        if (routePageEntityMap.isEmpty())
+            return;
+        batchUtils.executeSaveAll(routeFactory.createRoute(routePageEntityMap, longEdgeMap));
     }
 
 

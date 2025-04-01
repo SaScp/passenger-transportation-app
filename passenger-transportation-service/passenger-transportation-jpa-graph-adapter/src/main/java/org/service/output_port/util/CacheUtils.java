@@ -5,6 +5,7 @@ import org.service.entity.BookingEntity;
 import org.service.output_port.mapper.BookingMapper;
 import org.service.output_port.model.Booking;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,17 +17,22 @@ public class CacheUtils {
 
     private final CacheManager cacheManager;
 
-    public void revoke(String cacheName, String key) {
+    public void revoke(String cacheName, Integer key) {
         Optional.ofNullable(cacheManager
                         .getCache(cacheName))
                 .ifPresent(cache -> cache.evictIfPresent(key));
     }
 
-    public void createBooking(String cacheName, String key, BookingEntity value) {
+    public void createBooking(String cacheName, Integer key, BookingEntity value) {
         Optional.ofNullable(cacheManager.getCache(cacheName))
-                .ifPresent(
-                        cache -> Optional.ofNullable(cache.get(key, List.class))
-                                .map(e -> e.add(value))
+                .ifPresent(cache -> Optional.ofNullable(cache.get(key, List.class))
+                        .ifPresent(e -> {
+                                    cache.evict(key);
+                                    e.add(value);
+                                    cache.put(key, e);
+                                }
+                        )
                 );
     }
+
 }

@@ -6,9 +6,7 @@ import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindAllRouteStepTransportationServiceOutputPort;
 import org.service.output_port.mapper.EdgeMapper;
 import org.service.output_port.model.Edge;
-import org.service.output_port.model.RouteStep;
 import org.service.output_port.repository.EdgeRepository;
-import org.service.output_port.repository.RouteStepRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional(readOnly = true)
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class TransportationJpaFindAllRouteStepAdapter implements FindAllRouteStepTransportationServiceOutputPort {
 
     private final EdgeRepository edgeRepository;
