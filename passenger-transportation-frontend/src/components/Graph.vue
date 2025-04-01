@@ -4,7 +4,7 @@
       <div class="spinner"></div>
       <p>Загрузка графа...</p>
     </div>
-    <div  class="network">
+    <div class="network">
       <div v-show="!isLoading" ref="networkContainer" class="network-container"></div>
       <!-- Легенда -->
       <div class="legend">
@@ -29,6 +29,7 @@
 
 <script>
 import { Network, DataSet } from "vis-network/standalone";
+
 export default {
   name: "NetworkGraph",
   props: {
@@ -68,11 +69,9 @@ export default {
           smooth: { enabled: true, type: "curvedCW", roundness: 0.2 },
           width: 15,
           arrows: { to: { enabled: true, scaleFactor: 1.2 } }
-        },
-
-      },
-
-    }
+        }
+      }
+    };
   },
   watch: {
     graph: {
@@ -103,7 +102,6 @@ export default {
           this.options
       );
 
-
       this.network.on("click", (params) => {
         if (params.nodes.length > 0) {
           this.$emit("create-new-route", params.nodes[0]);
@@ -111,7 +109,6 @@ export default {
       });
 
       this.updateGraph(this.graph);
-
     });
   },
   methods: {
@@ -140,36 +137,55 @@ export default {
       }
       if (this.network) {
         this.network.redraw();
-        this.network.fit({  animation: {             // animation object, can also be Boolean
-            duration: 10,                 // animation duration in milliseconds (Number)
-            easingFunction: "easeInOutQuad" // Animation easing function, available are:
-          }    });
-        this.network.moveTo({scale: 0.005})
+       /* this.network.fit({
+          animation: true
+        });
+        this.network.moveTo({
+          scale: 0.3,
+          animation: true
+        });*/
       }
 
       setTimeout(function (scope) {
+
+        if (scope.network) {
+          scope.network.redraw();
+          scope.network.fit({});
+        }
         scope.isLoading = false;
-      }, 3000, this);
+      }, 5000, this);
     },
 
     getNodeColor(type) {
       switch (type) {
-        case "Самолет": return { background: "#e67e22", border: "#d35400" };
-        case "Поезд": return { background: "#8e44ad", border: "#71368a" };
-        case "Автобус": return { background: "#2B7CE9", border: "#1f5aa4" };
-        case "Такси": return { background: "#95a5a6", border: "#7f8c8d" };
-        case "Маршрутка": return { background: "#27ae60", border: "#1e8449" };
-        default: return { background: "#97c2fc", border: "#2B7CE9" };
+        case "Самолет":
+          return { background: "#e67e22", border: "#d35400" };
+        case "Поезд":
+          return { background: "#8e44ad", border: "#71368a" };
+        case "Автобус":
+          return { background: "#2B7CE9", border: "#1f5aa4" };
+        case "Такси":
+          return { background: "#95a5a6", border: "#7f8c8d" };
+        case "Маршрутка":
+          return { background: "#27ae60", border: "#1e8449" };
+        default:
+          return { background: "#97c2fc", border: "#2B7CE9" };
       }
     },
     getEdgeColor(type) {
       switch (type) {
-        case "Самолет": return "#e67e22";
-        case "Поезд": return "#8e44ad";
-        case "Автобус": return "#2B7CE9";
-        case "Такси": return "#95a5a6";
-        case "Маршрутка": return "#27ae60";
-        default: return "#2B7CE9";
+        case "Самолет":
+          return "#e67e22";
+        case "Поезд":
+          return "#8e44ad";
+        case "Автобус":
+          return "#2B7CE9";
+        case "Такси":
+          return "#95a5a6";
+        case "Маршрутка":
+          return "#27ae60";
+        default:
+          return "#2B7CE9";
       }
     },
     highlightRoute(routeEdgeIds) {
@@ -268,8 +284,8 @@ export default {
 }
 
 .network-container {
-  width: 1000px;
-  height: 700px;
+  width: 1300px;
+  height: 900px;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid #ddd;

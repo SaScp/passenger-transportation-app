@@ -164,7 +164,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  max-height: 800px; /* можно настроить по необходимости */
+  max-height: 1000px; /* можно настроить по необходимости */
   overflow-y: auto;
 }
 
