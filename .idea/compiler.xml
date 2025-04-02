@@ -10,30 +10,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="passanger-transportation-backend" />
         <module name="passenger-transportation-service-core" />
-      </profile>
-      <profile name="Annotation profile for passenger-transportation-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
         <module name="passenger-transportation-service-output-port" />
         <module name="passenger-transportation-service-spring-web-adapter" />
+        <module name="passanger-transportation-configuration" />
         <module name="passenger-transportation-shared" />
         <module name="passenger-transportation-service-input-port" />
       </profile>
-      <profile name="Annotation profile for passenger-transportation-jpa-graph-adapter" enabled="true">
+      <profile name="Annotation profile for passenger-transportation-backend" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
@@ -50,12 +38,12 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="passanger-transportation-backend" options="-parameters" />
+      <module name="passanger-transportation-configuration" options="-parameters" />
       <module name="passanger-transportation-graph-jpa-adapter" options="-parameters" />
+      <module name="passenger-transportation-backend" options="-parameters" />
       <module name="passenger-transportation-jdbc-adapter" options="-parameters" />
       <module name="passenger-transportation-jpa-adapter" options="-parameters" />
       <module name="passenger-transportation-jpa-graph-adapter" options="-parameters" />
-      <module name="passenger-transportation-service" options="-parameters" />
       <module name="passenger-transportation-service-core" options="-parameters" />
       <module name="passenger-transportation-service-input-port" options="-parameters" />
       <module name="passenger-transportation-service-output-port" options="-parameters" />

@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/passenger-transportation-service/pom.xml" />
         <option value="$PROJECT_DIR$/passanger-transportation-graph-jpa-adapter/pom.xml" />
         <option value="$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-graph-jpa-adapter/pom.xml" />
+        <option value="$PROJECT_DIR$/passenger-transportation-backend/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

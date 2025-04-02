@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>passanger-transportation-backend</artifactId>
+    <artifactId>passanger-transportation-configuration</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

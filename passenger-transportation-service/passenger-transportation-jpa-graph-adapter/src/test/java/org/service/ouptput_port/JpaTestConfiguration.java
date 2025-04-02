@@ -21,12 +21,17 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 
 
-@ComponentScans(value = {@ComponentScan("org.service.output_port.jpa"), @ComponentScan("org.service.output_port.repository"), @ComponentScan("org.service.output_port.util")})
+@ComponentScans(
+        value = {@ComponentScan("org.service.output_port.jpa"),
+                @ComponentScan("org.service.output_port.repository"),
+                @ComponentScan("org.service.output_port.util"),
+                @ComponentScan("org.service.ouptput_port.jpa")})
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = "org.service.output_port.repository")
 @EntityScan(basePackages = "org.service.output_port.model")
 public class JpaTestConfiguration {
+
 
 
     @Bean

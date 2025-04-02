@@ -7,6 +7,7 @@
           @create-new-route="createNewRoute"
       />
       <section class="find-all-routes">
+
         <div class="routes" id="routes-graph">
           <div class="route-date" v-for="(routes, date) in groupedRoutes" :key="date">
             <h2 class="date-header">📅 {{ formatDateHeader(date) }}</h2>
@@ -145,7 +146,7 @@ export default {
 
 .info {
   display: flex;
-  flex-wrap: wrap;
+
   justify-content: center;
   gap: 30px;
 }
@@ -164,7 +165,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  max-height: 1000px; /* можно настроить по необходимости */
+  max-height: 1000px;
   overflow-y: auto;
 }
 
@@ -211,5 +212,21 @@ export default {
 .page-number {
   font-weight: bold;
   font-size: 16px;
+}
+@media screen and (max-width: 1857px) {
+  .routes {
+    grid-template-columns: 1fr 1fr;
+    max-height: 1000px;
+    overflow-y: auto;
+  }
+  .find-all-routes {
+    max-width: 1000px;
+  }
+  .info {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
 }
 </style>

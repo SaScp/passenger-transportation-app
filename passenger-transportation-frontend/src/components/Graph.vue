@@ -137,13 +137,7 @@ export default {
       }
       if (this.network) {
         this.network.redraw();
-       /* this.network.fit({
-          animation: true
-        });
-        this.network.moveTo({
-          scale: 0.3,
-          animation: true
-        });*/
+
       }
 
       setTimeout(function (scope) {
@@ -153,7 +147,7 @@ export default {
           scope.network.fit({});
         }
         scope.isLoading = false;
-      }, 5000, this);
+      }, 1000, this);
     },
 
     getNodeColor(type) {

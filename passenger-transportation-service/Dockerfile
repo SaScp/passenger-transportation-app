@@ -1,6 +1,6 @@
 FROM maven:3.9.9-amazoncorretto-21 AS build
 WORKDIR /
-COPY /passanger-transportation-backend /passanger-transportation-backend
+COPY /passanger-transportation-configuration /passanger-transportation-configuration
 COPY /passenger-transportation-service-core /passenger-transportation-service-core
 COPY /passenger-transportation-service-input-port /passenger-transportation-service-input-port
 COPY /passenger-transportation-service-output-port /passenger-transportation-service-output-port
