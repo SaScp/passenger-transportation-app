@@ -19,7 +19,7 @@
       4. запустить приложение командой  <code>java -jar ../passenger-transportation-app/passenger-transportation-service/passanger-transportation-backend/target/{название файла}.jar</code>
       5.  при запуске проекта указать в качестве параметра  <code>spring.profiles.active</code> значение <code>dev</code> или <code>prod</code> (это можно сделать добавив <code>--spring.profiles.active={профиль}</code>)
   
-  P.S Для данного вида развертывания нужно заполнить пустые данные в <code>.env.dev</code> файле
+  > **P.S.** Для данного вида развертывания нужно заполнить пустые данные в <code>.env.dev</code> файле
 
 ### Отдельный запуск фронтенда (для разработки)
   1. Перейти в консоле  <code>../passenger-transportation-frontend </code>
@@ -33,31 +33,98 @@
 Для продакшена <code>prod</code> храняться в файле <code>.env</code> находится в <code>/.env</code>
 
 ### База данных
- 1. <code>POSTGRES_HOST</code> - хост до базы данных
- 2. <code>POSTGRES_PORT</code> - порт базы данных
- 3. <code>POSTGRES_PASSWORD</code> - пароль базы данных
- 4. <code>POSTGRES_USERNAME</code> - имя пользователя базы данных
- 5. <code>POSTGRES_DATABASE</code> - имя базы данных
- 6. <code>SHOW_SQL</code> - просмотр sql в jpa может быть true или false
- 7. <code>SQL_DRIVER</code> - драйвер jdbc
- 8. <code>SQL_DIALECT</code> - диалект hibernate
-### Logger
- 1. <code>LOG_FILE_NAME</code> - имя файла для логов
- 2. <code>LOG_MAX_FILE_SIZE</code> - максимальный размер для файла логов
- 3. <code>LOG_LEVEL</code> - уровень логгирование
- 4. <code>LOG_LEVEL_FILE</code> - уровень логгирование в файл
+- **POSTGRES_HOST** – хост базы данных
+- **POSTGRES_PORT** – порт базы данных
+- **POSTGRES_PASSWORD** – пароль базы данных
+- **POSTGRES_USERNAME** – имя пользователя базы данных
+- **POSTGRES_DATABASE** – имя базы данных
+- **SHOW_SQL** – отображение SQL-запросов в JPA (`true`/`false`)
+- **SQL_DRIVER** – драйвер JDBC
+- **SQL_DIALECT** – диалект Hibernate
+
+### Логирование
+- **LOG_FILE_NAME** – имя файла для логов
+- **LOG_MAX_FILE_SIZE** – максимальный размер файла логов
+- **LOG_LEVEL** – уровень логирования
+- **LOG_LEVEL_FILE** – уровень логирования в файл
+
 ### Swagger
- 1. <code>SWAGGER_API_PATH</code> - путь до docs swagger
- 2. <code>SWAGGER_PATH</code> - путь до swagger
-### Другие
- 1. <code>SERVLET_PATH</code> - базовый путь ко всем энпдоинтам
- 2. <code>PORT</code> - порт сервера
+- **SWAGGER_API_PATH** – путь до документации Swagger
+- **SWAGGER_PATH** – путь до Swagger
+
+### Прочие параметры
+- **SERVLET_PATH** – базовый путь ко всем эндпоинтам
+- **PORT** – порт сервера
+
     
-## P.S По тестовым данным
+> **P.S.** По тестовым данным
 Даты в бд начинаються с 2023-06-01 07:00:00 и заканчиваються 2023-07-02 07:00:00
 
 # Документация API 
 
- при запуске через docker-compose <code>http://localhost:8080/api/v1/booking/swagger/swagger-ui/index.html</code>
- при обычном запуске <code>http://localhost:900/dev/api/v1/booking/swagger/swagger-ui/index.html</code>
- 
+ при запуске через docker-compose
+ ```
+ http://localhost:8080/api/v1/booking/swagger/swagger-ui/index.html
+```
+ при обычном запуске 
+ ```
+ http://localhost:9000/dev/api/v1/booking/swagger/swagger-ui/index.html
+```
+# Доработки и улучшения
+
+## 1. Оптимизация алгоритма поиска маршрутов
+
+- **Что сделано:**  
+Оптимизирован алгоритм поиска маршрутов, добавлены новые индексы для ускорения поиска.
+
+- **Пример запроса:**
+
+![Пример запроса](https://github.com/user-attachments/assets/2a0b4e9a-d363-4480-871c-365bd98f62fb)
+
+- **Сравнение:**
+
+- **До:**
+
+  ![До оптимизации](https://github.com/user-attachments/assets/060a10a5-5ee1-42e3-a270-b0b38b99b6ef)
+
+- **После:**
+
+  ![После оптимизации](https://github.com/user-attachments/assets/919f5eb2-0284-41e3-94ea-62edba3801e0)
+
+---
+
+## 2. Добавление Redis
+
+- Внедрение Redis позволяет значительно повысить производительность за счёт кэширования данных и уменьшения времени отклика.
+
+---
+
+## 3. Кастомизированный пул потоков для асинхронной обработки
+
+- Позволяет большему количеству пользователей одновременно работать с системой, улучшая масштабируемость и общую отзывчивость приложения.
+
+---
+
+## 4. Нагрузочное тестирование системы
+
+### Графики нагрузочного тестирования сервиса
+
+- **С включенным Redis:**
+
+![Graph Results](https://github.com/user-attachments/assets/e31cf64f-f8fd-416c-84a6-c17ae1a439d4)
+
+- **С выключенным Redis:**
+
+![Graph Results2](https://github.com/user-attachments/assets/de59ddeb-925e-4ade-be2d-0c0c106226e5)
+
+### Таблица результатов тестирования
+
+| **Параметр**                         | **С включенным Redis**            | **С выключенным Redis**           |
+|--------------------------------------|-----------------------------------|----------------------------------|
+| **Количество образцов**              | 40,077                            | 30,616                           |
+| **Последний образец**                | 943                               | 5,454                            |
+| **Среднее значение**                 | 2,114 ms                          | 4,408 ms                         |
+| **Медиана**                          | 2,095 ms                          | 2,343 ms                         |
+| **Отклонение**                       | 564 ms                            | 5,930 ms                         |
+| **Пропускная способность**           | 12,981.596 запросов/мин           | 2,337.914 запросов/мин           |
+| **Максимальное значение (max Y)**    | 3,312 ms                          | 10,039 ms                        |
