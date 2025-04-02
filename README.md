@@ -55,3 +55,9 @@
     
 ## P.S По тестовым данным
 Даты в бд начинаються с 2023-06-01 07:00:00 и заканчиваються 2023-07-02 07:00:00
+
+# Документация API 
+
+ при запуске через docker-compose <code>http://localhost:8080/api/v1/booking/swagger/swagger-ui/index.html</code>
+ при обычном запуске <code>http://localhost:900/dev/api/v1/booking/swagger/swagger-ui/index.html</code>
+ 

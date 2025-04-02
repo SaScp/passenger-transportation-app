@@ -1,5 +1,8 @@
 package org.service;
 
+import org.service.core.BookingTransportationServiceCore;
+import org.service.core.GraphTransportationServiceCore;
+import org.service.core.RouteTransportationServiceCore;
 import org.service.core.TransportationServiceCore;
 
 
@@ -53,8 +56,18 @@ public class TransportationServiceApplication {
     }
 
     @Bean
-    public TransportationServiceCore transportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
-        return new TransportationServiceCore(transportationServiceOutputPortAggregate);
+    public GraphTransportationServiceCore graphTransportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
+        return new GraphTransportationServiceCore(transportationServiceOutputPortAggregate);
+    }
+
+    @Bean
+    public RouteTransportationServiceCore routeTransportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
+        return new RouteTransportationServiceCore(transportationServiceOutputPortAggregate);
+    }
+
+    @Bean
+    public BookingTransportationServiceCore bookingTransportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
+        return new BookingTransportationServiceCore(transportationServiceOutputPortAggregate);
     }
 
     @Bean(name = "taskExecutor")
