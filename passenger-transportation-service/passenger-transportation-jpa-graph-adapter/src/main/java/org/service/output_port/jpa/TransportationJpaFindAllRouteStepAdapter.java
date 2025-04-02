@@ -21,7 +21,6 @@ public class TransportationJpaFindAllRouteStepAdapter implements FindAllRouteSte
     private final EdgeRepository edgeRepository;
 
     @Override
-    @Cacheable("TransportationJpaFindAllAdapter::findAll")
     public List<EdgeEntity> findAll() {
         List<Edge> all = edgeRepository.findAll();
         return EdgeMapper.INSTANCE.edgesToEdgeEntitys(all);

@@ -3,12 +3,12 @@ package org.service;
 import org.service.core.BookingTransportationServiceCore;
 import org.service.core.GraphTransportationServiceCore;
 import org.service.core.RouteTransportationServiceCore;
-import org.service.core.TransportationServiceCore;
 
 
 import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregate;
 import org.service.output_port.aggregate.TransportationServiceOutputPortAggregateImpl;
+import org.service.output_port.cache.CacheTransportationServiceOutputPort;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -42,7 +42,7 @@ public class TransportationServiceApplication {
      * **/
     @Profile({"prod", "dev"})
     @Bean("jpaAggregate")
-    public TransportationServiceOutputPortAggregate transportationServiceJpaOutputPortAggregateImpl(List<TransportationServiceOutputPort> transportationServiceOutputPorts)  {
+    public TransportationServiceOutputPortAggregate transportationServiceJpaOutputPortAggregateImpl(List<CacheTransportationServiceOutputPort> transportationServiceOutputPorts)  {
 
         Map<Class<? >, TransportationServiceOutputPort> transportationServiceOutputPortMap = new HashMap<>();
 

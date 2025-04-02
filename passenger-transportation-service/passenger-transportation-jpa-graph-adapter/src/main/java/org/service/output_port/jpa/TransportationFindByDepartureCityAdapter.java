@@ -25,7 +25,6 @@ public class TransportationFindByDepartureCityAdapter implements FindAllRoutesBy
 
     @Override
     @Transactional
-    @Cacheable(key = "#id + '_' + #pageEntity.hashCode()", value = "TransportationFindByDepartureCityAdapter::findAllByDepartureCity")
     public List<RoutesEntity> findAllByDepartureCity(String id, PageEntity pageEntity) {
 
         List<RoutePageEntity> recursiveResults = repository.findAllRecursiveRoutesById(

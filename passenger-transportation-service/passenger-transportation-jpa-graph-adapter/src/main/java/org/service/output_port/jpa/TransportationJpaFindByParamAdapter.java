@@ -28,7 +28,6 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
     @Override
     @Transactional
-    @Cacheable(key = "#entity.hashCode() - #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
         if (entity.routeId() == null || entity.routeId().isEmpty()) {

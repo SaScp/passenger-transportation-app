@@ -21,7 +21,6 @@ public class TransportationJpaFindTypesAdapter implements FindTypesTransportatio
     private final TypeRepository typeRepository;
 
     @Override
-    @Cacheable("TransportationJpaFindTypesAdapter::findAllTypeEntity")
     public List<TypeEntity> findAllTypeEntity() {
         return TypeMapper.INSTANCE.transportTypesToTypeEntitys(typeRepository.findAll());
     }

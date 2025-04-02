@@ -110,14 +110,6 @@ class TransportationJpaFindAllAdapterTest {
         assertTrue(exception.getMessage().contains("Page size must not be less than one"));
     }
 
-    @Test
-    void testCacheableAnnotationPresent() throws NoSuchMethodException {
-        Method method = TransportationJpaFindAllAdapter.class.getMethod("findAll", PageEntity.class);
-        Cacheable cacheable = method.getAnnotation(Cacheable.class);
-        assertNotNull(cacheable);
-        assertEquals("#pageEntity.hashCode()", cacheable.key());
-        assertArrayEquals(new String[] {"TransportationJpaFindAllAdapter::findAll"}, cacheable.value());
-    }
 
     @Test
     void testCustomPageEntityValues() {

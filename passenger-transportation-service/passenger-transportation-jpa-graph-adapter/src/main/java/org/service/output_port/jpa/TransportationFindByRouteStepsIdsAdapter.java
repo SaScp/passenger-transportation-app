@@ -21,7 +21,6 @@ public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStep
 
 
     @Override
-    @Cacheable(key = "#ids.hashCode()", value = "TransportationFindByRouteStepsIdsAdapter::findRouteStepsByIds")
     public List<RouteStepEntity> findRouteStepsByIds(List<String> ids) {
         return RouteStepMapper.INSTANCE.routeStepsToRouteStepEntitys(routeStepRepository.findRouteStepsByRouteIdIn(ids));
     }

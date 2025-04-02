@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-configuration/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-configuration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-graph-jpa-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-cache-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-cache-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jdbc-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jdbc-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jpa-adapter/src/main/java" charset="UTF-8" />
