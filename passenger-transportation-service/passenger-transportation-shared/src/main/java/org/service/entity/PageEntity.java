@@ -17,6 +17,9 @@ public record PageEntity(
         this.pageNum = pageNum;
         this.pageSize = pageSize;
     }
+    public PageEntity(int defaultSize) {
+        this(defaultSize, defaultSize);
+    }
 
     private static Integer getInt(String obj, Integer orElseObj) {
         return Optional.ofNullable(obj).filter(e -> e.matches("\\d+")).map(Integer::parseInt).filter(e -> e > 0).orElse(orElseObj);

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Async
+@RequestMapping("/booking")
 @RestController
 @Tag(name = "GraphRestController", description = "Контроллер для взаимодействия с бронированием")
 public class BookingRestController {
@@ -48,6 +49,7 @@ public class BookingRestController {
     public void revokeBooking(@RequestParam(name = "booking_id") String id) {
         CompletableFuture.runAsync(() -> this.inputPort.revokeBooking(id));
     }
+
     @Operation(
             summary = "Просмотр всех маршрутов пользователя",
             description = "Позволяет посмотреть все маршруты пользователя",
@@ -65,4 +67,5 @@ public class BookingRestController {
     public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone, @Parameter(hidden = true) @PageSettingParam PageEntity pageEntity) {
         return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone, pageEntity));
     }
+
 }

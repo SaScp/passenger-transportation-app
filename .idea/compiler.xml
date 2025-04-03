@@ -36,6 +36,8 @@
       <module name="passenger-transportation-backend" target="21" />
       <module name="passenger-transportation-jdbc-adapter" target="21" />
       <module name="passenger-transportation-jpa-adapter" target="21" />
+      <module name="passenger-transportation-security-output-port" target="21" />
+      <module name="passenger-transportation-spring-security-adapter" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -47,12 +49,14 @@
       <module name="passenger-transportation-jdbc-adapter" options="-parameters" />
       <module name="passenger-transportation-jpa-adapter" options="-parameters" />
       <module name="passenger-transportation-jpa-graph-adapter" options="-parameters" />
+      <module name="passenger-transportation-security-output-port" options="-parameters" />
       <module name="passenger-transportation-service" options="-parameters" />
       <module name="passenger-transportation-service-core" options="-parameters" />
       <module name="passenger-transportation-service-input-port" options="-parameters" />
       <module name="passenger-transportation-service-output-port" options="-parameters" />
       <module name="passenger-transportation-service-spring-web-adapter" options="-parameters" />
       <module name="passenger-transportation-shared" options="-parameters" />
+      <module name="passenger-transportation-spring-security-adapter" options="-parameters" />
     </option>
   </component>
 </project>

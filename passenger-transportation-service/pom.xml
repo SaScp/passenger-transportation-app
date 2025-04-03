@@ -17,6 +17,7 @@
         <module>passenger-transportation-jpa-graph-adapter</module>
         <module>passenger-transportation-service-output-port</module>
         <module>passenger-transportation-cache-adapter</module>
+
     </modules>
 
     <properties>

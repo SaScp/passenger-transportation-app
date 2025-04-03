@@ -18,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Async
 @RestController
+@RequestMapping("/route")
 @Tag(name = "RouteRestController", description = "Контроллер для взаимодействия с данными маршрутов")
 public class RouteRestController {
 

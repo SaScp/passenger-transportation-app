@@ -29,4 +29,10 @@ public record ParamsEntity(
     public ParamsEntity(LocalDateTime time, String type, String from, String to) {
         this(time, type, from, to, null);
     }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, type, from, to, routeId);
+    }
 }

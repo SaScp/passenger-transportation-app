@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 @AllArgsConstructor
@@ -32,13 +33,7 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
         if (entity.routeId() == null || entity.routeId().isEmpty()) {
 
-            List<RoutePageEntity> recursiveResults = repository.findRecursiveRoutes(
-                    entity.from() + "%",
-                    entity.to() + "%",
-                    entity.type(),
-                    entity.time().toString(),
-                    pageEntity.pageSize(),
-                    pageEntity.pageNum() * pageEntity.pageSize(), 5);
+            List<RoutePageEntity> recursiveResults = getRecursiveRoutes(entity, pageEntity);
 
             return RouteMapper.INSTANCE.routesToRouteEntitys(routeUtils.getRoutesFromResult(recursiveResults));
         } else {
@@ -47,6 +42,16 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
             return RouteMapper.INSTANCE.routesToRouteEntitys(repository.findRoutesByIdIn(routeIds));
         }
 
+    }
+
+    public List<RoutePageEntity> getRecursiveRoutes(ParamsEntity entity, PageEntity pageEntity) {
+        return repository.findRecursiveRoutes(
+                entity.from() + "%",
+                entity.to() + "%",
+                entity.type(),
+                entity.time().toString(),
+                pageEntity.pageSize(),
+                pageEntity.pageNum() * pageEntity.pageSize(), 5);
     }
 
 

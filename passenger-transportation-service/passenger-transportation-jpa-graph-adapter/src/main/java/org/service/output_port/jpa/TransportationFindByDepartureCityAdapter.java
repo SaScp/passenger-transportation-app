@@ -31,7 +31,7 @@ public class TransportationFindByDepartureCityAdapter implements FindAllRoutesBy
                 id,
                 pageEntity.pageSize(),
                 pageEntity.pageNum() * pageEntity.pageSize(),
-                6
+                5
         );
 
         return RouteMapper.INSTANCE.routesToRouteEntitys(routeUtils.getRoutesFromResult(recursiveResults));

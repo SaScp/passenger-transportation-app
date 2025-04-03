@@ -22,7 +22,7 @@ public class CacheTransportationJpaFindByParamAdapter  extends CacheTransportati
     }
 
     @Override
-    @Cacheable(key = "#entity.hashCode() - #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
+    @Cacheable(key = "{#entity.hashCode(), #pageEntity.pageSize(), #pageEntity.pageNum()}", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
         return delegate.findBy(entity, pageEntity);
     }

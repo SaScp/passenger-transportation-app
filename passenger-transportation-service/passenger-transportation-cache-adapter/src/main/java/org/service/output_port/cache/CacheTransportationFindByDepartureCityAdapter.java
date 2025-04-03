@@ -21,7 +21,7 @@ public class CacheTransportationFindByDepartureCityAdapter extends CacheTranspor
     }
 
     @Override
-    @Cacheable(key = "#id + '_' + #pageEntity.hashCode()", value = "TransportationFindByDepartureCityAdapter::findAllByDepartureCity")
+    @Cacheable(key = "{#id, #pageEntity.pageSize(), #pageEntity.pageNum()}", value = "TransportationFindByDepartureCityAdapter::findAllByDepartureCity")
     public List<RoutesEntity> findAllByDepartureCity(String id, PageEntity pageEntity) {
         return delegate.findAllByDepartureCity(id, pageEntity);
     }

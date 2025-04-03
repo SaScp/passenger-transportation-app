@@ -6,6 +6,7 @@ import org.service.entity.GraphEntity;
 import org.service.input_port.GraphTransportationServiceInputPort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Async
 @RestController
+@RequestMapping("/graph/")
 @Tag(name = "GraphRestController", description = "Контроллер для взаимодействия с графом")
 public class GraphRestController {
 

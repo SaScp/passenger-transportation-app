@@ -14,6 +14,8 @@
       <set>
         <option value="$PROJECT_DIR$/passanger-transportation-graph-jpa-adapter/pom.xml" />
         <option value="$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-graph-jpa-adapter/pom.xml" />
+        <option value="$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-security-output-port/pom.xml" />
+        <option value="$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-spring-security-adapter/pom.xml" />
       </set>
     </option>
   </component>
