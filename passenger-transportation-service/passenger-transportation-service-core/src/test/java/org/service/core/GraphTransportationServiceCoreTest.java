@@ -13,6 +13,7 @@ import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutp
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,22 +43,22 @@ class GraphTransportationServiceCoreTest {
     }
 
     @Test
-    void testFindAllGraphEmpty() {
+    void testFindAllGraphEmpty() throws ExecutionException, InterruptedException {
         // При отсутствии шагов маршрута фабрика должна вернуть пустые наборы
         when(findAllRouteStepOutputPort.findAll()).thenReturn(Collections.emptyList());
 
-        GraphEntity graph = graphCore.findAll();
+        GraphEntity graph = graphCore.findAll().get();
         assertNotNull(graph);
         assertTrue(graph.nodes().isEmpty());
         assertTrue(graph.edges().isEmpty());
     }
 
     @Test
-    void testFindGraphByIdsEmpty() {
+    void testFindGraphByIdsEmpty() throws ExecutionException, InterruptedException {
         when(findByRouteStepsIdsOutputPort.findRouteStepsByIds(Collections.emptyList()))
                 .thenReturn(Collections.emptyList());
 
-        GraphEntity graph = graphCore.findGraphByIds(Collections.emptyList());
+        GraphEntity graph = graphCore.findGraphByIds(Collections.emptyList()).get();
         assertNotNull(graph);
         assertTrue(graph.nodes().isEmpty());
         assertTrue(graph.edges().isEmpty());

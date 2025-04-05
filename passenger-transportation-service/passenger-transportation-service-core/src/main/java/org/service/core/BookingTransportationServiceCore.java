@@ -46,16 +46,14 @@ public class BookingTransportationServiceCore extends TransportationServiceCore 
 
     @Override
     public CompletableFuture<List<BookingEntity>> findByPhone(final String phone, PageEntity pageEntity) {
-
-        return CompletableFuture.supplyAsync(() -> {
-            if (isPhone(phone)) {
-                String finalPhone = phone.replaceAll(" ", "").replaceAll("\\+", "");
-                return aggregate.getOutputPort(FindByPhoneTransportationServiceOutputPort.class).findBy(finalPhone, pageEntity);
-            } else {
-                throw new IsNotPhoneException();
-            }
-        }, executorService);
-
+        if (isPhone(phone)) {
+            String finalPhone = phone.replaceAll(" ", "").replaceAll("\\+", "");
+            return CompletableFuture.supplyAsync(() ->
+                            aggregate.getOutputPort(FindByPhoneTransportationServiceOutputPort.class).findBy(finalPhone, pageEntity)
+                    , executorService);
+        } else {
+            throw new IsNotPhoneException();
+        }
     }
 
     private BookingParamsEntity generateByPattern(BookingParamsEntity entity) {

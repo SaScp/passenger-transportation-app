@@ -17,6 +17,7 @@ import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPo
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -46,7 +47,7 @@ class BookingTransportationServiceCoreTest {
                 .thenReturn(findByPhoneOutputPort);
         when(aggregate.getOutputPort(RevokeBookingTransportationServiceOutputPort.class))
                 .thenReturn(revokeBookingOutputPort);
-        bookingCore = new BookingTransportationServiceCore(aggregate);
+        bookingCore = new BookingTransportationServiceCore(aggregate, Executors.newCachedThreadPool());
     }
 
     @Test
@@ -101,7 +102,7 @@ class BookingTransportationServiceCoreTest {
         String normalizedPhone = "7(123)456-78-90";
         PageEntity page = new PageEntity(1, 10);
         List<BookingEntity> expectedBookings = Collections.singletonList(mock(BookingEntity.class));
-        when(findByPhoneOutputPort.findBy(normalizedPhone, page).get()).thenReturn(expectedBookings);
+        when(findByPhoneOutputPort.findBy(normalizedPhone, page)).thenReturn(expectedBookings);
 
         List<BookingEntity> result = bookingCore.findByPhone(rawPhone, page).get();
         assertEquals(expectedBookings, result);
@@ -122,7 +123,7 @@ class BookingTransportationServiceCoreTest {
         String rawPhone = "+7 (123)456-78-90";
         String normalizedPhone = "7(123)456-78-90";
         List<BookingEntity> expectedBookings = Collections.singletonList(mock(BookingEntity.class));
-        when(findByPhoneOutputPort.findBy(normalizedPhone, null).get()).thenReturn(expectedBookings);
+        when(findByPhoneOutputPort.findBy(normalizedPhone, null)).thenReturn(expectedBookings);
 
         List<BookingEntity> result = bookingCore.findByPhone(rawPhone, null).get();
         assertEquals(expectedBookings, result);
