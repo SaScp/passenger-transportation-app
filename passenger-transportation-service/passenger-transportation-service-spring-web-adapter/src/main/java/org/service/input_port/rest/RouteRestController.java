@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-@Async
+@Async("taskExecutor")
 @RestController
 @RequestMapping("/route")
 @Tag(name = "RouteRestController", description = "Контроллер для взаимодействия с данными маршрутов")
@@ -57,7 +57,7 @@ public class RouteRestController {
     public CompletableFuture<List<RoutesEntity>> findTransport(
             @PageSettingParam PageEntity pageEntity,
             @Parameter(hidden = true) @FindByParam FilterParamEntity filterParam) {
-        return CompletableFuture.supplyAsync(() ->this.inputPort.findByParams(
+        return this.inputPort.findByParams(
                 new ParamsEntity(
                         filterParam.getTime(),
                         filterParam.getType(),
@@ -65,7 +65,7 @@ public class RouteRestController {
                         filterParam.getTo()
                 ),
                 pageEntity
-        ));
+        );
     }
 
 
@@ -83,7 +83,7 @@ public class RouteRestController {
     )
     @GetMapping("/find-all")
     public CompletableFuture<List<RoutesEntity>> findAllTransport(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findAll(pageEntity));
+        return this.inputPort.findAll(pageEntity);
     }
 
 
@@ -104,7 +104,7 @@ public class RouteRestController {
     @GetMapping("/find-by-id")
     public CompletableFuture<List<RoutesEntity>> findTransportById(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity,
                                                  @RequestParam(value = "route_id") List<String> id) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findByParams(new ParamsEntity(id), pageEntity));
+        return this.inputPort.findByParams(new ParamsEntity(id), pageEntity);
     }
 
 
@@ -122,7 +122,7 @@ public class RouteRestController {
     )
     @GetMapping("/find-routes-by-dep-id")
     public CompletableFuture<List<RoutesEntity>> findTransportByDepId(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity, @RequestParam(value = "id") String id) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findRoutesByDepId(id, pageEntity));
+        return this.inputPort.findRoutesByDepId(id, pageEntity);
     }
 
 
@@ -132,7 +132,7 @@ public class RouteRestController {
     )
     @GetMapping("/find-types")
     public CompletableFuture<List<TypeEntity>> findTypes() {
-        return CompletableFuture.supplyAsync(this.inputPort::findAllType);
+        return this.inputPort.findAllType();
     }
 
 }

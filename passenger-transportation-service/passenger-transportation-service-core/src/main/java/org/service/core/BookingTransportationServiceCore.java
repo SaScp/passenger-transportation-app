@@ -11,13 +11,16 @@ import org.service.output_port.find.FindByPhoneTransportationServiceOutputPort;
 import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPort;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
+
 
 public class BookingTransportationServiceCore extends TransportationServiceCore implements BookingTransportationServiceInputPort {
     private static final String PHONE_PATTERN = "^(?:\\+?7|8)[\\s-]?\\(?\\d{3}\\)?[\\s-]?\\d{3}[\\s-]?\\d{2}[\\s-]?\\d{2}$";
 
-    public BookingTransportationServiceCore(TransportationServiceOutputPortAggregate aggregate) {
-        super(aggregate);
+    public BookingTransportationServiceCore(TransportationServiceOutputPortAggregate aggregate, ExecutorService executorService) {
+        super(aggregate, executorService);
     }
 
     @Override
@@ -31,8 +34,7 @@ public class BookingTransportationServiceCore extends TransportationServiceCore 
             }
         } catch (IsNotPhoneException e) {
             throw new IsNotPhoneException();
-        }
-        catch (ProblemDetailsException e) {
+        } catch (ProblemDetailsException e) {
             throw new ProblemDetailsException(e);
         }
     }
@@ -43,17 +45,21 @@ public class BookingTransportationServiceCore extends TransportationServiceCore 
     }
 
     @Override
-    public List<BookingEntity> findByPhone(String phone, PageEntity pageEntity) {
-        if (isPhone(phone)) {
-            phone = phone.replaceAll(" ", "").replaceAll("\\+", "");
-            return aggregate.getOutputPort(FindByPhoneTransportationServiceOutputPort.class).findBy(phone, pageEntity);
-        } else {
-            throw new IsNotPhoneException();
-        }
+    public CompletableFuture<List<BookingEntity>> findByPhone(final String phone, PageEntity pageEntity) {
+
+        return CompletableFuture.supplyAsync(() -> {
+            if (isPhone(phone)) {
+                String finalPhone = phone.replaceAll(" ", "").replaceAll("\\+", "");
+                return aggregate.getOutputPort(FindByPhoneTransportationServiceOutputPort.class).findBy(finalPhone, pageEntity);
+            } else {
+                throw new IsNotPhoneException();
+            }
+        }, executorService);
+
     }
 
     private BookingParamsEntity generateByPattern(BookingParamsEntity entity) {
-        return new BookingParamsEntity(entity.numberPhone().replaceAll(" ", "").replaceAll("\\+", "") ,
+        return new BookingParamsEntity(entity.numberPhone().replaceAll(" ", "").replaceAll("\\+", ""),
                 entity.routeId());
     }
 

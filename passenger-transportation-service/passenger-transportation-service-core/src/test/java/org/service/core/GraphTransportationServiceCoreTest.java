@@ -13,6 +13,7 @@ import org.service.output_port.find.FindByRouteStepsIdsTransportationServiceOutp
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -37,7 +38,7 @@ class GraphTransportationServiceCoreTest {
                 .thenReturn(findAllRouteStepOutputPort);
         when(aggregate.getOutputPort(FindByRouteStepsIdsTransportationServiceOutputPort.class))
                 .thenReturn(findByRouteStepsIdsOutputPort);
-        graphCore = new GraphTransportationServiceCore(aggregate);
+        graphCore = new GraphTransportationServiceCore(aggregate, Executors.newVirtualThreadPerTaskExecutor());
     }
 
     @Test

@@ -1,6 +1,7 @@
 package org.service.output_port.jpa;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingParamsEntity;
@@ -22,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 @Component
@@ -36,6 +39,8 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
 
     public static final Long CREATED_STATUS_ID = 1L;
 
+    private final Lock lock = new ReentrantLock();
+
     @Override
     @Transactional
     public void create(BookingParamsEntity entity) {
@@ -47,8 +52,8 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
             throw new RouteNotFoundException();
         }
 
-        User user = Optional.ofNullable(entityManager.find(User.class, entity.numberPhone()))
-                .orElse(new User(entity.numberPhone()));
+
+        User user = findOrCreate(entity);
 
 
         String id = UUID.randomUUID().toString();
@@ -67,6 +72,26 @@ public class TransportationJpaCreateBookingAdapter implements CreateBookingTrans
             cacheUtils.createBooking("TransportationJpaFindByPhoneAdapter::findBy", entity.numberPhone().hashCode(), BookingMapper.INSTANCE.bookingToBookingEntity(save));
         });
 
+    }
+
+    private User findOrCreate(BookingParamsEntity entity) {
+        User user = entityManager.find(User.class, entity.numberPhone());
+        if (user != null) {
+            return user;
+        } else {
+            lock.lock();
+            try {
+                User userTh = entityManager.find(User.class, entity.numberPhone());
+                if (userTh != null) {
+                    return userTh;
+                }
+                user = new User(entity.numberPhone());
+                entityManager.persist(user);
+                return user;
+            } finally {
+                lock.unlock();
+            }
+        }
     }
 
     private void checkCause(Runnable bookingConsumer) {

@@ -16,6 +16,7 @@ import org.service.output_port.find.FindTypesTransportationServiceOutputPort;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -50,7 +51,7 @@ class RouteTransportationServiceCoreTest {
                 .thenReturn(findTypesOutputPort);
         when(aggregate.getOutputPort(FindAllRoutesByDepartureCityOutputPort.class))
                 .thenReturn(findAllRoutesByDepartureCityOutputPort);
-        routeCore = new RouteTransportationServiceCore(aggregate);
+        routeCore = new RouteTransportationServiceCore(aggregate, Executors.newVirtualThreadPerTaskExecutor());
     }
 
     @Test

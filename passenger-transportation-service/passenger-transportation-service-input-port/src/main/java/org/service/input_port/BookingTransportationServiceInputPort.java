@@ -5,11 +5,12 @@ import org.service.entity.BookingParamsEntity;
 import org.service.entity.PageEntity;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface BookingTransportationServiceInputPort {
     void createBooking(BookingParamsEntity bookingParams);
 
     void revokeBooking(String id);
 
-    List<BookingEntity> findByPhone(String phone, PageEntity pageEntity);
+    CompletableFuture<List<BookingEntity>> findByPhone(String phone, PageEntity pageEntity);
 }

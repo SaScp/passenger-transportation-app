@@ -23,6 +23,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @EnableAsync
 @EnableCaching
@@ -57,27 +59,33 @@ public class TransportationServiceApplication {
 
     @Bean
     public GraphTransportationServiceCore graphTransportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
-        return new GraphTransportationServiceCore(transportationServiceOutputPortAggregate);
+        return new GraphTransportationServiceCore(transportationServiceOutputPortAggregate, taskExecutorService());
     }
 
     @Bean
     public RouteTransportationServiceCore routeTransportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
-        return new RouteTransportationServiceCore(transportationServiceOutputPortAggregate);
+        return new RouteTransportationServiceCore(transportationServiceOutputPortAggregate, taskExecutorService());
     }
 
     @Bean
     public BookingTransportationServiceCore bookingTransportationServiceCore(@Qualifier("jpaAggregate") TransportationServiceOutputPortAggregate transportationServiceOutputPortAggregate) {
-        return new BookingTransportationServiceCore(transportationServiceOutputPortAggregate);
+        return new BookingTransportationServiceCore(transportationServiceOutputPortAggregate, taskExecutorService());
     }
+
 
     @Bean(name = "taskExecutor")
     public ThreadPoolTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(1);
-        executor.setMaxPoolSize(10000);
-        executor.setQueueCapacity(10000);
-        executor.setThreadNamePrefix("AsyncThread-");
+        executor.setVirtualThreads(true);
+        executor.setMaxPoolSize(800);
+        executor.setAllowCoreThreadTimeOut(true);
+        executor.setThreadNamePrefix("AsyncThread::");
         executor.initialize();
         return executor;
+    }
+
+    @Bean(name = "taskExecutorService")
+    public ExecutorService taskExecutorService() {
+        return Executors.newVirtualThreadPerTaskExecutor();
     }
 }

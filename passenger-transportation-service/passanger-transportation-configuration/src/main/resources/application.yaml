@@ -21,9 +21,11 @@ spring:
   threads:
     virtual:
       enabled: true
-
+  flyway:
+    enabled: false
 server:
   port: ${PORT:8080}
+
 springdoc:
   api-docs:
     path: ${SWAGGER_API_PATH:/docs/}
@@ -33,6 +35,7 @@ springdoc:
 logging:
   level:
     org.service: ${LOG_LEVEL:error}
+    org.springframework.security: debug
   file:
     name: ${LOG_FILE_NAME:app.log}
   logback:

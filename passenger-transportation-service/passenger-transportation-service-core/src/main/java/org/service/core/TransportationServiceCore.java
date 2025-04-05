@@ -14,13 +14,17 @@ import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPo
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
 public abstract class TransportationServiceCore {
 
    protected final TransportationServiceOutputPortAggregate aggregate;
 
-    public TransportationServiceCore(TransportationServiceOutputPortAggregate aggregate) {
+   protected final ExecutorService executorService;
+
+    public TransportationServiceCore(TransportationServiceOutputPortAggregate aggregate, ExecutorService executorService) {
         this.aggregate = aggregate;
+        this.executorService = executorService;
     }
 }

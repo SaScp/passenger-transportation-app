@@ -18,7 +18,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@Async
+@Async("taskExecutor")
 @RequestMapping("/booking")
 @RestController
 @Tag(name = "GraphRestController", description = "Контроллер для взаимодействия с бронированием")
@@ -65,7 +65,8 @@ public class BookingRestController {
 
     @GetMapping("/find-by-phone")
     public CompletableFuture<List<BookingEntity>> findTransportByPhone(@RequestParam(value = "phone") String phone, @Parameter(hidden = true) @PageSettingParam PageEntity pageEntity) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findByPhone(phone, pageEntity));
+
+        return this.inputPort.findByPhone(phone, pageEntity);
     }
 
 }

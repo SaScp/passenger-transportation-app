@@ -16,6 +16,7 @@ import org.service.output_port.revoke.RevokeBookingTransportationServiceOutputPo
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -95,14 +96,14 @@ class BookingTransportationServiceCoreTest {
     }
 
     @Test
-    void testFindByPhoneNormalization() {
+    void testFindByPhoneNormalization() throws ExecutionException, InterruptedException {
         String rawPhone = "+7 (123)456-78-90";
         String normalizedPhone = "7(123)456-78-90";
         PageEntity page = new PageEntity(1, 10);
         List<BookingEntity> expectedBookings = Collections.singletonList(mock(BookingEntity.class));
-        when(findByPhoneOutputPort.findBy(normalizedPhone, page)).thenReturn(expectedBookings);
+        when(findByPhoneOutputPort.findBy(normalizedPhone, page).get()).thenReturn(expectedBookings);
 
-        List<BookingEntity> result = bookingCore.findByPhone(rawPhone, page);
+        List<BookingEntity> result = bookingCore.findByPhone(rawPhone, page).get();
         assertEquals(expectedBookings, result);
         verify(findByPhoneOutputPort, times(1)).findBy(normalizedPhone, page);
     }
@@ -116,14 +117,14 @@ class BookingTransportationServiceCoreTest {
     }
 
     @Test
-    void testFindByPhoneWithNullPage() {
+    void testFindByPhoneWithNullPage() throws ExecutionException, InterruptedException {
         // Проверяем, что передача null для PageEntity корректно передается в output-порт (если такое допустимо)
         String rawPhone = "+7 (123)456-78-90";
         String normalizedPhone = "7(123)456-78-90";
         List<BookingEntity> expectedBookings = Collections.singletonList(mock(BookingEntity.class));
-        when(findByPhoneOutputPort.findBy(normalizedPhone, null)).thenReturn(expectedBookings);
+        when(findByPhoneOutputPort.findBy(normalizedPhone, null).get()).thenReturn(expectedBookings);
 
-        List<BookingEntity> result = bookingCore.findByPhone(rawPhone, null);
+        List<BookingEntity> result = bookingCore.findByPhone(rawPhone, null).get();
         assertEquals(expectedBookings, result);
         verify(findByPhoneOutputPort, times(1)).findBy(normalizedPhone, null);
     }

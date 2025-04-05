@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@Async
+@Async("taskExecutor")
 @RestController
 @RequestMapping("/graph/")
 @Tag(name = "GraphRestController", description = "Контроллер для взаимодействия с графом")
@@ -31,12 +31,12 @@ public class GraphRestController {
     )
     @GetMapping("/find-all-graph")
     public CompletableFuture<GraphEntity> findAllTransport() {
-        return CompletableFuture.supplyAsync(this.inputPort::findAll);
+        return this.inputPort.findAll();
     }
 
 
     @GetMapping("/find-by-ids")
     public CompletableFuture<GraphEntity> findGraphByIds(@RequestParam("id") List<String> ids) {
-        return CompletableFuture.supplyAsync(() -> this.inputPort.findGraphByIds(ids));
+        return  this.inputPort.findGraphByIds(ids);
     }
 }

@@ -3,10 +3,11 @@ package org.service.input_port;
 import org.service.entity.GraphEntity;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface GraphTransportationServiceInputPort {
 
-    GraphEntity findAll();
+    CompletableFuture<GraphEntity> findAll();
 
-    GraphEntity findGraphByIds(List<String> ids);
+    CompletableFuture<GraphEntity> findGraphByIds(List<String> ids);
 }
