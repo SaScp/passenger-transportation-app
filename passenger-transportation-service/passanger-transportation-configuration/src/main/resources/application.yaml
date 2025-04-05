@@ -21,8 +21,6 @@ spring:
   threads:
     virtual:
       enabled: true
-  flyway:
-    enabled: false
 server:
   port: ${PORT:8080}
 

@@ -20,6 +20,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.service.input_port</groupId>
             <artifactId>passenger-transportation-service-input-port</artifactId>
