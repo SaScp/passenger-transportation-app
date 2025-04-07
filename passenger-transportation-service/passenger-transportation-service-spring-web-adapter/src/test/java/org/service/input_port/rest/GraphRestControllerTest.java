@@ -23,7 +23,7 @@ public  class GraphRestControllerTest {
         inputPort = mock(GraphTransportationServiceInputPort.class);
         controller = new GraphRestController(inputPort);
 
-        // Формирование дефолтного графа для тестов (аналогично логике в mock'е)
+
         Set<Map<String, String>> nodes = new HashSet<>(Arrays.asList(
                 Map.of("id", "mockNode1", "label", "Mock City A"),
                 Map.of("id", "mockNode2", "label", "Mock City B"),
@@ -38,7 +38,7 @@ public  class GraphRestControllerTest {
 
     @Test
     void testFindAllTransport() throws Exception {
-        // Настраиваем возврат дефолтного графа
+
         when(inputPort.findAll()).thenReturn(CompletableFuture.completedFuture(defaultGraph));
 
         CompletableFuture<GraphEntity> future = controller.findAllTransport();
@@ -52,10 +52,10 @@ public  class GraphRestControllerTest {
 
     @Test
     void testFindGraphByIdsWithValidIds() throws Exception {
-        // Передаем список из одного узла и одного ребра
+
         List<String> ids = Arrays.asList("mockNode1", "mockEdge2");
 
-        // Ожидаемые результаты
+
         Set<Map<String, String>> expectedNodes = new HashSet<>();
         expectedNodes.add(Map.of("id", "mockNode1", "label", "Mock City A"));
         Set<Map<String, String>> expectedEdges = new HashSet<>();
@@ -78,7 +78,7 @@ public  class GraphRestControllerTest {
 
     @Test
     void testFindGraphByIdsWithEmptyList() throws Exception {
-        // Передаем пустой список, ожидаем пустой граф
+
         List<String> ids = Collections.emptyList();
         GraphEntity expectedGraph = new GraphEntity(Collections.emptySet(), Collections.emptySet());
 
@@ -96,7 +96,7 @@ public  class GraphRestControllerTest {
 
     @Test
     void testFindGraphByIdsWithNonMatchingIds() throws Exception {
-        // Передаем список с ID, которых нет в графе
+
         List<String> ids = Arrays.asList("nonexistent1", "nonexistent2");
         GraphEntity expectedGraph = new GraphEntity(Collections.emptySet(), Collections.emptySet());
 
@@ -114,7 +114,7 @@ public  class GraphRestControllerTest {
 
     @Test
     void testFindGraphByIdsWithNull() throws Exception {
-        // Проверка поведения при передаче null в качестве списка ID
+
         List<String> ids = null;
         GraphEntity expectedGraph = new GraphEntity(Collections.emptySet(), Collections.emptySet());
 

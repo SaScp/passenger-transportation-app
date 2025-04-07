@@ -29,7 +29,7 @@ public class RouteRestControllerTest {
 
     @Test
     void testFindTransportByFilter() throws Exception {
-        // Подготовка параметров фильтрации
+
         LocalDateTime time = LocalDateTime.now();
         String type = "BUS";
         String from = "mockA";
@@ -37,13 +37,13 @@ public class RouteRestControllerTest {
         FilterParamEntity filterParam = new FilterParamEntity(time, type, from, to);
         PageEntity pageEntity = new PageEntity(0, 5);
 
-        // Подготовка ожидаемых данных маршрута
+
         LocationEntity depCity = new LocationEntity("mockA", "Mock City A");
         LocationEntity arrCity = new LocationEntity("mockB", "Mock City B");
         RoutesEntity route = new RoutesEntity("mockRoute1", depCity, arrCity, "09:00", "11:00", "BUS", 45.0, Collections.emptyList());
         List<RoutesEntity> expectedRoutes = Collections.singletonList(route);
 
-        // Конструируем ожидаемый ParamsEntity (предполагается, что конструктор ParamsEntity принимает time, type, from и to)
+
         ParamsEntity expectedParams = new ParamsEntity(time, type, from, to);
 
         when(inputPort.findByParams(eq(expectedParams), eq(pageEntity)))
@@ -62,7 +62,7 @@ public class RouteRestControllerTest {
     void testFindAllTransport() throws Exception {
         PageEntity pageEntity = new PageEntity(0, 5);
 
-        // Подготовка списка маршрутов
+
         LocationEntity depCity = new LocationEntity("mockA", "Mock City A");
         LocationEntity arrCity = new LocationEntity("mockB", "Mock City B");
         RoutesEntity route1 = new RoutesEntity("mockRoute1", depCity, arrCity, "09:00", "11:00", "BUS", 45.0, Collections.emptyList());
@@ -83,13 +83,13 @@ public class RouteRestControllerTest {
     @Test
     void testFindTransportById() throws Exception {
         PageEntity pageEntity = new PageEntity(0, 5);
-        // Передаем список идентификаторов маршрутов
+
         List<String> routeIds = Arrays.asList("mockRoute1", "mockRoute3");
 
-        // Ожидаемый ParamsEntity для поиска по id (предполагается, что конструктор ParamsEntity(List<String>) существует)
+
         ParamsEntity expectedParams = new ParamsEntity(routeIds);
 
-        // Подготовка ожидаемых данных
+
         LocationEntity depCity = new LocationEntity("mockA", "Mock City A");
         LocationEntity arrCity = new LocationEntity("mockB", "Mock City B");
         RoutesEntity route = new RoutesEntity("mockRoute1", depCity, arrCity, "09:00", "11:00", "BUS", 45.0, Collections.emptyList());
@@ -112,7 +112,7 @@ public class RouteRestControllerTest {
         PageEntity pageEntity = new PageEntity(0, 5);
         String depId = "mockA";
 
-        // Подготовка ожидаемых маршрутов по id города отправления
+
         LocationEntity depCity = new LocationEntity("mockA", "Mock City A");
         LocationEntity arrCity = new LocationEntity("mockB", "Mock City B");
         RoutesEntity route = new RoutesEntity("mockRoute1", depCity, arrCity, "09:00", "11:00", "BUS", 45.0, Collections.emptyList());
@@ -131,7 +131,7 @@ public class RouteRestControllerTest {
 
     @Test
     void testFindTypes() throws Exception {
-        // Подготовка ожидаемых типов
+
         TypeEntity type1 = new TypeEntity(1L, "BUS");
         TypeEntity type2 = new TypeEntity(2L, "TRAIN");
         TypeEntity type3 = new TypeEntity(3L, "PLANE");

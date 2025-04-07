@@ -21,7 +21,6 @@ public class MockRouteTransportationServiceInputPort implements RouteTransportat
     private final List<TypeEntity> allTypes;
 
     public MockRouteTransportationServiceInputPort() {
-        // Create some default test data
         LocationEntity mockCityA = new LocationEntity("mockA", "Mock City A");
         LocationEntity mockCityB = new LocationEntity("mockB", "Mock City B");
         LocationEntity mockCityC = new LocationEntity("mockC", "Mock City C");
@@ -36,7 +35,7 @@ public class MockRouteTransportationServiceInputPort implements RouteTransportat
         allTypes = Arrays.asList(
                 new TypeEntity(1L, "BUS"),
                 new TypeEntity(2L, "TRAIN"),
-                new TypeEntity(3L, "PLANE") // Example type
+                new TypeEntity(3L, "PLANE")
         );
     }
 
@@ -46,7 +45,7 @@ public class MockRouteTransportationServiceInputPort implements RouteTransportat
 
         Stream<RoutesEntity> stream = allRoutes.stream();
 
-        // Apply filters based on ParamsEntity
+
         if (entity.routeId() != null && !entity.routeId().isEmpty()) {
             stream = stream.filter(route -> entity.routeId().contains(route.id()));
         } else {
@@ -59,20 +58,17 @@ public class MockRouteTransportationServiceInputPort implements RouteTransportat
             if (entity.type() != null && !entity.type().isEmpty()) {
                 stream = stream.filter(route -> entity.type().equalsIgnoreCase(route.type()));
             }
-            // Note: Time filtering is complex (parsing, comparison).
-            // This mock implementation skips time filtering for simplicity.
-            // A real implementation would parse route.departureTime() and compare with entity.time().
+
             if (entity.time() != null) {
                 System.out.println("Mock: Time filtering is not implemented in this basic mock.");
             }
         }
 
 
-        // Apply pagination
         List<RoutesEntity> filteredAndPaged = stream
                 .skip((long) pageEntity.pageNum() * pageEntity.pageSize())
                 .limit(pageEntity.pageSize())
-                .collect(Collectors.toList()); // Use collect for Java 11 compatibility if needed
+                .collect(Collectors.toList());
 
         return CompletableFuture.completedFuture(filteredAndPaged);
     }
@@ -80,7 +76,7 @@ public class MockRouteTransportationServiceInputPort implements RouteTransportat
     @Override
     public CompletableFuture<List<RoutesEntity>> findAll(PageEntity pageEntity) {
         System.out.println("Mock: Finding all routes with page " + pageEntity);
-        // Apply pagination
+
         List<RoutesEntity> pagedRoutes = allRoutes.stream()
                 .skip((long) pageEntity.pageNum() * pageEntity.pageSize())
                 .limit(pageEntity.pageSize())

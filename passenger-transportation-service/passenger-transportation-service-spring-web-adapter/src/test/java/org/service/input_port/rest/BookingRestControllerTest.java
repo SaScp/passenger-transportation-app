@@ -50,7 +50,7 @@ public class BookingRestControllerTest {
 
     @Test
     void testMultipleBookingCreation() throws Exception {
-        // Создаем два бронирования с разными параметрами
+
         BookingQueryParam query1 = new BookingQueryParam("1112223333", "route-1");
         BookingQueryParam query2 = new BookingQueryParam("4445556666", "route-2");
 
@@ -62,7 +62,7 @@ public class BookingRestControllerTest {
         assertEquals(201, response1.getStatusCodeValue());
         assertEquals(201, response2.getStatusCodeValue());
 
-        // Проверяем, что метод createBooking был вызван дважды с корректными параметрами
+
         ArgumentCaptor<BookingParamsEntity> captor = ArgumentCaptor.forClass(BookingParamsEntity.class);
         verify(inputPort, times(2)).createBooking(captor.capture());
         List<BookingParamsEntity> capturedList = captor.getAllValues();
@@ -78,7 +78,7 @@ public class BookingRestControllerTest {
 
         controller.revokeBooking("booking-1");
 
-        // Даем немного времени на выполнение асинхронного кода
+
         Thread.sleep(100);
 
         verify(inputPort, times(1)).revokeBooking("booking-1");
@@ -86,7 +86,7 @@ public class BookingRestControllerTest {
 
     @Test
     void testRevokeBookingNonExistent() throws Exception {
-        // Если бронь не существует, метод просто вызывается
+
         doNothing().when(inputPort).revokeBooking("non-existent-booking");
 
         controller.revokeBooking("non-existent-booking");
@@ -135,8 +135,7 @@ public class BookingRestControllerTest {
     @Test
     void testFindTransportByPhoneInvalidPageParams() throws Exception {
         String phone = "5551234567";
-        // Передаем некорректные page параметры (например, отрицательные значения)
-        // В реальной логике они могут обрабатываться на уровне PageEntity, здесь мы имитируем передачу некорректного объекта
+
         PageEntity invalidPageEntity = new PageEntity(-1, -5);
         List<BookingEntity> emptyList = Collections.emptyList();
 
@@ -146,7 +145,7 @@ public class BookingRestControllerTest {
         CompletableFuture<List<BookingEntity>> futureResult = controller.findTransportByPhone(phone, invalidPageEntity);
         List<BookingEntity> result = futureResult.get();
 
-        // Проверяем, что возвращается пустой список (заглушка возвращает пустой список)
+
         assertNotNull(result);
         assertTrue(result.isEmpty());
         verify(inputPort, times(1)).findByPhone(eq(phone), eq(invalidPageEntity));

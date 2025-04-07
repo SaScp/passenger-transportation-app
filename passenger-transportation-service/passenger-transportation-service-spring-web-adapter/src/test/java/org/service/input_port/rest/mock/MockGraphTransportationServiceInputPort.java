@@ -17,7 +17,7 @@ public class MockGraphTransportationServiceInputPort implements GraphTransportat
     private final GraphEntity defaultGraph;
 
     public MockGraphTransportationServiceInputPort() {
-        // Create some default graph data for the mock
+
         Set<Map<String, String>> nodes = new HashSet<>(Arrays.asList(
                 Map.of("id", "mockNode1", "label", "Mock City A"),
                 Map.of("id", "mockNode2", "label", "Mock City B"),
@@ -33,7 +33,6 @@ public class MockGraphTransportationServiceInputPort implements GraphTransportat
     @Override
     public CompletableFuture<GraphEntity> findAll() {
         System.out.println("Mock: Finding all graph data.");
-        // Return a completed CompletableFuture with the default graph
         return CompletableFuture.completedFuture(defaultGraph);
     }
 
@@ -44,7 +43,7 @@ public class MockGraphTransportationServiceInputPort implements GraphTransportat
             return CompletableFuture.completedFuture(new GraphEntity(Collections.emptySet(), Collections.emptySet()));
         }
 
-        // Filter nodes and edges based on the provided IDs
+
         Set<Map<String, String>> filteredNodes = defaultGraph.nodes().stream()
                 .filter(node -> ids.contains(node.get("id")))
                 .collect(Collectors.toSet());
@@ -53,9 +52,7 @@ public class MockGraphTransportationServiceInputPort implements GraphTransportat
                 .filter(edge -> ids.contains(edge.get("id")))
                 .collect(Collectors.toSet());
 
-        // You might also want to include nodes connected by the filtered edges,
-        // or edges connecting the filtered nodes, depending on the desired logic.
-        // This is a simple filter based on direct ID match.
+
 
         GraphEntity filteredGraph = new GraphEntity(filteredNodes, filteredEdges);
         return CompletableFuture.completedFuture(filteredGraph);

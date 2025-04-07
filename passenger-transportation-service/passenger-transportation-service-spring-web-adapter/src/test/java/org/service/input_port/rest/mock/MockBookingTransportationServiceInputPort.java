@@ -30,13 +30,13 @@ public class MockBookingTransportationServiceInputPort implements BookingTranspo
         String id = "mock-booking-" + idCounter.incrementAndGet();
         BookingEntity newBooking = new BookingEntity(
                 id,
-                java.time.LocalDateTime.now().toString(), // Use current time as booking time
+                java.time.LocalDateTime.now().toString(),
                 bookingParams.numberPhone(),
                 "CONFIRMED", // Default status
                 bookingParams.routeId()
         );
         bookings.put(id, newBooking);
-        // In a real mock, you might add more logic or store the created booking if needed for verification
+
     }
 
     @Override
@@ -48,25 +48,23 @@ public class MockBookingTransportationServiceInputPort implements BookingTranspo
 
     @Override
     public CompletableFuture<List<BookingEntity>> findByPhone(String phone, PageEntity pageEntity) {
-        // Simulate finding bookings by phone with simple filtering and pagination
+
         System.out.println("Mock: Finding bookings for phone " + phone + " with page " + pageEntity);
         List<BookingEntity> found = bookings.values().stream()
                 .filter(booking -> phone.equals(booking.userPhone()))
                 .skip((long) pageEntity.pageNum() * pageEntity.pageSize())
                 .limit(pageEntity.pageSize())
-                .toList(); // Requires Java 16+
+                .toList();
 
-        // Return a completed CompletableFuture with the result
         return CompletableFuture.completedFuture(found);
     }
 
-    // Helper method for tests to clear state if needed
+
     public void clear() {
         bookings.clear();
         idCounter.set(0);
     }
 
-    // Helper method for tests to get a booking
     public BookingEntity getBookingById(String id) {
         return bookings.get(id);
     }
