@@ -14,14 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional(readOnly = true)
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class TransportationJpaFindTypesAdapter implements FindTypesTransportationServiceOutputPort {
 
     private final TypeRepository typeRepository;
 
     @Override
-    @Cacheable("TransportationJpaFindTypesAdapter::findAllTypeEntity")
     public List<TypeEntity> findAllTypeEntity() {
         return TypeMapper.INSTANCE.transportTypesToTypeEntitys(typeRepository.findAll());
     }

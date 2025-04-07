@@ -35,16 +35,23 @@ public class TransportationJpaFindByPhoneAdapter implements FindByPhoneTransport
     }
 
     @Override
-    @Cacheable(key = "#phone", value = "TransportationJpaFindByPhoneAdapter::findBy")
     public List<BookingEntity> findBy(String phone, PageEntity pageEntity) {
 
-        if (!userRepository.existsById(phone)) {
+        if (phone == null || !userRepository.existsById(phone)) {
             log.error("error in method {} message {}", Thread.currentThread().getStackTrace()[1], "User not found");
             throw new UserNotFoundException();
         }
 
         Optional<List<Booking>> optionalListBookings = repository.findAllByNumberPhone_NumberPhone(phone);
+
         return optionalListBookings.map(BookingMapper.INSTANCE::bookingsToBookingEntitys)
+                .map(e -> {
+                    if (e.isEmpty()) {
+                        throw new BookingNotFoundException();
+                    } else  {
+                        return e;
+                    }
+                })
                 .orElseThrow(BookingNotFoundException::new);
     }
 

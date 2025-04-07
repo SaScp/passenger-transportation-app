@@ -26,12 +26,11 @@ public class TransportationJpaFindAllAdapter implements FindAllTransportationSer
     }
 
     @Override
-    @Cacheable(key = "#pageEntity.hashCode()", value = "TransportationJpaFindAllAdapter::findAll")
     public List<RoutesEntity> findAll(PageEntity pageEntity) {
         Page<String> routes = repository
                 .findIds(PageRequest
-                        .of(pageEntity.getPageNum(),
-                                pageEntity.getPageSize()
+                        .of(pageEntity.pageNum(),
+                                pageEntity.pageSize()
                         )
                 );
         return RouteMapper.INSTANCE.routesToRouteEntitys(repository.findRoutesByIdIn(routes.getContent(), Sort.by(Sort.Order.by("departureTime"))));

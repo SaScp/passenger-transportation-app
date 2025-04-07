@@ -8,15 +8,15 @@ import org.service.entity.RoutesEntity;
 import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindByParamsTransportationServiceOutputPort;
 import org.service.output_port.mapper.RouteMapper;
-import org.service.output_port.model.Route;
-import org.service.output_port.model.RoutePageEntity;
+import org.service.output_port.entity.RoutePageEntity;
 import org.service.output_port.repository.RouteRepository;
-import org.service.output_port.util.BatchUtils;
+import org.service.output_port.util.RouteUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 @AllArgsConstructor
@@ -24,39 +24,34 @@ public class TransportationJpaFindByParamAdapter implements FindByParamsTranspor
 
     private final RouteRepository repository;
 
-    private final BatchUtils batchUpdate;
+    private final RouteUtils routeUtils;
 
 
     @Override
     @Transactional
-    @Cacheable(key = "#entity.hashCode() % #pageEntity.hashCode()", value = "TransportationJpaFindByParamAdapter::findBy")
     public List<RoutesEntity> findBy(ParamsEntity entity, PageEntity pageEntity) {
 
-        List<String> routeIds;
-        List<Route> routesByIdIn;
-        Map<String, RoutePageEntity> routePageEntityMap = new HashMap<>();
+        if (entity.routeId() == null || entity.routeId().isEmpty()) {
 
+            List<RoutePageEntity> recursiveResults = getRecursiveRoutes(entity, pageEntity);
 
-        if (entity.getRouteId() == null || entity.getRouteId().isEmpty()) {
-            List<RoutePageEntity> recursiveResults = repository.findRecursiveRoutes(entity.getFrom(), entity.getTo(), entity.getType(), entity.getTime().toString(), pageEntity.getPageSize(), pageEntity.getPageNum() * pageEntity.getPageSize());
-            for (int i = 0; i < recursiveResults.size(); i++) {
-                routePageEntityMap.put(UUID.nameUUIDFromBytes(recursiveResults.get(i).toString().getBytes()).toString(), recursiveResults.get(i));
-            }
-
-            routesByIdIn = repository.findRoutesByIdIn(routePageEntityMap.keySet());
-
-            for (var i : routesByIdIn) {
-                routePageEntityMap.remove(i.getId());
-            }
-
-            batchUpdate.executeSaveAll(routePageEntityMap, recursiveResults, routesByIdIn);
+            return RouteMapper.INSTANCE.routesToRouteEntitys(routeUtils.getRoutesFromResult(recursiveResults));
         } else {
-            routeIds = entity.getRouteId();
-            routesByIdIn = repository.findRoutesByIdIn(routeIds);
+
+            List<String> routeIds = entity.routeId();
+            return RouteMapper.INSTANCE.routesToRouteEntitys(repository.findRoutesByIdIn(routeIds));
         }
 
+    }
 
-        return RouteMapper.INSTANCE.routesToRouteEntitys(routesByIdIn);
+    public List<RoutePageEntity> getRecursiveRoutes(ParamsEntity entity, PageEntity pageEntity) {
+        return repository.findRecursiveRoutes(
+                entity.from() + "%",
+                entity.to() + "%",
+                entity.type(),
+                entity.time().toString(),
+                pageEntity.pageSize(),
+                pageEntity.pageNum() * pageEntity.pageSize(), 5);
     }
 
 

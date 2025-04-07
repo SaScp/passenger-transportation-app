@@ -1,0 +1,1 @@
+CREATE INDEX idx_lower_c_name ON t_location (LOWER(c_name));

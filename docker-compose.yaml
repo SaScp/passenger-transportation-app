@@ -12,6 +12,7 @@ services:
       - passenger_app_net
     depends_on:
       - db_pg
+      - passenger_redis
     environment:
       - spring.profiles.active=prod
     healthcheck:
@@ -49,3 +50,12 @@ services:
       start_period: 1m
     ports:
       - "80:80"
+  passenger_redis:
+    image: redis:latest
+    container_name: passenger_redis
+    networks:
+      - passenger_app_net
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"

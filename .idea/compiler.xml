@@ -10,23 +10,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="passanger-transportation-backend" />
-        <module name="passanger-transportation-graph-jpa-adapter" />
-      </profile>
-      <profile name="Annotation profile for passenger-transportation-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="passenger-transportation-service-core" />
+        <module name="passenger-transportation-cache-adapter" />
         <module name="passenger-transportation-service-output-port" />
         <module name="passenger-transportation-service-spring-web-adapter" />
-        <module name="passenger-transportation-shared" />
         <module name="passenger-transportation-service-input-port" />
+        <module name="passenger-transportation-service-core" />
+        <module name="passanger-transportation-configuration" />
+        <module name="passenger-transportation-shared" />
       </profile>
-      <profile name="Annotation profile for passenger-transportation-jpa-graph-adapter" enabled="true">
+      <profile name="Annotation profile for passenger-transportation-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -40,23 +32,31 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="passanger-transportation-graph-jpa-adapter" target="21" />
+      <module name="passenger-transportation-backend" target="21" />
       <module name="passenger-transportation-jdbc-adapter" target="21" />
       <module name="passenger-transportation-jpa-adapter" target="21" />
+      <module name="passenger-transportation-security-output-port" target="21" />
+      <module name="passenger-transportation-spring-security-adapter" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="passanger-transportation-backend" options="-parameters" />
+      <module name="passanger-transportation-configuration" options="-parameters" />
       <module name="passanger-transportation-graph-jpa-adapter" options="-parameters" />
+      <module name="passenger-transportation-backend" options="-parameters" />
+      <module name="passenger-transportation-cache-adapter" options="-parameters" />
       <module name="passenger-transportation-jdbc-adapter" options="-parameters" />
       <module name="passenger-transportation-jpa-adapter" options="-parameters" />
       <module name="passenger-transportation-jpa-graph-adapter" options="-parameters" />
+      <module name="passenger-transportation-security-output-port" options="-parameters" />
       <module name="passenger-transportation-service" options="-parameters" />
       <module name="passenger-transportation-service-core" options="-parameters" />
       <module name="passenger-transportation-service-input-port" options="-parameters" />
       <module name="passenger-transportation-service-output-port" options="-parameters" />
       <module name="passenger-transportation-service-spring-web-adapter" options="-parameters" />
       <module name="passenger-transportation-shared" options="-parameters" />
+      <module name="passenger-transportation-spring-security-adapter" options="-parameters" />
     </option>
   </component>
 </project>

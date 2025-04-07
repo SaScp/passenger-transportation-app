@@ -1,4 +1,6 @@
 package org.service.entity;
 
-public record LocationEntity(String id, String label) {
+import java.io.Serializable;
+
+public record LocationEntity(String id, String label) implements Serializable {
 }

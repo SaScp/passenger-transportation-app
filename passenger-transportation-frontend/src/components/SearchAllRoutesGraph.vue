@@ -7,9 +7,10 @@
           @create-new-route="createNewRoute"
       />
       <section class="find-all-routes">
+
         <div class="routes" id="routes-graph">
           <div class="route-date" v-for="(routes, date) in groupedRoutes" :key="date">
-            <h2>📅 {{ date }}</h2>
+            <h2 class="date-header">📅 {{ formatDateHeader(date) }}</h2>
             <RouteItem
                 v-for="route in routes"
                 :key="route.id"
@@ -20,11 +21,10 @@
             />
           </div>
         </div>
-
         <div class="swiper" v-if="is_find">
-          <button @click="prev" :disabled="page_num === 0">Предыдущая</button>
-          <a>{{ page_num + 1 }}</a>
-          <button @click="next" :disabled="!hasMore">Следующая</button>
+          <button class="pagination-button" @click="prev" :disabled="page_num === 0">Предыдущая</button>
+          <span class="page-number">{{ page_num + 1 }}</span>
+          <button class="pagination-button" @click="next" :disabled="!hasMore">Следующая</button>
         </div>
       </section>
     </div>
@@ -32,13 +32,12 @@
 </template>
 
 <script>
-import axios from "axios";
 import NetworkGraph from "@/components/Graph.vue";
 import RouteItem from "@/components/RouteCard.vue";
-import {getAllGraphs, getRoutesByDepId} from "@/api.js";
+import { getAllGraphs, getRoutesByDepId } from "@/api.js";
 
 export default {
-  name: "App",
+  name: "SearchAllRoutesGraph",
   components: {
     NetworkGraph,
     RouteItem
@@ -46,8 +45,6 @@ export default {
   data() {
     return {
       dep_id: "",
-      to: "",
-      from: "",
       routeData: [],
       graph: {
         nodes: [],
@@ -56,24 +53,21 @@ export default {
       page_num: 0,
       page_size: 4,
       is_find: false,
-      is_zero: false,
       hasMore: true
     };
   },
   async mounted() {
     try {
-      const edgesResponse = await getAllGraphs();
-      console.log(edgesResponse)
+      const response = await getAllGraphs();
       this.graph = {
-        nodes: edgesResponse.data.nodes || [],
-        edges: edgesResponse.data.edges || []
+        nodes: response.data.nodes || [],
+        edges: response.data.edges || []
       };
     } catch (error) {
-      console.error("Ошибка при получении данных:", error);
+      console.error("Ошибка при получении данных графа:", error);
     }
   },
   methods: {
-
     highlightRoute(routeEdgeIds) {
       if (this.$refs.networkGraph) {
         this.$refs.networkGraph.highlightRoute(routeEdgeIds);
@@ -81,111 +75,158 @@ export default {
     },
     async createNewRoute(departureId) {
       this.page_num = 0;
-      console.log(departureId);
-      await this.find(departureId);
+      this.dep_id = departureId;
+      await this.fetchRoutes();
     },
-    async find(departureId) {
+    async fetchRoutes() {
       try {
-        const params = {};
-        params.id = departureId;
-        this.dep_id = departureId;
-        params.page_num = this.page_num;
-        params.page_size = this.page_size;
+        const params = {
+          id: this.dep_id,
+          page_num: this.page_num,
+          page_size: this.page_size
+        };
         const response = await getRoutesByDepId(params);
-        console.log(response.data)
-        if (response.data.length <= 0) {
+        if (response.data.length === 0) {
           if (this.page_num > 0) this.page_num--;
           this.routeData = [];
           this.is_find = false;
           this.hasMore = false;
         } else {
-          this.is_find = true;
           this.routeData = response.data;
-
+          this.is_find = true;
           this.hasMore = response.data.length === this.page_size;
         }
       } catch (error) {
-        console.error("Ошибка при получении данных:", error);
+        console.error("Ошибка при получении маршрутов:", error);
       }
     },
     async next() {
       if (this.hasMore) {
         this.page_num++;
-        await this.find(this.dep_id);
+        await this.fetchRoutes();
       }
-    },
-    async createParams(departureId) {
-      return {
-        id: departureId,
-        page_num: this.page_num,
-        page_size: this.page_size
-      };
     },
     async prev() {
       if (this.page_num > 0) {
         this.page_num--;
         this.hasMore = true;
-        await this.find(this.dep_id);
+        await this.fetchRoutes();
       }
+    },
+    formatDateHeader(dateStr) {
+      const [year, month, day] = dateStr.substring(0, dateStr.lastIndexOf(" ")).split("-");
+
+      return `${day}.${month}.${year}`;
     }
   },
-  computed : {
+  computed: {
     groupedRoutes() {
-      const grouped = {};
+      const groups = {};
       this.routeData.forEach(route => {
         const date = route.departureTime.split("T")[0];
-        if (!grouped[date]) {
-          grouped[date] = [];
+        if (!groups[date]) {
+          groups[date] = [];
         }
-        grouped[date].push(route);
+        groups[date].push(route);
       });
-      return grouped;
+      return groups;
     }
   }
 };
 </script>
 
 <style scoped>
+/* Общие стили приложения */
 .app-container {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.filter-section {
-  margin-bottom: 20px;
-}
-
-input {
-  margin-left: 10px;
-  padding: 5px;
+  padding: 30px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .info {
   display: flex;
-  flex-flow: row;
+
   justify-content: center;
+  gap: 30px;
 }
 
-button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
+/* Стили для блока маршрутов */
+.find-all-routes {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  flex: 1;
 }
-#routes-graph {
+
+.routes {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-height: 1000px;
+  overflow-y: auto;
 }
-@media screen and (max-width: 1720px) {
-  .info {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
+
+.route-date {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.date-header {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Стили для пагинации */
+.swiper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.pagination-button {
+  background: #2b7ce9;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.pagination-button:disabled {
+  background: #b0c4de;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background: #1f5aa4;
+}
+
+.page-number {
+  font-weight: bold;
+  font-size: 16px;
+}
+@media screen and (max-width: 1857px) {
+  .routes {
+    grid-template-columns: 1fr 1fr;
+    max-height: 1000px;
+    overflow-y: auto;
   }
-  .network-container {
-    height: 700px;
-    width: 700px;
-    border: 1px solid lightgray;
+  .find-all-routes {
+    max-width: 1000px;
+  }
+  .info {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
   }
 }
 </style>

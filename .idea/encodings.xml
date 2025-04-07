@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-backend/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-backend/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-configuration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-configuration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passanger-transportation-graph-jpa-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-cache-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-cache-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jdbc-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jdbc-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jpa-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jpa-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jpa-graph-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-jpa-graph-adapter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-security-output-port/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-security-output-port/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-service-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-service-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-service-input-port/src/main/java" charset="UTF-8" />
@@ -20,6 +24,8 @@
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-service-spring-web-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-shared/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-shared/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-spring-security-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/passenger-transportation-service/passenger-transportation-spring-security-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passenger-transportation-service/src/main/resources" charset="UTF-8" />
   </component>

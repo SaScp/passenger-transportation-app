@@ -1,27 +1,8 @@
 package org.service.entity;
 
-public class BookingParamsEntity {
-    private String numberPhone;
-    private String routeId;
+import java.io.Serializable;
 
-    public BookingParamsEntity(String numberPhone, String routeId) {
-        this.numberPhone = numberPhone;
-        this.routeId = routeId;
-    }
+public record BookingParamsEntity(String numberPhone, String routeId) implements Serializable {
 
-    public String getNumberPhone() {
-        return numberPhone;
-    }
 
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
-    }
-
-    public String getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(String routeId) {
-        this.routeId = routeId;
-    }
 }

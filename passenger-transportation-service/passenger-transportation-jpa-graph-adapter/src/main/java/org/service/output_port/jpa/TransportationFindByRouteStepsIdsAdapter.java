@@ -13,15 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional(readOnly = true)
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class TransportationFindByRouteStepsIdsAdapter implements FindByRouteStepsIdsTransportationServiceOutputPort {
 
     private final RouteStepRepository routeStepRepository;
 
 
     @Override
-    @Cacheable(key = "#ids.hashCode()", value = "TransportationFindByRouteStepsIdsAdapter::findRouteStepsByIds")
     public List<RouteStepEntity> findRouteStepsByIds(List<String> ids) {
         return RouteStepMapper.INSTANCE.routeStepsToRouteStepEntitys(routeStepRepository.findRouteStepsByRouteIdIn(ids));
     }

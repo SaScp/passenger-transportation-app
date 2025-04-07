@@ -4,6 +4,14 @@ public class BookingQueryParam {
     private String numberPhone;
     private String routeId;
 
+    public BookingQueryParam() {
+    }
+
+    public BookingQueryParam(String numberPhone, String routeId) {
+        this.numberPhone = numberPhone;
+        this.routeId = routeId;
+    }
+
     public String getNumberPhone() {
         return numberPhone;
     }

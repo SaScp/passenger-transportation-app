@@ -7,9 +7,9 @@
         <p>Статус: {{ booking.status }}</p>
       </div>
       <div class="inner-booking-button" v-if="booking.status !== 'Отменено' && isActive">
-        <button @click="revokeBooking(booking)">Отменить бронь</button>
+        <button class="filter-btn" @click="revokeBooking(booking)">Отменить бронь</button>
       </div>
-      <div class="load-route-info" :class="{ hovered: isHovered }"
+      <div class="load-route-info filter-btn" :class="{ hovered: isHovered }"
            @mousedown="onHover" @click="onClick(booking.route)">
         <svg width="28" height="26" viewBox="0 0 48 26" fill="none" xmlns="http://www.w3.org/2000/svg">
           <line x1="0.872521" y1="24.9204" x2="24.4203" y2="1.37255" stroke="black"/>

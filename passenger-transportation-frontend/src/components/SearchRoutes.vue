@@ -3,33 +3,33 @@
     <div class="filter-section">
       <input
           class="locationFilter"
-          id="locationFilter"
           v-model="from"
           placeholder="Введите откуда поедите"
       />
       <input
           class="locationFilter"
-          id="locationFilter"
           v-model="to"
           placeholder="Введите куда поедете"
       />
       <select v-model="type" class="type-group locationFilter">
         <option
-            class="inner-type-group locationFilter"
             v-for="typeEl in types"
             :key="typeEl.id"
-            :value="typeEl.typeName">
+            :value="typeEl.typeName"
+        >
           {{ typeEl.typeName }}
         </option>
       </select>
-      <input type="date" id="dateInput" class="locationFilter">
-      <input type="time" id="timeInput" class="locationFilter">
-      <button @click="fetchRoutesAndEdges">Применить фильтр</button>
+      <input type="date" id="dateInput" class="locationFilter" />
+      <input type="time" id="timeInput" class="locationFilter" />
+      <button class="filter-btn" @click="fetchRoutesAndEdges">
+        Применить фильтр
+      </button>
     </div>
     <div class="not_found" v-if="isFind === false">
       <span>Похоже ничего не найдено ;(</span>
     </div>
-    <div class="info" v-if="isFind===true">
+    <div class="info" v-if="isFind === true">
       <NetworkGraph :graph="graph" ref="networkGraph" />
       <div class="routes">
         <RouteItem
@@ -41,21 +41,23 @@
             @highlight-route="highlightRoute"
         />
         <div class="pagination-buttons" v-if="is_find">
-          <button @click="prev" :disabled="page_num === 0">Предыдущая</button>
-          <span>Страница {{ page_num + 1 }}</span>
-          <button @click="next" :disabled="!hasMore">Следующая</button>
+          <button class="pagination-btn" @click="prev" :disabled="page_num === 0">
+            Предыдущая
+          </button>
+          <span class="page-number">Страница {{ page_num + 1 }}</span>
+          <button class="pagination-btn" @click="next" :disabled="!hasMore">
+            Следующая
+          </button>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import NetworkGraph from "@/components/Graph.vue";
 import RouteItem from "@/components/RouteCard.vue";
-import {findById, findRoutesByParams, getAllTypes} from "@/api.js";
+import { findById, findRoutesByParams, getAllTypes } from "@/api.js";
 
 export default {
   name: "App",
@@ -70,7 +72,7 @@ export default {
       time: null,
       type: null,
       types: [],
-      isFind: false,
+      isFind: null,
       routeData: [],
       hasMore: true,
       graph: {
@@ -103,29 +105,23 @@ export default {
         params.page_size = this.page_size;
 
         const routeResponse = await findRoutesByParams(params);
-
         const data = routeResponse.data || [];
-
         if (this.page_num === 0 && data.length === 0) {
-          this.isFind = false
+          this.isFind = false;
         } else {
-          this.isFind = true
+          this.isFind = true;
         }
         if (data.length === 0 && this.page_num > 0) {
-
           this.page_num--;
           this.hasMore = false;
         } else {
           this.is_find = data.length > 0;
           this.routeData = data;
           this.hasMore = data.length === this.page_size;
-
         }
-
-        console.log(this.isFind)
-        // Обновление графа
+        // Обновление графа на основе найденных маршрутов
         const routeIds = this.routeData.map(route => route.id).join(",");
-        const edgesResponse = await findById(routeIds)
+        const edgesResponse = await findById(routeIds);
         this.graph = {
           nodes: edgesResponse.data.nodes || [],
           edges: edgesResponse.data.edges || []
@@ -143,7 +139,7 @@ export default {
     prev() {
       if (this.page_num > 0) {
         this.page_num--;
-         this.hasMore = true;
+        this.hasMore = true;
         this.fetchData();
       }
     },
@@ -151,7 +147,7 @@ export default {
       try {
         const response = await getAllTypes();
         this.types = response.data;
-        this.types.push({id: -1, typeName: "микс"});
+        this.types.push({ id: -1, typeName: "микс" });
       } catch (err) {
         console.error("Ошибка при поиске маршрутов:", err);
       }
@@ -171,81 +167,146 @@ function getFormattedTime() {
   if (!timeValue) {
     timeValue = "08:00";
   }
-
   if (!dateValue) {
     const today = new Date();
-    dateValue = today.toISOString().split('T')[0];
+    dateValue = today.toISOString().split("T")[0];
   }
-
   const dateTimeString = `${dateValue}T${timeValue}`;
   const date = new Date(dateTimeString);
-
-  const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}/` +
-      `${String(date.getDate()).padStart(2, '0')}/` +
+  const formattedDate = `${String(date.getMonth() + 1).padStart(2, "0")}/` +
+      `${String(date.getDate()).padStart(2, "0")}/` +
       `${date.getFullYear()}-` +
-      `${String(date.getHours()).padStart(2, '0')}:` +
-      `${String(date.getMinutes()).padStart(2, '0')}:` +
-      `${String(date.getSeconds()).padStart(2, '0')}`;
+      `${String(date.getHours()).padStart(2, "0")}:` +
+      `${String(date.getMinutes()).padStart(2, "0")}:` +
+      `${String(date.getSeconds()).padStart(2, "0")}`;
   return formattedDate;
 }
 </script>
 
 <style scoped>
-.locationFilter {
-  border-radius: 15px;
-}
-
+/* Общий стиль контейнера */
 .app-container {
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* Стили для фильтра */
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
   padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.locationFilter {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  width: 180px;
+  transition: border 0.3s;
+}
+
+.locationFilter:focus {
+  border-color: #2b7ce9;
 }
 
 .type-group {
   padding: 10px;
-  margin: 10px 0;
-  border-radius: 4px;
   border: 1px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  transition: border 0.3s;
 }
+
+.type-group:focus {
+  border-color: #2b7ce9;
+}
+
+.filter-btn {
+  background: #2b7ce9;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 16px;
+}
+
+.filter-btn:hover {
+  background: #1f5aa4;
+}
+
+/* Стили для блока, если ничего не найдено */
 .not_found {
-  display: flex;
-  justify-content: center;
-}
-.filter-section {
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  margin-bottom: 20px;
-  border-radius: 15px;
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin: 20px 0;
 }
 
-input {
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 5px;
-}
-
+/* Стили для основного блока с графом и маршрутами */
 .info {
   display: flex;
+  flex-direction: row;
+  gap: 30px;
   justify-content: center;
-  flex-flow: row;
+  width: 100%;
 }
 
-button {
-  margin-left: 10px;
-  padding: 10px 10px;
-  cursor: pointer;
+/* Стили для списка маршрутов */
+.routes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 800px; /* можно настроить по необходимости */
+  overflow-y: auto;
 }
 
+/* Стили для пагинации */
 .pagination-buttons {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 15px;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .pagination-buttons button {
-  margin: 0 10px;
+  background: #2b7ce9;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.pagination-buttons button:disabled {
+  background: #b0c4de;
+  cursor: not-allowed;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+  background: #1f5aa4;
+}
+
+.page-number {
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>

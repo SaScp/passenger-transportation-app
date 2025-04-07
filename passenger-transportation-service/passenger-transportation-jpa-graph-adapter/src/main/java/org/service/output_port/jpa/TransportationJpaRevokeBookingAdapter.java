@@ -11,17 +11,14 @@ import org.service.output_port.exception.BookingNotFoundException;
 import org.service.output_port.model.Booking;
 import org.service.output_port.model.Status;
 import org.service.output_port.repository.BookingRepository;
-import org.springframework.cache.CacheManager;
+import org.service.output_port.util.CacheUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Slf4j
 @Component
 @AllArgsConstructor
-@Transactional(rollbackFor = ProblemDetailsException.class)
 public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTransportationServiceOutputPort {
 
     private final BookingRepository repository;
@@ -30,9 +27,10 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
 
     private final EntityManager entityManager;
 
-    private CacheManager cacheManager;
+    private CacheUtils cacheUtils;
 
     @Override
+    @Transactional(rollbackFor = ProblemDetailsException.class)
     public void revoke(String id) {
         Booking booking = repository.findById(id)
                 .orElseThrow(() -> {
@@ -43,9 +41,7 @@ public class TransportationJpaRevokeBookingAdapter implements RevokeBookingTrans
         booking.setStatus(entityManager.find(Status.class, REVOKED_STATUS_ID));
         repository.save(booking);
 
-        Optional.ofNullable(cacheManager
-                        .getCache("TransportationJpaFindByPhoneAdapter::findBy"))
-                .ifPresent(cache -> cache.evictIfPresent(booking.getUserPhone().getNumberPhone()));
+        cacheUtils.revoke("TransportationJpaFindByPhoneAdapter::findBy", booking.getUserPhone().getNumberPhone().hashCode());
     }
 
     @Override

@@ -12,10 +12,12 @@
         <module>passenger-transportation-shared</module>
         <module>passenger-transportation-service-core</module>
         <module>passenger-transportation-service-input-port</module>
-        <module>passanger-transportation-backend</module>
+        <module>passanger-transportation-configuration</module>
         <module>passenger-transportation-service-spring-web-adapter</module>
         <module>passenger-transportation-jpa-graph-adapter</module>
         <module>passenger-transportation-service-output-port</module>
+        <module>passenger-transportation-cache-adapter</module>
+
     </modules>
 
     <properties>
