@@ -23,8 +23,7 @@ public class RouteTransportationServiceCore extends TransportationServiceCore im
 
     @Override
     public CompletableFuture<List<RoutesEntity>> findByParams(ParamsEntity entity, PageEntity pageEntity) {
-        return CompletableFuture.supplyAsync(() ->
-                aggregate.getOutputPort(FindByParamsTransportationServiceOutputPort.class).findBy(entity, pageEntity), executorService);
+        return CompletableFuture.supplyAsync(() -> aggregate.getOutputPort(FindByParamsTransportationServiceOutputPort.class).findBy(entity, pageEntity), executorService);
     }
 
     @Override
@@ -39,8 +38,6 @@ public class RouteTransportationServiceCore extends TransportationServiceCore im
 
     @Override
     public CompletableFuture<List<RoutesEntity>> findRoutesByDepId(String id, PageEntity pageEntity) {
-        return CompletableFuture.supplyAsync(() -> {
-            return aggregate.getOutputPort(FindAllRoutesByDepartureCityOutputPort.class).findAllByDepartureCity(id, pageEntity);
-        }, executorService);
+        return CompletableFuture.supplyAsync(() -> aggregate.getOutputPort(FindAllRoutesByDepartureCityOutputPort.class).findAllByDepartureCity(id, pageEntity), executorService);
     }
 }
