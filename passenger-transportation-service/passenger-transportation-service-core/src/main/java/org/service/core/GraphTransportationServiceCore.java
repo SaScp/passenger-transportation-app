@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
+
 public class GraphTransportationServiceCore extends TransportationServiceCore implements GraphTransportationServiceInputPort {
 
     public GraphTransportationServiceCore(TransportationServiceOutputPortAggregate aggregate, ExecutorService executorService) {
