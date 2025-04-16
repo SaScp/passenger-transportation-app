@@ -31,6 +31,8 @@
     </div>
     <div class="info" v-if="isFind === true">
       <NetworkGraph :graph="graph" ref="networkGraph" />
+
+      <section class="find-all-routes">
       <div class="routes">
         <RouteItem
             v-for="route in routeData"
@@ -40,6 +42,7 @@
             :is-find="true"
             @highlight-route="highlightRoute"
         />
+      </div>
         <div class="pagination-buttons" v-if="is_find">
           <button class="pagination-btn" @click="prev" :disabled="page_num === 0">
             Предыдущая
@@ -49,7 +52,7 @@
             Следующая
           </button>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -119,7 +122,7 @@ export default {
           this.routeData = data;
           this.hasMore = data.length === this.page_size;
         }
-        // Обновление графа на основе найденных маршрутов
+
         const routeIds = this.routeData.map(route => route.id).join(",");
         const edgesResponse = await findById(routeIds);
         this.graph = {

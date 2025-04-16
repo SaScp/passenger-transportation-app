@@ -1,41 +1,102 @@
-
 INSERT INTO t_location (id, c_name) VALUES
-                                        ('MOW', 'Москва'),
-                                        ('SPB', 'Санкт-Петербург'),
-                                        ('NOV', 'Новосибирск'),
-                                        ('EKB', 'Екатеринбург'),
-                                        ('KZN', 'Казань'),
-                                        ('NIZ', 'Нижний Новгород'),
-                                        ('SAM', 'Самара'),
-                                        ('OMS', 'Омск'),
-                                        ('UFA', 'Уфа'),
-                                        ('CHL', 'Челябинск'),
-                                        ('VOR', 'Воронеж'),
-                                        ('KRD', 'Краснодар'),
-                                        ('PER', 'Пермь'),
-                                        ('ROS', 'Ростов-на-Дону'),
-                                        ('VOL', 'Волгоград');
-
-
-INSERT INTO t_location (id, c_name) VALUES
-                                        ('SOCHI', 'Сочи'),
-                                        ('PSK', 'Псков'),
-                                        ('IRK', 'Иркутск'),
-                                        ('KEM', 'Кемерово'),
-                                        ('SEV', 'Севастополь');
-
-
-INSERT INTO t_location (id, c_name) VALUES
-                                        ('VLA', 'Владивосток'),
-                                        ('KHB', 'Хабаровск'),
-                                        ('AST', 'Астрахань');
-
+                                        ('L001', 'Пенза'),
+                                        ('L002', 'Магнитогорск'),
+                                        ('L003', 'Ростов-на-Дону'),
+                                        ('L004', 'Омск'),
+                                        ('L005', 'Владивосток'),
+                                        ('L006', 'Сочи'),
+                                        ('L007', 'Киров'),
+                                        ('L008', 'Воронеж'),
+                                        ('L009', 'Ярославль'),
+                                        ('L011', 'Иркутск'),
+                                        ('L012', 'Тольятти'),
+                                        ('L013', 'Нижний Новгород'),
+                                        ('L014', 'Барнаул'),
+                                        ('L015', 'Екатеринбург'),
+                                        ('L016', 'Волгоград'),
+                                        ('L018', 'Сочи'),
+                                        ('L019', 'Нижний Новгород'),
+                                        ('L022', 'Рязань'),
+                                        ('L023', 'Брянск'),
+                                        ('L024', 'Сочи'),
+                                        ('L025', 'Краснодар'),
+                                        ('L027', 'Тольятти'),
+                                        ('L028', 'Махачкала'),
+                                        ('L030', 'Рязань'),
+                                        ('L033', 'Хабаровск'),
+                                        ('L035', 'Ульяновск'),
+                                        ('L038', 'Саратов'),
+                                        ('L039', 'Саратов'),
+                                        ('L040', 'Ставрополь'),
+                                        ('L041', 'Белгород'),
+                                        ('L044', 'Санкт-Петербург'),
+                                        ('L046', 'Пенза'),
+                                        ('L048', 'Курск'),
+                                        ('L049', 'Казань'),
+                                        ('L050', 'Сочи'),
+                                        ('L051', 'Пенза'),
+                                        ('L052', 'Рязань'),
+                                        ('L054', 'Пенза'),
+                                        ('L058', 'Уфа'),
+                                        ('L060', 'Томск'),
+                                        ('L061', 'Оренбург'),
+                                        ('L064', 'Сочи'),
+                                        ('L066', 'Оренбург'),
+                                        ('L067', 'Красноярск'),
+                                        ('L068', 'Ставрополь'),
+                                        ('L070', 'Липецк'),
+                                        ('L071', 'Кемерово'),
+                                        ('L072', 'Пенза'),
+                                        ('L073', 'Томск'),
+                                        ('L076', 'Красноярск'),
+                                        ('L077', 'Хабаровск'),
+                                        ('L079', 'Красноярск'),
+                                        ('L080', 'Чебоксары'),
+                                        ('L081', 'Саратов'),
+                                        ('L082', 'Оренбург'),
+                                        ('L083', 'Краснодар'),
+                                        ('L086', 'Ростов-на-Дону'),
+                                        ('L087', 'Красноярск'),
+                                        ('L088', 'Астрахань'),
+                                        ('L090', 'Рязань'),
+                                        ('L091', 'Томск'),
+                                        ('L092', 'Новосибирск'),
+                                        ('L095', 'Новокузнецк'),
+                                        ('L097', 'Ижевск'),
+                                        ('L098', 'Уфа'),
+                                        ('L099', 'Хабаровск'),
+                                        ('L100', 'Красноярск'),
+                                        ('L065', 'Прага'),
+                                        ('L021', 'Лондон'),
+                                        ('L045', 'Иннополис'),
+                                        ('L063', 'Минск'),
+                                        ('L085', 'Вена'),
+                                        ('L089', 'Стамбул'),
+                                        ('L069', 'Варшава'),
+                                        ('L093', 'Берлин'),
+                                        ('L010', 'Рим'),
+                                        ('L059', 'Пиза'),
+                                        ('L020', 'Париж'),
+                                        ('L075', 'Сеул'),
+                                        ('L032', 'Владикавказ'),
+                                        ('L062', 'Анкара'),
+                                        ('L047', 'Баку'),
+                                        ('L036', 'Пекин'),
+                                        ('L029', 'Венеция'),
+                                        ('L034', 'Белград'),
+                                        ('L056', 'Македония'),
+                                        ('L053', 'Спарта'),
+                                        ('L017', 'Генуя'),
+                                        ('L057', 'Афины'),
+                                        ('L031', 'Токио'),
+                                        ('L037', 'Киото'),
+                                        ('L078', 'София');
 
 INSERT INTO t_transport_types (id, type_name, description) VALUES
-                                                               (1, 'Автобус', 'Междугородный автобус'),
-                                                               (2, 'Поезд', 'Железнодорожный транспорт'),
-                                                               (3, 'Самолет', 'Авиаперелет'),
-                                                               (4, 'Маршрутка', 'Местный перевозчик');
+                                                               (13, 'Автобус', 'Междугородный автобус'),
+                                                               (14, 'Поезд', 'Железнодорожный транспорт'),
+                                                               (15, 'Самолет', 'Авиаперелет'),
+                                                               (16, 'Маршрутка', 'Местный перевозчик');
 
 
 INSERT INTO t_transport_types (id, type_name, description) VALUES
@@ -46,608 +107,474 @@ INSERT INTO t_transport_types (id, type_name, description) VALUES
     (6, 'Вертолет', 'Авиаперевозки с использованием вертолёта');
 
 
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES
-    ('MOW', '2023-06-01 07:00:00', 'SPB', 480, 2500.00, 2),  -- edge_id 1
-    ('SPB', '2023-06-02 09:00:00', 'KZN', 720, 1500.00, 1),  -- edge_id 2
-    ('KZN', '2023-06-03 11:00:00', 'EKB', 300, 2000.00, 2),  -- edge_id 3
-    ('EKB', '2023-06-04 14:00:00', 'NOV', 120, 3500.00, 3),  -- edge_id 4
-    ('NOV', '2023-06-05 16:00:00', 'NIZ', 900, 3000.00, 2);  -- edge_id 5
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-06-10 08:00:00', 'SAM', 300, 2200.00, 2);
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SAM', '2023-06-10 15:00:00', 'UFA', 360, 1800.00, 2);
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('UFA', '2023-06-11 10:00:00', 'CHL', 240, 2100.00, 2);
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('CHL', '2023-06-11 16:00:00', 'PER', 180, 1500.00, 2);
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SPB', '2023-06-12 07:00:00', 'ROS', 600, 2800.00, 1);
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('ROS', '2023-06-12 18:00:00', 'VOL', 240, 1900.00, 1);
-
-
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('VOL', '2023-06-13 08:00:00', 'KRD', 300, 2100.00, 1);
-
--- edge_id 13: Краснодар -> Москва (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KRD', '2023-06-13 14:00:00', 'MOW', 480, 3200.00, 2);
-
--- edge_id 14: Москва -> Екатеринбург (Самолет)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-06-14 07:00:00', 'EKB', 150, 4500.00, 3);
-
--- edge_id 15: Екатеринбург -> Нижний Новгород (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('EKB', '2023-06-14 11:00:00', 'NIZ', 200, 2300.00, 2);
-
--- edge_id 16: Санкт-Петербург -> Уфа (Маршрутка)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SPB', '2023-06-15 08:00:00', 'UFA', 480, 1200.00, 4);
-
--- edge_id 17: Санкт-Петербург -> Воронеж (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SPB', '2023-06-15 07:30:00', 'VOR', 360, 2000.00, 2);
-
--- edge_id 18: Воронеж -> Волгоград (Автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('VOR', '2023-06-15 14:00:00', 'VOL', 180, 1500.00, 1);
-
--- Новые ребра с дополнительными городами
--- edge_id 19: Новосибирск -> Иркутск (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('NOV', '2023-06-16 09:00:00', 'IRK', 720, 3500.00, 2);
-
--- edge_id 20: Иркутск -> Новосибирск (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('IRK', '2023-06-17 10:00:00', 'NOV', 700, 3400.00, 2);
-
--- edge_id 21: Екатеринбург -> Кемерово (Самолет)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('EKB', '2023-06-18 06:00:00', 'KEM', 180, 5000.00, 3);
-
--- edge_id 22: Кемерово -> Новосибирск (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KEM', '2023-06-18 20:00:00', 'NOV', 600, 2800.00, 2);
-
--- edge_id 23: Москва -> Псков (Автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-06-20 07:30:00', 'PSK', 300, 1900.00, 1);
-
--- edge_id 31: Псков -> Санкт-Петербург (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('PSK', '2023-06-20 13:00:00', 'SPB', 180, 1500.00, 2);
-
--- edge_id 25: Санкт-Петербург -> Севастополь (Автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SPB', '2023-06-21 09:00:00', 'SEV', 240, 2000.00, 1);
-
--- edge_id 26: Севастополь -> Москва (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SEV', '2023-06-21 14:00:00', 'MOW', 480, 2700.00, 2);
-
--- edge_id 27: Сочи -> Москва (Самолет)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SOCHI', '2023-06-22 10:00:00', 'MOW', 120, 6000.00, 3);
-
--- edge_id 28: Москва -> Сочи (Самолет)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-06-22 15:00:00', 'SOCHI', 130, 6200.00, 3);
-
--- edge_id 29: Уфа -> Ростов-на-Дону (Такси)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('UFA', '2023-06-23 08:00:00', 'ROS', 100, 1500.00, 5);
-
--- edge_id 30: Ростов-на-Дону -> Самара (Маршрутка)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('ROS', '2023-06-23 10:00:00', 'SAM', 150, 800.00, 4);
-
----------------------------------------------------
--- Дополнительные рёбра (из расширенных данных)
----------------------------------------------------
--- edge_id 24: Псков -> Санкт-Петербург (альтернативный вариант)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('PSK', '2023-06-20 10:00:00', 'SPB', 180, 1500.00, 2);
-
--- edge_id 32: Омск -> Челябинск (альтернативный маршрут)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('OMS', '2023-06-24 09:00:00', 'CHL', 300, 2600.00, 2);
-
--- edge_id 33: Челябинск -> Астрахань
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('CHL', '2023-06-24 14:00:00', 'AST', 200, 1800.00, 1);
-
--- edge_id 34: Астрахань -> Казань
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('AST', '2023-06-25 10:00:00', 'KZN', 220, 2100.00, 2);
-
--- edge_id 35: Хабаровск -> Владивосток (самолётом)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KHB', '2023-06-25 16:00:00', 'VLA', 240, 7000.00, 3);
-
--- edge_id 36: Москва -> Хабаровск (самолётом)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-06-26 06:00:00', 'KHB', 300, 8000.00, 3);
-
--- edge_id 37: Хабаровск -> Москва (самолётом)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KHB', '2023-06-26 12:00:00', 'MOW', 310, 8200.00, 3);
-
--- edge_id 38: Астрахань -> Уфа (автобусом)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('AST', '2023-06-27 08:00:00', 'UFA', 350, 2300.00, 1);
-
--- edge_id 39: Казань -> Уфа (альтернативный вариант, автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KZN', '2023-06-25 14:00:00', 'UFA', 360, 2500.00, 1);
-
----------------------------------------------------
--- Дополнительные рёбра для маршрутов R19-R22
----------------------------------------------------
--- edge_id 40: Санкт-Петербург -> Екатеринбург (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SPB', '2023-06-27 10:00:00', 'EKB', 360, 3100.00, 2);
-
--- edge_id 41: Екатеринбург -> Нижний Новгород (Поезд) – новый вариант
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('EKB', '2023-06-27 15:00:00', 'NIZ', 180, 2400.00, 2);
-
--- edge_id 42: Казань -> Самара (Автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KZN', '2023-06-28 08:00:00', 'SAM', 240, 1700.00, 1);
-
--- edge_id 43: Самара -> Омск (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SAM', '2023-06-28 12:00:00', 'OMS', 480, 3000.00, 2);
-
--- edge_id 44: Владивосток -> Хабаровск (Самолёт)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('VLA', '2023-06-29 09:00:00', 'KHB', 240, 7500.00, 3);
-
--- edge_id 45: Хабаровск -> Москва (Самолёт) – новый рейс с изменённым временем
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KHB', '2023-06-29 14:00:00', 'MOW', 320, 8300.00, 3);
-
--- edge_id 46: Новосибирск -> Екатеринбург (Поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('NOV', '2023-06-30 07:00:00', 'EKB', 600, 3500.00, 2);
-
--- edge_id 47: Екатеринбург -> Самара (Самолёт)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('EKB', '2023-06-30 17:30:00', 'SAM', 120, 4500.00, 3);
-
--- edge_id 48: Самара -> Уфа (Поезд) – скорректировано время и длительность
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SAM', '2023-06-30 20:00:00', 'UFA', 240, 1900.00, 2);
-
----------------------------------------------------
--- Дополнительные рёбра для маршрутов R23-R40
----------------------------------------------------
--- edge_id 49: Москва -> Новосибирск (прямой, новый вариант)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-07-01 07:00:00', 'NOV', 600, 4000.00, 2);
-
--- edge_id 50: Волгоград -> Ростов-на-Дону (прямой)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('VOL', '2023-07-01 08:00:00', 'ROS', 300, 2000.00, 1);
-
--- edge_id 51: Самара -> Ростов-на-Дону (такси)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SAM', '2023-07-01 09:00:00', 'ROS', 180, 1600.00, 5);
-
--- edge_id 52: Уфа -> Челябинск (новый вариант поезом)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('UFA', '2023-07-01 10:00:00', 'CHL', 260, 2200.00, 2);
-
--- edge_id 53: Челябинск -> Пермь (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('CHL', '2023-07-01 11:00:00', 'PER', 190, 1600.00, 2);
-
--- edge_id 54: Пермь -> Нижний Новгород (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('PER', '2023-07-01 12:00:00', 'NIZ', 210, 2300.00, 2);
-
--- edge_id 55: Краснодар -> Сочи (автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KRD', '2023-07-01 13:00:00', 'SOCHI', 120, 1900.00, 1);
-
--- edge_id 56: Сочи -> Ростов-на-Дону (автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SOCHI', '2023-07-01 14:00:00', 'ROS', 150, 2000.00, 1);
-
--- edge_id 57: Севастополь -> Сочи (автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('SEV', '2023-07-01 15:00:00', 'SOCHI', 300, 2500.00, 1);
-
--- edge_id 58: Нижний Новгород -> Казань (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('NIZ', '2023-07-01 16:00:00', 'KZN', 100, 1200.00, 2);
-
--- edge_id 59: Ростов-на-Дону -> Волгоград (автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('ROS', '2023-07-01 17:00:00', 'VOL', 220, 2100.00, 1);
-
--- edge_id 60: Омск -> Новосибирск (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('OMS', '2023-07-01 18:00:00', 'NOV', 400, 2900.00, 2);
-
--- edge_id 61: Иркутск -> Кемерово (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('IRK', '2023-07-01 19:00:00', 'KEM', 360, 3000.00, 2);
-
--- edge_id 62: Кемерово -> Новосибирск (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('KEM', '2023-07-01 20:00:00', 'NOV', 550, 2700.00, 2);
-
--- edge_id 63: Челябинск -> Волгоград (автобус)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('CHL', '2023-07-01 21:00:00', 'VOL', 260, 2400.00, 1);
-
--- edge_id 64: Пермь -> Самара (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('PER', '2023-07-01 22:00:00', 'SAM', 180, 2000.00, 2);
-
--- edge_id 65: Уфа -> Казань (поезд)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('UFA', '2023-07-01 23:00:00', 'KZN', 300, 2200.00, 2);
-
--- edge_id 66: Москва -> Севастополь (самолёт)
-INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id)
-VALUES ('MOW', '2023-07-02 07:00:00', 'SEV', 480, 2600.00, 3);
-
----------------------------------------------------
--- Таблица пользователей (t_user)
----------------------------------------------------
--- Первоначальные пользователи
+INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, time_cost, price, type_id) VALUES
+                                                                                                               ('L041', '2025-04-01 01:15:11.272436', 'L053', 127, 35.19, 14),
+                                                                                                               ('L038', '2025-03-30 12:15:11.277437', 'L083', 221, 74.88, 13),
+                                                                                                               ('L095', '2025-04-01 12:15:11.277437', 'L050', 60, 82.42, 13),
+                                                                                                               ('L020', '2025-04-01 01:15:11.278434', 'L052', 64, 79.14, 13),
+                                                                                                               ('L002', '2025-03-29 15:15:11.279435', 'L048', 238, 68.62, 13),
+                                                                                                               ('L010', '2025-03-31 07:15:11.279435', 'L059', 265, 16.77, 15),
+                                                                                                               ('L098', '2025-04-01 07:15:11.280435', 'L032', 136, 15.7, 15),
+                                                                                                               ('L067', '2025-03-31 01:15:11.280435', 'L092', 201, 26.92, 13),
+                                                                                                               ('L019', '2025-04-01 05:15:11.281435', 'L030', 277, 70.24, 14),
+                                                                                                               ('L075', '2025-04-01 00:15:11.281435', 'L008', 159, 13.93, 13),
+                                                                                                               ('L011', '2025-04-02 03:15:11.282436', 'L007', 251, 19.58, 15),
+                                                                                                               ('L031', '2025-03-29 22:15:11.282436', 'L021', 176, 63.13, 14),
+                                                                                                               ('L018', '2025-03-30 12:15:11.283436', 'L036', 255, 85.66, 15),
+                                                                                                               ('L083', '2025-04-02 00:15:11.283436', 'L057', 204, 41.27, 14),
+                                                                                                               ('L054', '2025-04-01 17:15:11.283436', 'L024', 96, 69.2, 13),
+                                                                                                               ('L095', '2025-03-30 17:15:11.284435', 'L009', 59, 62.98, 15),
+                                                                                                               ('L012', '2025-04-01 07:15:11.284435', 'L098', 195, 94.65, 14),
+                                                                                                               ('L033', '2025-04-02 01:15:11.285434', 'L038', 48, 33.43, 14),
+                                                                                                               ('L069', '2025-03-30 19:15:11.285434', 'L053', 229, 12.79, 15),
+                                                                                                               ('L060', '2025-03-30 09:15:11.285434', 'L044', 209, 48.24, 13),
+                                                                                                               ('L093', '2025-04-02 15:15:11.286435', 'L021', 199, 37.12, 13),
+                                                                                                               ('L059', '2025-03-31 19:15:11.286435', 'L054', 175, 50.62, 14),
+                                                                                                               ('L080', '2025-04-02 03:15:11.287435', 'L030', 158, 86.64, 13),
+                                                                                                               ('L033', '2025-04-01 12:15:11.287435', 'L006', 110, 7.01, 14),
+                                                                                                               ('L095', '2025-03-30 09:15:11.287435', 'L075', 259, 7.6, 14),
+                                                                                                               ('L025', '2025-03-30 09:15:11.288436', 'L058', 255, 8.88, 13),
+                                                                                                               ('L067', '2025-04-01 00:15:11.289435', 'L061', 244, 73.61, 15),
+                                                                                                               ('L028', '2025-04-02 16:15:11.289435', 'L065', 154, 60.13, 15),
+                                                                                                               ('L044', '2025-03-30 06:15:11.289435', 'L054', 275, 31.54, 13),
+                                                                                                               ('L077', '2025-04-02 08:15:11.290434', 'L095', 95, 20.4, 14),
+                                                                                                               ('L072', '2025-03-30 08:15:11.290434', 'L066', 252, 83.55, 15),
+                                                                                                               ('L049', '2025-04-02 11:15:11.290434', 'L065', 196, 21.54, 14),
+                                                                                                               ('L087', '2025-03-30 04:15:11.291438', 'L015', 180, 58.54, 15),
+                                                                                                               ('L079', '2025-04-01 12:15:11.291438', 'L029', 159, 95.59, 15),
+                                                                                                               ('L051', '2025-03-30 01:15:11.292437', 'L031', 251, 19.64, 13),
+                                                                                                               ('L027', '2025-03-31 03:15:11.292437', 'L050', 197, 61.86, 15),
+                                                                                                               ('L006', '2025-03-31 21:15:11.292437', 'L035', 257, 95.98, 13),
+                                                                                                               ('L052', '2025-03-30 17:15:11.293435', 'L056', 249, 50.52, 15),
+                                                                                                               ('L011', '2025-03-31 12:15:11.293435', 'L066', 62, 46.94, 15),
+                                                                                                               ('L071', '2025-04-02 14:15:11.293435', 'L015', 163, 61.17, 14),
+                                                                                                               ('L050', '2025-03-30 00:15:11.294435', 'L018', 180, 74.7, 15),
+                                                                                                               ('L035', '2025-04-02 06:15:11.294435', 'L093', 281, 49.35, 13),
+                                                                                                               ('L019', '2025-04-01 16:15:11.294435', 'L069', 254, 67.52, 13),
+                                                                                                               ('L048', '2025-03-30 14:15:11.295435', 'L035', 104, 67.74, 14),
+                                                                                                               ('L052', '2025-04-02 00:15:11.295435', 'L059', 113, 75.91, 15),
+                                                                                                               ('L086', '2025-04-01 12:15:11.296434', 'L038', 204, 98.22, 13),
+                                                                                                               ('L098', '2025-04-02 17:15:11.296434', 'L008', 159, 14.46, 13),
+                                                                                                               ('L044', '2025-03-31 18:15:11.296434', 'L092', 245, 85.09, 13),
+                                                                                                               ('L068', '2025-03-29 21:15:11.297437', 'L007', 260, 60.43, 15),
+                                                                                                               ('L089', '2025-03-31 20:15:11.297437', 'L036', 169, 49.92, 14),
+                                                                                                               ('L077', '2025-04-02 16:15:11.298438', 'L080', 249, 12.24, 13),
+                                                                                                               ('L059', '2025-04-01 02:15:11.299434', 'L032', 251, 33.82, 15),
+                                                                                                               ('L036', '2025-04-01 02:15:11.299434', 'L049', 279, 37.22, 13),
+                                                                                                               ('L013', '2025-03-29 22:15:11.299434', 'L001', 167, 20.68, 15),
+                                                                                                               ('L025', '2025-04-01 21:15:11.300436', 'L072', 146, 24.76, 14),
+                                                                                                               ('L033', '2025-04-01 22:15:11.300436', 'L086', 70, 54.97, 15),
+                                                                                                               ('L063', '2025-04-01 03:15:11.300436', 'L020', 221, 28.82, 14),
+                                                                                                               ('L076', '2025-04-01 01:15:11.301434', 'L002', 76, 85.09, 15),
+                                                                                                               ('L023', '2025-03-31 02:15:11.301434', 'L078', 50, 41.31, 15),
+                                                                                                               ('L095', '2025-04-01 07:15:11.301434', 'L077', 261, 75.46, 13),
+                                                                                                               ('L054', '2025-04-01 22:15:11.302434', 'L065', 35, 35.87, 14),
+                                                                                                               ('L003', '2025-03-31 11:15:11.302434', 'L059', 139, 16.21, 13),
+                                                                                                               ('L060', '2025-04-02 08:15:11.302434', 'L015', 42, 99.82, 13),
+                                                                                                               ('L064', '2025-03-29 23:15:11.303434', 'L066', 245, 67.16, 14),
+                                                                                                               ('L021', '2025-03-29 16:15:11.303434', 'L009', 176, 63.13, 13),
+                                                                                                               ('L016', '2025-03-31 03:15:11.303434', 'L072', 127, 83.75, 13),
+                                                                                                               ('L079', '2025-04-01 14:15:11.303434', 'L019', 211, 35.74, 13),
+                                                                                                               ('L070', '2025-03-30 03:15:11.304434', 'L067', 197, 57.6, 14),
+                                                                                                               ('L033', '2025-04-02 15:15:11.304434', 'L002', 111, 27.08, 14),
+                                                                                                               ('L028', '2025-04-01 21:15:11.305433', 'L088', 135, 23.47, 13),
+                                                                                                               ('L011', '2025-03-30 17:15:11.305433', 'L086', 265, 17.4, 15),
+                                                                                                               ('L095', '2025-04-01 09:15:11.305433', 'L014', 72, 41.16, 14),
+                                                                                                               ('L064', '2025-03-31 21:15:11.306435', 'L032', 78, 63.75, 15),
+                                                                                                               ('L005', '2025-03-31 05:15:11.306435', 'L041', 234, 26.55, 13),
+                                                                                                               ('L022', '2025-04-02 06:15:11.307434', 'L010', 298, 13.35, 15),
+                                                                                                               ('L032', '2025-04-01 16:15:11.307434', 'L020', 277, 74.87, 14),
+                                                                                                               ('L019', '2025-03-30 13:15:11.308435', 'L051', 162, 38.93, 13),
+                                                                                                               ('L060', '2025-03-30 22:15:11.308435', 'L052', 97, 97.87, 15),
+                                                                                                               ('L017', '2025-03-29 19:15:11.309433', 'L008', 249, 86.87, 14),
+                                                                                                               ('L057', '2025-03-31 00:15:11.309433', 'L040', 147, 20.6, 15),
+                                                                                                               ('L059', '2025-03-30 08:15:11.310435', 'L077', 62, 90.64, 14),
+                                                                                                               ('L098', '2025-03-30 11:15:11.310435', 'L060', 43, 37.15, 13),
+                                                                                                               ('L097', '2025-03-31 02:15:11.310435', 'L025', 141, 25.29, 13),
+                                                                                                               ('L089', '2025-03-31 12:15:11.311436', 'L013', 114, 62.43, 13),
+                                                                                                               ('L079', '2025-03-31 09:15:11.312435', 'L028', 42, 45.65, 15),
+                                                                                                               ('L045', '2025-04-01 08:15:11.312435', 'L050', 255, 47.57, 14),
+                                                                                                               ('L040', '2025-04-01 16:15:11.312435', 'L098', 265, 30.31, 15),
+                                                                                                               ('L053', '2025-03-30 12:15:11.312435', 'L079', 119, 71.41, 13),
+                                                                                                               ('L027', '2025-03-30 03:15:11.313434', 'L030', 126, 59.91, 15),
+                                                                                                               ('L022', '2025-03-29 15:15:11.313434', 'L031', 239, 6.48, 14),
+                                                                                                               ('L076', '2025-04-02 01:15:11.313434', 'L017', 46, 56.87, 13),
+                                                                                                               ('L015', '2025-03-31 12:15:11.314435', 'L009', 78, 67.53, 15),
+                                                                                                               ('L023', '2025-03-31 06:15:11.314435', 'L054', 221, 67.05, 13),
+                                                                                                               ('L041', '2025-03-29 23:15:11.314435', 'L030', 270, 23.98, 15),
+                                                                                                               ('L044', '2025-04-02 06:15:11.315434', 'L004', 238, 93.18, 14),
+                                                                                                               ('L050', '2025-04-02 18:15:11.315434', 'L082', 94, 97.92, 14),
+                                                                                                               ('L052', '2025-03-30 18:15:11.316433', 'L034', 31, 9.74, 14),
+                                                                                                               ('L021', '2025-03-30 10:15:11.316433', 'L036', 89, 35.84, 14),
+                                                                                                               ('L090', '2025-03-30 16:15:11.316433', 'L005', 220, 18.79, 15),
+                                                                                                               ('L069', '2025-03-30 23:15:11.316433', 'L039', 157, 7.01, 13),
+                                                                                                               ('L006', '2025-03-31 01:15:11.317434', 'L020', 245, 33.26, 14),
+                                                                                                               ('L008', '2025-03-30 01:15:11.317434', 'L073', 93, 22.04, 13),
+                                                                                                               ('L098', '2025-04-01 09:15:11.318434', 'L004', 122, 82.4, 14),
+                                                                                                               ('L006', '2025-03-30 13:15:11.318434', 'L099', 102, 52.47, 14),
+                                                                                                               ('L092', '2025-04-01 12:15:11.318434', 'L033', 66, 24.91, 14),
+                                                                                                               ('L012', '2025-04-01 06:15:11.319436', 'L075', 184, 15.51, 13),
+                                                                                                               ('L060', '2025-03-29 17:15:11.319436', 'L097', 130, 14.56, 13),
+                                                                                                               ('L016', '2025-03-29 22:15:11.320434', 'L045', 67, 86.27, 13),
+                                                                                                               ('L020', '2025-04-02 05:15:11.320434', 'L013', 62, 83.19, 14),
+                                                                                                               ('L044', '2025-04-01 04:15:11.321434', 'L072', 278, 9.17, 15),
+                                                                                                               ('L031', '2025-04-02 07:15:11.321434', 'L069', 132, 67.35, 14),
+                                                                                                               ('L020', '2025-03-30 22:15:11.322435', 'L038', 285, 41.33, 14),
+                                                                                                               ('L079', '2025-03-31 05:15:11.323435', 'L010', 145, 77.12, 15),
+                                                                                                               ('L001', '2025-03-31 19:15:11.323435', 'L060', 76, 77.79, 15),
+                                                                                                               ('L069', '2025-03-31 01:15:11.324434', 'L062', 166, 5.83, 15),
+                                                                                                               ('L087', '2025-03-30 11:15:11.325434', 'L090', 158, 31.3, 15),
+                                                                                                               ('L100', '2025-04-01 08:15:11.325434', 'L039', 275, 5.06, 14),
+                                                                                                               ('L100', '2025-04-01 16:15:11.326435', 'L060', 175, 87.45, 15),
+                                                                                                               ('L082', '2025-03-31 04:15:11.326435', 'L062', 158, 10.42, 15),
+                                                                                                               ('L057', '2025-03-30 14:15:11.327435', 'L032', 299, 83.15, 13),
+                                                                                                               ('L082', '2025-04-01 03:15:11.327435', 'L012', 239, 83.03, 15),
+                                                                                                               ('L003', '2025-03-31 17:15:11.328435', 'L098', 102, 36.59, 15),
+                                                                                                               ('L076', '2025-03-31 20:15:11.328435', 'L001', 149, 13.36, 13),
+                                                                                                               ('L044', '2025-03-31 13:15:11.329435', 'L019', 41, 30.48, 13),
+                                                                                                               ('L062', '2025-03-30 17:15:11.329435', 'L007', 246, 26.37, 13),
+                                                                                                               ('L087', '2025-03-31 10:15:11.330434', 'L034', 227, 29.78, 13),
+                                                                                                               ('L001', '2025-04-02 16:15:11.331435', 'L068', 97, 13.94, 15),
+                                                                                                               ('L046', '2025-04-01 08:15:11.332435', 'L031', 206, 40.2, 14),
+                                                                                                               ('L038', '2025-04-01 22:15:11.333434', 'L054', 197, 94.2, 13),
+                                                                                                               ('L005', '2025-04-02 16:15:11.333434', 'L039', 207, 85.67, 15),
+                                                                                                               ('L070', '2025-03-31 12:15:11.334435', 'L015', 36, 14.42, 14),
+                                                                                                               ('L006', '2025-03-30 01:15:11.334435', 'L047', 38, 87.42, 15),
+                                                                                                               ('L082', '2025-03-30 14:15:11.335434', 'L086', 191, 63.08, 15),
+                                                                                                               ('L028', '2025-04-01 15:15:11.335434', 'L070', 138, 54.75, 13),
+                                                                                                               ('L095', '2025-03-29 15:15:11.335434', 'L053', 234, 38.43, 14),
+                                                                                                               ('L014', '2025-04-01 01:15:11.336435', 'L011', 214, 82.32, 15),
+                                                                                                               ('L035', '2025-04-02 13:15:11.336435', 'L015', 247, 57.86, 15),
+                                                                                                               ('L032', '2025-04-01 23:15:11.336435', 'L067', 119, 37.1, 14),
+                                                                                                               ('L028', '2025-03-30 13:15:11.337437', 'L017', 266, 23.29, 13),
+                                                                                                               ('L081', '2025-03-31 21:15:11.337437', 'L093', 107, 26.7, 15),
+                                                                                                               ('L035', '2025-03-30 02:15:11.338433', 'L032', 240, 72.55, 14),
+                                                                                                               ('L062', '2025-03-31 21:15:11.338433', 'L054', 238, 23.64, 15),
+                                                                                                               ('L045', '2025-03-29 18:15:11.338433', 'L049', 31, 74.29, 15),
+                                                                                                               ('L072', '2025-03-31 01:15:11.339434', 'L075', 235, 29.78, 14),
+                                                                                                               ('L001', '2025-04-01 03:15:11.339434', 'L036', 84, 44.17, 13),
+                                                                                                               ('L048', '2025-03-29 17:15:11.339434', 'L076', 71, 25.93, 15),
+                                                                                                               ('L098', '2025-03-30 01:15:11.340436', 'L032', 119, 49.59, 13),
+                                                                                                               ('L050', '2025-03-30 01:15:11.340436', 'L067', 203, 18.6, 13),
+                                                                                                               ('L054', '2025-03-31 04:15:11.340436', 'L098', 189, 50.22, 13),
+                                                                                                               ('L062', '2025-03-30 18:15:11.341435', 'L068', 254, 64.81, 13),
+                                                                                                               ('L022', '2025-04-02 12:15:11.341435', 'L039', 245, 32.77, 15),
+                                                                                                               ('L031', '2025-04-01 21:15:11.341435', 'L046', 92, 12.63, 14),
+                                                                                                               ('L022', '2025-04-02 05:15:11.342436', 'L066', 288, 49.92, 13),
+                                                                                                               ('L040', '2025-03-30 12:15:11.342436', 'L078', 79, 18.19, 15),
+                                                                                                               ('L018', '2025-03-30 00:15:11.343438', 'L009', 91, 75.09, 13),
+                                                                                                               ('L061', '2025-03-31 16:15:11.343438', 'L082', 240, 7.56, 14),
+                                                                                                               ('L002', '2025-04-01 11:15:11.343438', 'L050', 201, 77.39, 14),
+                                                                                                               ('L041', '2025-04-01 00:15:11.344434', 'L018', 76, 79.67, 13),
+                                                                                                               ('L009', '2025-03-31 22:15:11.344434', 'L005', 247, 12.62, 13),
+                                                                                                               ('L023', '2025-04-02 12:15:11.344434', 'L076', 298, 59.33, 13),
+                                                                                                               ('L085', '2025-04-01 17:15:11.345435', 'L057', 108, 57.39, 15),
+                                                                                                               ('L028', '2025-03-31 13:15:11.345435', 'L082', 182, 96.86, 13),
+                                                                                                               ('L073', '2025-03-30 21:15:11.345435', 'L004', 100, 92.86, 15),
+                                                                                                               ('L025', '2025-03-30 21:15:11.345435', 'L075', 160, 75.32, 14),
+                                                                                                               ('L062', '2025-04-01 08:15:11.346433', 'L017', 133, 12.08, 15),
+                                                                                                               ('L072', '2025-03-29 22:15:11.346433', 'L016', 175, 38.99, 13),
+                                                                                                               ('L090', '2025-03-31 08:15:11.346433', 'L022', 236, 99.84, 13),
+                                                                                                               ('L013', '2025-03-30 23:15:11.347435', 'L037', 167, 63.73, 15),
+                                                                                                               ('L023', '2025-04-01 09:15:11.347435', 'L057', 141, 93.29, 13),
+                                                                                                               ('L092', '2025-03-30 20:15:11.347435', 'L001', 88, 41, 15),
+                                                                                                               ('L085', '2025-04-01 23:15:11.348436', 'L079', 195, 84.89, 14),
+                                                                                                               ('L053', '2025-04-01 12:15:11.348436', 'L037', 190, 84.91, 14),
+                                                                                                               ('L028', '2025-04-01 17:15:11.349434', 'L090', 289, 19.98, 15),
+                                                                                                               ('L061', '2025-04-01 20:15:11.350435', 'L058', 131, 74.9, 15),
+                                                                                                               ('L037', '2025-03-31 01:15:11.350435', 'L075', 167, 22.24, 15),
+                                                                                                               ('L100', '2025-04-02 07:15:11.351433', 'L008', 226, 46.73, 13),
+                                                                                                               ('L016', '2025-03-30 07:15:11.351433', 'L058', 152, 43.91, 15),
+                                                                                                               ('L058', '2025-03-31 13:15:11.351433', 'L015', 229, 9.08, 15),
+                                                                                                               ('L078', '2025-03-29 15:15:11.351433', 'L093', 53, 12.81, 13),
+                                                                                                               ('L059', '2025-04-01 23:15:11.352433', 'L016', 67, 91.35, 14),
+                                                                                                               ('L022', '2025-04-01 15:15:11.352433', 'L083', 114, 34.86, 13),
+                                                                                                               ('L066', '2025-04-01 19:15:11.353433', 'L024', 72, 48.89, 13),
+                                                                                                               ('L083', '2025-04-02 00:15:11.353433', 'L029', 95, 73.36, 13),
+                                                                                                               ('L093', '2025-03-30 06:15:11.353433', 'L080', 164, 96.67, 14),
+                                                                                                               ('L053', '2025-04-01 20:15:11.353433', 'L006', 107, 5.47, 13),
+                                                                                                               ('L001', '2025-03-29 17:15:11.354433', 'L018', 208, 14.32, 14),
+                                                                                                               ('L020', '2025-04-02 09:15:11.354433', 'L049', 297, 53.9, 13),
+                                                                                                               ('L061', '2025-04-02 09:15:11.354433', 'L010', 280, 19.55, 14),
+                                                                                                               ('L058', '2025-04-02 13:15:11.355432', 'L029', 217, 80.21, 13),
+                                                                                                               ('L031', '2025-03-31 01:15:11.355432', 'L051', 286, 20.44, 15),
+                                                                                                               ('L009', '2025-04-02 05:15:11.355432', 'L025', 121, 43.35, 13),
+                                                                                                               ('L034', '2025-04-01 08:15:11.355432', 'L001', 129, 48.52, 13),
+                                                                                                               ('L071', '2025-04-02 10:15:11.356435', 'L047', 77, 8.27, 13),
+                                                                                                               ('L062', '2025-04-01 21:15:11.356435', 'L006', 148, 98.73, 15),
+                                                                                                               ('L062', '2025-04-02 03:15:11.356435', 'L012', 215, 74.48, 14),
+                                                                                                               ('L030', '2025-04-02 04:15:11.357434', 'L097', 88, 11.79, 13),
+                                                                                                               ('L033', '2025-03-30 02:15:11.357434', 'L007', 104, 61.5, 15),
+                                                                                                               ('L068', '2025-04-02 03:15:11.357434', 'L013', 108, 12.35, 14),
+                                                                                                               ('L098', '2025-03-30 09:15:11.357434', 'L061', 276, 83.25, 13),
+                                                                                                               ('L009', '2025-04-02 08:15:11.358434', 'L058', 164, 85.92, 13),
+                                                                                                               ('L035', '2025-04-02 17:15:11.358434', 'L034', 216, 73.48, 15),
+                                                                                                               ('L010', '2025-03-29 17:15:11.358434', 'L031', 109, 28.17, 13),
+                                                                                                               ('L067', '2025-03-30 10:15:11.358434', 'L009', 59, 86.61, 15),
+                                                                                                               ('L030', '2025-04-01 07:15:11.359433', 'L068', 242, 56.71, 14),
+                                                                                                               ('L025', '2025-04-02 18:15:11.359433', 'L002', 76, 96.5, 14),
+                                                                                                               ('L086', '2025-03-29 20:15:11.359433', 'L064', 173, 41.21, 15),
+                                                                                                               ('L098', '2025-03-31 03:15:11.359433', 'L047', 289, 22.63, 13),
+                                                                                                               ('L099', '2025-04-02 17:15:11.360432', 'L050', 188, 60, 13),
+                                                                                                               ('L089', '2025-04-01 22:15:11.360432', 'L020', 36, 26.02, 15),
+                                                                                                               ('L052', '2025-04-01 18:15:11.361435', 'L073', 55, 95.31, 15),
+                                                                                                               ('L019', '2025-04-02 08:15:11.361435', 'L070', 282, 19.54, 13),
+                                                                                                               ('L024', '2025-03-31 23:15:11.361435', 'L002', 182, 15.65, 14),
+                                                                                                               ('L017', '2025-04-02 17:15:11.362434', 'L028', 114, 12.97, 13),
+                                                                                                               ('L056', '2025-04-01 15:15:11.362434', 'L031', 139, 53.86, 13),
+                                                                                                               ('L079', '2025-03-30 19:15:11.363434', 'L015', 35, 63.72, 15),
+                                                                                                               ('L040', '2025-03-30 04:15:11.363434', 'L022', 157, 15.42, 14),
+                                                                                                               ('L079', '2025-04-02 07:15:11.364434', 'L073', 280, 88.16, 14),
+                                                                                                               ('L053', '2025-03-31 18:15:11.364434', 'L019', 295, 69.24, 14),
+                                                                                                               ('L027', '2025-04-01 20:15:11.364434', 'L020', 293, 90.25, 14),
+                                                                                                               ('L071', '2025-04-02 17:15:11.364434', 'L067', 143, 18.86, 13),
+                                                                                                               ('L008', '2025-03-31 04:15:11.364434', 'L007', 112, 29.34, 14),
+                                                                                                               ('L077', '2025-03-30 21:15:11.365434', 'L099', 166, 84.96, 15),
+                                                                                                               ('L080', '2025-03-31 12:15:11.365434', 'L049', 86, 34.46, 14),
+                                                                                                               ('L061', '2025-04-01 10:15:11.365434', 'L081', 109, 43.22, 13),
+                                                                                                               ('L024', '2025-03-31 10:15:11.365434', 'L082', 99, 5.35, 15),
+                                                                                                               ('L002', '2025-03-30 07:15:11.366434', 'L010', 175, 82.24, 15),
+                                                                                                               ('L063', '2025-03-31 18:15:11.366434', 'L099', 196, 5.67, 13),
+                                                                                                               ('L016', '2025-03-30 19:15:11.366434', 'L009', 129, 95.01, 14),
+                                                                                                               ('L041', '2025-04-01 21:15:11.366434', 'L067', 198, 8.23, 15),
+                                                                                                               ('L035', '2025-03-30 05:15:11.366434', 'L066', 100, 90.44, 14),
+                                                                                                               ('L029', '2025-03-30 12:15:11.368435', 'L017', 204, 13.64, 14),
+                                                                                                               ('L091', '2025-04-01 14:15:11.368435', 'L079', 125, 14.49, 14),
+                                                                                                               ('L075', '2025-03-31 20:15:11.368435', 'L063', 252, 54.69, 15),
+                                                                                                               ('L078', '2025-04-02 03:15:11.369434', 'L080', 179, 12.37, 13),
+                                                                                                               ('L088', '2025-04-02 15:15:11.369434', 'L098', 133, 27.36, 13),
+                                                                                                               ('L033', '2025-03-31 21:15:11.369434', 'L095', 45, 59.43, 15),
+                                                                                                               ('L044', '2025-03-31 06:15:11.369434', 'L009', 79, 88.83, 14),
+                                                                                                               ('L092', '2025-04-01 00:15:11.370434', 'L071', 80, 92, 15),
+                                                                                                               ('L047', '2025-03-31 23:15:11.370434', 'L069', 213, 81.74, 13),
+                                                                                                               ('L051', '2025-04-01 19:15:11.370434', 'L017', 157, 39.04, 13),
+                                                                                                               ('L013', '2025-03-29 23:15:11.370434', 'L020', 290, 88.3, 13),
+                                                                                                               ('L058', '2025-04-01 12:15:11.371435', 'L053', 47, 12, 15),
+                                                                                                               ('L044', '2025-03-31 05:15:11.371435', 'L008', 146, 38.51, 15),
+                                                                                                               ('L029', '2025-04-01 13:15:11.371435', 'L100', 231, 58.28, 14),
+                                                                                                               ('L065', '2025-04-02 14:15:11.372434', 'L086', 162, 7.85, 15),
+                                                                                                               ('L021', '2025-03-31 22:15:11.372434', 'L038', 228, 20.02, 15),
+                                                                                                               ('L057', '2025-03-30 15:15:11.372434', 'L072', 206, 78.16, 14),
+                                                                                                               ('L025', '2025-04-01 11:15:11.372434', 'L076', 211, 37.1, 13),
+                                                                                                               ('L099', '2025-04-02 17:15:11.372434', 'L070', 133, 13.22, 15),
+                                                                                                               ('L009', '2025-03-31 04:15:11.373433', 'L027', 39, 80.2, 15),
+                                                                                                               ('L010', '2025-04-02 09:15:11.373433', 'L030', 254, 32.75, 15),
+                                                                                                               ('L032', '2025-03-31 12:15:11.373433', 'L013', 71, 8.4, 15),
+                                                                                                               ('L011', '2025-04-02 14:15:11.373433', 'L099', 56, 56.34, 14),
+                                                                                                               ('L064', '2025-03-30 02:15:11.374435', 'L077', 211, 62.66, 15),
+                                                                                                               ('L086', '2025-04-02 02:15:11.374435', 'L009', 178, 70.84, 14),
+                                                                                                               ('L022', '2025-03-30 07:15:11.374435', 'L083', 190, 57.55, 14),
+                                                                                                               ('L081', '2025-04-02 09:15:11.374435', 'L100', 114, 34.13, 15),
+                                                                                                               ('L080', '2025-03-31 16:15:11.374435', 'L051', 224, 17.98, 14),
+                                                                                                               ('L015', '2025-03-30 08:15:11.375434', 'L077', 75, 5.18, 14),
+                                                                                                               ('L056', '2025-04-01 06:15:11.375434', 'L020', 283, 95.94, 15),
+                                                                                                               ('L028', '2025-03-30 11:15:11.375434', 'L016', 147, 45.03, 15),
+                                                                                                               ('L072', '2025-03-29 16:15:11.376434', 'L093', 265, 51.78, 15),
+                                                                                                               ('L022', '2025-03-31 22:15:11.376434', 'L090', 60, 86.02, 13),
+                                                                                                               ('L067', '2025-04-02 12:15:11.376434', 'L034', 288, 92.12, 15),
+                                                                                                               ('L008', '2025-03-31 02:15:11.376434', 'L036', 240, 54.09, 15),
+                                                                                                               ('L003', '2025-03-30 00:15:11.377434', 'L090', 119, 45.83, 15),
+                                                                                                               ('L077', '2025-03-31 16:15:11.377434', 'L078', 169, 86.07, 14),
+                                                                                                               ('L036', '2025-04-01 00:15:11.378436', 'L004', 134, 66.24, 15),
+                                                                                                               ('L087', '2025-04-01 16:15:11.378436', 'L047', 122, 54.39, 13),
+                                                                                                               ('L085', '2025-04-02 03:15:11.378436', 'L068', 256, 49.89, 13),
+                                                                                                               ('L059', '2025-03-30 00:15:11.379435', 'L066', 243, 69.84, 13),
+                                                                                                               ('L065', '2025-03-29 22:15:11.379435', 'L078', 136, 34.27, 15),
+                                                                                                               ('L070', '2025-04-02 05:15:11.379435', 'L090', 206, 58.41, 15),
+                                                                                                               ('L071', '2025-03-30 12:15:11.380434', 'L041', 238, 48.15, 13),
+                                                                                                               ('L005', '2025-03-31 03:15:11.380434', 'L024', 62, 5.43, 15),
+                                                                                                               ('L024', '2025-04-01 18:15:11.380434', 'L086', 76, 60.61, 14),
+                                                                                                               ('L085', '2025-03-30 14:15:11.381438', 'L087', 50, 26, 15),
+                                                                                                               ('L091', '2025-04-01 14:15:11.381438', 'L057', 183, 37.95, 13),
+                                                                                                               ('L044', '2025-04-02 14:15:11.381438', 'L033', 32, 75.17, 15),
+                                                                                                               ('L017', '2025-03-30 14:15:11.382439', 'L010', 45, 6.37, 15),
+                                                                                                               ('L085', '2025-03-29 22:15:11.382439', 'L070', 83, 21.86, 15),
+                                                                                                               ('L047', '2025-04-01 02:15:11.382439', 'L082', 192, 80.22, 15),
+                                                                                                               ('L031', '2025-03-29 16:15:11.383434', 'L076', 66, 56.38, 15),
+                                                                                                               ('L067', '2025-03-31 10:15:11.383434', 'L056', 46, 53.92, 14),
+                                                                                                               ('L097', '2025-04-02 13:15:11.383434', 'L068', 56, 6.3, 13),
+                                                                                                               ('L002', '2025-03-29 22:15:11.383434', 'L046', 83, 87.53, 15),
+                                                                                                               ('L014', '2025-03-30 19:15:11.384434', 'L022', 291, 11.15, 14),
+                                                                                                               ('L100', '2025-03-31 11:15:11.384434', 'L012', 270, 7.26, 13),
+                                                                                                               ('L079', '2025-04-02 17:15:11.385434', 'L051', 106, 54.13, 15),
+                                                                                                               ('L057', '2025-04-01 18:15:11.385434', 'L082', 156, 85.95, 15),
+                                                                                                               ('L028', '2025-04-01 13:15:11.385434', 'L023', 64, 94.4, 13),
+                                                                                                               ('L095', '2025-04-01 20:15:11.386436', 'L067', 127, 73.11, 14),
+                                                                                                               ('L077', '2025-04-01 03:15:11.386436', 'L100', 175, 14.6, 15),
+                                                                                                               ('L047', '2025-03-31 18:15:11.386436', 'L100', 291, 38.71, 15),
+                                                                                                               ('L025', '2025-04-02 17:15:11.387438', 'L090', 77, 87.71, 13),
+                                                                                                               ('L044', '2025-04-02 17:15:11.387438', 'L018', 211, 50.38, 15),
+                                                                                                               ('L024', '2025-04-01 23:15:11.387438', 'L097', 93, 68.7, 15),
+                                                                                                               ('L085', '2025-03-31 10:15:11.388437', 'L017', 273, 96.43, 14),
+                                                                                                               ('L024', '2025-03-31 04:15:11.388437', 'L021', 262, 5.97, 14),
+                                                                                                               ('L001', '2025-04-02 02:15:11.388437', 'L081', 191, 59.06, 13),
+                                                                                                               ('L064', '2025-04-02 06:15:11.389434', 'L068', 170, 57.76, 15),
+                                                                                                               ('L054', '2025-03-30 07:15:11.389434', 'L027', 239, 34.17, 14),
+                                                                                                               ('L027', '2025-03-29 18:15:11.389434', 'L023', 74, 28.86, 13),
+                                                                                                               ('L051', '2025-03-31 16:15:11.389434', 'L081', 231, 25.22, 13),
+                                                                                                               ('L064', '2025-03-30 08:15:11.390434', 'L011', 128, 96.02, 14),
+                                                                                                               ('L047', '2025-04-02 10:15:11.390434', 'L090', 190, 29.89, 15),
+                                                                                                               ('L041', '2025-04-01 01:15:11.390434', 'L032', 184, 33.27, 14),
+                                                                                                               ('L022', '2025-04-01 13:15:11.391435', 'L062', 69, 64.46, 14),
+                                                                                                               ('L022', '2025-03-30 12:15:11.391435', 'L024', 42, 69.53, 13),
+                                                                                                               ('L071', '2025-03-31 12:15:11.391435', 'L012', 43, 84.18, 13),
+                                                                                                               ('L035', '2025-03-31 11:15:11.392435', 'L056', 108, 66.04, 15),
+                                                                                                               ('L035', '2025-04-01 17:15:11.392435', 'L032', 70, 40.36, 14),
+                                                                                                               ('L062', '2025-03-29 15:15:11.392435', 'L001', 214, 89.29, 13),
+                                                                                                               ('L034', '2025-03-29 22:15:11.393434', 'L002', 259, 17.18, 14),
+                                                                                                               ('L088', '2025-04-01 20:15:11.393434', 'L003', 80, 61.24, 15),
+                                                                                                               ('L076', '2025-03-31 18:15:11.393434', 'L040', 257, 34.31, 15),
+                                                                                                               ('L053', '2025-03-30 18:15:11.394433', 'L062', 173, 15.11, 15),
+                                                                                                               ('L083', '2025-04-01 12:15:11.394433', 'L038', 152, 42.8, 13),
+                                                                                                               ('L048', '2025-03-30 14:15:11.394433', 'L088', 30, 46.18, 14),
+                                                                                                               ('L014', '2025-03-31 01:15:11.395447', 'L024', 297, 85.53, 15),
+                                                                                                               ('L016', '2025-03-30 04:15:11.395447', 'L062', 293, 63.68, 13),
+                                                                                                               ('L038', '2025-04-01 04:15:11.395447', 'L075', 113, 26.03, 14),
+                                                                                                               ('L045', '2025-03-30 04:15:11.396437', 'L030', 38, 50.2, 13),
+                                                                                                               ('L050', '2025-03-29 19:15:11.396437', 'L010', 61, 76.5, 13),
+                                                                                                               ('L022', '2025-03-30 18:15:11.396437', 'L002', 275, 71.91, 13),
+                                                                                                               ('L047', '2025-03-31 08:15:11.397439', 'L098', 239, 77.83, 13),
+                                                                                                               ('L034', '2025-04-02 01:15:11.397439', 'L014', 35, 37.89, 13),
+                                                                                                               ('L053', '2025-04-01 10:15:11.397439', 'L037', 78, 72.01, 13),
+                                                                                                               ('L073', '2025-04-02 00:15:11.398435', 'L045', 129, 55.41, 14),
+                                                                                                               ('L024', '2025-04-02 01:15:11.398435', 'L027', 151, 23.36, 14),
+                                                                                                               ('L097', '2025-04-02 09:15:11.399435', 'L092', 102, 29.58, 14),
+                                                                                                               ('L009', '2025-04-01 19:15:11.399435', 'L083', 50, 57.97, 13),
+                                                                                                               ('L010', '2025-03-30 04:15:11.400436', 'L085', 194, 44.97, 13),
+                                                                                                               ('L062', '2025-03-31 00:15:11.400436', 'L044', 72, 10.76, 13),
+                                                                                                               ('L078', '2025-03-31 02:15:11.402450', 'L017', 101, 13.23, 13),
+                                                                                                               ('L072', '2025-04-01 02:15:11.403440', 'L063', 69, 20.91, 15),
+                                                                                                               ('L009', '2025-03-31 20:15:11.404437', 'L059', 159, 17.67, 14),
+                                                                                                               ('L062', '2025-03-30 03:15:11.404437', 'L033', 56, 8.23, 14),
+                                                                                                               ('L080', '2025-04-02 13:15:11.405448', 'L037', 110, 59.45, 13),
+                                                                                                               ('L097', '2025-03-29 15:15:11.405448', 'L079', 52, 99.06, 13),
+                                                                                                               ('L077', '2025-03-31 21:15:11.406434', 'L034', 89, 62.73, 13),
+                                                                                                               ('L032', '2025-04-01 17:15:11.406434', 'L039', 77, 24.01, 15),
+                                                                                                               ('L072', '2025-04-01 03:15:11.406434', 'L033', 232, 26.59, 13),
+                                                                                                               ('L051', '2025-04-02 04:15:11.407435', 'L069', 123, 92.67, 14),
+                                                                                                               ('L071', '2025-04-02 18:15:11.407435', 'L022', 178, 56.82, 14),
+                                                                                                               ('L024', '2025-04-02 00:15:11.407435', 'L014', 163, 46.05, 13),
+                                                                                                               ('L031', '2025-03-31 15:15:11.407435', 'L059', 169, 52.83, 14),
+                                                                                                               ('L046', '2025-03-30 00:15:11.408434', 'L099', 72, 32.54, 13),
+                                                                                                               ('L082', '2025-04-01 10:15:11.408434', 'L059', 257, 60.76, 15),
+                                                                                                               ('L099', '2025-03-30 07:15:11.408434', 'L100', 156, 37.54, 13),
+                                                                                                               ('L060', '2025-04-01 06:15:11.409434', 'L001', 192, 75.93, 13),
+                                                                                                               ('L017', '2025-04-02 15:15:11.409434', 'L013', 115, 43.6, 13),
+                                                                                                               ('L075', '2025-03-30 06:15:11.409434', 'L080', 171, 10.85, 13),
+                                                                                                               ('L063', '2025-04-01 08:15:11.410434', 'L099', 128, 78.33, 15),
+                                                                                                               ('L067', '2025-03-30 05:15:11.410434', 'L073', 197, 29.03, 13),
+                                                                                                               ('L020', '2025-04-01 05:15:11.410434', 'L025', 291, 5.27, 15),
+                                                                                                               ('L011', '2025-04-01 22:15:11.410434', 'L024', 232, 13.24, 15),
+                                                                                                               ('L086', '2025-04-01 14:15:11.411433', 'L078', 288, 22.65, 14),
+                                                                                                               ('L008', '2025-03-29 16:15:11.411433', 'L007', 226, 79.83, 14),
+                                                                                                               ('L013', '2025-03-31 07:15:11.412434', 'L064', 127, 9.36, 15),
+                                                                                                               ('L077', '2025-03-31 07:15:11.412434', 'L095', 139, 58.61, 13),
+                                                                                                               ('L045', '2025-04-02 13:15:11.413433', 'L070', 279, 9.35, 13),
+                                                                                                               ('L068', '2025-04-01 05:15:11.413433', 'L010', 293, 14.62, 14),
+                                                                                                               ('L041', '2025-03-31 13:15:11.414436', 'L017', 157, 82.45, 14),
+                                                                                                               ('L022', '2025-04-01 00:15:11.414436', 'L079', 233, 67.46, 15),
+                                                                                                               ('L064', '2025-03-31 15:15:11.414436', 'L068', 185, 37.5, 13),
+                                                                                                               ('L077', '2025-03-31 09:15:11.415437', 'L041', 79, 79.39, 15),
+                                                                                                               ('L029', '2025-03-29 17:15:11.415437', 'L044', 210, 81.11, 15),
+                                                                                                               ('L035', '2025-03-30 03:15:11.415437', 'L089', 116, 33.89, 14),
+                                                                                                               ('L002', '2025-03-30 17:15:11.416437', 'L077', 297, 29.03, 15),
+                                                                                                               ('L013', '2025-04-01 06:15:11.416437', 'L033', 164, 70.07, 13),
+                                                                                                               ('L081', '2025-03-31 18:15:11.416437', 'L059', 197, 72.58, 15),
+                                                                                                               ('L093', '2025-03-31 12:15:11.417438', 'L040', 256, 23.07, 13),
+                                                                                                               ('L083', '2025-03-30 09:15:11.417438', 'L061', 267, 44.16, 14),
+                                                                                                               ('L077', '2025-03-31 08:15:11.418438', 'L098', 169, 33.06, 15),
+                                                                                                               ('L002', '2025-03-29 20:15:11.418438', 'L039', 112, 77.31, 13),
+                                                                                                               ('L047', '2025-03-30 20:15:11.418438', 'L013', 211, 6.65, 14),
+                                                                                                               ('L035', '2025-04-02 14:15:11.419434', 'L005', 189, 44.59, 15),
+                                                                                                               ('L038', '2025-03-30 17:15:11.419434', 'L081', 135, 13.3, 14),
+                                                                                                               ('L035', '2025-03-31 23:15:11.420437', 'L049', 49, 63.1, 13),
+                                                                                                               ('L014', '2025-04-02 00:15:11.420437', 'L017', 217, 17.93, 14),
+                                                                                                               ('L004', '2025-04-01 21:15:11.420437', 'L100', 45, 76.29, 14),
+                                                                                                               ('L019', '2025-04-01 10:15:11.420437', 'L012', 125, 40.74, 15),
+                                                                                                               ('L017', '2025-04-01 18:15:11.420437', 'L065', 299, 48.2, 14),
+                                                                                                               ('L011', '2025-04-01 09:15:11.420437', 'L021', 36, 14.41, 13),
+                                                                                                               ('L058', '2025-04-02 10:15:11.421435', 'L046', 70, 23.13, 15),
+                                                                                                               ('L086', '2025-04-02 06:15:11.421435', 'L078', 81, 40.16, 15),
+                                                                                                               ('L098', '2025-03-30 09:15:11.421435', 'L006', 291, 17.57, 15),
+                                                                                                               ('L017', '2025-04-01 23:15:11.422433', 'L061', 237, 70.51, 13),
+                                                                                                               ('L061', '2025-03-30 01:15:11.422433', 'L033', 210, 52.47, 14),
+                                                                                                               ('L019', '2025-04-02 06:15:11.422433', 'L013', 246, 79.97, 14),
+                                                                                                               ('L052', '2025-04-01 07:15:11.423433', 'L046', 230, 92.24, 14),
+                                                                                                               ('L068', '2025-03-31 21:15:11.423433', 'L070', 70, 58.22, 13),
+                                                                                                               ('L081', '2025-03-31 21:15:11.424433', 'L013', 45, 21.58, 13),
+                                                                                                               ('L077', '2025-04-02 17:15:11.424433', 'L071', 291, 48.89, 13),
+                                                                                                               ('L029', '2025-03-29 22:15:11.424433', 'L067', 61, 30.87, 15),
+                                                                                                               ('L033', '2025-03-31 10:15:11.425435', 'L049', 45, 27.58, 13),
+                                                                                                               ('L010', '2025-03-30 14:15:11.425435', 'L015', 85, 45.78, 15),
+                                                                                                               ('L061', '2025-04-02 05:15:11.425435', 'L069', 65, 66.21, 13),
+                                                                                                               ('L052', '2025-03-30 12:15:11.426435', 'L027', 253, 27.66, 13),
+                                                                                                               ('L081', '2025-04-02 11:15:11.426435', 'L020', 54, 89.83, 14),
+                                                                                                               ('L008', '2025-04-01 04:15:11.426435', 'L023', 99, 90.74, 15),
+                                                                                                               ('L003', '2025-04-01 09:15:11.427436', 'L027', 30, 73.21, 15),
+                                                                                                               ('L015', '2025-03-30 21:15:11.427436', 'L040', 277, 67.66, 14),
+                                                                                                               ('L017', '2025-03-29 22:15:11.427436', 'L030', 192, 10.95, 14),
+                                                                                                               ('L046', '2025-03-29 21:15:11.428434', 'L002', 81, 87.81, 13),
+                                                                                                               ('L029', '2025-04-02 08:15:11.428434', 'L093', 41, 86.23, 14),
+                                                                                                               ('L025', '2025-03-29 18:15:11.428434', 'L019', 245, 46.18, 14),
+                                                                                                               ('L081', '2025-04-01 13:15:11.429438', 'L058', 228, 53.82, 14),
+                                                                                                               ('L033', '2025-04-02 17:15:11.429438', 'L002', 219, 39.2, 14),
+                                                                                                               ('L083', '2025-03-30 20:15:11.430439', 'L041', 140, 53.07, 13),
+                                                                                                               ('L003', '2025-03-31 08:15:11.430439', 'L023', 131, 65.06, 13),
+                                                                                                               ('L068', '2025-03-30 08:15:11.430439', 'L031', 112, 94.68, 14),
+                                                                                                               ('L049', '2025-04-01 07:15:11.430439', 'L070', 116, 89.27, 15),
+                                                                                                               ('L044', '2025-03-31 23:15:11.431438', 'L040', 85, 25.57, 13),
+                                                                                                               ('L064', '2025-04-01 05:15:11.431438', 'L072', 249, 94.36, 13),
+                                                                                                               ('L070', '2025-03-30 10:15:11.431438', 'L005', 218, 20.67, 13),
+                                                                                                               ('L052', '2025-03-30 19:15:11.431438', 'L076', 112, 48.15, 13),
+                                                                                                               ('L053', '2025-03-30 23:15:11.432438', 'L078', 59, 22.62, 15),
+                                                                                                               ('L031', '2025-03-29 17:15:11.432438', 'L025', 98, 32.1, 14),
+                                                                                                               ('L100', '2025-03-31 19:15:11.432438', 'L092', 91, 55.17, 13),
+                                                                                                               ('L056', '2025-03-29 21:15:11.433438', 'L051', 209, 39.66, 14),
+                                                                                                               ('L071', '2025-03-30 13:15:11.433438', 'L066', 148, 56.81, 13),
+                                                                                                               ('L066', '2025-03-30 23:15:11.434439', 'L002', 119, 57.01, 14),
+                                                                                                               ('L093', '2025-03-31 03:15:11.434439', 'L051', 235, 94.09, 13),
+                                                                                                               ('L035', '2025-04-01 20:15:11.434439', 'L006', 132, 21.62, 13),
+                                                                                                               ('L013', '2025-04-02 01:15:11.434439', 'L018', 265, 98.19, 15),
+                                                                                                               ('L088', '2025-04-02 07:15:11.435439', 'L095', 197, 56.88, 13),
+                                                                                                               ('L062', '2025-03-31 04:15:11.435439', 'L038', 43, 80.24, 13),
+                                                                                                               ('L087', '2025-04-01 11:15:11.435439', 'L090', 114, 95.97, 13),
+                                                                                                               ('L058', '2025-04-01 22:15:11.436440', 'L093', 57, 62.36, 14),
+                                                                                                               ('L095', '2025-03-31 03:15:11.436440', 'L004', 36, 54.9, 14),
+                                                                                                               ('L029', '2025-03-30 15:15:11.437439', 'L052', 35, 18.05, 13),
+                                                                                                               ('L070', '2025-03-31 20:15:11.437439', 'L051', 223, 21.98, 13),
+                                                                                                               ('L089', '2025-03-29 17:15:11.438437', 'L011', 57, 18.08, 13),
+                                                                                                               ('L090', '2025-03-31 10:15:11.438437', 'L025', 99, 76.97, 13),
+                                                                                                               ('L065', '2025-04-02 16:15:11.439437', 'L039', 249, 69.29, 14),
+                                                                                                               ('L004', '2025-03-30 20:15:11.439437', 'L053', 90, 17.29, 15),
+                                                                                                               ('L091', '2025-03-29 18:15:11.439437', 'L083', 214, 42.54, 14),
+                                                                                                               ('L005', '2025-03-30 11:15:11.439437', 'L056', 244, 16.39, 13),
+                                                                                                               ('L092', '2025-03-31 04:15:11.440433', 'L079', 148, 62.49, 13),
+                                                                                                               ('L053', '2025-03-31 23:15:11.440433', 'L002', 131, 65.09, 15),
+                                                                                                               ('L085', '2025-03-31 04:15:11.441437', 'L035', 30, 49.36, 13),
+                                                                                                               ('L047', '2025-04-02 13:15:11.441437', 'L010', 218, 26.23, 14),
+                                                                                                               ('L054', '2025-03-31 03:15:11.441437', 'L099', 197, 81.29, 13),
+                                                                                                               ('L047', '2025-03-31 22:15:11.442436', 'L005', 298, 44.6, 13),
+                                                                                                               ('L011', '2025-03-30 05:15:11.442436', 'L061', 154, 26.26, 13),
+                                                                                                               ('L066', '2025-03-31 22:15:11.443438', 'L013', 229, 83.54, 14),
+                                                                                                               ('L056', '2025-04-01 01:15:11.443438', 'L081', 34, 81.73, 15),
+                                                                                                               ('L097', '2025-04-02 02:15:11.443438', 'L072', 202, 19.71, 13);
 INSERT INTO t_user (user_phone) VALUES
-                                    ('+79001234567'),
-                                    ('+79007654321'),
-                                    ('+79005553322'),
-                                    ('+79009997766'),
-                                    ('+79003331122');
+                                    ('79001234567'),
+                                    ('79007654321'),
+                                    ('79005553322'),
+                                    ('79009997766'),
+                                    ('79003331122');
 
--- Дополнительные пользователи
 INSERT INTO t_user (user_phone) VALUES
-                                    ('+79001112233'),
-                                    ('+79004445566'),
-                                    ('+79007778899');
+                                    ('79001112233'),
+                                    ('79004445566'),
+                                    ('79007778899');
 
--- Дополнительные пользователи (из дополнительных данных)
+
 INSERT INTO t_user (user_phone) VALUES
-                                    ('+79008887766'),
-                                    ('+79002223344');
+                                    ('79008887766'),
+                                    ('79002223344');
 
----------------------------------------------------
--- Таблица статусов бронирования (t_status)
----------------------------------------------------
 INSERT INTO t_status (id, status) VALUES
                                       (1, 'Бронировано'),
                                       (2, 'Отменено');
-
----------------------------------------------------
--- Таблица маршрутов (t_route)
----------------------------------------------------
--- Ранее добавленные маршруты
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES
-    ('R1', 'MOW', 'SPB', '2023-06-01 07:00:00', '2023-06-01 15:00:00'),
-    ('R2', 'SPB', 'KZN', '2023-06-02 09:00:00', '2023-06-02 21:00:00'),
-    ('R3', 'MOW', 'EKB', '2023-06-01 07:00:00', '2023-06-03 16:00:00'),
-    ('R4', 'MOW', 'UFA', '2023-06-10 08:00:00', '2023-06-10 21:00:00'),
-    ('R5', 'SPB', 'VOL', '2023-06-15 07:30:00', '2023-06-15 17:00:00'),
-    ('R6', 'SPB', 'UFA', '2023-06-15 08:00:00', '2023-06-15 16:00:00'),
-    ('R7', 'MOW', 'EKB', '2023-06-14 07:00:00', '2023-06-14 09:30:00');
-
--- Новые маршруты (из первоначальных дополнительных данных)
--- R8: Новосибирск -> Иркутск (прямой, edge_id 19)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R8', 'NOV', 'IRK', '2023-06-16 09:00:00', '2023-06-16 21:00:00');
-
--- R9: Екатеринбург -> Кемерово -> Новосибирск (edge_id 21 и 22)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R9', 'EKB', 'NOV', '2023-06-18 06:00:00', '2023-06-19 06:00:00');
-
--- R10: Москва -> Псков -> Санкт-Петербург (edge_id 23 и 31)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R10', 'MOW', 'SPB', '2023-06-20 07:30:00', '2023-06-20 16:00:00');
-
--- R11: Санкт-Петербург -> Севастополь -> Москва (edge_id 25 и 26)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R11', 'SPB', 'MOW', '2023-06-21 09:00:00', '2023-06-21 22:00:00');
-
--- R12: Сочи -> Москва (прямой, edge_id 27)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R12', 'SOCHI', 'MOW', '2023-06-22 10:00:00', '2023-06-22 12:00:00');
-
--- R13: Москва -> Сочи (прямой, edge_id 28)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R13', 'MOW', 'SOCHI', '2023-06-22 15:00:00', '2023-06-22 17:10:00');
-
--- R14: Уфа -> Ростов-на-Дону -> Самара (edge_id 29 и 30)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R14', 'UFA', 'SAM', '2023-06-23 08:00:00', '2023-06-23 12:30:00');
-
----------------------------------------------------
--- Дополнительные маршруты (из расширенных данных)
----------------------------------------------------
--- R15: Омск -> Челябинск -> Астрахань (ребра edge_id 32 и 33)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R15', 'OMS', 'AST', '2023-06-24 09:00:00', '2023-06-24 16:00:00');
-
--- R16: Астрахань -> Казань -> Уфа (ребра edge_id 34 и 39)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R16', 'AST', 'UFA', '2023-06-25 10:00:00', '2023-06-25 20:00:00');
-
--- R17: Москва -> Хабаровск -> Москва (ребра edge_id 36 и 37)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R17', 'MOW', 'MOW', '2023-06-26 06:00:00', '2023-06-26 16:00:00');
-
--- R18: Хабаровск -> Владивосток (прямой маршрут, edge_id 35)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R18', 'KHB', 'VLA', '2023-06-25 16:00:00', '2023-06-25 20:00:00');
-
--- R19: Санкт-Петербург -> Нижний Новгород (через Екатеринбург)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R19', 'SPB', 'NIZ', '2023-06-27 10:00:00', '2023-06-27 18:00:00');
-
--- R20: Казань -> Омск (через Самару)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R20', 'KZN', 'OMS', '2023-06-28 08:00:00', '2023-06-28 20:00:00');
-
--- R21: Владивосток -> Москва (через Хабаровск)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R21', 'VLA', 'MOW', '2023-06-29 09:00:00', '2023-06-29 19:20:00');
-
--- R22: Новосибирск -> Уфа (через Екатеринбург и Самару)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R22', 'NOV', 'UFA', '2023-06-30 07:00:00', '2023-07-01 00:00:00');
-
--- R23: Москва -> Новосибирск (прямой, новый вариант)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R23', 'MOW', 'NOV', '2023-07-01 07:00:00', '2023-07-01 17:00:00');
-
--- R24: Волгоград -> Ростов-на-Дону (прямой)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R24', 'VOL', 'ROS', '2023-07-01 08:00:00', '2023-07-01 13:00:00');
-
--- R25: Самара -> Ростов-на-Дону (такси)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R25', 'SAM', 'ROS', '2023-07-01 09:00:00', '2023-07-01 12:00:00');
-
--- R26: Уфа -> Челябинск (новый вариант поезом)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R26', 'UFA', 'CHL', '2023-07-01 10:00:00', '2023-07-01 14:20:00');
-
--- R27: Челябинск -> Пермь (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R27', 'CHL', 'PER', '2023-07-01 11:00:00', '2023-07-01 14:10:00');
-
--- R28: Пермь -> Нижний Новгород (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R28', 'PER', 'NIZ', '2023-07-01 12:00:00', '2023-07-01 15:30:00');
-
--- R29: Краснодар -> Сочи (автобус)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R29', 'KRD', 'SOCHI', '2023-07-01 13:00:00', '2023-07-01 15:00:00');
-
--- R30: Сочи -> Ростов-на-Дону (автобус)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R30', 'SOCHI', 'ROS', '2023-07-01 14:00:00', '2023-07-01 16:30:00');
-
--- R31: Севастополь -> Сочи (автобус)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R31', 'SEV', 'SOCHI', '2023-07-01 15:00:00', '2023-07-01 20:00:00');
-
--- R32: Нижний Новгород -> Казань (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R32', 'NIZ', 'KZN', '2023-07-01 16:00:00', '2023-07-01 17:40:00');
-
--- R33: Ростов-на-Дону -> Волгоград (автобус)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R33', 'ROS', 'VOL', '2023-07-01 17:00:00', '2023-07-01 20:40:00');
-
--- R34: Омск -> Новосибирск (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R34', 'OMS', 'NOV', '2023-07-01 18:00:00', '2023-07-02 00:00:00');
-
--- R35: Иркутск -> Кемерово (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R35', 'IRK', 'KEM', '2023-07-01 19:00:00', '2023-07-02 01:00:00');
-
--- R36: Кемерово -> Новосибирск (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R36', 'KEM', 'NOV', '2023-07-01 20:00:00', '2023-07-02 04:30:00');
-
--- R37: Челябинск -> Волгоград (автобус)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R37', 'CHL', 'VOL', '2023-07-01 21:00:00', '2023-07-02 00:20:00');
-
--- R38: Пермь -> Самара (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R38', 'PER', 'SAM', '2023-07-01 22:00:00', '2023-07-02 01:00:00');
-
--- R39: Уфа -> Казань (поезд)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R39', 'UFA', 'KZN', '2023-07-01 23:00:00', '2023-07-02 04:00:00');
-
--- R40: Москва -> Севастополь (самолёт)
-INSERT INTO t_route (id, departure_city, arrival_city, departure_time, arrival_time)
-VALUES ('R40', 'MOW', 'SEV', '2023-07-02 07:00:00', '2023-07-02 15:00:00');
-
----------------------------------------------------
--- Таблица бронирований (t_booking)
----------------------------------------------------
--- Ранее добавленные бронирования
-INSERT INTO t_booking (id, route_id, status_id, user_phone)
-VALUES
-    ('B1', 'R1', 1, '+79001234567'),
-    ('B2', 'R2', 2, '+79007654321'),
-    ('B3', 'R4', 1, '+79005553322'),
-    ('B4', 'R5', 2, '+79009997766'),
-    ('B5', 'R6', 1, '+79003331122'),
-    ('B6', 'R7', 2, '+79001234567');
-
--- Новые бронирования
-INSERT INTO t_booking (id, route_id, status_id, user_phone)
-VALUES
-    ('B7', 'R8', 1, '+79001112233'),
-    ('B8', 'R9', 2, '+79004445566'),
-    ('B9', 'R10', 1, '+79007778899'),
-    ('B10', 'R11', 1, '+79001234567'),
-    ('B11', 'R12', 2, '+79007654321'),
-    ('B12', 'R13', 1, '+79005553322'),
-    ('B13', 'R14', 2, '+79003331122');
-
--- Дополнительные бронирования (из расширенных данных)
-INSERT INTO t_booking (id, route_id, status_id, user_phone)
-VALUES
-    ('B14', 'R15', 2, '+79008887766'),
-    ('B15', 'R16', 1, '+79002223344'),
-    ('B16', 'R17', 1, '+79001112233'),
-    ('B17', 'R18', 1, '+79004445566');
-
----------------------------------------------------
--- Таблица шагов маршрутов (t_route_step)
----------------------------------------------------
--- Для ранее добавленных маршрутов
-INSERT INTO t_route_step ( route_id, route_step, edge_id)
-VALUES
-    ('R1', 1, '1'),
-    ('R2', 1, '2'),
-    ('R3', 1, '1'),
-    ('R3', 2, '2'),
-    ('R3', 3, '3'),
-    ('R4', 1, '6'),
-    ('R4', 2, '7'),
-    ('R5', 1, '17'),
-    ('R5', 2, '18'),
-    ('R6', 1, '16'),
-    ('R7', 1, '14'),
-
--- Для новых маршрутов (из первоначальных дополнительных данных)
--- R8: Новосибирск -> Иркутск
-    ('R8', 1, '19'),
-
--- R9: Екатеринбург -> Кемерово -> Новосибирск
-        ('R9', 1, '21'),
-    ('R9', 2, '22'),
-
--- R10: Москва -> Псков -> Санкт-Петербург
-    ('R10', 1, '23'),
-    ('R10', 2, '31'),
-
--- R11: Санкт-Петербург -> Севастополь -> Москва
-    ('R11', 1, '25'),
-    ('R11', 2, '26'),
-
--- R12: Сочи -> Москва
-    ('R12', 1, '27'),
-
--- R13: Москва -> Сочи
-    ('R13', 1, '28'),
-
--- R14: Уфа -> Ростов-на-Дону -> Самара
-    ('R14', 1, '29'),
-    ('R14', 2, '30'),
-
----------------------------------------------------
--- Дополнительные шаги маршрутов (из расширенных данных)
----------------------------------------------------
--- R15: OMS -> CHL -> AST
-    ('R15', 1, '32'),
-    ('R15', 2, '33'),
-
--- R16: AST -> KZN -> UFA
-    ('R16', 1, '34'),
-    ('R16', 2, '39'),
-
--- R17: MOW -> KHB -> MOW
-    ('R17', 1, '36'),
-    ('R17', 2, '37'),
-
--- R18: Хабаровск -> VLA
-    ('R18', 1, '35'),
-
--- R19: SPB -> NIZ (через EKB)
-    ('R19', 1, '40'),
-    ('R19', 2, '41'),
-
--- R20: KZN -> OMS (через SAM)
-    ('R20', 1, '42'),
-    ('R20', 2, '43'),
-
--- R21: VLA -> MOW (через KHB)
-    ('R21', 1, '44'),
-    ('R21', 2, '45'),
-
--- R22: NOV -> UFA (через EKB и SAM)
-    ('R22', 1, '46'),
-    ('R22', 2, '47'),
-    ('R22', 3, '48'),
-
--- R23: MOW -> NOV (прямой)
-    ('R23', 1, '49'),
-
--- R24: VOL -> ROS (прямой)
-    ('R24', 1, '50'),
-
--- R25: SAM -> ROS (такси)
-    ('R25', 1, '51'),
-
--- R26: UFA -> CHL (поезд)
-    ('R26', 1, '52'),
-
--- R27: CHL -> PER (поезд)
-    ('R27', 1, '53'),
-
--- R28: PER -> NIZ (поезд)
-    ('R28', 1, '54'),
-
--- R29: KRD -> SOCHI (автобус)
-    ('R29', 1, '55'),
-
--- R30: SOCHI -> ROS (автобус)
-    ('R30', 1, '56'),
-
--- R31: SEV -> SOCHI (автобус)
-    ('R31', 1, '57'),
-
--- R32: NIZ -> KZN (поезд)
-    ('R32', 1, '58'),
-
--- R33: ROS -> VOL (автобус)
-    ('R33', 1, '59'),
-
--- R34: OMS -> NOV (поезд)
-    ('R34', 1, '60'),
-
--- R35: IRK -> KEM (поезд)
-    ('R35', 1, '61'),
-
--- R36: KEM -> NOV (поезд)
-    ('R36', 1, '62'),
-
--- R37: CHL -> VOL (автобус)
-    ('R37', 1, '63'),
-
--- R38: PER -> SAM (поезд)
-    ('R38', 1, '64'),
-
--- R39: UFA -> KZN (поезд)
-    ('R39', 1, '65'),
-
--- R40: MOW -> SEV (самолёт)
-    ('R40', 1, '66');
