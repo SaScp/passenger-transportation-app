@@ -23,6 +23,4 @@ public class Location {
 
     @Column(name = "c_name", nullable = false)
     private String cName;
-
-
 }

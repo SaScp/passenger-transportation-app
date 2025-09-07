@@ -2,7 +2,7 @@ package org.service.output_port.util;
 
 public class RouteSQLConstaint {
 
-    public static final String SELECT_ALL_ROUTE_BY_PARAM_WITH_DFS = """
+    public static final String SELECT_ALL_ROUTE_BY_PARAM_WITH_BFS = """
               WITH RECURSIVE bfs AS  (
                   SELECT
                       t.from_location_id,
@@ -65,7 +65,7 @@ public class RouteSQLConstaint {
               LIMIT :limit OFFSET :offset;
             """;
 
-    public static final String SELECT_ALL_ROUTE_WITH_DFS = """
+    public static final String SELECT_ALL_ROUTE_WITH_BFS = """
             WITH RECURSIVE route_path AS (
                 SELECT
             
@@ -123,7 +123,6 @@ public class RouteSQLConstaint {
                                                   total_time_cost,
                                                   transport_type
                                            FROM route_path
-            
                                            LIMIT :limit OFFSET :offset) as "rp" ORDER BY total_time_cost, total_price, dep_time;
             
             """;

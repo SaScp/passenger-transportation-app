@@ -558,22 +558,6 @@ INSERT INTO t_location_graph (from_location_id, departure_time, to_location_id, 
                                                                                                                ('L066', '2025-03-31 22:15:11.443438', 'L013', 229, 83.54, 14),
                                                                                                                ('L056', '2025-04-01 01:15:11.443438', 'L081', 34, 81.73, 15),
                                                                                                                ('L097', '2025-04-02 02:15:11.443438', 'L072', 202, 19.71, 13);
-INSERT INTO t_user (user_phone) VALUES
-                                    ('79001234567'),
-                                    ('79007654321'),
-                                    ('79005553322'),
-                                    ('79009997766'),
-                                    ('79003331122');
-
-INSERT INTO t_user (user_phone) VALUES
-                                    ('79001112233'),
-                                    ('79004445566'),
-                                    ('79007778899');
-
-
-INSERT INTO t_user (user_phone) VALUES
-                                    ('79008887766'),
-                                    ('79002223344');
 
 INSERT INTO t_status (id, status) VALUES
                                       (1, 'Бронировано'),

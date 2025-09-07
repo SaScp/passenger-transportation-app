@@ -1,10 +1,13 @@
 package org.service.output_port.entity;
 
+import org.springframework.boot.jackson.JsonComponent;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
+@JsonComponent
 public class RoutePageEntity {
     private final String fromLocationId;
     private final String toLocationId;

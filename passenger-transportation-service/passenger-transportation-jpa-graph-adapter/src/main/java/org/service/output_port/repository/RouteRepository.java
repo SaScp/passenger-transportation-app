@@ -1,9 +1,6 @@
 package org.service.output_port.repository;
 
 
-import jakarta.persistence.ColumnResult;
-import jakarta.persistence.ConstructorResult;
-import jakarta.persistence.SqlResultSetMapping;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.service.output_port.model.Route;
 import org.service.output_port.entity.RoutePageEntity;
@@ -17,7 +14,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,7 +34,7 @@ public interface RouteRepository extends JpaRepository<Route, String> {
     Page<String> findIds(Pageable pageable);
 
 
-    @Query(value = RouteSQLConstaint.SELECT_ALL_ROUTE_BY_PARAM_WITH_DFS, nativeQuery = true)
+    @Query(value = RouteSQLConstaint.SELECT_ALL_ROUTE_BY_PARAM_WITH_BFS, nativeQuery = true)
     List<RoutePageEntity> findRecursiveRoutes(
             @Param("fromLocation") String fromLocation,
             @Param("toLocation") String toLocation,
@@ -49,7 +45,7 @@ public interface RouteRepository extends JpaRepository<Route, String> {
             @Param("level") int level);
 
 
-    @Query(value = RouteSQLConstaint.SELECT_ALL_ROUTE_WITH_DFS, nativeQuery = true)
+    @Query(value = RouteSQLConstaint.SELECT_ALL_ROUTE_WITH_BFS, nativeQuery = true)
     List<RoutePageEntity> findAllRecursiveRoutesById(
             @Param("fromLocation") String fromLocation,
             @Param("limit") int limit,

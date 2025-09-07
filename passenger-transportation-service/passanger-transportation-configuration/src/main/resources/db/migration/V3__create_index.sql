@@ -1,1 +1,16 @@
-CREATE INDEX idx_lower_c_name ON t_location (LOWER(c_name));
+CREATE INDEX IF NOT EXISTS idx_lower_c_name ON t_location (LOWER(c_name));
+CREATE INDEX IF NOT EXISTS idx_departure_time ON t_location_graph (departure_time);
+CREATE INDEX IF NOT EXISTS idx_from_location_id ON t_location_graph (from_location_id);
+CREATE INDEX IF NOT EXISTS idx_to_location_id ON t_location_graph (to_location_id);
+CREATE INDEX IF NOT EXISTS idx_transport_type ON t_transport_types (id);
+CREATE INDEX IF NOT EXISTS idx_transport_type_name ON t_transport_types (type_name);
+CREATE INDEX IF NOT EXISTS idx_status ON t_status (id);
+CREATE INDEX IF NOT EXISTS idx_route_id ON t_route (id);
+CREATE INDEX IF NOT EXISTS idx_route_departure_city ON t_route (departure_city);
+CREATE INDEX IF NOT EXISTS idx_route_arrival_city ON t_route (arrival_city);
+CREATE INDEX IF NOT EXISTS idx_from_to_type ON t_location_graph (from_location_id, to_location_id, type_id);
+CREATE INDEX IF NOT EXISTS idx_edge_id ON t_location_graph (edge_id);
+CREATE INDEX IF NOT EXISTS idx_route_step_route_id ON t_route_step (route_id);
+CREATE INDEX IF NOT EXISTS idx_route_step_edge_id ON t_route_step (edge_id);
+CREATE INDEX IF NOT EXISTS idx_location_name ON t_location (c_name);
+CREATE INDEX IF NOT EXISTS idx_initial_edgesON t_location_graph(from_location_id, departure_time);
