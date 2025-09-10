@@ -9,20 +9,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "t_user")
-public class User {
+@AllArgsConstructor
+@Table(name = "user_credential")
+public class UserCredential {
 
     @Id
     private Long id;
 
-    @Column(name = "user_phone", nullable = false)
-    private String numberPhone;
+    @Column(name = "card")
+    private String card;
 
-    private String email;
+    @Column(name = "cvc")
+    private Byte cvc;
 
+    @Column(name = "expired_date")
+    private LocalDateTime expiredDate;
 }

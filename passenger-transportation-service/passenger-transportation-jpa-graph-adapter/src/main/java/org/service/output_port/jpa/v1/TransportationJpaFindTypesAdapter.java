@@ -1,4 +1,4 @@
-package org.service.output_port.jpa;
+package org.service.output_port.jpa.v1;
 
 import lombok.AllArgsConstructor;
 import org.service.entity.TypeEntity;
@@ -7,7 +7,6 @@ import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindTypesTransportationServiceOutputPort;
 import org.service.output_port.mapper.TypeMapper;
 import org.service.output_port.repository.TypeRepository;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

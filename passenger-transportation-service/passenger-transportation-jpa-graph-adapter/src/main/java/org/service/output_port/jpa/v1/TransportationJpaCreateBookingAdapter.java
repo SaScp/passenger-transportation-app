@@ -1,7 +1,6 @@
-package org.service.output_port.jpa;
+package org.service.output_port.jpa.v1;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.LockModeType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingParamsEntity;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

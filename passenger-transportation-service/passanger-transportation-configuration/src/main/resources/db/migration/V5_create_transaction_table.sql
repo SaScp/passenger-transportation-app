@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS t_transaction(
                                             user_id bigint REFERENCES t_user(id) NOT NULL,
                                             booking_id varchar REFERENCES t_booking(id),
                                             amount decimal NOT NULL default 0,
-                                            date timestamp default CURRENT_TIMESTAMP
+                                            date_at timestamp default CURRENT_TIMESTAMP
 );

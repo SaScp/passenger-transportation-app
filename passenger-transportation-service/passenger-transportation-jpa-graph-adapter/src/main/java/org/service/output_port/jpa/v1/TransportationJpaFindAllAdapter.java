@@ -1,4 +1,4 @@
-package org.service.output_port.jpa;
+package org.service.output_port.jpa.v1;
 
 import org.service.entity.PageEntity;
 import org.service.entity.RoutesEntity;
@@ -6,7 +6,6 @@ import org.service.output_port.TransportationServiceOutputPort;
 import org.service.output_port.find.FindAllTransportationServiceOutputPort;
 import org.service.output_port.mapper.RouteMapper;
 import org.service.output_port.repository.RouteRepository;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

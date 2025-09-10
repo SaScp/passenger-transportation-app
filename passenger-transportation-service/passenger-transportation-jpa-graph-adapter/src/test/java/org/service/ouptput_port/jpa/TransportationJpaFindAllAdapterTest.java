@@ -6,17 +6,14 @@ import org.service.entity.PageEntity;
 import org.service.entity.RoutesEntity;
 
 import org.service.ouptput_port.LocalDateTimeConverter;
-import org.service.output_port.jpa.TransportationJpaFindAllAdapter;
+import org.service.output_port.jpa.v1.TransportationJpaFindAllAdapter;
 import org.service.output_port.model.Location;
 import org.service.output_port.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.cache.annotation.Cacheable;
 
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

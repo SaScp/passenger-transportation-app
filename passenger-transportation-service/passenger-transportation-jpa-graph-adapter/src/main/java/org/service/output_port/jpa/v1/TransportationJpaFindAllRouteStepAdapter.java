@@ -1,4 +1,4 @@
-package org.service.output_port.jpa;
+package org.service.output_port.jpa.v1;
 
 import lombok.AllArgsConstructor;
 import org.service.entity.EdgeEntity;
@@ -7,7 +7,6 @@ import org.service.output_port.find.FindAllRouteStepTransportationServiceOutputP
 import org.service.output_port.mapper.EdgeMapper;
 import org.service.output_port.model.Edge;
 import org.service.output_port.repository.EdgeRepository;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

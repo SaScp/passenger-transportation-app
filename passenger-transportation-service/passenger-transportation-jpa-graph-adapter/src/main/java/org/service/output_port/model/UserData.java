@@ -12,17 +12,26 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "t_user")
-public class User {
+@AllArgsConstructor
+@Table(name = "user_data")
+public class UserData {
 
     @Id
     private Long id;
 
-    @Column(name = "user_phone", nullable = false)
-    private String numberPhone;
+    @Column(name = "name")
+    private String name;
 
-    private String email;
+    @Column(name = "last_name")
+    private String lastName;
 
+    @Column(name = "age")
+    private Short age;
+
+    @Column(name = "sex")
+    private boolean sex;
+
+    @Column(name = "user_type")
+    private String userType;
 }

@@ -1,4 +1,4 @@
-package org.service.output_port.jpa;
+package org.service.output_port.jpa.v1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.service.entity.BookingEntity;
@@ -12,7 +12,6 @@ import org.service.output_port.mapper.BookingMapper;
 import org.service.output_port.model.Booking;
 import org.service.output_port.repository.BookingRepository;
 import org.service.output_port.repository.UserRepository;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

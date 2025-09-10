@@ -86,9 +86,6 @@ public class RouteRestController {
         return this.inputPort.findAll(pageEntity);
     }
 
-
-
-
     @Operation(
             summary = "Просмотр маршрута по id",
             description = "Позволяет посмотреть просмотреть маршрут по id",
@@ -99,11 +96,12 @@ public class RouteRestController {
                     @Parameter(name = "page_size",
                             required = true,
                             allowEmptyValue = true)
-                    }
+            }
     )
     @GetMapping("/find-by-id")
     public CompletableFuture<List<RoutesEntity>> findTransportById(@Parameter(hidden = true) @PageSettingParam PageEntity pageEntity,
-                                                 @RequestParam(value = "route_id") List<String> id) {
+                                                                   @RequestParam(value = "route_id") List<String> id
+    ) {
         return this.inputPort.findByParams(new ParamsEntity(id), pageEntity);
     }
 

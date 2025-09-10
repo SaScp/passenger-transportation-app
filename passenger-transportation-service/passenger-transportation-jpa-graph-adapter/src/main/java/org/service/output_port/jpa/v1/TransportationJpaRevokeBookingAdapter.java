@@ -1,4 +1,4 @@
-package org.service.output_port.jpa;
+package org.service.output_port.jpa.v1;
 
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;

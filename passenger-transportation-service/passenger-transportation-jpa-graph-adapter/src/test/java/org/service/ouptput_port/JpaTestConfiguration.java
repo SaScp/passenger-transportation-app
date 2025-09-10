@@ -2,11 +2,9 @@ package org.service.ouptput_port;
 
 import jakarta.persistence.EntityManager;
 
-import org.service.output_port.jpa.TransportationJpaCreateBookingAdapter;
+import org.service.output_port.jpa.v1.TransportationJpaCreateBookingAdapter;
 import org.service.output_port.repository.BookingRepository;
-import org.service.output_port.repository.RouteRepository;
 import org.service.output_port.util.CacheUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 

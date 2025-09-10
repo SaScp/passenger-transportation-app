@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.service.entity.BookingEntity;
 import org.service.output_port.exception.BookingNotFoundException;
 import org.service.output_port.exception.UserNotFoundException;
-import org.service.output_port.jpa.TransportationJpaFindByPhoneAdapter;
+import org.service.output_port.jpa.v1.TransportationJpaFindByPhoneAdapter;
 import org.service.output_port.model.Booking;
 import org.service.output_port.model.Status;
 import org.service.output_port.model.User;
@@ -15,8 +15,6 @@ import org.service.output_port.repository.BookingRepository;
 import org.service.output_port.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 

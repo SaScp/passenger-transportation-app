@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/passenger-transportation-app.iml" filepath="$PROJECT_DIR$/.idea/passenger-transportation-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/passenger-transportation-jdbc-adapter.iml" filepath="$PROJECT_DIR$/passenger-transportation-jdbc-adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/passenger-transportation-jpa-adapter.iml" filepath="$PROJECT_DIR$/passenger-transportation-jpa-adapter.iml" />
     </modules>
   </component>
 </project>
